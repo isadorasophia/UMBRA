@@ -1,6 +1,6 @@
 package com.umbra.mobModule.itemComponent;
 
-import mapModule.IPosition;
+import com.umbra.mapModule.IPosition;
 
 import java.util.List;
 

@@ -1,10 +1,9 @@
 package com.umbra.mobModule.mobComponent;
 
-import mapModule.IPosition;
-import mobModule.*;
+import com.umbra.mapModule.IPosition;
+import com.umbra.mobModule.*;
 
-import java.util.Hashtable;
-import java.util.List;
+import java.util.*;
 
 
 public class Monstro extends Mob implements IMonstro {

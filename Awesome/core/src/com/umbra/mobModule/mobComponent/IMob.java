@@ -1,7 +1,7 @@
 package com.umbra.mobModule.mobComponent;
 
-import mapModule.IPosition;
-import mobModule.*;
+import com.umbra.mapModule.IPosition;
+import com.umbra.mobModule.*;
 
 
 public interface IMob {

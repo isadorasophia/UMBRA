@@ -1,7 +1,7 @@
 package com.umbra.mobModule.mobComponent;
 
-import mapModule.*;
-import mobModule.*;
+import com.umbra.mapModule.*;
+import com.umbra.mobModule.*;
 
 import java.util.Hashtable;
 import java.util.List;

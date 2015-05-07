@@ -1,11 +1,10 @@
 package com.umbra.mobModule.mobComponent;
 
-import mapModule.IPosition;
-import mobModule.*;
-import mobModule.itemComponent.*;
+import com.umbra.mapModule.IPosition;
+import com.umbra.mobModule.*;
+import com.umbra.mobModule.itemComponent.*;
 
-import java.util.Hashtable;
-import java.util.List;
+import java.util.*;
 
 
 public class Player extends Mob implements IPlayer {

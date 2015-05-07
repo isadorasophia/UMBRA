@@ -1,8 +1,8 @@
 package com.umbra.mobModule.itemComponent;
 
-import mapModule.IPosition;
-import mobModule.*;
-import mobModule.mobComponent.*;
+import com.umbra.mapModule.IPosition;
+import com.umbra.mobModule.*;
+import com.umbra.mobModule.mobComponent.*;
 
 import java.util.ArrayList;
 import java.util.List;

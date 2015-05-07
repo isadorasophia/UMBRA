@@ -1,7 +1,7 @@
 package com.umbra.mobModule.itemComponent;
 
-import mobModule.*;
-import mobModule.mobComponent.*;
+import com.umbra.mobModule.*;
+import com.umbra.mobModule.mobComponent.*;
 
 import java.util.List;
 

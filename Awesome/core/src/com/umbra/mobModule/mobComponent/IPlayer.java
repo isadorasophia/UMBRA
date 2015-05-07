@@ -1,6 +1,6 @@
 package com.umbra.mobModule.mobComponent;
 
-import mobModule.itemComponent.IInventory;
+import com.umbra.mobModule.itemComponent.IInventory;
 
 public interface IPlayer extends IMob {
 	public void createInventory(int size);

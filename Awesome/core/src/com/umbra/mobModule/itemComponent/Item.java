@@ -1,6 +1,6 @@
 package com.umbra.mobModule.itemComponent;
 
-import mapModule.IPosition;
+import com.umbra.mapModule.IPosition;
 
 /**
  * Created by Lucas on 26/04/2015.

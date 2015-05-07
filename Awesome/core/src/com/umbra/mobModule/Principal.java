@@ -1,13 +1,14 @@
 package com.umbra.mobModule;
 
-import mobModule.itemComponent.*;
+import com.umbra.mobModule.itemComponent.*;
+import com.umbra.mobModule.mobComponent.*;
 
 import java.util.Hashtable;
 
 public class Principal {
 	public static void main(String[] args) {
 		Hashtable<String,IAttribute> lista = new Hashtable<String,IAttribute>();
-		IAttribute forca = new mobModule.Attribute("Força", 8000),
+		IAttribute forca = new Attribute("Força", 8000),
 				   hp = new Attribute("HP", 100);
 		lista.put("Força", forca);
 		lista.put("HP", hp);

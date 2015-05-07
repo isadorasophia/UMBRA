@@ -1,6 +1,6 @@
 package com.umbra.mobModule.itemComponent;
 
-import mapModule.IPosition;
+import com.umbra.mapModule.IPosition;
 
 
 public class ItemIlumination extends Item implements IItemIlumination {
