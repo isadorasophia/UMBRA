@@ -6,7 +6,6 @@ import com.umbra.mobModule.*;
 import java.util.Hashtable;
 import java.util.List;
 
-
 public abstract class Mob implements IMob{
     protected IPosition position;
     protected Hashtable<String,IAttribute> atts;
