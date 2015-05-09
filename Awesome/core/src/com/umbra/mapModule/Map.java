@@ -20,7 +20,7 @@ public class Map implements IMap{
         for(int i = 1;i < TAM_Y-1; i++) {
             Ok = false;
             for(int j = 1; j < TAM_Y-1 && !Ok; j++) {
-                if(generator.nextInt(21)%7){
+                if(generator.nextInt(21)%7 == 0){
                     /*Falta instancia o monstro com suas caracteristicas*/
                     IMob monstro = new IMob(null,null,null);
                     corredor[i][j] = new Cell(IMob, null);
