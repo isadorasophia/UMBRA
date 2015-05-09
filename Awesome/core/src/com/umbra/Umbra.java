@@ -5,8 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.umbra.maneger.Selector;
-import com.umbra.maneger.Vulto;
+import com.umbra.manager.Selector;
+import com.umbra.manager.Vulto;
 
 public class Umbra extends ApplicationAdapter {
 	Selector selector;
