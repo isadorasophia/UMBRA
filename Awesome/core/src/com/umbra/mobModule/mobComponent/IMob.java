@@ -12,5 +12,6 @@ public interface IMob {
     public IPosition getPosition();
     public void setPosition(IPosition position);
     public IMob clone();
+    public char getDescription();
 
 }

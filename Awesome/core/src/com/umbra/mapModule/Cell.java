@@ -40,8 +40,12 @@ public class Cell implements ICell {
     public IPuzzle getDoor() {
         return this.porta;
     }
-    public boolean setParede(boolean p){
+
+    public void setParede(boolean p){
         parede = p;
+    }
+    public boolean getParede(){
+        return parede;
     }
 
     public char getDescription() {
