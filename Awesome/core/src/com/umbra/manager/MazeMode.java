@@ -12,17 +12,22 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class MazeMode implements IMode{
+    private static String dir = MazeMode.class.getResource(".").getPath() + "/";
+    // Flags
     private boolean beginning;
+    private boolean eof;
+
     private String initialText;
     private FileReader reader;
-    private static String dir = MazeMode.class.getResource(".").getPath() + "/";
-    private float conter;
     private BitmapFont font;
     private SpriteBatch batch;
-    private boolean eof;
+
+    private float counter;
 
     @Override
     public void init() {
+        Gdx.gl.glClearColor(0, 0, 1, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         try {
             reader = new FileReader("Textos/initialText.txt");
         } catch (FileNotFoundException e) {
@@ -31,30 +36,37 @@ public class MazeMode implements IMode{
         batch = new SpriteBatch();
         beginning = true;
         eof = true;
-        conter = 0;
-        font = new BitmapFont();
-        font.setColor(Color.BLUE);
+        counter = 0;
+        font = new BitmapFont(Gdx.files.internal("Fonts/courier.fnt"));
+        font.setColor(1,1,1,1);
     }
 
     @Override
     public void update(float dt) {
         if(beginning){
-            conter++;
-            if(conter == 100*dt) {
+            counter++;
+            if(counter == 10) {
                 if(!eof) beginning = false;
                 else {
-                    conter = 0;
+                    counter = 0;
+                    int a = -1;
                     try {
-                        int a = reader.read();
-                        if (a != -1) initialText += reader.read();
-                        else{
-                            eof = false;
-                            reader.close();
-                        }
+                        a = reader.read();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    if (a != -1) {
+                        initialText += (char)a;
+                    }else{
+                        eof = false;
+                        try {
+                            reader.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
+                counter = 0;
             }
         }else{
         }
@@ -64,7 +76,9 @@ public class MazeMode implements IMode{
     public void draw() {
         batch.begin();
         if(beginning){
-            if(initialText != null) font.draw(batch,initialText,0, 0);
+            if(initialText != null){
+                font.draw(batch,initialText,100,Gdx.graphics.getHeight() - 10);
+            }
         } else {
 
         }
