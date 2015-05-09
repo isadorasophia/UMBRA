@@ -1,10 +1,10 @@
 #TODO:
 -- Dupla do Mob --
-	-> Função monster.getDescription(), contendo descrição do monstro antes do início de uma batalha.
+	-> FunÃ§Ã£o monster.getDescription(), contendo descriÃ§Ã£o do monstro antes do inÃ­cio de uma batalha.
 	
-	-> Função que retorna uma lista de strings (monster.itemsForBattle()) com todos os itens que o jogador pode se equipar
-	-> Função que equipa um item no jogador, recebe uma string como parâmetro e retorna true se foi válido e falso se a string não existe.
-	-> Função que desequipa todos os itens do jogador.
+	-> FunÃ§Ã£o que retorna uma lista de strings (player.itemsForBattle()) com todos os itens que o jogador pode se equipar
+	-> FunÃ§Ã£o que equipa um item no jogador, recebe uma string como parÃ¢metro e retorna true se foi vÃ¡lido e falso se a string nÃ£o existe.
+	-> FunÃ§Ã£o que desequipa todos os itens do jogador.
 
-	-> Variável com XP do jogador e função que determina o máximo de XP do jogador
-	-> Monstros terão XP fixo que o jogador ganha ao fim da batalha
+	-> VariÃ¡vel com XP do jogador e funÃ§Ã£o que determina o mÃ¡ximo de XP do jogador
+	-> Monstros terÃ£o XP fixo que o jogador ganha ao fim da batalha
