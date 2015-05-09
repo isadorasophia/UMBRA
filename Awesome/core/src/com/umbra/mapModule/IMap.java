@@ -7,5 +7,4 @@ public interface IMap {
     public void initialPosition();
     public void getPosition(IPosition posicao);
     public void move(IPosition destino);
-    public void getMap(IPosition );
 }
