@@ -6,18 +6,18 @@ import com.umbra.puzzlesModule.IPuzzle;
 public class Cell implements ICell {
     private IMob entidade;
     private IPuzzle porta;
-    private String descricao;
+    private boolean parede;
 
     // Constructor
     // Caso não tenha entidade e/ou porta, passar null como parametro
-    public Cell(IMob entidade, IPuzzle porta, char descricao) {
+    public Cell(IMob entidade, IPuzzle porta, boolean parede) {
         this.entidade = entidade;
         this.porta = porta;
-        this.descricao = descricao;
+        this.parede = parede;
     }
 
     // Remove o mob da célula e o retorna
-    public IMob remove() {
+    public IMob removeMob() {
         IMob aux = this.entidade;
         this.entidade = null;
         return aux;
@@ -41,7 +41,6 @@ public class Cell implements ICell {
         return this.porta;
     }
     public char getDescription() {
-        return this.descricao;
     }
 
 }
