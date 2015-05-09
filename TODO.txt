@@ -2,8 +2,6 @@
 -- Dupla do Mob --
 	-> Função monster.getDescription(), contendo descrição do monstro antes do início de uma batalha.
 	
-	-> Função que retorna uma lista de strings com todos os itens que o jogador pode se equipar
+	-> Função que retorna uma lista de strings (monster.itemsForBattle()) com todos os itens que o jogador pode se equipar
 	-> Função que equipa um item no jogador, recebe uma string como parâmetro e retorna true se foi válido e falso se a string não existe.
-	-> Função que desequipa todos os itens do jogador
-
-	
+	-> Função que desequipa todos os itens do jogador.
