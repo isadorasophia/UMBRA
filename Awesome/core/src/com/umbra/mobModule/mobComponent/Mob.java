@@ -8,35 +8,42 @@ import java.util.*;
 
 
 public abstract class Mob implements IMobGeneric {
-    protected IPosition position;
-    protected Hashtable<String,IAttribute> atts;
     protected String name;
     protected String description;
+    protected IPosition position;
+    protected Hashtable<String,IAttribute> atts;
+
 
     protected Mob(String name){
         this.name = name;
+        this.description = "No Description";
         this.atts = new Hashtable<String,IAttribute>();
     }
-
-    protected Mob(String name, IPosition position,
-                  Hashtable<String,IAttribute> atts){
+    protected Mob(String name, String description){
         this(name);
-
+        this.description = description;
+    }
+    protected Mob(String name, String description, IPosition position){
+        this(name, description);
         this.position = position;
+    }
+    protected Mob(String name, String description, IPosition position,
+                  Hashtable<String,IAttribute> atts){
+        this(name, description, position);
         this.atts = atts;
     }
 
-    protected Mob(String name, IPosition position,
+    protected Mob(String name, String description, IPosition position,
                   List<IAttribute> atts){
-        this.name = name;
-        this.position = position;
-        this.atts = new Hashtable<String, IAttribute>();
+        this(name, description, position);
+
         for(IAttribute attribute : atts){
             String attName = attribute.getName();
             double attValue = attribute.getValue();
             this.putAtt(attName, attValue);
         }
 	}
+
 
     public abstract char getChar();
 

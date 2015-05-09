@@ -12,14 +12,24 @@ public class Monstro extends Mob implements IMonstro {
         super(name);
     }
 
-    public Monstro(String name, IPosition position,
-                   List<IAttribute> atts, int id){
-        super(name, position, atts);
+    public Monstro(String name, String description, int id){
+        super(name, description);
         this.id = id;
     }
 
-    public Monstro(String name, IPosition position, Hashtable<String, IAttribute> atts, int id) {
-        super(name, position, atts);
+    public Monstro(String name, String description, IPosition position, int id){
+        super(name, description, position);
+        this.id = id;
+    }
+
+    public Monstro(String name, String description, IPosition position,
+                   List<IAttribute> atts, int id){
+        super(name, description, position, atts);
+        this.id = id;
+    }
+
+    public Monstro(String name, String description, IPosition position, Hashtable<String, IAttribute> atts, int id) {
+        super(name, description, position, atts);
         this.id = id;
     }
 
@@ -34,7 +44,7 @@ public class Monstro extends Mob implements IMonstro {
         return id;
     }
     public IMobGeneric clone(){
-        IMobGeneric clone = new Monstro(name, position, atts, id);
+        IMobGeneric clone = new Monstro(name, description, position, atts, id);
         return clone;
     }
 
