@@ -1,8 +1,5 @@
 package com.umbra.maneger;
 
-/**
- * Created by gsiqueira on 5/8/15.
- */
 public class MazeMode implements IMode{
     @Override
     public void init() {

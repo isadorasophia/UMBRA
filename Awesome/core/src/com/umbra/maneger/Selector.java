@@ -1,9 +1,6 @@
 package com.umbra.maneger;
 
-/**
- * Created by gsiqueira on 5/8/15.
- */
-public class Selector {
+public class Selector implements ISelector{
     private IMode mode;
 
     public Selector(){

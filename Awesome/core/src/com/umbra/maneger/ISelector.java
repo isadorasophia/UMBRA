@@ -1,7 +1,8 @@
 package com.umbra.maneger;
 
-/**
- * Created by gsiqueira on 5/8/15.
- */
-public class ISelector {
+public interface ISelector {
+    public void setMode(Modes state);
+    public void update(float dt);
+    public void draw();
+    public void dispose();
 }
