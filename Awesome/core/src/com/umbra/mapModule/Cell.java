@@ -40,7 +40,20 @@ public class Cell implements ICell {
     public IPuzzle getDoor() {
         return this.porta;
     }
+    public boolean setParede(boolean p){
+        parede = p;
+    }
+
     public char getDescription() {
+        if(entidade != null){
+            //TODO gerar o char do iMob
+        }
+        else if(parede) {
+            return '#';
+        }
+        else{
+            return '.';
+        }
     }
 
 }
