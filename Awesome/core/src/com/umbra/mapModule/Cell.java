@@ -10,7 +10,7 @@ public class Cell implements ICell {
 
     // Constructor
     // Caso não tenha entidade e/ou porta, passar null como parametro
-    public Cell(IMob entidade, IPuzzle porta, String descricao) {
+    public Cell(IMob entidade, IPuzzle porta, char descricao) {
         this.entidade = entidade;
         this.porta = porta;
         this.descricao = descricao;
@@ -40,7 +40,7 @@ public class Cell implements ICell {
     public IPuzzle getDoor() {
         return this.porta;
     }
-    public String getDescription() {
+    public char getDescription() {
         return this.descricao;
     }
 
