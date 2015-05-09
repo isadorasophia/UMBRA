@@ -1,7 +1,7 @@
 package com.umbra.mobModule.mobComponent;
 
+import com.umbra.mobModule.attComponent.IAttribute;
 import com.umbra.mapModule.IPosition;
-import com.umbra.mobModule.*;
 import com.umbra.mobModule.itemComponent.*;
 
 import java.util.*;
@@ -9,9 +9,13 @@ import java.util.*;
 
 public class Player extends Mob implements IPlayer {
     IInventory inventory = null;
+    public Player(String name){
+        super(name);
+    }
     public Player(String name, IPosition position, List<IAttribute> atts){
         super(name, position, atts);
     }
+
 
     public Player(String name, IPosition position, List<IAttribute> atts, List<IItem> items, int size){
         super(name, position, atts);
@@ -26,6 +30,9 @@ public class Player extends Mob implements IPlayer {
         this.inventory = inventory;
     }
 
+    public char getChar(){
+        return '@';
+    }
     public IInventory getInventory() {
         return inventory;
     }
@@ -34,8 +41,8 @@ public class Player extends Mob implements IPlayer {
     	this.inventory = new Inventory(size);
     }
     
-    public IMob clone(){
-        IMob clone = new Player(name, position, atts, inventory);
+    public IMobGeneric clone(){
+        IMobGeneric clone = new Player(name, position, atts, inventory);
         return clone;
     }
 }

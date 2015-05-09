@@ -1,19 +1,26 @@
 package com.umbra.mobModule.mobComponent;
 
+import com.umbra.mobModule.attComponent.Attribute;
+import com.umbra.mobModule.attComponent.IAttribute;
 import com.umbra.mapModule.*;
-import com.umbra.mobModule.*;
 
-import java.util.Hashtable;
-import java.util.List;
+import java.util.*;
 
-public abstract class Mob implements IMob{
+
+public abstract class Mob implements IMobGeneric {
     protected IPosition position;
     protected Hashtable<String,IAttribute> atts;
     protected String name;
 
+    protected Mob(String name){
+        this.name = name;
+        this.atts = new Hashtable<String,IAttribute>();
+    }
+
     protected Mob(String name, IPosition position,
                   Hashtable<String,IAttribute> atts){
-        this.name = name;
+        this(name);
+
         this.position = position;
         this.atts = atts;
     }
@@ -29,6 +36,13 @@ public abstract class Mob implements IMob{
             this.putAtt(attName, attValue);
         }
 	}
+
+    public abstract char getChar();
+
+    public String getName(){
+        return name;
+    }
+
     public IAttribute getAtt(String type){
         return atts.get(type);
     }
@@ -51,6 +65,6 @@ public abstract class Mob implements IMob{
     public void setPosition(IPosition position){
         this.position = position;
     }
-    public abstract IMob clone();
+    public abstract IMobGeneric clone();
 
 }

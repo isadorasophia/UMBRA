@@ -2,7 +2,7 @@ package com.umbra.mobModule.itemComponent;
 import java.util.List;
 
 
-public interface IItemPuzzle extends IItem {
+public interface IItemPuzzle extends IItemGeneric {
 
     public List<String> getAdjectives();
     public void newAdjective(String newAdj);

@@ -1,5 +1,8 @@
 package com.umbra.mobModule;
 
+import com.umbra.mobModule.attComponent.Attribute;
+import com.umbra.mobModule.attComponent.IAttribute;
+import com.umbra.mobModule.attComponent.ModAtt;
 import com.umbra.mobModule.itemComponent.*;
 import com.umbra.mobModule.mobComponent.*;
 
@@ -26,7 +29,7 @@ public class Principal {
 		
 		System.out.println("\n");
 		/*Teste do recem adicionado getItem()*/
-		jogador.getInventory().adItem(espada);
+		jogador.getInventory().adItem((IItem) espada);
 		System.out.println(jogador.getInventory().getItem("Espada").getName());
 		System.out.println(jogador.getInventory().getItem("Espada").getDescription());
 		
@@ -38,7 +41,44 @@ public class Principal {
 		System.out.println(jogadorModificado.getAtt("Força").getValue());
 		/*Adicionar mais itens da problema se a intensão for criar um singleton*/
 		System.out.println("\n");
-				
-		
-	}
+
+        System.out.println("\n");
+
+        try {
+            Class teste = Class.forName("com.umbra.mobModule.itemComponent.Item");
+            System.out.println(teste.getCanonicalName());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        String s1 = "A" + "BC";
+        String s2 = "AB" + "C";
+        System.out.println(s1 == s2);
+
+
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        System.out.println(classLoader.getClass().getCanonicalName());
+
+        System.out.println("\n");
+
+        Monstro monstro = (Monstro) Creator.create("Mob").instantiate("Monstro", "Leo");
+        IMobGeneric player = (IMobGeneric) Creator.create("Mob").instantiate("Player");
+
+        player.putAtt("HP", 100);
+
+        System.out.println(player.getAtt("HP").getValue());
+        player.setAtt("HP", 50);
+
+        System.out.println(player.getAtt("HP").getValue());
+
+        System.out.println(player.getName());
+
+
+        System.out.println("\n");
+
+
+
+
+        System.out.println("Terminado");
+    }
 }

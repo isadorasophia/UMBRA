@@ -2,14 +2,15 @@ package com.umbra.mobModule.itemComponent;
 
 import com.umbra.mapModule.IPosition;
 
-/**
- * Created by Lucas on 26/04/2015.
- */
 public class Item implements IItem{
     protected String name;
     protected String description;
     protected double findProb;
     protected IPosition pos;
+
+    public Item(String name){
+        this.name = name;
+    }
 
     public Item(String name, String description,
                 double findProb, IPosition pos){
