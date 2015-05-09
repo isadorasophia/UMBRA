@@ -13,19 +13,19 @@ public class Map implements IMap{
     public void initialPosition(IMob personagem){
         Random generator = new Random();
         int cont = 0;
-        int Ok;
+        Boolean Ok;
 
         personagem.setPosition(TAM_Y,3);
 
         for(int i = 1;i < TAM_Y-1; i++) {
-            Ok = 0;
-            for(int j = 1; j < TAM_Y-1; j++) {
-                if(generator.nextInt(21)%7 && !Ok){
+            Ok = false;
+            for(int j = 1; j < TAM_Y-1 && !Ok; j++) {
+                if(generator.nextInt(21)%7){
                     /*Falta instancia o monstro com suas caracteristicas*/
                     IMob monstro = new IMob(null,null,null);
                     corredor[i][j] = new Cell(IMob, null);
 
-                    Ok = 1;
+                    Ok = true;
                 }
             }
         }
