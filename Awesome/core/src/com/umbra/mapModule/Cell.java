@@ -50,7 +50,7 @@ public class Cell implements ICell {
 
     public char getDescription() {
         if(entidade != null){
-            //TODO gerar o char do iMob
+            return entidade.getDescription();
         }
         else if(parede) {
             return '#';
