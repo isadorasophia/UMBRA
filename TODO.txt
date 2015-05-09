@@ -5,3 +5,6 @@
 	-> Função que retorna uma lista de strings (monster.itemsForBattle()) com todos os itens que o jogador pode se equipar
 	-> Função que equipa um item no jogador, recebe uma string como parâmetro e retorna true se foi válido e falso se a string não existe.
 	-> Função que desequipa todos os itens do jogador.
+
+	-> Variável com XP do jogador e função que determina o máximo de XP do jogador
+	-> Monstros terão XP fixo que o jogador ganha ao fim da batalha
