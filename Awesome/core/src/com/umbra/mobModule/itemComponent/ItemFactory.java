@@ -3,7 +3,7 @@ package com.umbra.mobModule.itemComponent;
 import com.umbra.mobModule.IFactory;
 
 
-public class ItemFactory implements IFactory {
+public class ItemFactory implements IFactory<IItem> {
 
 
     public IItem instantiate(String subtype, String name) {
@@ -19,7 +19,7 @@ public class ItemFactory implements IFactory {
         return null;
     }
 
-    public IItem instantiate(String subtype) {
-        return instantiate(subtype, "noName");
+    public IItem instantiate(String subtype, Object... parameter) {
+        return instantiate(subtype, (String) parameter[0]);
     }
 }

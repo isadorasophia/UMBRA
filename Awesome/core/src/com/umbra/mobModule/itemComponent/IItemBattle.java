@@ -7,7 +7,8 @@ import java.util.List;
 
 
 public interface IItemBattle extends IItemGeneric {
-    public IMobGeneric updateMob(IMobGeneric src);
+    public void updateMob(IMobGeneric src);
+    public void unupdateMob(IMobGeneric src);
     public void newModAtt(IModAtt modAtt);
     public List<IModAtt> getModAtts();
 }

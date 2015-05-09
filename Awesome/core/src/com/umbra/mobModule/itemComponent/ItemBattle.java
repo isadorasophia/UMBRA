@@ -21,16 +21,21 @@ public class ItemBattle extends Item implements IItemBattle  {
         this.modatts = new ArrayList<IModAtt>();
     }
 
-    public IMobGeneric updateMob(IMobGeneric src) {
-        IMobGeneric returnValue;
-        returnValue = src.clone();
+    public void updateMob(IMobGeneric src) {
         for(IModAtt modatt : modatts){
             if(src.hasAtt(modatt.getName())){
                 IAttribute update = modatt.modify(src.getAtt(modatt.getName()));
                 src.setAtt(modatt.getName(), update.getValue());
             }
         }
-        return returnValue;
+    }
+    public void unupdateMob(IMobGeneric src) {
+        for(IModAtt modatt : modatts){
+            if(src.hasAtt(modatt.getName())){
+                IAttribute update = modatt.unmodify(src.getAtt(modatt.getName()));
+                src.setAtt(modatt.getName(), update.getValue());
+            }
+        }
     }
 
     public void newModAtt(IModAtt modAtt ) {

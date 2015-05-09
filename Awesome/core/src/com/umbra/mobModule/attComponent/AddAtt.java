@@ -1,12 +1,16 @@
 package com.umbra.mobModule.attComponent;
 
 
-import java.util.*;
-
 public class AddAtt implements Modificator {
-    public IAttribute modify(IAttribute src, List<Double> parameters) {
+    public IAttribute modify(IAttribute src, double... parameter) {
         IAttribute returnValue = src.clone();
-        returnValue.setValue(src.getValue() + parameters.get(0));
+        returnValue.setValue(src.getValue() + parameter[0]);
+        return returnValue;
+    }
+
+    public IAttribute unmodify(IAttribute src, double... parameter) {
+        IAttribute returnValue = src.clone();
+        returnValue.setValue(src.getValue() - parameter[0]);
         return returnValue;
     }
 }

@@ -7,7 +7,7 @@ public class Creator {
     public static IFactory create(String type_name) {
         switch (type_name){
             case "Mob":
-                return new MobFactory ();
+                return new MobFactoryFactory ();
             case "Item":
                 return new ItemFactory ();
 

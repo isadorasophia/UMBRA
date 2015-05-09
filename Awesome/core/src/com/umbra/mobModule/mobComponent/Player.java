@@ -1,48 +1,66 @@
 package com.umbra.mobModule.mobComponent;
 
-import com.umbra.mobModule.attComponent.IAttribute;
+
 import com.umbra.mapModule.IPosition;
-import com.umbra.mobModule.itemComponent.*;
+import com.umbra.mobModule.attComponent.Attribute;
+import com.umbra.mobModule.attComponent.IAttribute;
+import com.umbra.mobModule.itemComponent.IItem;
 
-import java.util.*;
+import java.util.Hashtable;
+import java.util.List;
 
+public class Player extends PlayerGeneric implements IPlayer{
 
-public class Player extends Mob implements IPlayer {
-    IInventory inventory = null;
-    public Player(String name){
-        super(name);
+    public Player(String name, String description, IPosition position) {
+        super(name, description, position);
     }
-    public Player(String name, IPosition position, List<IAttribute> atts){
-        super(name, position, atts);
+
+    public Player(String name, String description, IPosition position, List<IAttribute> atts) {
+        super(name, description, position, atts);
+    }
+
+    public Player(String name, String description, IPosition position, Hashtable<String, IAttribute> atts) {
+        super(name, description, position, atts);
+    }
+
+    public Player(String name, String description, IPosition position, Hashtable<String, IAttribute> atts, List<IItem> items, int size) {
+        super(name, description, position, atts, items, size);
+    }
+
+    public Player(String name, String description, IPosition position, List<IAttribute> atts, List<IItem> items, int size) {
+        super(name, description, position, atts, items, size);
+    }
+
+    public Player(String name, String description, IPosition position, Hashtable<String, IAttribute> atts, IInventory inventory) {
+        super(name, description, position, atts, inventory);
     }
 
 
-    public Player(String name, IPosition position, List<IAttribute> atts, List<IItem> items, int size){
-        super(name, position, atts);
-        this.createInventory(size);
-        for(IItem item : items){
-            inventory.adItem(item);
+    public double getXp() {
+        if(atts != null || ! (hasAtt("xp")) ){
+            return 0;
+        }else{
+            return getAtt("xp").getValue();
         }
     }
 
-    public Player(String name, IPosition position, Hashtable<String, IAttribute> atts, IInventory inventory) {
-        super(name, position, atts);
-        this.inventory = inventory;
+    public void setXp(double xp) {
+        if(atts != null || ! (hasAtt("xp")) ){
+            atts.put("xp", new Attribute("xp", xp));
+        }else{
+            atts.get("xp").setValue(xp);
+        }
     }
 
-    public char getChar(){
-        return '@';
+    public double maxXp() {
+        return 0;
     }
-    public IInventory getInventory() {
-        return inventory;
-    }
-    
-    public void createInventory(int size) {
-    	this.inventory = new Inventory(size);
-    }
-    
-    public IMobGeneric clone(){
-        IMobGeneric clone = new Player(name, position, atts, inventory);
-        return clone;
+
+    public int getNivel(){
+        if(atts != null || ! (hasAtt("xp")) ){
+            return 0;
+        }else{
+            return (int) Math.floor(Math.log10(getAtt("xp").getValue()));
+        }
     }
 }
