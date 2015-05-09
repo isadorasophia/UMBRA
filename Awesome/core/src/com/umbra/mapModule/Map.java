@@ -4,18 +4,28 @@ import com.umbra.mobModule.mobComponent.IMob;
 import java.util.Random;
 
 public class Map implements IMap{
-    private ICell[][] corredor = new ICell[25][5];
+    static int TAM_Y = 50;
+    static int TAM_X = 5;
+
+    private ICell[][] corredor = new ICell[TAM_Y][TAM_X];
 
     @Override
-    public void initialPosition(){
+    public void initialPosition(IMob personagem){
+        Random generator = new Random();
         int cont = 0;
+        int Ok;
 
+        personagem.setPosition(TAM_Y,3);
 
+        for(int i = 0;i < TAM_Y; i++) {
+            Ok = 0;
+            for(int j = 0; j < TAM_Y; j++) {
+                if(generator.nextInt(21)%7 && !Ok){
+                    /*Falta instancia o monstro com suas caracteristicas*/
+                    IMob monstro = new IMob(null,null,null);
+                    corredor[i][j] = new Cell(IMob, null);
 
-        for(int i = 0;i < 25; i++) {
-            for(int j = 0; j < 5; j++) {
-                if(i == 0 || j == 0 || i == ||){
-                    corredor[i][j] = new Cell(null, null);
+                    Ok = 1;
                 }
             }
         }
