@@ -4,9 +4,7 @@ import com.umbra.mobModule.mobComponent.IMob;
 import java.util.Random;
 
 public class Map implements IMap{
-    private ICell[][] corredor;
-
-    corredor = new ICell[25][5];
+    private ICell[][] corredor = new ICell[25][5];
 
     @Override
     public void initialPosition(IMob player) {
