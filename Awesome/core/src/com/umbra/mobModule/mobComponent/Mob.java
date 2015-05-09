@@ -11,6 +11,7 @@ public abstract class Mob implements IMobGeneric {
     protected IPosition position;
     protected Hashtable<String,IAttribute> atts;
     protected String name;
+    protected String description;
 
     protected Mob(String name){
         this.name = name;
@@ -41,6 +42,9 @@ public abstract class Mob implements IMobGeneric {
 
     public String getName(){
         return name;
+    }
+    public String getDescription(){
+        return description;
     }
 
     public IAttribute getAtt(String type){
