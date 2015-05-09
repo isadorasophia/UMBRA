@@ -6,13 +6,22 @@ import com.umbra.puzzlesModule.IPuzzle;
 import java.util.Random;
 
 public class Map implements IMap{
-    static int TAM_Y = 50;
-    static int TAM_X = 5;
+    private static int TAM_Y = 50;
+    private static int TAM_X = 5;
+    private static Map instance = null;
 
     private ICell[][] corredor = new ICell[TAM_Y][TAM_X];
 
-    @Override
-    public void initialPosition(IMob personagem){
+    // Método único estático de acesso único ao objeto
+    // SINGLETON!!! 
+    public static Map getInstance(IMob personagem) {
+        if (instance == null)
+            instance = new Map(personagem);
+        return instance;
+    }
+
+    // Contrutor privado.
+    private Map(IMob personagem){
         Random generator = new Random();
         Boolean Ok;
         int cont = 0;
