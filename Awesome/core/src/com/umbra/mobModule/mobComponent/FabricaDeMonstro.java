@@ -6,6 +6,6 @@ public class FabricaDeMonstro {
     private int id;
 
     public IMonstro instantiate(int nivel, IPosition position){
-        return new Monstro()
+        return new Monstro();
     }
 }
