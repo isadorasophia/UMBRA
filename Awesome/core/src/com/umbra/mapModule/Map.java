@@ -17,9 +17,9 @@ public class Map implements IMap{
 
         personagem.setPosition(TAM_Y,3);
 
-        for(int i = 0;i < TAM_Y; i++) {
+        for(int i = 1;i < TAM_Y-1; i++) {
             Ok = 0;
-            for(int j = 0; j < TAM_Y; j++) {
+            for(int j = 1; j < TAM_Y-1; j++) {
                 if(generator.nextInt(21)%7 && !Ok){
                     /*Falta instancia o monstro com suas caracteristicas*/
                     IMob monstro = new IMob(null,null,null);
@@ -56,7 +56,7 @@ public class Map implements IMap{
                 return posicao.moveWest(oeste, atual);
             case 'l':
                 atual = corredor[posicao.getY()][posicao.getX()];
-                ICell leste = corredor[posicao.getY()][posicao.getX()-1];
+                ICell leste = corredor[posicao.getY()][posicao.getX()+1];
                 return posicao.moveEast(leste, atual);
             default:
                 return false;
