@@ -21,12 +21,15 @@ public class Map implements IMap{
 
         for(int i = 0; i < TAM_Y; i++){
             if(generator.nextInt(22)%7 == 0){
-                /*IPuzzle sala = new IPuzzle() ;
+                //Falta instancia o puzzle com suas caracteristicas
+                /*
+                IPuzzle sala = new IPuzzle() ;
                 if(generator.nextInt(2)%2 == 0){
                     corredor[i][TAM_X-1] = new Cell(null, sala);
                 }else{
                     corredor[i][0] = new Cell(null, sala);
-                }*/
+                }
+                */
             }
         }
 
@@ -34,9 +37,12 @@ public class Map implements IMap{
             Ok = false;
             for(int j = 1; j < TAM_Y-5 && !Ok; j++) {
                 if(generator.nextInt(22)%7 == 0){
-                    /*Falta instancia o monstro com suas caracteristicas
+                    //Falta instancia o monstro com suas caracteristicas
+                    /*
                     IMob monstro = new IMob(null,null,null);
-                    corredor[i][j] = new Cell(monstro, null);*/
+                    corredor[i][j] = new Cell(monstro, null);
+                    */
+                    cont++;
                     Ok = true;
                 }
             }
