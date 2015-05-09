@@ -50,7 +50,7 @@ public class Cell implements ICell {
 
     public char getDescription() {
         if(entidade != null){
-            return entidade.getDescription();
+            return entidade.getChar();
         }
         else if(parede) {
             return '#';

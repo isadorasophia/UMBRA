@@ -10,5 +10,6 @@ public class FabricaDeMonstro {
     public IMonstro instantiate(int nivel, IPosition position){
 
         return new Monstro("Monstro", "Monstro Cruel", position, atts, id);
+
     }
 }
