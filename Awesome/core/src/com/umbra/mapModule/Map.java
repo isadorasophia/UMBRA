@@ -50,7 +50,7 @@ public class Map implements IMap{
 
     @Override
     public boolean move(IMob entidade, char direction) {
-        IPosition posicao = entidade.getPosition();
+        Position posicao = (Position) entidade.getPosition();
         ICell atual;
 
         switch (direction) {
