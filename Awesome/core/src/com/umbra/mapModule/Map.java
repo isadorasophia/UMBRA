@@ -23,7 +23,15 @@ public class Map implements IMap{
     }
 
     @Override
-    public void move(IPosition destino) {
+    public void move(IMob entidade, char direction) {
+        IPosition posicao = entidade.getPosition();
 
+        switch (direction) {
+            case 'n':
+                ICell atual = corredor[posicao.getY()][posicao.getX()];
+                ICell norte = corredor[posicao.getY()+1][posicao.getX()];
+                posicao.moveNorth(norte, atual);
+                break;
+        }
     }
 }
