@@ -4,8 +4,8 @@ import com.umbra.mobModule.mobComponent.IMob;
 import com.umbra.puzzlesModule.IPuzzle;
 
 public interface ICell {
-    public void remove(IMob entidade);
-    public void receive(IMob entidade);
+    public IMob remove();
+    public Boolean receive(IMob entidade);
     public IMob getEntety();
     public IPuzzle getDoor();
     public String getDescription();
