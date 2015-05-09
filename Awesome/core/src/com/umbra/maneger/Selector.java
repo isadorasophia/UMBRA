@@ -23,6 +23,7 @@ public class Selector implements ISelector{
                 mode = new VulteMode();
                 break;
         }
+        mode.init();
     }
     public void update(float dt){
         mode.handleInput();

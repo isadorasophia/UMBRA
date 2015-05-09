@@ -9,13 +9,11 @@ import com.umbra.maneger.Selector;
 import com.umbra.maneger.Vulto;
 
 public class Umbra extends ApplicationAdapter {
-	SpriteBatch batch;
 	Selector selector;
 	Vulto vulto;
 
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
 		selector = new Selector();
 	}
 
