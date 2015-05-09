@@ -20,21 +20,21 @@ public class Principal {
 			  faca = new Item("Faca", "Fuck-Yeah", 100, null);
 		IItemBattle espada = new ItemBattle("Espada", "Foda", 100, null);
 		espada.newModAtt(new ModAtt("Força", 10));
-		
+
 		IPlayer jogador = new Player("Player", null, lista, inv);
 		jogador.getInventory().adItem(fosforo);
 		jogador.getInventory().adItem(faca);
 		System.out.println(jogador.getInventory().dropItem("Fósforo").getName());
 		System.out.println(jogador.getInventory().dropItem("Faca").getDescription());
-		
+
 		System.out.println("\n");
 		/*Teste do recem adicionado getItem()*/
 		jogador.getInventory().adItem((IItem) espada);
 		System.out.println(jogador.getInventory().getItem("Espada").getName());
 		System.out.println(jogador.getInventory().getItem("Espada").getDescription());
-		
+
 		System.out.println("\n");
-		
+
 		/*Teste de modificação de atributo*/
 		System.out.println(jogador.getAtt("Força").getValue());
 		IPlayer jogadorModificado = (IPlayer) espada.updateMob(jogador);

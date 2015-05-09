@@ -35,7 +35,7 @@ public class MazeMode implements IMode{
         }
         batch = new SpriteBatch();
         beginning = true;
-        eof = true;
+        eof = false;
         counter = 0;
         font = new BitmapFont(Gdx.files.internal("Fonts/courier.fnt"));
         font.setColor(1,1,1,1);
@@ -46,7 +46,7 @@ public class MazeMode implements IMode{
         if(beginning){
             counter++;
             if(counter == 10) {
-                if(!eof) beginning = false;
+                if(eof) beginning = false;
                 else {
                     counter = 0;
                     int a = -1;
@@ -58,7 +58,7 @@ public class MazeMode implements IMode{
                     if (a != -1) {
                         initialText += (char)a;
                     }else{
-                        eof = false;
+                        eof = true;
                         try {
                             reader.close();
                         } catch (IOException e) {
@@ -77,7 +77,7 @@ public class MazeMode implements IMode{
         batch.begin();
         if(beginning){
             if(initialText != null){
-                font.draw(batch,initialText,100,Gdx.graphics.getHeight() - 10);
+                font.draw(batch,initialText,100,Gdx.graphics.getHeight() - 50,600f,-5,true);
             }
         } else {
 
