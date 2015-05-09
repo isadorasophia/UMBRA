@@ -1,4 +1,4 @@
-package com.umbra.maneger;
+package com.umbra.manager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;

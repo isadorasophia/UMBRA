@@ -1,4 +1,4 @@
-package com.umbra.maneger;
+package com.umbra.manager;
 
 public class Selector implements ISelector{
     private IMode mode;
