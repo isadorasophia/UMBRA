@@ -25,7 +25,7 @@ public class Cell implements ICell {
 
     // Retorna true se for possível adicionar o mob (não há mob na cell)
     // False se o contrário
-    public Boolean receive(IMob entidade) {
+    public Boolean setMob(IMob entidade) {
         if (this.entidade == null) {
             this.entidade = entidade;
             return true;
@@ -33,7 +33,7 @@ public class Cell implements ICell {
         return false;
     }
 
-    public IMob getEntety() {
+    public IMob getMob() {
         return this.entidade;
     }
 
