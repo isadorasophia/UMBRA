@@ -24,4 +24,8 @@ public class Umbra extends ApplicationAdapter {
 		selector.update(Gdx.graphics.getDeltaTime());
 		selector.draw();
 	}
+
+	public void dispose (){
+		selector.dispose();
+	}
 }
