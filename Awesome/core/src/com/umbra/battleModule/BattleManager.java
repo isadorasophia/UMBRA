@@ -7,6 +7,11 @@ public class BattleManager {
 	private IMonstro monster = null;
 	private IPlayer player = null;
 
+	private BattleExecuter battleExecuter = null;
+	
+	private boolean isBattleSet = false;
+	
+
 	private boolean battleIsSet = false;
 
 	private String status = null;
@@ -44,7 +49,7 @@ public class BattleManager {
 		Vector <String> items = this.monster.itemsForBattle();
 
 		if (items.isEmpty()) {
-			this.battleIsSet = true;
+			this.isBattleSet = true;
 		}
 		else {
 			for (int i = 0; i < items.size(); i++) {
@@ -55,6 +60,27 @@ public class BattleManager {
 			}
 		}
 	}
+	
+	public String processInput (String input) {
+		if (!this.isBattleSet) {
+			this.monster.equip(input);
+			
+			isBattleSet = true;
+		}
+		
+		if (this.playerTurn) {
+			// Make the player input gets realz
+		} else if (this.enemyTurn) {
+			// Make the enemy super duper AI
+		}
+	}
+	
+	public String wonBattle () {
+		// Win xp!! Yay!
+	}
+	
+	public String lostBattle() {
+		// Player loses XP ):
 
 	public void processInput (String input) {
 
