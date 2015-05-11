@@ -75,7 +75,7 @@ public class BattleManager {
 		}
 	}
 	
-	// Function called each update by the main module
+	// Function called by the main module, updates the output
 	public void processInput (String input) {
 		setStatus(null);
 		
@@ -108,15 +108,15 @@ public class BattleManager {
 		}
 	}
 	
-	public void wonBattle () {
+	private void wonBattle () {
 		// Win xp!! Yay!
 	}
 	
-	public void lostBattle() {
+	private void lostBattle() {
 		// Player loses XP ):
 	}
 	
-	public void reset() {
+	private void reset() {
 		setDone(true);
 		
 		// Battle ended, reset class configurations

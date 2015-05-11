@@ -2,27 +2,30 @@ package com.umbra.battleModule;
 
 import com.umbra.mobModule.mobComponent.*;
 
+// Static class, which manages the battle AI
 final class BattleExecuter {
 	// Prevents to instantiate the class, since it's supposed to be static
-	private BattleExecuter () {
-	}
+	private BattleExecuter () { }
 	
+	// Tries to escape!
 	public static boolean escape () {
 		
 	}
 	
-	public static String attack (IMob attacker, IMob victim) {
+	public static String attack (IMobGeneric attacker, IMobGeneric victim) {
 		
 	}
 	
-	public static String defend (IMob attacker, IMob victim) {
+	public static String defend (IMobGeneric attacker, IMobGeneric victim) {
 		
 	}
 	
-	public static String monsterAI (IMob monster, IMob victim) {
+	// Monsters turn
+	public static String monsterAI (IMobGeneric monster, IMobGeneric victim) {
 		
 	}
 	
+	// Returns if the battle has ended
 	public static boolean isItOver (IMobGeneric monster, IMobGeneric victim) {
 		return false;
 	}
