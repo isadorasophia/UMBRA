@@ -2,7 +2,7 @@ package com.umbra.battleModule;
 
 import com.umbra.mobModule.mobComponent.*;
 
-public final class BattleExecuter {
+final class BattleExecuter {
 	// Prevents to instantiate the class, since it's supposed to be static
 	private BattleExecuter () {
 	}
@@ -23,7 +23,7 @@ public final class BattleExecuter {
 		
 	}
 	
-	public static bool isItOver (IMob monster, IMob victim) {
-		
+	public static boolean isItOver (IMobGeneric monster, IMobGeneric victim) {
+		return false;
 	}
 }
