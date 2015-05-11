@@ -9,20 +9,20 @@ final class BattleExecuter {
 	
 	// Tries to escape!
 	public static boolean escape () {
-		
+		return false;
 	}
 	
 	public static String attack (IMobGeneric attacker, IMobGeneric victim) {
-		
+		return null;
 	}
 	
 	public static String defend (IMobGeneric attacker, IMobGeneric victim) {
-		
+		return null;
 	}
 	
 	// Monsters turn
 	public static String monsterAI (IMobGeneric monster, IMobGeneric victim) {
-		
+		return null;
 	}
 	
 	// Returns if the battle has ended
