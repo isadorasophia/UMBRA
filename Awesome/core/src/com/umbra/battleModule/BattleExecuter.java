@@ -8,25 +8,25 @@ final class BattleExecuter {
 	private BattleExecuter () { }
 	
 	// Tries to escape!
-	public static boolean escape () {
+	static boolean escape (IMobGeneric player, IMobGeneric enemy) {
 		return false;
 	}
 	
-	public static String attack (IMobGeneric attacker, IMobGeneric victim) {
+	static String attack (IMobGeneric attacker, IMobGeneric victim) {
 		return null;
 	}
 	
-	public static String defend (IMobGeneric attacker, IMobGeneric victim) {
+	static String defend (IMobGeneric attacker, IMobGeneric victim) {
 		return null;
 	}
 	
 	// Monsters turn
-	public static String monsterAI (IMobGeneric monster, IMobGeneric victim) {
+	static String monsterAI (IMobGeneric monster, IMobGeneric victim) {
 		return null;
 	}
 	
 	// Returns if the battle has ended
-	public static boolean isItOver (IMobGeneric monster, IMobGeneric victim) {
+	static boolean isItOver (IMobGeneric monster, IMobGeneric victim) {
 		return false;
 	}
 }
