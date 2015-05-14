@@ -7,14 +7,10 @@ import java.util.List;
 public class ItemPuzzle extends Item implements IItemPuzzle {
     private List<String> adjectives;
 
-    public ItemPuzzle(String name){
-        super(name);
-    }
-
-    public ItemPuzzle(String name, String description,
-                      double findProb, IPosition pos){
+    public ItemPuzzle(String name, String description, double findProb, IPosition pos){
         super(name, description, findProb, pos);
     }
+
     public List<String> getAdjectives() {
         return adjectives;
     }

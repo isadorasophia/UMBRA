@@ -13,16 +13,11 @@ public abstract class MobGeneric implements IMobGeneric {
     protected IPosition position;
     protected Hashtable<String,IAttribute> atts;
 
-
-    protected MobGeneric(String name, IPosition position){
-        this.name = name;
-        this.description = "No Description";
-        this.position = position;
-        this.atts = new Hashtable<String,IAttribute>() ;
-    }
     protected MobGeneric(String name, String description, IPosition position){
-        this(name, position);
+        this.name = name;
         this.description = description;
+        this.position = position;
+        this.atts = new Hashtable<String,IAttribute>();
     }
     protected MobGeneric(String name, String description, IPosition position,
                          Hashtable<String, IAttribute> atts){

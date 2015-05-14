@@ -1,10 +1,7 @@
 package com.umbra.mobModule.mobComponent;
 import com.umbra.mobModule.itemComponent.IItem;
 
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.Spliterator;
-import java.util.function.Consumer;
+import java.util.*;
 
 
 public class Inventory implements IInventory {
@@ -43,6 +40,16 @@ public class Inventory implements IInventory {
     }
     public int getSize(){
         return size;
+    }
+
+
+    public Vector<IItem> getAllItems() {
+        Vector<IItem> resp = new Vector<>(items.size(), 1);
+        Enumeration e = items.elements();
+        while(e.hasMoreElements()){
+            resp.add((IItem) e.nextElement());
+        }
+        return resp;
     }
 
 }

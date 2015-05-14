@@ -2,18 +2,13 @@ package com.umbra.mobModule.itemComponent;
 
 import com.umbra.mapModule.IPosition;
 
-public class Item implements IItem{
+public abstract class Item implements IItem{
     protected String name;
     protected String description;
     protected double findProb;
     protected IPosition pos;
 
-    public Item(String name){
-        this.name = name;
-    }
-
-    public Item(String name, String description,
-                double findProb, IPosition pos){
+    public Item(String name, String description, double findProb, IPosition pos){
         this.name = name;
         this.description = description;
         this.findProb = findProb;
@@ -33,5 +28,8 @@ public class Item implements IItem{
     }
     public IPosition getPosition(){
         return pos;
+    }
+    public void setPosition(IPosition pos){
+        this.pos = pos;
     }
 }

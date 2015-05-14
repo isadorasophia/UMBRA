@@ -1,10 +1,7 @@
 package com.umbra.mobModule.itemComponent;
 
-import com.umbra.mapModule.IPosition;
+import com.umbra.mobModule.*;
 
-public interface IItemGeneric{
-    public String getName();
-    public String getDescription();
+public interface IItemGeneric extends IPositionable, IDescriptionReadable, INameReadable  {
     public double getFindProb();
-    public IPosition getPosition();
 }

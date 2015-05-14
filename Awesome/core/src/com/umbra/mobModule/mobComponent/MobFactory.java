@@ -1,23 +1,22 @@
 package com.umbra.mobModule.mobComponent;
 
+
 import com.umbra.mapModule.IPosition;
-import com.umbra.mobModule.IFactory;
 
-public class MobFactory implements IFactory<IMobGeneric> {
+public abstract class MobFactory {
 
+    public abstract IPlayerGeneric create(String name, String description,  IPosition position);
+    public abstract IMonstro create(int nivel, IPosition position);
 
-    public IMobGeneric instantiate(String subtype, String name, IPosition position) {
-        switch(subtype){
-            case "Monstro":
-                return (IMonstroGeneric) new MonstroGeneric(name, position);
-            case "Player":
-                return (IPlayerGeneric) new PlayerGeneric(name, position);
+    public static MobFactory createFactory(String id)
 
-        }
-        return null;
-    }
+    {
+        MobFactory factory = null;
+        if (id.equalsIgnoreCase("Monstro"))
+            factory = new FabricaDeMonstro();
+        else if (id.equalsIgnoreCase("Player"))
+            factory = new PlayerInstantiator();
 
-    public IMobGeneric instantiate(String subtype, Object... parameter) {
-        return instantiate(subtype, (String) parameter[0], (IPosition) parameter[1]);
+        return factory;
     }
 }

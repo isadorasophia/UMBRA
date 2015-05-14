@@ -8,9 +8,6 @@ import java.util.*;
 
 public class MonstroGeneric extends Mob implements IMonstroGeneric {
     private int id;
-    public MonstroGeneric(String name, IPosition position){
-        super(name, position);
-    }
 
     public MonstroGeneric(String name, String description, IPosition position, int id){
         super(name, description, position);

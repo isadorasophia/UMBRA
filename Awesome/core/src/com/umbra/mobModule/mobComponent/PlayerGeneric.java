@@ -12,40 +12,16 @@ public class PlayerGeneric extends Mob implements IPlayerGeneric {
     private Stack<IItemBattle> equiped = null;
     private int inventorySize;
 
-    public PlayerGeneric(String name, IPosition position){
-        super(name, position);
-    }
-    public PlayerGeneric(String name, String description, IPosition position){
+    public PlayerGeneric(String name, String description, IPosition position, int inventarySize){
         super(name, description, position);
-    }
-    public PlayerGeneric(String name, String description, IPosition position, List<IAttribute> atts){
-        super(name, description, position, atts);
-    }
-    public PlayerGeneric(String name, String description, IPosition position,
-                         Hashtable<String, IAttribute> atts){
-        super(name, description, position, atts);
-    }
-    public PlayerGeneric(String name, String description, IPosition position, Hashtable<String, IAttribute> atts,
-                         List<IItem> items, int size){
-        super(name, description, position, atts);
-        this.createInventory(size);
-        for(IItem item : items){
-            inventory.adItem(item);
-        }
-    }
-    public PlayerGeneric(String name, String description, IPosition position, List<IAttribute> atts,
-                         List<IItem> items, int size){
-        super(name, description, position, atts);
-        this.createInventory(size);
-        for(IItem item : items){
-            inventory.adItem(item);
-        }
+        this.inventory = new Inventory(inventarySize);
     }
 
     public PlayerGeneric(String name, String description, IPosition position,
                          Hashtable<String, IAttribute> atts, IInventory inventory) {
         super(name, description, position, atts);
         this.inventory = inventory;
+        this.inventorySize = inventory.getSize();
     }
 
     public char getChar(){
@@ -55,13 +31,20 @@ public class PlayerGeneric extends Mob implements IPlayerGeneric {
         return inventory;
     }
 
+    public void putItem(IItem neoItem){
+        if(this.inventory == null){
+            this.inventory = new Inventory(inventorySize);
+
+        }
+    }
+
 
     public boolean equipItem(String itemName) {
         IInventory inv = getInventory();
         boolean resp = true;
         if(inv.hasItem(itemName)){
             if(equiped == null){
-                equiped = new Stack<IItemBattle>();
+                equiped = new Stack<>();
             }
             equiped.push((IItemBattle)inv.dropItem(itemName));
             ((IItemBattle)inv.getItem(itemName)).updateMob(this);
@@ -72,15 +55,22 @@ public class PlayerGeneric extends Mob implements IPlayerGeneric {
         return resp;
     }
 
-
     public void unequipAll() {
         while(!equiped.empty()){
             equiped.pop().unupdateMob(this);
         }
     }
 
-    public void createInventory(int size) {
-        this.inventory = new Inventory(size);
+    public Vector <String> itemsForBattle(){
+
+        IInventory inv = getInventory();
+        Vector<IItem> items = inv.getAllItems();
+        Vector<String> resp = new Vector<>(items.size(), 1);
+
+        for(IItem item : items){
+            resp.add(item.getName());
+        }
+        return resp;
     }
     
     public IMobGeneric clone(){

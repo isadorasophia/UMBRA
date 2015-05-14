@@ -1,25 +1,17 @@
 package com.umbra.mobModule.itemComponent;
 
-import com.umbra.mobModule.IFactory;
+import com.umbra.mapModule.IPosition;
 
 
-public class ItemFactory implements IFactory<IItem> {
+public class ItemFactory{
 
-
-    public IItem instantiate(String subtype, String name) {
-        switch(subtype){
-            case "Battle":
-                return new ItemBattle(name);
-            case "Puzzle":
-                return new ItemPuzzle(name);
-            case "Ilumination":
-                return new ItemIlumination(name);
-
-        }
-        return null;
+    IItemBattle instantiate(String name, String description, double findProb, IPosition pos){
+        return new ItemBattle(name, description, findProb, pos);
     }
-
-    public IItem instantiate(String subtype, Object... parameter) {
-        return instantiate(subtype, (String) parameter[0]);
+    IItemPuzzle instantiateP(String name, String description, double findProb, IPosition pos){
+        return new ItemPuzzle(name, description, findProb, pos);
+    }
+    IItemIlumination instantiate(String name, String description, double findProb, IPosition pos, double ilumination){
+        return new ItemIlumination(name, description, findProb, pos, ilumination);
     }
 }

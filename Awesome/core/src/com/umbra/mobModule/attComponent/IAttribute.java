@@ -1,8 +1,8 @@
 package com.umbra.mobModule.attComponent;
 
-public interface IAttribute {
-    public String getName();
+import com.umbra.mobModule.*;
+
+public interface IAttribute extends INameReadable, IClonable{
     public double getValue();
     public void setValue(double value);
-    public IAttribute clone();
 }
