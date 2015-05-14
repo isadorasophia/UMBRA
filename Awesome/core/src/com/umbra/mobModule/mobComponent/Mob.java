@@ -21,7 +21,9 @@ public abstract class Mob extends MobGeneric implements IMob{
         super(name, description, position, atts);
     }
 
-
+    public boolean dead(){
+        return this.getAtt("hp").getValue() == 0;
+    }
 
     public abstract char getChar();
 

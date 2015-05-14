@@ -55,7 +55,7 @@ public abstract class MobGeneric implements IMobGeneric {
     	novo.setValue(value);
         atts.put(type, novo);
     }
-    public Boolean hasAtt(String name){
+    private boolean hasAtt(String name){
         return atts.containsKey(name);
     }
     public void putAtt(String attName, double attValue){

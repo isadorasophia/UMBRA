@@ -11,7 +11,5 @@ public interface IMobGeneric extends IPositionable, IDescriptionReadable, INameR
 
     public IAttribute getAtt(String type);
     public void setAtt(String type, double value);
-    public Boolean hasAtt(String name);
     public char getChar();
-    public IMobGeneric clone();
 }

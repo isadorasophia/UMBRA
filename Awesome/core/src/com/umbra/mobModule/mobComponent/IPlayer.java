@@ -5,5 +5,4 @@ public interface IPlayer extends IPlayerGeneric {
     public void setXp(double xp);
     public double maxXp();
     public int getNivel();
-
 }
