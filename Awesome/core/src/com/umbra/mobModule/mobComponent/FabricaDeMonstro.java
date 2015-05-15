@@ -26,12 +26,6 @@ public class FabricaDeMonstro extends MobFactory {
         return resp;
 
     }
-    /*Throws exception BadConstructor*/
-    public IPlayerGeneric create(String name, String description, IPosition position) {
-        return null;
-    }
-
-
     public IMonstro create(int nivel, IPosition position){
         String name = (String) monster(id, nivel).get(0);
         String description = (String) monster(id, nivel).get(1);
@@ -44,4 +38,13 @@ public class FabricaDeMonstro extends MobFactory {
 
         return resp;
     }
+
+    /*Throws exception BadConstructor*/
+    public IPlayer create(String name, String description, IPosition position) {
+        /*throw new BadConstructorException();*/
+        return null;
+    }
+
+
+
 }

@@ -1,7 +1,9 @@
 package com.umbra.battleModule;
 
+import com.umbra.mobModule.mobComponent.IMonstro;
+import com.umbra.mobModule.mobComponent.IPlayer;
+
 import java.util.Vector;
-import com.umbra.mobModule.mobComponent.*;
 
 public class BattleManager {
 	// Mob components
@@ -82,7 +84,7 @@ public class BattleManager {
 		// If the battle isn't set yet
 		if (!this.isBattleSet) {
 			// TODO: define monster equip function, which returns true if has successfully equipped the player
-			if (getPlayer().equip(input)) {
+			if (getPlayer().equipItem(input)) {
 				isBattleSet = true;
 			} else {
 				setStatus("You must choose a valid item.");

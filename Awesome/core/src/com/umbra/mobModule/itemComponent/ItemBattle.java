@@ -1,6 +1,8 @@
 package com.umbra.mobModule.itemComponent;
 
 import com.umbra.mapModule.IPosition;
+import com.umbra.mobModule.Exceptions.CannotDoubleModifyAttributeException;
+import com.umbra.mobModule.Exceptions.CannotUnmodifyWhatHasNotBeenModifiedException;
 import com.umbra.mobModule.attComponent.IAttribute;
 import com.umbra.mobModule.modAttComponent.IModAtt;
 import com.umbra.mobModule.modAttComponent.IModificator;
@@ -37,7 +39,7 @@ public class ItemBattle extends Item implements IItemBattle  {
         modatts.add(new ModAtt(attName, parameter));
     }
 
-    public void updateMob(IMob src) {
+    public void updateMob(IMob src) throws CannotDoubleModifyAttributeException {
         for(IModAtt modatt : modatts){
             if(src.hasAtt(modatt.getName())){
                 IAttribute update = modatt.modify(src.getAtt(modatt.getName()));
@@ -45,10 +47,10 @@ public class ItemBattle extends Item implements IItemBattle  {
             }
         }
     }
-    public void unupdateMob(IMob src) {
+    public void unupdateMob(IMob src) throws CannotUnmodifyWhatHasNotBeenModifiedException {
         for (IModAtt modatt : modatts) {
             if (src.hasAtt(modatt.getName())) {
-                IAttribute update = modatt.unmodify(src.getAtt(modatt.getName()));
+                IAttribute update = modatt.unmodify();
                 src.setAtt(modatt.getName(), update.getValue());
             }
         }
