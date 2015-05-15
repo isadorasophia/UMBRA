@@ -82,7 +82,7 @@ public class BattleManager {
 		// If the battle isn't set yet
 		if (!this.isBattleSet) {
 			// TODO: define monster equip function, which returns true if has successfully equipped the player
-			if (this.monster.equip(input)) {
+			if (this.getPlayer().equip(input)) {
 				isBattleSet = true;
 			} else {
 				setStatus("You must choose a valid item.");
