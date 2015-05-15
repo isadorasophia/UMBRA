@@ -46,15 +46,15 @@ public class BattleManager {
 		
 		setStatus(null);
 
-		getReady();
+		beReady();
 	}
 	
 	// Set first things first
-	private void getReady () {
+	private void beReady () {
 		setStatus(getMonster().getDescription() + "\n You must choose your items:\n");
 
 		// TODO: define monster item function
-		Vector <String> items = getMonster().itemsForBattle();
+		Vector <String> items = getPlayer().itemsForBattle();
 
 		if (items.isEmpty()) {
 			this.isBattleSet = true;
