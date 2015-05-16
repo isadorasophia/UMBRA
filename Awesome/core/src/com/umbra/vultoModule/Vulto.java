@@ -2,8 +2,12 @@ package com.umbra.vultoModule;
 
 public class Vulto implements IVulto {
     private int distance;
-    private int lightProtection;
+    private double lightProtection;
 
+    public Vulto(){
+        distance = 100;
+        lightProtection = 0;
+    }
     public boolean checkVulto(){
         return distance == 0;
     }

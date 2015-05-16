@@ -2,35 +2,43 @@ package com.umbra.manager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.umbra.vultoModule.IVulto;
+import com.umbra.vultoModule.VultoSingleton;
 
 public class Selector implements ISelector{
     private IMode mode;
+    private ModesInstantiator instantiator;
+    private VultoSingleton vultoSingleton;
+    private IVulto vulto;
 
     public Selector(){
+        instantiator = new ModesInstantiator();
+        vultoSingleton = new VultoSingleton();
+        vulto = vultoSingleton.instance();
         setMode(Modes.MAZE);
     }
 
     public void setMode(Modes state){
-        if(mode != null) mode.dispose();
         switch (state){
             case BATLLE:
-                mode = new BattleMode();
+                mode = instantiator.battleModeInstance();
                 break;
             case MAZE:
-                mode = new MazeMode();
+                mode = instantiator.mazeModeInstance();
                 break;
             case PUZZLE:
-                mode = new PuzzleMode();
+                mode = instantiator.puzzleModeInstance();
                 break;
             case VULTO:
-                mode = new VulteMode();
+                mode = instantiator.vultoModeInstance();
+                instantiator.vultoModeReset();
                 break;
         }
-        Gdx.gl.glClearColor(1, 1, 1, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        mode.init();
     }
     public void update(float dt){
+        if(vulto.checkVulto()){
+            setMode(Modes.VULTO);
+        }
         mode.handleInput();
         mode.update(dt);
     }
