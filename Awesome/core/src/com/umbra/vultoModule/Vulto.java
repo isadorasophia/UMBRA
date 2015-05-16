@@ -1,6 +1,6 @@
-package com.umbra.manager;
+package com.umbra.vultoModule;
 
-public class Vulto implements IVulto{
+public class Vulto implements IVulto {
     private int distance;
     private int lightProtection;
 
@@ -8,4 +8,7 @@ public class Vulto implements IVulto{
         return distance == 0;
     }
     public void lightInterference(double light){}
+    public boolean chooseAction(int Action) {
+        return false;
+    }
 }

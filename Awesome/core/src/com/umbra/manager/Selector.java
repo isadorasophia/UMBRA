@@ -7,22 +7,22 @@ public class Selector implements ISelector{
     private IMode mode;
 
     public Selector(){
-        setMode(Modes.Maze);
+        setMode(Modes.MAZE);
     }
 
     public void setMode(Modes state){
         if(mode != null) mode.dispose();
         switch (state){
-            case Batlle:
+            case BATLLE:
                 mode = new BattleMode();
                 break;
-            case Maze:
+            case MAZE:
                 mode = new MazeMode();
                 break;
-            case Puzzle:
+            case PUZZLE:
                 mode = new PuzzleMode();
                 break;
-            case Vulte:
+            case VULTO:
                 mode = new VulteMode();
                 break;
         }
