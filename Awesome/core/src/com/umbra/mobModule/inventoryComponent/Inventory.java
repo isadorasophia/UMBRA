@@ -1,4 +1,4 @@
-package com.umbra.mobModule.mobComponent;
+package com.umbra.mobModule.inventoryComponent;
 import com.umbra.mobModule.itemComponent.IItem;
 
 import java.util.*;

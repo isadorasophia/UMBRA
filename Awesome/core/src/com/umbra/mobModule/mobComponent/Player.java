@@ -2,7 +2,7 @@ package com.umbra.mobModule.mobComponent;
 
 
 import com.umbra.mapModule.IPosition;
-import com.umbra.mobModule.attComponent.Attribute;
+import com.umbra.mobModule.attComponent.AttCreator;
 
 public class Player extends PlayerGeneric implements IPlayer{
 
@@ -20,7 +20,7 @@ public class Player extends PlayerGeneric implements IPlayer{
 
     public void setXp(double xp) {
         if(atts != null || ! (hasAtt("xp")) ){
-            atts.put("xp", new Attribute("xp", xp));
+            atts.put("xp", AttCreator.create(0, "xp", xp));
         }else{
             atts.get("xp").setValue(xp);
         }

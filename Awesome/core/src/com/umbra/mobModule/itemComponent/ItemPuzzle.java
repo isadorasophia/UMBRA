@@ -1,6 +1,7 @@
 package com.umbra.mobModule.itemComponent;
 
 import com.umbra.mapModule.IPosition;
+import com.umbra.mobModule.Type;
 
 import java.util.List;
 
@@ -22,5 +23,8 @@ public class ItemPuzzle extends Item implements IItemPuzzle {
     public void modAdj(String src, String newAdj) {
         adjectives.remove(adjectives.indexOf(src));
         adjectives.add(adjectives.indexOf(src), newAdj);
+    }
+    public Type getType(){
+        return Type.ITEM_PUZZLE;
     }
 }

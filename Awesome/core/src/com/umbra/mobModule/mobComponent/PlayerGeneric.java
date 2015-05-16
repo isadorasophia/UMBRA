@@ -1,10 +1,14 @@
 package com.umbra.mobModule.mobComponent;
 
+import com.umbra.mapModule.IPosition;
 import com.umbra.mobModule.Exceptions.CannotDoubleModifyAttributeException;
 import com.umbra.mobModule.Exceptions.CannotUnmodifyWhatHasNotBeenModifiedException;
+import com.umbra.mobModule.Type;
 import com.umbra.mobModule.attComponent.IAttribute;
-import com.umbra.mapModule.IPosition;
-import com.umbra.mobModule.itemComponent.*;
+import com.umbra.mobModule.itemComponent.IItem;
+import com.umbra.mobModule.itemComponent.IItemBattle;
+import com.umbra.mobModule.inventoryComponent.IInventory;
+import com.umbra.mobModule.inventoryComponent.InvCreator;
 
 import java.util.*;
 
@@ -16,7 +20,7 @@ public class PlayerGeneric extends Mob implements IPlayerGeneric {
 
     public PlayerGeneric(String name, String description, IPosition position, int inventarySize){
         super(name, description, position);
-        this.inventory = new Inventory(inventarySize);
+        this.inventory = InvCreator.create(inventarySize);
     }
 
     public PlayerGeneric(String name, String description, IPosition position,
@@ -26,16 +30,18 @@ public class PlayerGeneric extends Mob implements IPlayerGeneric {
         this.inventorySize = inventory.getSize();
     }
 
-    public char getChar(){
-        return '@';
+    public Type getType(){
+        Type resp = Type.PLAYER;
+        resp.setChar('@');
+        return resp;
     }
     public IInventory getInventory() {
         return inventory;
     }
 
-    public void putItem(IItem ... neoItem){
+    public void putItem(IItem ...neoItem){
         if(this.inventory == null){
-            this.inventory = new Inventory(inventorySize);
+            this.inventory = InvCreator.create(inventorySize);
         }
         for(IItem neo : neoItem){
             inventory.adItem(neo);

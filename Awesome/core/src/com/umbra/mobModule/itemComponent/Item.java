@@ -1,6 +1,7 @@
 package com.umbra.mobModule.itemComponent;
 
 import com.umbra.mapModule.IPosition;
+import com.umbra.mobModule.Type;
 
 public abstract class Item implements IItem{
     protected String name;
@@ -32,4 +33,5 @@ public abstract class Item implements IItem{
     public void setPosition(IPosition pos){
         this.pos = pos;
     }
+    public abstract Type getType();
 }

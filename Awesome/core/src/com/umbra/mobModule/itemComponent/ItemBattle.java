@@ -3,11 +3,12 @@ package com.umbra.mobModule.itemComponent;
 import com.umbra.mapModule.IPosition;
 import com.umbra.mobModule.Exceptions.CannotDoubleModifyAttributeException;
 import com.umbra.mobModule.Exceptions.CannotUnmodifyWhatHasNotBeenModifiedException;
+import com.umbra.mobModule.Type;
 import com.umbra.mobModule.attComponent.IAttribute;
+import com.umbra.mobModule.mobComponent.IMob;
 import com.umbra.mobModule.modAttComponent.IModAtt;
 import com.umbra.mobModule.modAttComponent.IModificator;
-import com.umbra.mobModule.modAttComponent.ModAtt;
-import com.umbra.mobModule.mobComponent.IMob;
+import com.umbra.mobModule.modAttComponent.ModAttCreator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,14 +30,14 @@ public class ItemBattle extends Item implements IItemBattle  {
         if(modatts == null){
             modatts = new ArrayList<>();
         }
-        modatts.add(new ModAtt(attName, operation, parameter));
+        modatts.add(ModAttCreator.create(attName, operation, parameter));
     }
 
     public void addModAtt(String attName, double parameter){
         if(modatts == null){
             modatts = new ArrayList<>();
         }
-        modatts.add(new ModAtt(attName, parameter));
+        modatts.add(ModAttCreator.create(attName, parameter));
     }
 
     public void updateMob(IMob src) throws CannotDoubleModifyAttributeException {
@@ -54,5 +55,9 @@ public class ItemBattle extends Item implements IItemBattle  {
                 src.setAtt(modatt.getName(), update.getValue());
             }
         }
+    }
+
+    public Type getType(){
+        return Type.ITEM_BATTLE;
     }
 }

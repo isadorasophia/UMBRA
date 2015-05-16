@@ -1,6 +1,7 @@
 package com.umbra.mobModule.itemComponent;
 
 import com.umbra.mapModule.IPosition;
+import com.umbra.mobModule.Type;
 
 
 public class ItemIlumination extends Item implements IItemIlumination {
@@ -18,5 +19,9 @@ public class ItemIlumination extends Item implements IItemIlumination {
 
     public void setIlumination(double ilumination) {
         this.ilumination = ilumination;
+    }
+
+    public Type getType(){
+        return Type.ITEM_ILUMINATION;
     }
 }

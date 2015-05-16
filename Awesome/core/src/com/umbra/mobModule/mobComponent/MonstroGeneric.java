@@ -1,9 +1,11 @@
 package com.umbra.mobModule.mobComponent;
 
-import com.umbra.mobModule.attComponent.IAttribute;
 import com.umbra.mapModule.IPosition;
+import com.umbra.mobModule.Type;
+import com.umbra.mobModule.attComponent.IAttribute;
 
-import java.util.*;
+import java.util.Hashtable;
+import java.util.List;
 
 
 public class MonstroGeneric extends Mob implements IMonstroGeneric {
@@ -25,8 +27,10 @@ public class MonstroGeneric extends Mob implements IMonstroGeneric {
         this.id = id;
     }
 
-    public char getChar(){
-        return getName().charAt(0);
+    public Type getType(){
+        Type resp =  Type.MONSTRO;
+        resp.setChar(getName().charAt(0));
+        return resp;
     }
 
     public void setId(int id){

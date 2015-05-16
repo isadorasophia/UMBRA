@@ -15,13 +15,6 @@ public class ModAtt implements IModAtt {
         this.operation = operation;
         parameters = parameter;
     }
-
-    public ModAtt(String attName, double parameter){
-        this.attName = attName;
-        this.operation = new Addicionator();
-        parameters = new double[1];
-        parameters[0] = parameter;
-    }
     /* Throws CannotDoubleModifyAttributeException if(this.src != null)*/
     public IAttribute modify(IAttribute src) throws CannotDoubleModifyAttributeException {
         IAttribute clone = src.clone();

@@ -2,6 +2,7 @@ package com.umbra.mobModule.mobComponent;
 
 
 import com.umbra.mapModule.IPosition;
+import com.umbra.mobModule.Type;
 import com.umbra.mobModule.attComponent.IAttribute;
 
 import java.util.Hashtable;
@@ -25,7 +26,13 @@ public abstract class Mob extends MobGeneric implements IMob{
         return this.getAtt("hp").getValue() == 0;
     }
 
-    public abstract char getChar();
+    public abstract Type getType();
+
+
+
+    public char getChar(){
+        return getType().getChar();
+    }
 
     public abstract IMobGeneric clone();
 }

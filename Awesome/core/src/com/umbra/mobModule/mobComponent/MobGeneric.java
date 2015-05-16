@@ -1,10 +1,12 @@
 package com.umbra.mobModule.mobComponent;
 
-import com.umbra.mobModule.attComponent.Attribute;
+import com.umbra.mapModule.IPosition;
+import com.umbra.mobModule.Type;
+import com.umbra.mobModule.attComponent.AttCreator;
 import com.umbra.mobModule.attComponent.IAttribute;
-import com.umbra.mapModule.*;
 
-import java.util.*;
+import java.util.Hashtable;
+import java.util.List;
 
 
 public abstract class MobGeneric implements IMobGeneric {
@@ -37,7 +39,7 @@ public abstract class MobGeneric implements IMobGeneric {
 	}
 
 
-    public abstract char getChar();
+    public abstract Type getType();
 
     public String getName(){
         return name;
@@ -59,7 +61,7 @@ public abstract class MobGeneric implements IMobGeneric {
         return atts.containsKey(name);
     }
     public void putAtt(String attName, double attValue){
-        IAttribute novo = new Attribute(attName, attValue);
+        IAttribute novo = AttCreator.create(attName, attValue);
         atts.put(attName, novo);
     }
     public IPosition getPosition(){
