@@ -14,41 +14,37 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class MazeMode implements IMode{
-    // Define constants
-    static final int textSpeed = 10;
+    Comunicator comunicator;
 
     // Flags
     private boolean beginning;
     private boolean eof;
-    private boolean cursor;
 
-    private String initialText = "_";
+    private String initialText = "";
     private FileReader reader;
-    private BitmapFont font;
-    private SpriteBatch batch;
-    // counter of updates
-    private float counter;
 
     @Override
     public void init() {
-        Gdx.gl.glClearColor(0, 0, 1, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        batch = new SpriteBatch();
+        beginning = true;
+        eof = false;
 
         try {
             reader = new FileReader("Textos/initialText.txt");
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            beginning = false;
         }
-        // initialize font
-        font = new BitmapFont(Gdx.files.internal("Fonts/courier.fnt"));
-        font.setColor(1,1,1,1);
+        int a = -1;
+        try {
+            do{
+                a = reader.read();
+                initialText += (char)a;
+            }while(a != -1);    // a == -1 at eof
+            reader.close();
+        } catch (IOException e) {
+            beginning = false;
+        }
 
-        beginning = true;
-        eof = false;
-        cursor = true;
-
-        counter = 0;
+        comunicator = new Comunicator(initialText);
     }
 
     @Override
@@ -56,39 +52,11 @@ public class MazeMode implements IMode{
 
         // First Text update
         if(beginning) {
-            counter += dt;
-            if (counter > textSpeed*dt) {
-
-                // blinking cursor
-                if (eof) {
-                    if (cursor) initialText = initialText.substring(0, initialText.length() - 1);
-                    if (!cursor) initialText += '_';
-                    cursor ^= true;
-                }
-
+            if(!eof) {
                 // add one letter
-                else {
-                    int a = -1;
-                    try {
-                        a = reader.read();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    // a == -1 at eof
-                    if (a != -1) {
-                        initialText = initialText.substring(0, initialText.length() - 1);
-                        initialText += (char) a;
-                        initialText += '_';
-                    } else {
-                        eof = true;
-                        try {
-                            reader.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-                counter = 0;
+                if (!comunicator.addChar(dt)) eof = true;
+            }else{
+                comunicator.blink(dt);
             }
         }
 
@@ -99,19 +67,18 @@ public class MazeMode implements IMode{
 
     @Override
     public void draw() {
-        batch.begin();
 
         // First text draw
         if(beginning){
-            if(initialText != null){
-                font.draw(batch,initialText,100,Gdx.graphics.getHeight() - 50,600f,-5,true);
-            }
+            comunicator.draw();
         }
 
         // Maze draw
-        else {}
+        else {
+            Gdx.gl.glClearColor(0, 0, 0, 1);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        }
 
-        batch.end();
     }
 
     @Override
@@ -124,7 +91,6 @@ public class MazeMode implements IMode{
 
     @Override
     public void dispose() {
-        batch.dispose();
-        font.dispose();
+        comunicator.dispose();
     }
 }

@@ -11,7 +11,7 @@ public class Selector implements ISelector{
     private VultoSingleton vultoSingleton;
     private IVulto vulto;
 
-    public Selector(){
+    public void init(){
         instantiator = new ModesInstantiator();
         vultoSingleton = new VultoSingleton();
         vulto = vultoSingleton.instance();
