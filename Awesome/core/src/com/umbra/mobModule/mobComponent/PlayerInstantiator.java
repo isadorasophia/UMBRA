@@ -8,9 +8,9 @@ public class PlayerInstantiator extends MobFactory {
 
     public static final Integer INITIAL_SIZE = 10;
 
-    public IPlayer create(String name, String description,  IPosition position){
+    public IPlayer getInstance(String name, String description,  IPosition position){
 
-        IPlayer resp = new Player(name, description, position, INITIAL_SIZE);
+        IPlayer resp = Player.getInstance(name, description, position, INITIAL_SIZE);
 
         return resp;
 

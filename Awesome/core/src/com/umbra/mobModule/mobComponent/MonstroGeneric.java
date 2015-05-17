@@ -39,9 +39,5 @@ public class MonstroGeneric extends Mob implements IMonstroGeneric {
     public int getId(){
         return id;
     }
-    public IMobGeneric clone(){
-        IMobGeneric clone = new MonstroGeneric(name, description, position, atts, id);
-        return clone;
-    }
 
 }

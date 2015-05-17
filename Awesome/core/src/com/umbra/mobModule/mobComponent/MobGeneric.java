@@ -48,11 +48,19 @@ public abstract class MobGeneric implements IMobGeneric {
         return description;
     }
 
-    public IAttribute getAtt(String type){
-        return atts.get(type);
+    public IAttribute getAtt(String name){
+        IAttribute resp = atts.get(name);
+        if(resp == null){
+            setAtt(name, 0);
+            resp = atts.get(name);
+        }
+        return resp;
     }
     public void setAtt(String type, double value){
         IAttribute novo = atts.get(type);
+        if(novo == null){
+            novo = AttCreator.create(type, value);
+        }
     	atts.remove(type);
     	novo.setValue(value);
         atts.put(type, novo);
@@ -70,6 +78,5 @@ public abstract class MobGeneric implements IMobGeneric {
     public void setPosition(IPosition position){
         this.position = position;
     }
-    public abstract IMobGeneric clone();
 
 }

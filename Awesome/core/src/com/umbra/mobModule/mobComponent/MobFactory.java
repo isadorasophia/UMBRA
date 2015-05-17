@@ -5,7 +5,7 @@ import com.umbra.mapModule.IPosition;
 
 public abstract class MobFactory {
 
-    public abstract IPlayer create(String name, String description,  IPosition position);
+    public abstract IPlayer getInstance(String name, String description,  IPosition position);
     public abstract IMonstro create(int nivel, IPosition position);
 
     public static MobFactory createFactory(String id)

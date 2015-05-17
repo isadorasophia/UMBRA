@@ -22,15 +22,34 @@ public class Principal {
         escudo.addModAtt("Força",  -15);
 
 
-        IPlayer p = MobFactory.createFactory("player").create("Teste", "descrição do Teste", null);
+        IPlayer p = MobFactory.createFactory("player").getInstance("Teste", "descrição do Teste", null);
 
         p.putItem(faca, escudo);
 
         p.equipItem("Escudo");
+
+        System.out.println(p.getAtt("Força").getValue());
+        System.out.println(p.getAtt("Defesa").getValue());
+        System.out.println("\n");
+
         p.equipItem("Braçadera");
+
+        System.out.println(p.getAtt("Força").getValue());
+        System.out.println(p.getAtt("Defesa").getValue());
+        System.out.println("\n");
+
         p.equipItem("Faca");
 
+        System.out.println(p.getAtt("Força").getValue());
+        System.out.println(p.getAtt("Defesa").getValue());
+        System.out.println("\n");
+
         p.dropItem("Escudo");
+
+        System.out.println(p.getAtt("Força").getValue());
+        System.out.println(p.getAtt("Defesa").getValue());
+        System.out.println("\n");
+
 
         System.out.println("Terminado");
     }

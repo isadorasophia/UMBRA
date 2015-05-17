@@ -33,6 +33,4 @@ public abstract class Mob extends MobGeneric implements IMob{
     public char getChar(){
         return getType().getChar();
     }
-
-    public abstract IMobGeneric clone();
 }

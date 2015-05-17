@@ -6,7 +6,7 @@ import com.umbra.mobModule.attComponent.IAttribute;
 
 public interface IMobGeneric
         extends IPositionable, IDescriptionReadable,
-        INameReadable, IClonable<IMobGeneric>, IGetTypeAble{
+        INameReadable, IGetTypeAble{
 
     public IAttribute getAtt(String type);
     public void setAtt(String type, double value);

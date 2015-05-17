@@ -27,9 +27,11 @@ public class FabricaDeMonstro extends MobFactory {
 
     }
     public IMonstro create(int nivel, IPosition position){
-        String name = (String) monster(id, nivel).get(0);
-        String description = (String) monster(id, nivel).get(1);
-        Hashtable<String,IAttribute> atts = (Hashtable<String,IAttribute>) monster(id, nivel).get(2);
+        List monster = monster(id, nivel);
+
+        String name = (String) monster.get(0);
+        String description = (String) monster.get(1);
+        Hashtable<String,IAttribute> atts = (Hashtable<String,IAttribute>) monster.get(2);
 
 
         IMonstro resp = new Monstro(name, description, position, atts, id);
@@ -40,7 +42,7 @@ public class FabricaDeMonstro extends MobFactory {
     }
 
     /*Throws exception BadConstructor*/
-    public IPlayer create(String name, String description, IPosition position) {
+    public IPlayer getInstance(String name, String description, IPosition position) {
         /*throw new BadConstructorException();*/
         return null;
     }

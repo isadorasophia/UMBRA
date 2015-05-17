@@ -23,6 +23,8 @@ public class PlayerGeneric extends Mob implements IPlayerGeneric {
         this.inventory = InvCreator.create(inventarySize);
     }
 
+
+
     public PlayerGeneric(String name, String description, IPosition position,
                          Hashtable<String, IAttribute> atts, IInventory inventory) {
         super(name, description, position, atts);
@@ -67,15 +69,20 @@ public class PlayerGeneric extends Mob implements IPlayerGeneric {
     public boolean equipItem(String itemName) {
         IInventory inv = getInventory();
         boolean resp = true;
-        if(inv.hasItem(itemName)){
-            if(equiped == null){
+        if(inv.hasItem(itemName)) {
+            if (equiped == null) {
                 equiped = new Stack<>();
             }
-            equiped.push((IItemBattle)inv.dropItem(itemName));
-            try {
-                ((IItemBattle)inv.getItem(itemName)).updateMob(this);
-            } catch (CannotDoubleModifyAttributeException e) {
-                e.printStackTrace();
+            equiped.push((IItemBattle) inv.dropItem(itemName));
+            IItemBattle item = (IItemBattle) inv.getItem(itemName);
+            if (item == null) {
+                resp = false;
+            } else {
+                try {
+                    item.updateMob(this);
+                } catch (CannotDoubleModifyAttributeException e) {
+                    e.printStackTrace();
+                }
             }
         }else{
             resp = false;
@@ -111,10 +118,5 @@ public class PlayerGeneric extends Mob implements IPlayerGeneric {
             resp.add(item.getName());
         }
         return resp;
-    }
-    
-    public IMobGeneric clone(){
-        IMobGeneric clone = new PlayerGeneric(name, description, position, atts, inventory);
-        return clone;
     }
 }

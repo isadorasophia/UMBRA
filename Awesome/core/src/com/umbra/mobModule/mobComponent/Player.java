@@ -6,8 +6,16 @@ import com.umbra.mobModule.attComponent.AttCreator;
 
 public class Player extends PlayerGeneric implements IPlayer{
 
-    public Player(String name, String description, IPosition position, int invSize) {
+    private static Player instance;
+
+    private Player(String name, String description, IPosition position, int invSize) {
         super(name, description, position, invSize);
+    }
+    public static Player getInstance(String name, String description, IPosition position, int invSize){
+        if(instance == null){
+            instance = new Player(name, description, position, invSize);
+        }
+        return instance;
     }
 
     public double getXp() {
@@ -19,7 +27,7 @@ public class Player extends PlayerGeneric implements IPlayer{
     }
 
     public void setXp(double xp) {
-        if(atts != null || ! (hasAtt("xp")) ){
+        if(atts != null || !(hasAtt("xp")) ){
             atts.put("xp", AttCreator.create(0, "xp", xp));
         }else{
             atts.get("xp").setValue(xp);
