@@ -23,7 +23,7 @@ public class ModAtt implements IModAtt {
         IAttribute resp;
         IAttribute clone = src.clone();
         this.src = src;
-        resp = operation.modify(clone, parameters);
+        resp = operation.modify(clone, this.parameters);
         return resp;
 
     }
