@@ -4,8 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 
 public class BattleMode implements IMode {
+
     @Override
-    public void init() {
+    public void init(IComunicator comunicator) {
 
     }
 

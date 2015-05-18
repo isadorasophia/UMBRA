@@ -21,14 +21,8 @@ public class TextComunicator implements IComunicator{
     // counter of updates
     private float counter;
 
-    public TextComunicator(String fullText){
-
-        this.fullText = fullText;
-        counter = 0;
-        index = 0;
-
+    public TextComunicator(){
         batch = new SpriteBatch();
-        cursor = true;
 
         // initialize font
         try {
@@ -37,6 +31,16 @@ public class TextComunicator implements IComunicator{
             font = new BitmapFont();
         }
         font.setColor(1,1,1,1);
+
+        setText("");
+    }
+
+    public void setText(String fullText){
+        this.fullText = fullText;
+        counter = 0;
+        index = 0;
+        text = "_";
+        cursor = true;
     }
 
     public boolean update(float dt){

@@ -1,8 +1,9 @@
 package com.umbra.manager;
 
 public class PuzzleMode implements IMode{
+
     @Override
-    public void init() {
+    public void init(IComunicator comunicator) {
 
     }
 

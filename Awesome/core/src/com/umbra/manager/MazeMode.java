@@ -19,7 +19,7 @@ public class MazeMode implements IMode{
     private FileReader reader;
 
     @Override
-    public void init() {
+    public void init(IComunicator comunicator) {
         beginning = true;
         eof = false;
 
@@ -39,7 +39,8 @@ public class MazeMode implements IMode{
             beginning = false;
         }
 
-        comunicator = new TextComunicator(initialText);
+        this.comunicator = comunicator;
+        this.comunicator.setText(initialText);
     }
 
     @Override

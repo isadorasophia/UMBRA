@@ -1,8 +1,9 @@
 package com.umbra.manager;
 
 public class VulteMode implements IMode{
+
     @Override
-    public void init() {
+    public void init(IComunicator comunicator) {
 
     }
 
