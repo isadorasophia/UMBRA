@@ -17,12 +17,14 @@ public class ModAtt implements IModAtt {
     }
     /* Throws CannotDoubleModifyAttributeException if(this.src != null)*/
     public IAttribute modify(IAttribute src) throws CannotDoubleModifyAttributeException {
-        IAttribute clone = src.clone();
         if(this.src != null){
             throw new CannotDoubleModifyAttributeException();
         }
+        IAttribute resp;
+        IAttribute clone = src.clone();
         this.src = src;
-        return operation.modify(clone, parameters);
+        resp = operation.modify(clone, parameters);
+        return resp;
 
     }
     /* Throws CannotUnmodifyWhatHasNoBeenModifiedException if(src == null)  */
