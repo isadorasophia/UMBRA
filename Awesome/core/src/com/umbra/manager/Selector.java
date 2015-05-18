@@ -7,31 +7,27 @@ import com.umbra.vultoModule.VultoSingleton;
 
 public class Selector implements ISelector{
     private IMode mode;
-    private ModesInstantiator instantiator;
-    private VultoSingleton vultoSingleton;
     private IVulto vulto;
 
     public void init(){
-        instantiator = new ModesInstantiator();
-        vultoSingleton = new VultoSingleton();
-        vulto = vultoSingleton.instance();
+        vulto = VultoSingleton.instance();
         setMode(Modes.MAZE);
     }
 
     public void setMode(Modes state){
         switch (state){
             case BATLLE:
-                mode = instantiator.battleModeInstance();
+                mode = ModesInstantiator.battleModeInstance();
                 break;
             case MAZE:
-                mode = instantiator.mazeModeInstance();
+                mode = ModesInstantiator.mazeModeInstance();
                 break;
             case PUZZLE:
-                mode = instantiator.puzzleModeInstance();
+                mode = ModesInstantiator.puzzleModeInstance();
                 break;
             case VULTO:
-                mode = instantiator.vultoModeInstance();
-                instantiator.vultoModeReset();
+                mode = ModesInstantiator.vultoModeInstance();
+                ModesInstantiator.vultoModeReset();
                 break;
         }
     }

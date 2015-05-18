@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 
-public class Comunicator {
+public class TextComunicator implements IComunicator{
     // Define constants
     static final int textSpeed = 5;
 
@@ -21,7 +21,7 @@ public class Comunicator {
     // counter of updates
     private float counter;
 
-    public Comunicator(String fullText){
+    public TextComunicator(String fullText){
 
         this.fullText = fullText;
         counter = 0;
@@ -39,31 +39,35 @@ public class Comunicator {
         font.setColor(1,1,1,1);
     }
 
-    public boolean addChar(float dt){
-        // no more characters to add
-        if(fullText.length()+1 == text.length()) return false;
-
+    public boolean update(float dt){
+        boolean end = fullText.length() + 1 == text.length();
         // Control of text speed
         counter += dt;
         if (counter > textSpeed * dt) {
-            text = text.substring(0, text.length() - 1);
-            text += fullText.charAt(index);
-            text += '_';
-            index++;
-            counter = 0;
+            if (!end) {
+                addChar(dt);
+            } else {
+                // no more characters to add start blink cursor
+                blink(dt);
+            }
         }
-        return true;
+        return end;
+    }
+
+    public void addChar(float dt){
+        text = text.substring(0, text.length() - 1);
+        text += fullText.charAt(index);
+        text += '_';
+        index++;
+        counter = 0;
     }
 
     public void blink(float dt) {
-        // blinking cursor
-        counter += dt;
-        if (counter > textSpeed  * dt) {
-            if (cursor) text = text.substring(0, text.length() - 1);
-            else text += '_';
-            cursor ^= true;
-            counter = 0;
-        }
+        text = text.substring(0, text.length() - 1);
+        if (cursor) text += ' ';
+        else text += '_';
+        cursor ^= true;
+        counter = 0;
     }
 
     public void draw(){

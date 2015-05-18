@@ -2,19 +2,14 @@ package com.umbra.manager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import javax.xml.soap.Text;
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
 public class MazeMode implements IMode{
-    Comunicator comunicator;
+    IComunicator comunicator;
 
     // Flags
     private boolean beginning;
@@ -44,7 +39,7 @@ public class MazeMode implements IMode{
             beginning = false;
         }
 
-        comunicator = new Comunicator(initialText);
+        comunicator = new TextComunicator(initialText);
     }
 
     @Override
@@ -52,12 +47,7 @@ public class MazeMode implements IMode{
 
         // First Text update
         if(beginning) {
-            if(!eof) {
-                // add one letter
-                if (!comunicator.addChar(dt)) eof = true;
-            }else{
-                comunicator.blink(dt);
-            }
+            if(!comunicator.update(dt)) eof = true;
         }
 
         // Maze update
