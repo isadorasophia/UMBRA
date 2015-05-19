@@ -52,7 +52,8 @@ public class MazeMode implements IMode{
         }
 
         // Maze update
-        else{}
+        else{
+        }
 
     }
 

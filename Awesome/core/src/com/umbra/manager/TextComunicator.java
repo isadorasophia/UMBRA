@@ -1,23 +1,28 @@
 package com.umbra.manager;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 
-public class TextComunicator implements IComunicator{
+public class TextComunicator implements IComunicator, InputProcessor {
     // Define constants
-    static final int textSpeed = 5;
+    static final int textSpeed = 1;
 
     // Flags
     private boolean cursor;
-
+    boolean end;
+    boolean inputReady;
+    boolean readInput;
+    
     private BitmapFont font;
     private SpriteBatch batch;
     private String text = "_";
     private String fullText;
     private int index;
+    String input = "";
     // counter of updates
     private float counter;
 
@@ -26,13 +31,14 @@ public class TextComunicator implements IComunicator{
 
         // initialize font
         try {
-            font = new BitmapFont(Gdx.files.internal("Fonts/courier.fnt"));
+            font = new BitmapFont(Gdx.files.internal("Fonts/proggy.fnt"));
         }catch (GdxRuntimeException e){
             font = new BitmapFont();
         }
         font.setColor(1,1,1,1);
 
         setText("");
+        Gdx.input.setInputProcessor(this);
     }
 
     public void setText(String fullText){
@@ -41,37 +47,55 @@ public class TextComunicator implements IComunicator{
         index = 0;
         text = "_";
         cursor = true;
+        inputReady = false;
+        readInput = false;
+    }
+    
+    public String getInput(){
+    	readInput = true;
+    	if(inputReady){
+    		return input;
+    	}else{
+    		return null;
+    	}
     }
 
     public boolean update(float dt){
-        boolean end = fullText.length() + 1 == text.length();
+        end = end || (fullText.length() + 1 == text.length());
         // Control of text speed
         counter += dt;
         if (counter > textSpeed * dt) {
             if (!end) {
-                addChar(dt);
+                nextChar(dt);
             } else {
                 // no more characters to add start blink cursor
                 blink(dt);
             }
+            counter = 0;
         }
         return end;
     }
 
-    public void addChar(float dt){
+    public void addChar(char c){
+    	if(end){
+    		text = text.substring(0, text.length() - 1);
+            text += c;
+            text += '_';
+    	}
+    }
+    
+    private void nextChar(float dt){
         text = text.substring(0, text.length() - 1);
         text += fullText.charAt(index);
         text += '_';
         index++;
-        counter = 0;
     }
 
-    public void blink(float dt) {
+    private void blink(float dt) {
         text = text.substring(0, text.length() - 1);
         if (cursor) text += ' ';
         else text += '_';
         cursor ^= true;
-        counter = 0;
     }
 
     public void draw(){
@@ -88,4 +112,52 @@ public class TextComunicator implements IComunicator{
         batch.dispose();
         font.dispose();
     }
+    
+    @Override
+	public boolean keyTyped(char character) {
+		if(readInput){ 
+			input += character;
+			addChar(character);
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean keyDown(int keycode) {
+		if(readInput){
+			inputReady = true;
+		}
+		return false;
+	}
+
+	/* unused methods of InputProcessor */
+	@Override
+	public boolean keyUp(int keycode) {
+		return false;
+	}
+
+	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		return false;
+	}
+
+	@Override
+	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		return false;
+	}
+
+	@Override
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		return false;
+	}
+
+	@Override
+	public boolean mouseMoved(int screenX, int screenY) {
+		return false;
+	}
+
+	@Override
+	public boolean scrolled(int amount) {
+		return false;
+	}
 }
