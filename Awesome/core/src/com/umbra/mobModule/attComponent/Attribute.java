@@ -6,6 +6,8 @@ public class Attribute implements IAttribute {
     private Double min = null;
     private Double max = null;
 
+    public static final double MAX = 100.0;
+
     public Attribute(Double min, String name, double value,  Double max){
         this.name = name;
         this.value = value;

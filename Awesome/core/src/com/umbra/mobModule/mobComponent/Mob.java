@@ -28,7 +28,12 @@ public abstract class Mob extends MobGeneric implements IMob{
 
     public abstract Type getType();
 
-
+    public void attsPrint(){
+        for(IAttribute att : getAllAtts()){
+            System.out.println(att.getName() + " : " + att.getValue());
+        }
+        System.out.println("\n");
+    }
 
     public char getChar(){
         return getType().getChar();

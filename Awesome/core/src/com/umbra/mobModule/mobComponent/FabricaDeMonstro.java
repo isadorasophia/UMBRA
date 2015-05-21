@@ -2,6 +2,7 @@ package com.umbra.mobModule.mobComponent;
 
 
 import com.umbra.mapModule.IPosition;
+import com.umbra.mobModule.Exceptions.BadConstructorException;
 import com.umbra.mobModule.attComponent.IAttribute;
 
 import java.util.ArrayList;
@@ -42,9 +43,8 @@ public class FabricaDeMonstro extends MobFactory {
     }
 
     /*Throws exception BadConstructor*/
-    public IPlayer getInstance(String name, String description, IPosition position) {
-        /*throw new BadConstructorException();*/
-        return null;
+    public IPlayer getInstance(String name, String description, IPosition position) throws BadConstructorException {
+        throw new BadConstructorException();
     }
 
 

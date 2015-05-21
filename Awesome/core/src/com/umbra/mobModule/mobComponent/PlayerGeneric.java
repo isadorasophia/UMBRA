@@ -73,12 +73,13 @@ public class PlayerGeneric extends Mob implements IPlayerGeneric {
             if (equiped == null) {
                 equiped = new Stack<>();
             }
-            equiped.push((IItemBattle) inv.dropItem(itemName));
-            IItemBattle item = (IItemBattle) inv.getItem(itemName);
+            IItemBattle item =(IItemBattle) inv.dropItem(itemName);
+
             if (item == null) {
                 resp = false;
             } else {
                 try {
+                    equiped.push(item);
                     item.updateMob(this);
                 } catch (CannotDoubleModifyAttributeException e) {
                     e.printStackTrace();

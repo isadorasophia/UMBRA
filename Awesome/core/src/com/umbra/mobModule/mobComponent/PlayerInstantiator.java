@@ -2,9 +2,9 @@ package com.umbra.mobModule.mobComponent;
 
 
 import com.umbra.mapModule.IPosition;
+import com.umbra.mobModule.Exceptions.BadConstructorException;
 
 public class PlayerInstantiator extends MobFactory {
-        /*Player Manager*/
 
     public static final Integer INITIAL_SIZE = 10;
 
@@ -17,8 +17,7 @@ public class PlayerInstantiator extends MobFactory {
 
     }
 
-    public IMonstro create(int nivel, IPosition position) {
-        /*throw new BadConstructorException();*/
-        return null;
+    public IMonstro create(int nivel, IPosition position) throws BadConstructorException {
+        throw new BadConstructorException();
     }
 }

@@ -1,5 +1,6 @@
 package com.umbra.mobModule;
 
+import com.umbra.mobModule.Exceptions.BadConstructorException;
 import com.umbra.mobModule.itemComponent.IItemBattle;
 import com.umbra.mobModule.itemComponent.ItemFactory;
 import com.umbra.mobModule.mobComponent.IPlayer;
@@ -22,33 +23,30 @@ public class Principal {
         escudo.addModAtt("Força",  -15);
 
 
-        IPlayer p = MobFactory.createFactory("player").getInstance("Teste", "descrição do Teste", null);
+        IPlayer p = null;
+        try {
+            p = MobFactory.createFactory("player").getInstance("Teste", "descrição do Teste", null);
+        } catch (BadConstructorException e) {
+            e.printStackTrace();
+        }
 
         p.putItem(faca, escudo);
 
         p.equipItem("Escudo");
 
-        System.out.println(p.getAtt("Força").getValue());
-        System.out.println(p.getAtt("Defesa").getValue());
-        System.out.println("\n");
+        p.attsPrint();
 
         p.equipItem("Braçadera");
 
-        System.out.println(p.getAtt("Força").getValue());
-        System.out.println(p.getAtt("Defesa").getValue());
-        System.out.println("\n");
+        p.attsPrint();
 
         p.equipItem("Faca");
 
-        System.out.println(p.getAtt("Força").getValue());
-        System.out.println(p.getAtt("Defesa").getValue());
-        System.out.println("\n");
+        p.attsPrint();
 
         p.dropItem("Escudo");
 
-        System.out.println(p.getAtt("Força").getValue());
-        System.out.println(p.getAtt("Defesa").getValue());
-        System.out.println("\n");
+        p.attsPrint();
 
 
         System.out.println("Terminado");

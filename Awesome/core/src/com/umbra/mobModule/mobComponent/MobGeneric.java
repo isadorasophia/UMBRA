@@ -5,6 +5,7 @@ import com.umbra.mobModule.Type;
 import com.umbra.mobModule.attComponent.AttCreator;
 import com.umbra.mobModule.attComponent.IAttribute;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -72,6 +73,14 @@ public abstract class MobGeneric implements IMobGeneric {
         IAttribute novo = AttCreator.create(attName, attValue);
         atts.put(attName, novo);
     }
+    public List<IAttribute> getAllAtts(){
+        List<IAttribute> resp = new ArrayList<>();
+        for(String att_name : atts.keySet()){
+            resp.add(atts.get(att_name));
+        }
+        return resp;
+    }
+
     public IPosition getPosition(){
        return position;
     }
