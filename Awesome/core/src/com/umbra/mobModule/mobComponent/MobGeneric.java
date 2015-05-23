@@ -20,7 +20,7 @@ public abstract class MobGeneric implements IMobGeneric {
         this.name = name;
         this.description = description;
         this.position = position;
-        this.atts = new Hashtable<String,IAttribute>();
+        this.atts = new Hashtable<>();
     }
     protected MobGeneric(String name, String description, IPosition position,
                          Hashtable<String, IAttribute> atts){
@@ -57,14 +57,36 @@ public abstract class MobGeneric implements IMobGeneric {
         }
         return resp;
     }
-    public void setAtt(String type, double value){
-        IAttribute novo = atts.get(type);
+    private void setAtt(Double min, String name, double value, Double max){
+        IAttribute novo = atts.get(name);
         if(novo == null){
-            novo = AttCreator.create(type, value);
+            novo = AttCreator.create(min, name, value,max);
         }
-    	atts.remove(type);
-    	novo.setValue(value);
-        atts.put(type, novo);
+        if(atts.containsKey(name)) {
+            atts.remove(name);
+        }
+        novo.setValue(value);
+        atts.put(name, novo);
+    }
+    public void setAtt(String type, double value){
+        setAtt(null, type, value, null);
+    }
+    public void setAtt(String type, double value, double max){
+        setAtt(null, type, value, max);
+    }
+    public void setAtt(double min, String type, double value){
+        setAtt(min, type, value, null);
+    }
+    public void setAtt(double min, String name, double value, double max){
+        IAttribute novo = atts.get(name);
+        if(novo == null){
+            novo = AttCreator.create(min, name, value,max);
+        }
+        if(atts.containsKey(name)) {
+            atts.remove(name);
+        }
+        novo.setValue(value);
+        atts.put(name, novo);
     }
     public boolean hasAtt(String name){
         return atts.containsKey(name);

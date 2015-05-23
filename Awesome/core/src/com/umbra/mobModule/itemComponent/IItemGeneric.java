@@ -4,6 +4,6 @@ import com.umbra.mobModule.*;
 
 public interface IItemGeneric
         extends IPositionable, IDescriptionReadable,
-        INameReadable, IGetTypeAble  {
+        INameReadable, ITypeReadable {
     public double getFindProb();
 }

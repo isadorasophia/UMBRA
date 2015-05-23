@@ -1,5 +1,5 @@
 package com.umbra.mobModule;
 
-public interface IGetTypeAble {
+public interface ITypeReadable {
     public Type getType();
 }

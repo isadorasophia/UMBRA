@@ -14,15 +14,19 @@ public class Attribute implements IAttribute {
         this.min = min;
         this.max = max;
     }
+
     public Attribute(double min, String name, double value,  double max){
         this(new Double(min), name, value, new Double(max));
     }
+
     public Attribute(String name, double value){
         this(null, name, value,  null);
     }
+
     public Attribute(String name, double value, double max){
         this(null, name, value,  max);
     }
+
     public Attribute(double min, String name, double value){
         this(min, name, value, null);
     }
