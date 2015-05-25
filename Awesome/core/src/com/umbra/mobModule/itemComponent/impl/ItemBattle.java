@@ -1,5 +1,8 @@
 package com.umbra.mobModule.itemComponent.impl;
 
+import anima.factory.IGlobalFactory;
+import anima.factory.context.componentContext.ComponentContextFactory;
+
 import com.umbra.mapModule.IPosition;
 import com.umbra.mobModule.attComponent.impl.Attribute;
 import com.umbra.mobModule.attComponent.inter.IAttribute;
@@ -7,9 +10,12 @@ import com.umbra.mobModule.exceptions.CannotDoubleModifyAttributeException;
 import com.umbra.mobModule.exceptions.CannotUnmodifyWhatHasNotBeenModifiedException;
 import com.umbra.mobModule.interenum.Type;
 import com.umbra.mobModule.itemComponent.inter.IItemBattle;
+import com.umbra.mobModule.mobComponent.impl.MobManager;
 import com.umbra.mobModule.mobComponent.inter.IMob;
+import com.umbra.mobModule.mobComponent.inter.IMobManager;
 import com.umbra.mobModule.modAttComponent.impl.ModAttCreator;
 import com.umbra.mobModule.modAttComponent.inter.IModAtt;
+import com.umbra.mobModule.modAttComponent.inter.IModAttManager;
 import com.umbra.mobModule.modAttComponent.inter.IModificator;
 
 import java.util.ArrayList;
@@ -29,17 +35,39 @@ public class ItemBattle extends Item implements IItemBattle  {
     }
 
     public void addModAtt(String attName, IModificator operation, double ... parameter){
-        if(modatts == null){
+        if (modatts == null) {
             modatts = new ArrayList<IModAtt>();
         }
-        modatts.add(ModAttCreator.create(attName, operation, parameter));
+        
+        try {
+        	IGlobalFactory factory = ComponentContextFactory.createGlobalFactory();
+        	factory.registerPrototype(ModAttCreator.class);
+        	IModAttManager modattmanager = factory.createInstance(
+        				   "<http://purl.org/NET/dcc/com.umbra.mobModule.modAttComponent.impl.ModAttCreator>");
+        	IModAtt novo = modattmanager.create(attName, operation, parameter);
+        	modatts.add(novo);
+        } catch (Exception e) {
+        	e.printStackTrace();
+        }
+        
     }
 
     public void addModAtt(String attName, double parameter){
-        if(modatts == null){
+        if (modatts == null) {
             modatts = new ArrayList<IModAtt>();
         }
-        modatts.add(ModAttCreator.create(attName, parameter));
+        
+        try {
+        	IGlobalFactory factory = ComponentContextFactory.createGlobalFactory();
+        	factory.registerPrototype(ModAttCreator.class);
+        	IModAttManager modattmanager = factory.createInstance(
+        				   "<http://purl.org/NET/dcc/com.umbra.mobModule.modAttComponent.impl.ModAttCreator>");
+        	IModAtt novo = modattmanager.create(attName, parameter);
+        	modatts.add(novo);
+        } catch (Exception e) {
+        	e.printStackTrace();
+        }
+        
     }
 
     public void updateMob(IMob src) throws CannotDoubleModifyAttributeException {

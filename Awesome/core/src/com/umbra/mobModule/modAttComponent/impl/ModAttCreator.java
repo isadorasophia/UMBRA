@@ -1,21 +1,32 @@
 package com.umbra.mobModule.modAttComponent.impl;
 
+import anima.annotation.Component;
+import anima.component.base.ComponentBase;
+
 import com.umbra.mobModule.exceptions.BadArgumentException;
 import com.umbra.mobModule.modAttComponent.inter.IModAtt;
+import com.umbra.mobModule.modAttComponent.inter.IModAttManager;
 import com.umbra.mobModule.modAttComponent.inter.IModificator;
 
-public class ModAttCreator {
-    public static IModAtt create(String attName, IModificator operation, double ... parameter){
+@Component(
+		id="<http://purl.org/NET/dcc/com.umbra.mobModule.modAttComponent.impl.ModAttCreator>",
+		provides={"<http://purl.org/NET/dcc/com.umbra.mobModule.modAttComponent.inter.IModAttManager>"}
+)
+
+public class ModAttCreator extends ComponentBase implements IModAttManager {
+    public IModAtt create(String attName, IModificator operation, double ... parameter) {
         IModAtt resp = new ModAtt(attName, operation, parameter);
         return resp;
     }
-    public static IModAtt create(String attName, double parameter){
+    
+    public IModAtt create(String attName, double parameter) {
         IModAtt resp;
         resp = create(attName, new Addicionator(), parameter);
         return resp;
 
     }
-    public static IModAtt create(String attName, double parameter, char type) throws BadArgumentException {
+    
+    public IModAtt create(String attName, double parameter, char type) throws BadArgumentException {
         IModificator operation = null;
         IModAtt resp;
         switch (type) {

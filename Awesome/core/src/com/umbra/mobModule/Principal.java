@@ -1,7 +1,5 @@
 package com.umbra.mobModule;
 
-import java.util.Vector;
-
 import anima.factory.IGlobalFactory;
 import anima.factory.context.componentContext.ComponentContextFactory;
 
@@ -27,15 +25,13 @@ public class Principal {
         			"<http://purl.org/NET/dcc/com.umbra.mobModule.itemComponent.impl.ItemManager>");
         	IPlayer player = mobmanager.createPlayer();
         	IItemBattle espada = itemmanager.instantiateItemBattle("Espada", "Fuderosa", 0.2, null);
-        	player.putItem(espada);
-        	player.setAtt("Forca", 0);
-        	espada.addModAtt("Forca", 3);
-        	player.equipItem("Espada");
-        	System.out.println(player.getAtt("Forca").getValue());
+        	System.out.println(player.getNivel());
+        	
         } catch (Exception e) {
         	e.printStackTrace();
         }
 
         System.out.println("Terminado");
+        System.exit(1);
     }
 }

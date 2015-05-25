@@ -1,10 +1,23 @@
 package com.umbra.mobModule.inventoryComponent.inter;
 
+import anima.annotation.ComponentInterface;
+import anima.component.ISupports;
+
 import com.umbra.mobModule.itemComponent.inter.IItem;
 
 import java.util.Vector;
 
-public interface IInventory {
+/**
+ * Interface para o inventario do player
+ * 
+ * @author luizfrf
+ *
+ */
+
+@ComponentInterface(
+		"<http://purl.org/NET/dcc/com.umbra.mobModule.inventoryComponent.inter.IInventory>")
+
+public interface IInventory extends ISupports {
     public IItem dropItem(String witch);
     public void adItem(IItem item);
     /*Adicionado o método getItem*/
