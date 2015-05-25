@@ -18,11 +18,14 @@ class BattleExecuter {
 	// Prevents to instantiate the class, since it's supposed to be static
 	private BattleExecuter () { 
 		status = new String ();
+		this.limbs = new BodyPart("Limbs", 1.2f, 0.7f);
+		this.brain = new BodyPart("Brain", 1.8f, 0.2f);
+		this.vitalOrgans = new BodyPart("Vital Organs", 1.6f, 0.3f)
 	}
 	
 	private static enum AttackState { normal, critical, counter, missed }
 	
-	// BodyPart arm, leg, belly, head;
+	BodyPart limbs, brain, vitalOrgans;
 	private String status = "";
 	
 	String getStatus () { return this.status; }
