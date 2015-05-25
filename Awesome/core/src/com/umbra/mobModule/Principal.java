@@ -1,53 +1,40 @@
 package com.umbra.mobModule;
 
-import com.umbra.mobModule.Exceptions.BadConstructorException;
-import com.umbra.mobModule.itemComponent.IItemBattle;
-import com.umbra.mobModule.itemComponent.ItemFactory;
-import com.umbra.mobModule.mobComponent.IPlayer;
-import com.umbra.mobModule.mobComponent.MobFactory;
+import java.util.Vector;
+
+import anima.factory.IGlobalFactory;
+import anima.factory.context.componentContext.ComponentContextFactory;
+
+import com.umbra.mobModule.itemComponent.impl.ItemManager;
+import com.umbra.mobModule.itemComponent.inter.IItemBattle;
+import com.umbra.mobModule.itemComponent.inter.IItemIlumination;
+import com.umbra.mobModule.itemComponent.inter.IItemManager;
+import com.umbra.mobModule.itemComponent.inter.IItemPuzzle;
+import com.umbra.mobModule.mobComponent.impl.MobManager;
+import com.umbra.mobModule.mobComponent.inter.IMobManager;
+import com.umbra.mobModule.mobComponent.inter.IPlayer;
 
 public class Principal {
 	public static void main(String[] args) {
 
-        IItemBattle faca = ItemFactory.instantiate("Faca", "Afiada", 0.33, null);
-        faca.addModAtt("Força",  +2);
-        faca.addModAtt("Força",  +3);
-        faca.addModAtt("Força",  -2);
-        faca.addModAtt("Defesa", -5);
-        faca.addModAtt("Defesa", +5);
-
-        IItemBattle escudo = ItemFactory.instantiate("Escudo","Pesado",0.01,null);
-
-        escudo.addModAtt("Defesa", +45);
-        escudo.addModAtt("Defesa", -10);
-        escudo.addModAtt("Força",  -15);
-
-
-        IPlayer p = null;
         try {
-            p = MobFactory.createFactory("player").getInstance("Teste", "descrição do Teste", null);
-        } catch (BadConstructorException e) {
-            e.printStackTrace();
+        	IGlobalFactory factory = ComponentContextFactory.createGlobalFactory();
+        	factory.registerPrototype(MobManager.class);
+        	factory.registerPrototype(ItemManager.class);
+        	IMobManager mobmanager = factory.createInstance(
+        			"<http://purl.org/NET/dcc/com.umbra.mobModule.mobComponent.impl.MobManager>");
+        	IItemManager itemmanager = factory.createInstance(
+        			"<http://purl.org/NET/dcc/com.umbra.mobModule.itemComponent.impl.ItemManager>");
+        	IPlayer player = mobmanager.createPlayer();
+        	IItemBattle espada = itemmanager.instantiateItemBattle("Espada", "Fuderosa", 0.2, null);
+        	player.putItem(espada);
+        	player.setAtt("Forca", 0);
+        	espada.addModAtt("Forca", 3);
+        	player.equipItem("Espada");
+        	System.out.println(player.getAtt("Forca").getValue());
+        } catch (Exception e) {
+        	e.printStackTrace();
         }
-
-        p.putItem(faca, escudo);
-
-        p.equipItem("Escudo");
-
-        p.attsPrint();
-
-        p.equipItem("Braçadera");
-
-        p.attsPrint();
-
-        p.equipItem("Faca");
-
-        p.attsPrint();
-
-        p.dropItem("Escudo");
-
-        p.attsPrint();
-
 
         System.out.println("Terminado");
     }
