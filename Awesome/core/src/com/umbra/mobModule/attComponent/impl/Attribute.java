@@ -10,14 +10,14 @@ public class Attribute implements IAttribute {
 
     public static final double MAX = 100.0;
 
-    public Attribute(Double min, String name, double value,  Double max){
+    public Attribute(Double min, String name, double value, Double max){
         this.name = name;
         this.value = value;
         this.min = min;
         this.max = max;
     }
 
-    public Attribute(double min, String name, double value,  double max){
+    public Attribute(double min, String name, double value, double max){
         this(new Double(min), name, value, new Double(max));
     }
 

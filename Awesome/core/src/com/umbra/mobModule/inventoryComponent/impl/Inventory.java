@@ -1,33 +1,36 @@
 package com.umbra.mobModule.inventoryComponent.impl;
+import anima.annotation.Component;
+import anima.component.base.ComponentBase;
+
 import com.umbra.mobModule.inventoryComponent.inter.IInventory;
 import com.umbra.mobModule.itemComponent.inter.IItem;
 
 import java.util.*;
 
+@Component(
+		id="<http://purl.org/NET/dcc/com.umbra.mobModule.inventoryComponent.impl.Inventory>",
+		provides={"<http://purl.org/NET/dcc/com.umbra.mobModule.inventoryComponent.inter.IInventory>"}
+)
 
-public class Inventory implements IInventory {
+public class Inventory extends ComponentBase implements IInventory {
     private int size;
-    private Hashtable<String, IItem> items;
-    
-    public Inventory(int size) {
-    	this.size = size;
-    	this.items = new Hashtable<String, IItem>();
-    }
+    private Hashtable<String,IItem> items = new Hashtable<String,IItem>();
 
     public IItem dropItem(String witch){
         IItem resp = items.get(witch);
         items.remove(witch);
         return resp;
     }
-   public IItem getItem(String name){
+    
+    public IItem getItem(String name){
 	   IItem resp;
-	   if(items.containsKey(name)){
+	   if (items.containsKey(name)) {
 		   resp = items.get(name);
-	   }else{
+	   } else {
 		   resp = null;
 	   }
    		return resp;  
-   }
+    }
 
     public boolean hasItem(String name) {
         return items.containsKey(name);
@@ -42,7 +45,6 @@ public class Inventory implements IInventory {
     public int getSize(){
         return size;
     }
-
 
     public Vector<IItem> getAllItems() {
         Vector<IItem> resp = new Vector<IItem>(items.size(), 1);

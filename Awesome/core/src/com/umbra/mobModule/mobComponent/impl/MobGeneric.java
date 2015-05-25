@@ -1,10 +1,16 @@
 package com.umbra.mobModule.mobComponent.impl;
 
+import anima.factory.IGlobalFactory;
+import anima.factory.context.componentContext.ComponentContextFactory;
+
 import com.umbra.mapModule.IPosition;
 import com.umbra.mobModule.attComponent.impl.AttCreator;
+import com.umbra.mobModule.attComponent.inter.IAttManager;
 import com.umbra.mobModule.attComponent.inter.IAttribute;
 import com.umbra.mobModule.interenum.Type;
+import com.umbra.mobModule.itemComponent.impl.ItemManager;
 import com.umbra.mobModule.mobComponent.inter.IMobGeneric;
+import com.umbra.mobModule.mobComponent.inter.IMobManager;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -21,7 +27,7 @@ public abstract class MobGeneric implements IMobGeneric {
         this.name = name;
         this.description = description;
         this.position = position;
-        this.atts = new Hashtable<String, IAttribute>();
+        this.atts = new Hashtable<String,IAttribute>();
     }
     protected MobGeneric(String name, String description, IPosition position,
                          Hashtable<String,IAttribute> atts){
@@ -60,8 +66,16 @@ public abstract class MobGeneric implements IMobGeneric {
     }
     private void setAtt(Double min, String name, double value, Double max){
         IAttribute novo = atts.get(name);
-        if(novo == null){
-            novo = AttCreator.create(min, name, value, max);
+        if (novo == null){
+        	try {
+        		IGlobalFactory factory = ComponentContextFactory.createGlobalFactory();
+            	factory.registerPrototype(AttCreator.class);
+            	IAttManager attmanager = factory.createInstance(
+            							 "<http://purl.org/NET/dcc/com.umbra.mobModule.attComponent.impl.AttCreator>");
+            	novo = attmanager.create(min, name, value, max);
+        	} catch (Exception e) {
+        		e.printStackTrace();
+        	}
         }
         if(atts.containsKey(name)) {
             atts.remove(name);
@@ -80,8 +94,16 @@ public abstract class MobGeneric implements IMobGeneric {
     }
     public void setAtt(double min, String name, double value, double max){
         IAttribute novo = atts.get(name);
-        if(novo == null){
-            novo = AttCreator.create(min, name, value,max);
+        if (novo == null){
+        	try {
+        		IGlobalFactory factory = ComponentContextFactory.createGlobalFactory();
+            	factory.registerPrototype(AttCreator.class);
+            	IAttManager attmanager = factory.createInstance(
+            							 "<http://purl.org/NET/dcc/com.umbra.mobModule.attComponent.impl.AttCreator>");
+            	novo = attmanager.create(min, name, value, max);
+        	} catch (Exception e) {
+        		e.printStackTrace();
+        	}
         }
         if(atts.containsKey(name)) {
             atts.remove(name);
@@ -93,8 +115,18 @@ public abstract class MobGeneric implements IMobGeneric {
         return atts.containsKey(name);
     }
     public void putAtt(String attName, double attValue){
-        IAttribute novo = AttCreator.create(attName, attValue);
-        atts.put(attName, novo);
+        IAttribute novo = null;
+        try {
+    		IGlobalFactory factory = ComponentContextFactory.createGlobalFactory();
+        	factory.registerPrototype(AttCreator.class);
+        	IAttManager attmanager = factory.createInstance(
+        							 "<http://purl.org/NET/dcc/com.umbra.mobModule.attComponent.impl.AttCreator>");
+        	novo = attmanager.create(attName, attValue);
+        	atts.put(attName, novo);
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
+        
     }
     public List<IAttribute> getAllAtts(){
         List<IAttribute> resp = new ArrayList<IAttribute>();
