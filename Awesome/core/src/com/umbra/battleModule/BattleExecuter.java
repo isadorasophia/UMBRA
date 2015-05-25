@@ -1,8 +1,8 @@
 package com.umbra.battleModule;
 
 import java.util.Random;
-
 import com.umbra.mobModule.mobComponent.*;
+import com.umbra.mobModule.mobComponent.inter.IMob;
 
 // Static class, which manages the battle AI
 class BattleExecuter {	
@@ -15,13 +15,16 @@ class BattleExecuter {
 		return instance;
 	}
 	
+	// Prevents to instantiate the class, since it's supposed to be static
+	private BattleExecuter () { 
+		status = new String ();
+	}
+	
 	private static enum AttackState { normal, critical, counter, missed }
 	
 	// BodyPart arm, leg, belly, head;
 	private String status = "";
 	
-	// Prevents to instantiate the class, since it's supposed to be static
-	private BattleExecuter () { status = new String (); }
 	String getStatus () { return this.status; }
 	private void setStatus (String status) { 
 		if (status == null)
@@ -32,40 +35,60 @@ class BattleExecuter {
 	
 	// Tries to escape!
 	boolean escape (IMob player, IMob enemy) {
-		return false;
+		setStatus(null);
+		
+		Random random = new Random ();
+		// TODO: sanity attribute
+		double escapeRate = (player.getAtt("luck").getValue() * 2 * ((random.nextFloat() * player.getAtt("sanity").getValue()) + 1)) + player.getAtt("speed").getValue();
+		double enemyRate = (player.getAtt("luck").getValue() * 2 * ((random.nextFloat() * 0.5) + 1)) + player.getAtt("speed").getValue();
+		
+		if (escapeRate >= enemyRate) {
+			setStatus(player.getName() + " was able to escape the battle and ran for his pitiful life...\n");
+			return true;
+		} else
+			setStatus(player.getName() + " tried to escape the battle, but failed.\n");
+			return false;
 	}
 	
 	boolean attack (IMob attacker, IMob victim) {
 		return attack (attacker, victim, false);
 	}
 	
+	// returns true if the battle is over, false otherwise
 	private boolean attack (IMob attacker, IMob victim, boolean counter) {
 		double damage;
 		AttackState attackState = stateOfAttack (attacker, victim);
 		
+		// If it isn't a counter move, clean up the string
 		if (!counter)
 			setStatus(null);
 		
 		switch (attackState) {
 			case normal:
 				damage = calcDamage(attacker, victim, false);
+				setStatus(attacker.getName() + " attacks and inflicted a damage of " + (int) damage + "on " + victim.getName() + "!\n");
+				
 				// TODO: decrease HP function
-				victim.decreaseHP(damage);
-				return attacker.getName() + " attacks and inflicted a damage of " + (int) damage + "on " + victim.getName() + "!\n";
+				if (victim.decreaseHP(damage)) {
+					setStatus (attacker.getName() + " just killed " + victim.getName() + "...");
+					return true;
+				}
 			case critical:
 				damage = calcDamage(attacker, victim, true);
+				setStatus(attacker.getName() + " attacks and inflicted a CRITICAL damage of " + (int) damage + "on " + victim.getName() + "!\n");
+				
 				if (victim.decreaseHP(damage)) {
-					return attacker.getName() + " attacks and inflicted a CRITICAL damage of " + (int) damage + "on " + victim.getName() + "!\n";
-				} else
-					return attacker.getName() + " just killed " + victim.getName() 
+					setStatus (attacker.getName() + " just killed " + victim.getName() + "...");
+					return true;
+				}
 			case counter:
-				return "Counter attack!\n" + attack (victim, attacker);
+				setStatus ("Counter attack!\n");
+				return attack (victim, attacker, true);
 			case missed:
-				// TODO: name for IMob
-				return attacker.getName() + " tried to attack " + victim.getName() + "but missed!\n";
+				setStatus(attacker.getName() + " tried to attack " + victim.getName() + "but missed!\n");
 		}
 		
-		return null;
+		return false;
 	}
 	
 	private AttackState stateOfAttack (IMob attacker, IMob victim) {
@@ -108,12 +131,26 @@ class BattleExecuter {
 		return attack - defense;
 	}
 	
-	boolean defend (IMob attacker, IMob victim) {
-		return true;
+	void defend (IMob target, boolean over) {
+		double defense = target.getAtt("defense").getValue();
+		setStatus(null);
+		
+		if (over) {
+			// decrease
+			target.setAtt("defense", defense / 1.5);
+			
+			setStatus(target.getName() + " defense move is now done.\n");
+		} else {
+			// increase
+			target.setAtt("defense", defense * 1.5);
+			
+			setStatus(target.getName() + " chooses to defend itself.");
+		}
 	}
 	
 	// Monsters turn
 	boolean monsterAI (IMob monster, IMob victim) {
+		// wait for body parts.
 		return true;
 	}
 }

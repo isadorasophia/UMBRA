@@ -14,6 +14,10 @@ public class BattleManager {
 	private boolean playerTurn = true;
 	private boolean enemyTurn = false;
 	private boolean done = false;
+
+	// regarding defense move
+	private boolean playerDefending = false;
+	private boolean enemyDefending = false;
 	
 	// Main string, which is passed to the main class
 	private String status = "";
@@ -54,7 +58,6 @@ public class BattleManager {
 	private void beReady () {
 		setStatus(getMonster().getDescription() + "\n You must choose your items:\n");
 
-		// TODO: define monster item function
 		Vector <String> items = getPlayer().itemsForBattle();
 
 		if (items.isEmpty()) {
@@ -93,19 +96,23 @@ public class BattleManager {
 		}
 		
 		if (this.playerTurn) {
+			// Is the input a string or char-based?
 			// Process the input and make it gets realz
+			
+			setDone(BattleExecuter.getInstance().attack(player, monster));
 		} else if (this.enemyTurn) {
 			// Make the enemy super duper AI
 		}
 		
-		if (BattleExecuter.isItOver(getMonster(), getPlayer())) {
-			// TODO: function that returns if the player is dead
-			if (getPlayer().dead())
+		// In case the battle was lost...
+		if (getDone()) {
+			if (getPlayer().dead()) {
 				lostBattle();
-			else
+			} else {
 				wonBattle();
+			}
 			
-			reset();
+			reset ();
 		}
 	}
 	

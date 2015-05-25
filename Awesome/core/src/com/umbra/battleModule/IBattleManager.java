@@ -1,7 +1,7 @@
 package com.umbra.battleModule;
 
-import com.umbra.mobModule.mobComponent.IMonstro;
-import com.umbra.mobModule.mobComponent.IPlayer;
+import com.umbra.mobModule.mobComponent.inter.IMonstro;
+import com.umbra.mobModule.mobComponent.inter.IPlayer;
 
 public interface IBattleManager {
 	// Function which initializes the class for further use
