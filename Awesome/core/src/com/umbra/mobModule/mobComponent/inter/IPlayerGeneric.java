@@ -12,6 +12,5 @@ public interface IPlayerGeneric extends IMob {
     public boolean equipItem(String itemName);
     public List<Boolean> equipItems(String ... itemName);
     public void unequipAll();
-    public Vector<String> itemsForBattle();
-
+    public Vector<String> getItems();
 }

@@ -4,12 +4,11 @@ import anima.factory.IGlobalFactory;
 import anima.factory.context.componentContext.ComponentContextFactory;
 
 import com.umbra.mapModule.IPosition;
-import com.umbra.mobModule.attComponent.inter.IAttribute;
+import com.umbra.mobModule.enums.Type;
 import com.umbra.mobModule.exceptions.CannotDoubleModifyAttributeException;
 import com.umbra.mobModule.exceptions.CannotUnmodifyWhatHasNotBeenModifiedException;
 import com.umbra.mobModule.itemComponent.inter.IItem;
 import com.umbra.mobModule.itemComponent.inter.IItemBattle;
-import com.umbra.mobModule.interenum.Type;
 import com.umbra.mobModule.inventoryComponent.impl.Inventory;
 import com.umbra.mobModule.inventoryComponent.inter.IInventory;
 import com.umbra.mobModule.mobComponent.inter.IPlayerGeneric;
@@ -18,8 +17,8 @@ import java.util.*;
 
 
 public class PlayerGeneric extends Mob implements IPlayerGeneric {
-    private IInventory inventory = null;
-    private Stack<IItemBattle> equiped = null;
+    protected IInventory inventory = null;
+    protected Stack<IItemBattle> equiped = null;
 
     public PlayerGeneric(String name, String description, IPosition position, int inventorySize){
         super(name, description, position);
@@ -64,15 +63,19 @@ public class PlayerGeneric extends Mob implements IPlayerGeneric {
         return resp;
     }
 
-
     public boolean equipItem(String itemName) {
         boolean resp = true;
         if (inventory.hasItem(itemName)) {
             if (equiped == null) {
                 equiped = new Stack<IItemBattle>();
             }
-            IItemBattle item = (IItemBattle) inventory.dropItem(itemName);
-
+            
+            IItemBattle item = null;
+            
+            if (inventory.getItem(itemName).getType() == Type.ITEM_BATTLE) {
+            	item = (IItemBattle) inventory.dropItem(itemName);
+            }
+            
             if (item == null) {
                 resp = false;
             } else {
@@ -108,9 +111,9 @@ public class PlayerGeneric extends Mob implements IPlayerGeneric {
         	inventory.adItem(item);
         }
     }
-
-    public Vector<String> itemsForBattle() {
-        Vector<IItem> items = inventory.getAllItems();
+    
+    public Vector<String> getItems() {
+    	Vector<IItem> items = inventory.getAllItems();
         Vector<String> resp = new Vector<String>(items.size(), 1);
 
         for (IItem item : items) {
@@ -119,4 +122,5 @@ public class PlayerGeneric extends Mob implements IPlayerGeneric {
         
         return resp;
     }
+    
 }

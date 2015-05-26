@@ -1,6 +1,5 @@
 package com.umbra.mobModule.modAttComponent.impl;
 
-
 import com.umbra.mobModule.attComponent.inter.IAttribute;
 import com.umbra.mobModule.exceptions.*;
 import com.umbra.mobModule.modAttComponent.inter.IModAtt;
@@ -19,7 +18,7 @@ public class ModAtt implements IModAtt {
     }
     /* Throws CannotDoubleModifyAttributeException if(this.src != null)*/
     public IAttribute modify(IAttribute src) throws CannotDoubleModifyAttributeException {
-        if(this.src != null){
+        if (this.src != null) {
             throw new CannotDoubleModifyAttributeException();
         }
         IAttribute resp;

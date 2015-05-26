@@ -25,8 +25,10 @@ public class Principal {
         			"<http://purl.org/NET/dcc/com.umbra.mobModule.itemComponent.impl.ItemManager>");
         	IPlayer player = mobmanager.createPlayer();
         	IItemBattle espada = itemmanager.instantiateItemBattle("Espada", "Fuderosa", 0.2, null);
-        	System.out.println(player.getNivel());
-        	
+        	espada.addModAtt("Força", 10);
+        	player.putItem(espada);
+        	player.equipItem("Espada");
+        	System.out.println(player.getAtt("Força").getValue());
         } catch (Exception e) {
         	e.printStackTrace();
         }

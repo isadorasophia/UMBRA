@@ -20,7 +20,7 @@ public class MobManager extends ComponentBase implements IMobManager {
 		IPlayer player = null;
 		
 		try {
-			player = factory.getInstance("Player", "Jogador teste", null);
+			player = factory.instantiate("Player", "Jogador teste", null);
 		} catch (BadConstructorException e) {
 			e.printStackTrace();
 		}

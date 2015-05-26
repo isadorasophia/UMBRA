@@ -8,7 +8,7 @@ import com.umbra.mobModule.mobComponent.inter.IPlayer;
 
 public abstract class MobFactory {
 
-    public abstract IPlayer getInstance(String name, String description,  IPosition position) throws BadConstructorException;
+    public abstract IPlayer instantiate(String name, String description,  IPosition position) throws BadConstructorException;
     public abstract IMonstro create(int nivel, IPosition position) throws BadConstructorException;
 
     public static MobFactory createFactory(String id)

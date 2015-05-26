@@ -48,9 +48,9 @@ public class Inventory extends ComponentBase implements IInventory {
 
     public Vector<IItem> getAllItems() {
         Vector<IItem> resp = new Vector<IItem>(items.size(), 1);
-        Enumeration e = items.elements();
+        Enumeration<IItem> e = items.elements();
         while(e.hasMoreElements()){
-            resp.add((IItem) e.nextElement());
+            resp.add(e.nextElement());
         }
         return resp;
     }

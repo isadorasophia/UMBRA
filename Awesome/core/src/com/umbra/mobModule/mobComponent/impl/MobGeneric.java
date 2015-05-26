@@ -7,10 +7,8 @@ import com.umbra.mapModule.IPosition;
 import com.umbra.mobModule.attComponent.impl.AttCreator;
 import com.umbra.mobModule.attComponent.inter.IAttManager;
 import com.umbra.mobModule.attComponent.inter.IAttribute;
-import com.umbra.mobModule.interenum.Type;
-import com.umbra.mobModule.itemComponent.impl.ItemManager;
+import com.umbra.mobModule.enums.Type;
 import com.umbra.mobModule.mobComponent.inter.IMobGeneric;
-import com.umbra.mobModule.mobComponent.inter.IMobManager;
 
 import java.util.ArrayList;
 import java.util.Hashtable;

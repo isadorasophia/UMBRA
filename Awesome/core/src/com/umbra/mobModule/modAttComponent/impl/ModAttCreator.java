@@ -31,15 +31,17 @@ public class ModAttCreator extends ComponentBase implements IModAttManager {
         IModAtt resp;
         switch (type) {
             case '-':
-                parameter = - parameter;
+                parameter = -parameter;
+                break;
             case '+':
                 operation = new Addicionator();
                 break;
             case '/':
-                if(parameter == 0){
+                if (parameter == 0) {
                     throw new BadArgumentException("You've tried to create an ByZeroDivider");
                 }
                 parameter = 1/parameter;
+                break;
             case '*':
                 operation = new Multiplicator();
                 break;

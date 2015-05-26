@@ -1,6 +1,8 @@
 package com.umbra.mobModule.mobComponent.impl;
 
 
+import java.util.Vector;
+
 import anima.factory.IGlobalFactory;
 import anima.factory.context.componentContext.ComponentContextFactory;
 
@@ -8,6 +10,8 @@ import com.umbra.mapModule.IPosition;
 import com.umbra.mobModule.attComponent.impl.AttCreator;
 import com.umbra.mobModule.attComponent.inter.IAttManager;
 import com.umbra.mobModule.attComponent.inter.IAttribute;
+import com.umbra.mobModule.enums.Type;
+import com.umbra.mobModule.itemComponent.inter.IItem;
 import com.umbra.mobModule.mobComponent.inter.IPlayer;
 
 public class Player extends PlayerGeneric implements IPlayer{
@@ -51,10 +55,51 @@ public class Player extends PlayerGeneric implements IPlayer{
     }
 
     public int getNivel(){
-        if(!(hasAtt("xp")) ){
+        if (!(hasAtt("xp"))) {
             return 0;
-        }else{
-            return (int) Math.floor(Math.log10(getAtt("xp").getValue()));
+        } else {
+            return (int) Math.floor(Math.log10(getAtt("xp").getValue())) == 0 ?
+            		(int) Math.floor(Math.log10(getAtt("xp").getValue())) : 0;
         }
     }
+    
+    public Vector<String> itemsForBattle() {
+        Vector<IItem> items = inventory.getAllItems();
+        Vector<String> resp = new Vector<String>(items.size(), 1);
+
+        for (IItem item : items) {
+        	if (item.getType() == Type.ITEM_BATTLE) {
+        		resp.add(item.getName());
+        	}
+        }
+        
+        return resp;
+    }
+    
+    public Vector<String> itemsIlumination() {
+        Vector<IItem> items = inventory.getAllItems();
+        Vector<String> resp = new Vector<String>(items.size(), 1);
+
+        for (IItem item : items) {
+        	if (item.getType() == Type.ITEM_ILUMINATION) {
+        		resp.add(item.getName());
+        	}
+        }
+        
+        return resp;
+    }
+    
+    public Vector<String> itemsPuzzle() {
+        Vector<IItem> items = inventory.getAllItems();
+        Vector<String> resp = new Vector<String>(items.size(), 1);
+
+        for (IItem item : items) {
+        	if (item.getType() == Type.ITEM_PUZZLE) {
+        		resp.add(item.getName());
+        	}
+        }
+        
+        return resp;
+    }
+    
 }

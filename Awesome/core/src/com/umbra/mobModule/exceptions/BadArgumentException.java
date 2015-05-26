@@ -1,6 +1,6 @@
 package com.umbra.mobModule.exceptions;
 
-public class BadArgumentException extends Throwable{
+public class BadArgumentException extends Exception {
     public  BadArgumentException() {
         super();
     }

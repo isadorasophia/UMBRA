@@ -1,11 +1,10 @@
 package com.umbra.mobModule.mobComponent.inter;
 
-import com.umbra.mobModule.*;
 import com.umbra.mobModule.attComponent.inter.IAttribute;
-import com.umbra.mobModule.interenum.IDescriptionReadable;
-import com.umbra.mobModule.interenum.INameReadable;
-import com.umbra.mobModule.interenum.IPositionable;
-import com.umbra.mobModule.interenum.ITypeReadable;
+import com.umbra.mobModule.interGenerics.IDescriptionReadable;
+import com.umbra.mobModule.interGenerics.INameReadable;
+import com.umbra.mobModule.interGenerics.IPositionable;
+import com.umbra.mobModule.interGenerics.ITypeReadable;
 
 
 public interface IMobGeneric extends

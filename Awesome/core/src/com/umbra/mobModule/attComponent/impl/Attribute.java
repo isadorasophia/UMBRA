@@ -8,7 +8,7 @@ public class Attribute implements IAttribute {
     private Double min = null;
     private Double max = null;
 
-    public static final double MAX = 100.0;
+    public static final double MIN = 0;
 
     public Attribute(Double min, String name, double value, Double max){
         this.name = name;
@@ -33,21 +33,25 @@ public class Attribute implements IAttribute {
         this(min, name, value, null);
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
-    public double getValue(){
+    
+    public double getValue() {
         return value;
     }
-    public void setValue(double value){
+    
+    public void setValue(double value) {
         boolean set = true;
-        if(min != null && value < min){
+        if (min != null && value < min) {
+        	this.value = min;
             set = false;
         }
-        if(max != null && value > max){
+        if (max != null && value > max) {
+        	this.value = max;
             set = false;
         }
-        if(set){
+        if (set) {
             this.value = value;
         }
     }

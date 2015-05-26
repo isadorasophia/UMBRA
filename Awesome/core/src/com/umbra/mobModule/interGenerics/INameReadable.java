@@ -1,4 +1,4 @@
-package com.umbra.mobModule.interenum;
+package com.umbra.mobModule.interGenerics;
 
 
 public interface INameReadable {

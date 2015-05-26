@@ -45,7 +45,7 @@ public class FabricaDeMonstro extends MobFactory {
     }
 
     /*Throws exception BadConstructor*/
-    public IPlayer getInstance(String name, String description, IPosition position) throws BadConstructorException {
+    public IPlayer instantiate(String name, String description, IPosition position) throws BadConstructorException {
         throw new BadConstructorException();
     }
 

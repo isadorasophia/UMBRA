@@ -1,7 +1,7 @@
 package com.umbra.mobModule.exceptions;
 
 
-public class BadAttributeModificationException extends Throwable {
+public class BadAttributeModificationException extends Exception {
     public BadAttributeModificationException() {
         super();
     }

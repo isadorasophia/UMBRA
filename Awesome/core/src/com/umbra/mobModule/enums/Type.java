@@ -1,4 +1,4 @@
-package com.umbra.mobModule.interenum;
+package com.umbra.mobModule.enums;
 
 public enum Type {
     MONSTRO('M'), PLAYER('@'),ITEM('i'), ITEM_BATTLE("ib"), ITEM_ILUMINATION("il"), ITEM_PUZZLE("ip");
