@@ -1,6 +1,6 @@
 package com.umbra.mapModule;
 
-import com.umbra.mobModule.mobComponent.IMob;
+import com.umbra.mobModule.mobComponent.inter.IMob;
 import com.umbra.puzzlesModule.IPuzzle;
 
 public interface ICell {
