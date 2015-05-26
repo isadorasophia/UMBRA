@@ -12,7 +12,17 @@ public class Vulto implements IVulto {
         return distance == 0;
     }
     public void lightInterference(double light){}
-    public boolean chooseAction(int Action) {
+
+    public boolean chooseAction(String action) throws UnknownInputException {
+        boolean areAlive = false;
+        if(action.equalsIgnoreCase("fight")) areAlive = chooseAction(Action.FIGHT);
+        else if(action.equalsIgnoreCase("hide")) areAlive = chooseAction(Action.HIDE);
+        else if(action.equalsIgnoreCase("run")) areAlive = chooseAction(Action.RUN);
+        else throw new UnknownInputException();
+        return areAlive;
+    }
+
+    public boolean chooseAction(Action action) {
         return false;
     }
 }

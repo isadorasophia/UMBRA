@@ -1,6 +1,7 @@
 package com.umbra.manager;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -49,6 +50,7 @@ public class TextComunicator implements IComunicator, InputProcessor {
         cursor = true;
         inputReady = false;
         readInput = false;
+        input = "";
     }
     
     public String getInput(){
@@ -125,7 +127,11 @@ public class TextComunicator implements IComunicator, InputProcessor {
 	@Override
 	public boolean keyDown(int keycode) {
 		if(readInput){
-			inputReady = true;
+            if(keycode == Input.Keys.ENTER) inputReady = true;
+            if(keycode == Input.Keys.BACKSPACE){
+                input = "";
+                text = fullText + ( (cursor) ? "_" : " ");
+            }
 		}
 		return false;
 	}
