@@ -1,4 +1,6 @@
-package com.umbra.manager;
+package com.umbra.manager.modes;
+
+import com.umbra.manager.IComunicator;
 
 public interface IMode {
     public abstract void init(IComunicator comunicator);

@@ -1,10 +1,12 @@
-package com.umbra.manager;
+package com.umbra.manager.modes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.umbra.manager.IComunicator;
 
 public class BattleMode implements IMode {
-
+	IComunicator comunicator;
+	
     @Override
     public void init(IComunicator comunicator) {
 

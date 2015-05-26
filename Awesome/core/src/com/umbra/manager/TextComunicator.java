@@ -10,20 +10,20 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 
 public class TextComunicator implements IComunicator, InputProcessor {
     // Define constants
-    static final int textSpeed = 1;
+    static final int textSpeed = 10;
 
     // Flags
     private boolean cursor;
-    boolean end;
+    boolean end; // true when the text is written entirely
     boolean inputReady;
     boolean readInput;
     
     private BitmapFont font;
     private SpriteBatch batch;
-    private String text = "_";
+    private String text;
     private String fullText;
     private int index;
-    String input = "";
+    String input;
     // counter of updates
     private float counter;
 
@@ -50,6 +50,7 @@ public class TextComunicator implements IComunicator, InputProcessor {
         cursor = true;
         inputReady = false;
         readInput = false;
+        end = false;
         input = "";
     }
     

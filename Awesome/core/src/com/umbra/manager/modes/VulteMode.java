@@ -1,13 +1,14 @@
-package com.umbra.manager;
+package com.umbra.manager.modes;
 
+import com.umbra.manager.IComunicator;
+import com.umbra.manager.Singletons.VultoSingleton;
 import com.umbra.vultoModule.IVulto;
 import com.umbra.vultoModule.UnknownInputException;
-import com.umbra.vultoModule.VultoSingleton;
 
 public class VulteMode implements IMode{
     IComunicator comunicator;
     IVulto vulto;
-    String text = "vulto command:";
+    String text = "vulto command :";
 
     @Override
     public void init(IComunicator comunicator) {

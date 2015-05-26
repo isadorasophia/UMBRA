@@ -1,5 +1,12 @@
 package com.umbra.vultoModule;
 
+import anima.annotation.Component;
+
+
+@Component(
+		id="<http://purl.org/NET/dcc/com.umbra.vultoModule.Vulto>",
+		provides={"<http://purl.org/NET/dcc/com.umbra.com.umbra.vultoModule.IVulto>"}
+)
 public class Vulto implements IVulto {
     private int distance;
     private double lightProtection;
@@ -9,9 +16,11 @@ public class Vulto implements IVulto {
         lightProtection = 0;
     }
     public boolean checkVulto(){
-        return distance == 0;
+        return distance-- == 0;
     }
-    public void lightInterference(double light){}
+    public void lightInterference(double light){
+    	lightProtection = light;
+    }
 
     public boolean chooseAction(String action) throws UnknownInputException {
         boolean areAlive = false;

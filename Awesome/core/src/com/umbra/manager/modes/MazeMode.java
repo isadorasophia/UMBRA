@@ -1,8 +1,9 @@
-package com.umbra.manager;
+package com.umbra.manager.modes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
+import com.umbra.manager.IComunicator;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
