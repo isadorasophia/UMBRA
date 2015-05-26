@@ -1,36 +1,55 @@
 package com.umbra.manager;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
+import anima.annotation.Component;
+import anima.context.exception.ContextException;
+import anima.factory.IGlobalFactory;
+import anima.factory.context.componentContext.ComponentContextFactory;
+import anima.factory.exception.FactoryException;
+
+import com.sun.jndi.toolkit.ctx.ComponentContext;
+import com.umbra.manager.Singletons.MobManagerSingleton;
+import com.umbra.manager.Singletons.VultoSingleton;
+import com.umbra.manager.modes.IMode;
+import com.umbra.manager.modes.Modes;
+import com.umbra.manager.modes.ModesInstantiator;
+import com.umbra.mobModule.mobComponent.inter.IMobManager;
+import com.umbra.mobModule.mobComponent.inter.IPlayer;
+import com.umbra.vultoModule.IVulto;
 
 public class Selector implements ISelector{
     private IMode mode;
+    private IVulto vulto;
+    private IPlayer player;
+    private IMobManager mobManeger;
 
-    public Selector(){
-        setMode(Modes.Maze);
+    public void init(){
+    	mobManeger = MobManagerSingleton.instance();
+        vulto = VultoSingleton.instance();
+        player = mobManeger.createPlayer();
+        setMode(Modes.MAZE);
     }
 
     public void setMode(Modes state){
-        if(mode != null) mode.dispose();
         switch (state){
-            case Batlle:
-                mode = new BattleMode();
+            case BATLLE:
+                mode = ModesInstantiator.battleModeInstance();
                 break;
-            case Maze:
-                mode = new MazeMode();
+            case MAZE:
+                mode = ModesInstantiator.mazeModeInstance();
                 break;
-            case Puzzle:
-                mode = new PuzzleMode();
+            case PUZZLE:
+                mode = ModesInstantiator.puzzleModeInstance();
                 break;
-            case Vulte:
-                mode = new VulteMode();
+            case VULTO:
+                mode = ModesInstantiator.vultoModeInstance();
+                ModesInstantiator.vultoModeReset();
                 break;
         }
-        Gdx.gl.glClearColor(1, 1, 1, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        mode.init();
     }
     public void update(float dt){
+        if(vulto.checkVulto()){
+            setMode(Modes.VULTO);
+        }
         mode.handleInput();
         mode.update(dt);
     }

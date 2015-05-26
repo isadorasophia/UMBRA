@@ -1,0 +1,26 @@
+	Cluster: BattleModule
+	Integrantes: Isadora Sophia Garcia Rodopoulos e Matheus Diamantino
+	
+	O cluster “BattleModule” é responsável por realizar toda a administração e desenvolvimento que envolve o modo batalha do jogo. Segue a modelagem em UML de componentes:
+
+	**New/ComponentDiagram.png**
+
+	Como pode-se notar, o componente é formado basicamente por: uma classe estática “BattleExecuter” e uma classe principal “BattleModule", provida de uma interface IBattleModule. A comunicação entre o componente e o resto do jogo se dá pelo pattern Model-view-controller (MVC), a partir da chamada de funções pelo controller (no caso, o cluster GameManager ficará responsável por isso), que renderizará as informações providas pelo BattleModule (que fará o papel de Model) na tela (View). O pattern foi adotado para manter a organização no jogo, garantindo, também, a segmentação dos clusters.
+
+	Segue a modelagem de classes, que propõem uma noção mais detalhada do módulo:
+
+	**New/ClassDiagram.png**
+
+	O IBattleManager, interface para o BattleManager, compõe o básico para que o módulo possa ser executado: uma função initialize (IPlayer player, Imonstro monstro), responsável por inicializar o componente ao início de uma batalha - os parâmetros das funções são interfaces requeridas a partir de outro cluster, responsável pela organização de entidades no jogo. A outra função, processInput (String input), é responsável por processar um determinado input e processar um novo output para a tela. Como a mecânica do jogo se baseia em inputs e outputs, é uma forma viável de manter o workflow do jogo.
+  O restante do BattleManager se trata da especificação de funções e funcionalidades, em que há a realização do encapsulamento: as únicas funções que o restante dos clusters poderão ter acesso serão, além das providas na interface, a função que resgata o valor do output (getStatus()) e uma booleana que devolve se o jogo foi finalizado (getDone()).
+
+  O BattleExecuter é uma classe auxiliar para o BattleManager: se trata das questões mais técnicas quanto ao desenvolvimento da batalha. Embora o princípio de Singleton também pareça fazer sentido nesse contexto, foi decidido pela equipe realizar a classe como estática, uma vez que o acesso a ela se restringiria à realização de funções - não haveria necessidade de manter propriedades e outras especificações da batalha, sendo o uso de Singleton indiferente. Assim, a classe é estática e seu acesso se restringe aos módulos do componente (no caso, BattleManager).
+
+  Outro design pattern importante para o planejamento do cluster foi o Observer, utilizado na interação do BattleManager com o BattleExecuter, para relacionar informações relevantes na batalha: se ela foi finalizada e se o jogador perdeu ou ganhou. A vantagem do pattern também se deu para prezar a organização ao componente.
+
+  O plano de execeções, até então, consta em validar inputs feito pelo jogador. Caso ela seja inválida no contexto do jogo, o input é descartado e é reinicializado o último comando do jogo.
+
+  O diagrama abaixo apresenta o antigo plano de modelagem do jogo, em que constava por interfaces distintas e funções ainda vagas, uma vez que o plano do MVC ainda não havia sido adotado e o aprofundamento do jogo ainda estava a ser realizado. O plano de interfaces continua basicamente o mesmo, a principal diferença exterior foi a perda de acesso do BattleExecuter: sem a necessidade de uma interface e visível apenas ao BattleManager. A mudança ocorreu bem para a organização e melhor visão do andamento de como jogo ocorrerá, e é provável que mais dessas mudanças ocorram ao longo da finalização do projeto.
+  
+  **Old/ComponentDiagram.png**
+  **Old/ClassDiagram.png**

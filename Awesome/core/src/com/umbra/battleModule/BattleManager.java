@@ -1,62 +1,132 @@
 package com.umbra.battleModule;
 
 import java.util.Vector;
-import com.umbra.mobModule.mobComponent.*;
+import com.umbra.mobModule.mobComponent.inter.IMonstro;
+import com.umbra.mobModule.mobComponent.inter.IPlayer;
 
 public class BattleManager {
-	private IMonstro monster = null;
+	// Mob components
+	private IMonstro monster = null;	
 	private IPlayer player = null;
+	
+	// Flags
+	private boolean isBattleSet = false;
+	private boolean playerTurn = true;
+	private boolean enemyTurn = false;
+	private boolean done = false;
 
-	private boolean battleIsSet = false;
-
-	private String status = null;
-	//private String
-
-	private IMonstro getMonster () {
-		return this.monster;
+	// regarding defense move
+	private boolean playerDefending = false;
+	private boolean enemyDefending = false;
+	
+	// Main string, which is passed to the main class
+	private String status = "";
+	
+	private IMonstro getMonster () { return this.monster; }
+	private void setMonster (IMonstro monster) { this.monster = monster; }
+	
+	private IPlayer getPlayer () { return this.player; }
+	private void setPlayer (IPlayer player) { this.player = player; }
+	
+	public boolean getDone () { return this.done; }
+	private void setDone (boolean state) { this.done = state; }
+	
+	public String getStatus () { return this.status; }
+	private void setStatus (String status) { 
+		if (status == null)
+			this.status = "";
+		else
+			this.status += status; 
 	}
-
-	private void setMonster (IMonstro monster) {
-		this.monster = monster;
-	}
-
-	private IPlayer getPlayer () {
-		return this.player;
-	}
-
-	private void setPlayer (IPlayer player) {
-		this.player = player;
-	}
-
-	public String initialize (IPlayer player, IMonstro monster) {
+	
+	// Function which initializes the class for further use
+	public void initialize (IPlayer player, IMonstro monster) {
 		setPlayer(player);
 		setMonster(monster);
+		
+		this.playerTurn = true;
+		this.enemyTurn = false;
+		
+		setDone(false);
+		
+		setStatus(null);
 
-		getReady();
-
-		return this.status;
+		beReady();
 	}
+	
+	// Set first things first
+	private void beReady () {
+		setStatus(getMonster().getDescription() + "\n You must choose your items:\n");
 
-	// TODO: define monster functions
-	private void getReady () {
-		this.status = this.monster.getDescription() + "\n You must choose your items:\n";
-
-		Vector <String> items = this.monster.itemsForBattle();
+		Vector <String> items = getPlayer().itemsForBattle();
 
 		if (items.isEmpty()) {
-			this.battleIsSet = true;
+			this.isBattleSet = true;
 		}
 		else {
-			for (int i = 0; i < items.size(); i++) {
-				this.status += items[i];
-
-				if (i + 1 < items.size())
-					this.status += " or ";
+			boolean first = true;
+			
+			for (String item : items) {
+				if (!first) {
+					setStatus(item);
+					first = false;
+				} else {
+					setStatus(" or " + item);
+				}
 			}
+			
+			setStatus(".");
 		}
 	}
-
+	
+	// Function called by the main module, updates the output
 	public void processInput (String input) {
-
+		setStatus(null);
+		
+		// If the battle isn't set yet
+		if (!this.isBattleSet) {
+			// TODO: define monster equip function, which returns true if has successfully equipped the player
+			if (getPlayer().equipItem(input)) {
+				isBattleSet = true;
+			} else {
+				setStatus("You must choose a valid item.");
+				
+				return;
+			}
+		}
+		
+		if (this.playerTurn) {
+			// Is the input a string or char-based?
+			// Process the input and make it gets realz
+			
+			setDone(BattleExecuter.getInstance().attack(player, monster));
+		} else if (this.enemyTurn) {
+			// Make the enemy super duper AI
+		}
+		
+		// In case the battle was lost...
+		if (getDone()) {
+			if (getPlayer().dead()) {
+				lostBattle();
+			} else {
+				wonBattle();
+			}
+			
+			reset ();
+		}
+	}
+	
+	private void wonBattle () {
+		// Win xp!! Yay!
+	}
+	
+	private void lostBattle() {
+		// Player loses XP ):
+	}
+	
+	private void reset() {
+		setDone(true);
+		
+		// Battle ended, reset class configurations
 	}
 }
