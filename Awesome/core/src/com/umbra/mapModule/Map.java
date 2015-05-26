@@ -3,6 +3,7 @@ package com.umbra.mapModule;
 import com.umbra.mobModule.mobComponent.IMob;
 import com.umbra.puzzlesModule.IPuzzle;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class Map implements IMap{
@@ -58,12 +59,21 @@ public class Map implements IMap{
         }
     }
 
-    @Override
-    public void getPosition(IPosition posicao) {
-        return;
+    public ICell getCell(IPosition posicao) {
+        Position pos = (Position) posicao;
+        return corredor[pos.getY()][pos.getX()];
     }
 
-    @Override
+    public ICell[][] getCell(IPosition posicao,int size) {
+        Position pos = (Position) posicao;
+        size--;
+        ICell[][] response = new Cell[size][size];
+        int index = 0;
+        for (int i = pos.getY() - size; i <= pos.getY() + size ; i++) {
+            response[index++] = Arrays.copyOfRange(corredor[i],pos.getX()-size,pos.getX()+size);
+        }
+        return response;
+    }
     public boolean move(IMob entidade, char direction) {
         Position posicao = (Position) entidade.getPosition();
         ICell atual;
@@ -81,7 +91,7 @@ public class Map implements IMap{
                 atual = corredor[posicao.getY()][posicao.getX()];
                 ICell oeste = corredor[posicao.getY()][posicao.getX()-1];
                 return posicao.moveWest(oeste, atual);
-            case 'l':
+            case 'e':
                 atual = corredor[posicao.getY()][posicao.getX()];
                 ICell leste = corredor[posicao.getY()][posicao.getX()+1];
                 return posicao.moveEast(leste, atual);
