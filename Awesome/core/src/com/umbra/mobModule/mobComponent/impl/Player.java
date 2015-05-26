@@ -56,10 +56,9 @@ public class Player extends PlayerGeneric implements IPlayer{
 
     public int getNivel(){
         if (!(hasAtt("xp"))) {
-            return 0;
+            return 1;
         } else {
-            return (int) Math.floor(Math.log10(getAtt("xp").getValue())) == 0 ?
-            		(int) Math.floor(Math.log10(getAtt("xp").getValue())) : 0;
+            return getAtt("xp").getValue() > 1 ? (int) Math.floor(Math.log10(getAtt("xp").getValue())) + 1 : 1;
         }
     }
     
