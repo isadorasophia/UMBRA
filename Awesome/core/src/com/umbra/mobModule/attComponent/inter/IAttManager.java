@@ -6,7 +6,8 @@ import anima.component.ISupports;
 /**
  * Interface para a criação de atributos
  * 
- * @author luizfrf
+ * @author Luiz Fernando Rodrigues da Fonseca
+ * @author Lucas Alves Racoci
  *
  */
 

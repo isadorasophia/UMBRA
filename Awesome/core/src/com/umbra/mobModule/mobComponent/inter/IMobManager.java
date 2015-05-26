@@ -7,7 +7,8 @@ import anima.component.ISupports;
  * Interface para o componente que retorna instancias
  * de Player e Monstros para o jogo principal
  * 
- * @author luizfrf
+ * @author Luiz Fernando Rodrigues da Fonseca
+ * @author Lucas Alves Racoci
  *
  */
 

@@ -10,7 +10,8 @@ import java.util.Vector;
 /**
  * Interface para o inventario do player
  * 
- * @author luizfrf
+ * @author Luiz Fernando Rodrigues da Fonseca
+ * @author Lucas Alves Racoci
  *
  */
 

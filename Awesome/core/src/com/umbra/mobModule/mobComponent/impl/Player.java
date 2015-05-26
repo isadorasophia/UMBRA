@@ -53,6 +53,9 @@ public class Player extends PlayerGeneric implements IPlayer{
             atts.get("xp").setValue(xp);
         }
     }
+    public addXp(double xp){
+        setXp(getXp() + xp);
+    }
 
     public int getNivel(){
         if (!(hasAtt("xp"))) {

@@ -91,23 +91,7 @@ public abstract class MobGeneric implements IMobGeneric {
         setAtt(min, type, value, null);
     }
     public void setAtt(double min, String name, double value, double max){
-        IAttribute novo = atts.get(name);
-        if (novo == null){
-        	try {
-        		IGlobalFactory factory = ComponentContextFactory.createGlobalFactory();
-            	factory.registerPrototype(AttCreator.class);
-            	IAttManager attmanager = factory.createInstance(
-            							 "<http://purl.org/NET/dcc/com.umbra.mobModule.attComponent.impl.AttCreator>");
-            	novo = attmanager.create(min, name, value, max);
-        	} catch (Exception e) {
-        		e.printStackTrace();
-        	}
-        }
-        if(atts.containsKey(name)) {
-            atts.remove(name);
-        }
-        novo.setValue(value);
-        atts.put(name, novo);
+        setAtt(min, name, value, max);
     }
     public boolean hasAtt(String name){
         return atts.containsKey(name);

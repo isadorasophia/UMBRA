@@ -39,4 +39,10 @@ public abstract class Mob extends MobGeneric implements IMob{
     public char getChar(){
         return getType().getChar();
     }
+    /* Retorna true se ainda esta vivo, falso caso contrário */
+    public boolean decreaseHP (double hp){
+        setAtt("hp").setValue(getAtt("hp").getValue() - hp);
+        
+        return getAtt("hp").getValue > 0;
+    }
 }

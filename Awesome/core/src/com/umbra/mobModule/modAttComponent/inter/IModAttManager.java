@@ -9,7 +9,8 @@ import anima.component.ISupports;
  * Interface para a criação de modificadores de
  * atributo para os items de batalha
  * 
- * @author luizfrf
+ * @author Luiz Fernando Rodrigues da Fonseca
+ * @author Lucas Alves Racoci
  *
  */
 

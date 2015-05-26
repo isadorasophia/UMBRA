@@ -9,7 +9,8 @@ import com.umbra.mapModule.IPosition;
  * Interface para o criador de itens que
  * sera exportado para o resto do jogo
  * 
- * @author luizfrf
+ * @author Luiz Fernando Rodrigues da Fonseca
+ * @author Lucas Alves Racoci
  *
  */
 
