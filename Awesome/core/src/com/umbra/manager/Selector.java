@@ -1,53 +1,50 @@
 package com.umbra.manager;
 
 import anima.annotation.Component;
-import anima.context.exception.ContextException;
-import anima.factory.IGlobalFactory;
-import anima.factory.context.componentContext.ComponentContextFactory;
-import anima.factory.exception.FactoryException;
+import anima.component.IRequires;
+import anima.component.base.ComponentBase;
 
-import com.sun.jndi.toolkit.ctx.ComponentContext;
-import com.umbra.manager.Singletons.MobManagerSingleton;
-import com.umbra.manager.Singletons.VultoSingleton;
-import com.umbra.manager.modes.IMode;
+import com.umbra.manager.interfaces.*;
 import com.umbra.manager.modes.Modes;
 import com.umbra.manager.modes.ModesInstantiator;
 import com.umbra.mobModule.mobComponent.inter.IMobManager;
 import com.umbra.mobModule.mobComponent.inter.IPlayer;
 import com.umbra.vultoModule.IVulto;
 
-public class Selector implements ISelector{
+@Component(
+		id="<http://purl.org/NET/dcc/com.umbra.manager.Selector>",
+		requires={"<http://purl.org/NET/dcc/com.umbra.mobModule.mobComponent.inter.IMobManager>",
+        "<http://purl.org/NET/dcc/com.umbra.vultoModule.Vulto>"}
+)
+public class Selector extends ComponentBase implements ISelectorComponent {
+    private Characters characters = new Characters();
     private IMode mode;
-    private IVulto vulto;
-    private IPlayer player;
-    private IMobManager mobManeger;
+    private IMobManager mobManager;
 
-    public void init(){
-    	mobManeger = MobManagerSingleton.instance();
-        vulto = VultoSingleton.instance();
-        player = mobManeger.createPlayer();
+    public void init() {
+        characters.putPlayer(mobManager.createPlayer());
         setMode(Modes.MAZE);
     }
 
     public void setMode(Modes state){
         switch (state){
             case BATLLE:
-                mode = ModesInstantiator.battleModeInstance();
+                mode = ModesInstantiator.battleModeInstance(characters);
                 break;
             case MAZE:
-                mode = ModesInstantiator.mazeModeInstance();
+                mode = ModesInstantiator.mazeModeInstance(characters);
                 break;
             case PUZZLE:
-                mode = ModesInstantiator.puzzleModeInstance();
+                mode = ModesInstantiator.puzzleModeInstance(characters);
                 break;
             case VULTO:
-                mode = ModesInstantiator.vultoModeInstance();
-                ModesInstantiator.vultoModeReset();
+                mode = ModesInstantiator.vultoModeInstance(characters);
+                ModesInstantiator.vultoModeReset(characters);
                 break;
         }
     }
     public void update(float dt){
-        if(vulto.checkVulto()){
+        if(characters.getVulto().checkVulto()){
             setMode(Modes.VULTO);
         }
         mode.handleInput();
@@ -58,5 +55,15 @@ public class Selector implements ISelector{
     }
     public void dispose(){
         mode.dispose();
+    }
+
+    @Override
+    public void connect(IVulto vulto) {
+        characters.putVulto(vulto);
+    }
+
+    @Override
+    public void connect(IMobManager mobManager) {
+        this.mobManager = mobManager;
     }
 }

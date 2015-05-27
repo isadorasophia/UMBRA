@@ -3,13 +3,15 @@ package com.umbra.manager.modes;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
-import com.umbra.manager.IComunicator;
+import com.umbra.manager.Characters;
+import com.umbra.manager.interfaces.IComunicator;
+import com.umbra.manager.interfaces.IMode;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class MazeMode implements IMode{
+public class MazeMode implements IMode {
     IComunicator comunicator;
 
     // Flags
@@ -20,7 +22,7 @@ public class MazeMode implements IMode{
     private FileReader reader;
 
     @Override
-    public void init(IComunicator comunicator) {
+    public void init(IComunicator comunicator, Characters characters) {
         beginning = true;
         eof = false;
 

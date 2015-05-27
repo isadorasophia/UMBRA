@@ -1,13 +1,14 @@
 package com.umbra.vultoModule;
 
 import anima.annotation.Component;
+import anima.component.base.ComponentBase;
 
 
 @Component(
 		id="<http://purl.org/NET/dcc/com.umbra.vultoModule.Vulto>",
 		provides={"<http://purl.org/NET/dcc/com.umbra.com.umbra.vultoModule.IVulto>"}
 )
-public class Vulto implements IVulto {
+public class Vulto extends ComponentBase implements IVulto {
     private int distance;
     private double lightProtection;
 

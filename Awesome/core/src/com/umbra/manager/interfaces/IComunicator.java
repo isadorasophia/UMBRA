@@ -1,4 +1,4 @@
-package com.umbra.manager;
+package com.umbra.manager.interfaces;
 
 public interface IComunicator {
     public void setText(String fullText);

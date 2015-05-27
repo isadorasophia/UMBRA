@@ -1,11 +1,13 @@
 package com.umbra.manager.modes;
 
-import com.umbra.manager.IComunicator;
+import com.umbra.manager.Characters;
+import com.umbra.manager.interfaces.IComunicator;
+import com.umbra.manager.interfaces.IMode;
 
-public class PuzzleMode implements IMode{
+public class PuzzleMode implements IMode {
 
     @Override
-    public void init(IComunicator comunicator) {
+    public void init(IComunicator comunicator, Characters characters) {
 
     }
 
