@@ -1,10 +1,15 @@
 package com.umbra.battleModule;
 
+import java.util.Random;
 import java.util.Vector;
+
 import com.umbra.mobModule.mobComponent.inter.IMonstro;
 import com.umbra.mobModule.mobComponent.inter.IPlayer;
 
 public class BattleManager {
+	// Handler
+	private BattleExecuter battleExecuter = null;
+	
 	// Mob components
 	private IMonstro monster = null;	
 	private IPlayer player = null;
@@ -12,7 +17,6 @@ public class BattleManager {
 	// Flags
 	private boolean isBattleSet = false;
 	private boolean playerTurn = true;
-	private boolean enemyTurn = false;
 	private boolean done = false;
 
 	// regarding defense move
@@ -44,9 +48,13 @@ public class BattleManager {
 		setPlayer(player);
 		setMonster(monster);
 		
-		this.playerTurn = true;
-		this.enemyTurn = false;
+		this.battleExecuter = new BattleExecuter();
 		
+		this.playerTurn = true;
+		
+		this.isBattleSet = false;
+		this.playerDefending = false;
+		this.enemyDefending = false;
 		setDone(false);
 		
 		setStatus(null);
@@ -85,26 +93,80 @@ public class BattleManager {
 		
 		// If the battle isn't set yet
 		if (!this.isBattleSet) {
-			// TODO: define monster equip function, which returns true if has successfully equipped the player
+			// If it was successfully equipped
 			if (getPlayer().equipItem(input)) {
 				isBattleSet = true;
+				
+				setStatus("Your item was equipped.\n" + getMonster().getName() + " approaches slowly into your direction."
+						+ " You must make a choice.\n [A]ttack, [D]efend or [R]un. Time is clocking.\n");
+				
+				return;
 			} else {
-				setStatus("You must choose a valid item.");
+				setStatus("You must choose a valid item.\n");
+				
+				randomStatus();
 				
 				return;
 			}
 		}
 		
 		if (this.playerTurn) {
-			// Is the input a string or char-based?
-			// Process the input and make it gets realz
+			// reset defense status, if that is the case
+			if (this.playerDefending) {
+				this.battleExecuter.defend(getPlayer(), true);
+				this.playerDefending = false;
+			}
 			
-			setDone(BattleExecuter.getInstance().attack(player, monster));
-		} else if (this.enemyTurn) {
-			// Make the enemy super duper AI
+			// execute player move
+			if (input.equalsIgnoreCase("D")) {
+				
+			} else if (input.equalsIgnoreCase("R")) {
+				battleExecuter.escape(player, monster);
+				
+			} else if (input.equalsIgnoreCase("A")) {
+				setStatus ("An attack is attempted. You can attack towards the [L]imbs, [B]rain or [V]ital organs"
+						+ " of the creature.\n");
+				
+				return;
+				
+			} else if (input.equalsIgnoreCase("L") || input.equalsIgnoreCase("B") || input.equalsIgnoreCase("V")) {
+				setDone(this.battleExecuter.attack(getPlayer(), getMonster(), input));
+				
+			} else {
+				setStatus("You must choose a valid action.\n");
+				
+				randomStatus();
+				
+				return;
+			}
+			
+			// get battle status
+			setStatus(battleExecuter.getStatus());
+			if (!getDone())
+				setStatus("Press return to procede.\n");
+			
+			// get ready for next move
+			this.playerTurn = false;
+		} else {
+			// reset defense status, if that is the case
+			if (this.enemyDefending) {
+				this.battleExecuter.defend(getMonster(), true);
+				this.enemyDefending = false;
+			}
+			
+			// execute monster move
+			setDone(battleExecuter.monsterAI(monster, player));
+			
+			// get battle status
+			setStatus(battleExecuter.getStatus());
+			if (!getDone())
+				setStatus("You may procede to your turn - you can either [A]ttack, [D]efend or [R]un. Decide.\n");
+			
+			// get ready for next move
+			this.playerTurn = true;
 		}
 		
-		// In case the battle was lost...
+		// if the battle was lost...
 		if (getDone()) {
 			if (getPlayer().dead()) {
 				lostBattle();
@@ -116,17 +178,38 @@ public class BattleManager {
 		}
 	}
 	
+	private void randomStatus () {
+		Random random = new Random ();
+		int randomFactor = random.nextInt(21);
+		
+		if (randomFactor % 3 == 0) {
+			setStatus("Some whispers come to you as if they were lost in the silence of emptiness...\n");
+		}
+		else if (randomFactor % 7 == 0) {
+			setStatus("Tic. Tac. Tic...\n");
+		}
+	}
+	
 	private void wonBattle () {
-		// Win xp!! Yay!
+		double gainedXP = getMonster().getAtt("XP").getValue();
+		
+		if (getPlayer().addXP(gainedXP)) {
+			// level up
+		} else {
+			// ok
+		}
 	}
 	
 	private void lostBattle() {
 		// Player loses XP ):
+		// lower XP
 	}
 	
 	private void reset() {
 		setDone(true);
 		
 		// Battle ended, reset class configurations
+		this.battleExecuter = null;
+		
 	}
 }
