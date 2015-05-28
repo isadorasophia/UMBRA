@@ -118,11 +118,11 @@ class BattleExecuter {
 	}
 	
 	private BodyPart returnBodyPart (String input) {
-		if (input.equalsIgnoreCase("L"))
+		if (input.contains("L"))
 			return this.limbs;
-		else if (input.equalsIgnoreCase("B")) 
+		else if (input.contains("B")) 
 			return this.brain;
-		else if (input.equalsIgnoreCase("V"))
+		else if (input.contains("V"))
 			return this.vitalOrgans;
 		
 		return null;

@@ -64,14 +64,20 @@ public class BattleManager {
 	
 	// Set first things first
 	private void beReady () {
-		setStatus(getMonster().getDescription() + "\n You must choose your items:\n");
-
 		Vector <String> items = getPlayer().itemsForBattle();
+		
+		setStatus(monster.getDescription());
 
 		if (items.isEmpty()) {
+			setStatus("\nIt seems that you don't have any item.\n"
+					+ "You use your hope as an exhausted fuel of not giving up. Quick, make a choice...\n"
+					+ "[A]ttack, [D]efend or [R]un.\n");
+					
 			this.isBattleSet = true;
 		}
 		else {
+			setStatus(getMonster().getDescription() + "\n You must choose your items:\n");
+			
 			boolean first = true;
 			
 			for (String item : items) {
@@ -89,6 +95,7 @@ public class BattleManager {
 	
 	// Function called by the main module, updates the output
 	public void processInput (String input) {
+		String oldStatus = getStatus();
 		setStatus(null);
 		
 		// If the battle isn't set yet
@@ -118,22 +125,24 @@ public class BattleManager {
 			}
 			
 			// execute player move
-			if (input.equalsIgnoreCase("D")) {
+			if (input.contains("D")) {
 				
-			} else if (input.equalsIgnoreCase("R")) {
+			} else if (input.contains("R")) {
 				battleExecuter.escape(player, monster);
 				
-			} else if (input.equalsIgnoreCase("A")) {
+			} else if (input.contains("A")) {
 				setStatus ("An attack is attempted. You can attack towards the [L]imbs, [B]rain or [V]ital organs"
 						+ " of the creature.\n");
 				
 				return;
 				
-			} else if (input.equalsIgnoreCase("L") || input.equalsIgnoreCase("B") || input.equalsIgnoreCase("V")) {
+			} else if (input.contains("L") || input.contains("B") || input.contains("V")) {
 				setDone(this.battleExecuter.attack(getPlayer(), getMonster(), input));
 				
 			} else {
-				setStatus("You must choose a valid action.\n");
+				setStatus("You must choose a valid action.\n" + oldStatus);
+				
+				System.out.println(input);
 				
 				randomStatus();
 				
@@ -180,9 +189,9 @@ public class BattleManager {
 	
 	private void randomStatus () {
 		Random random = new Random ();
-		int randomFactor = random.nextInt(21);
+		int randomFactor = random.nextInt(24);
 		
-		if (randomFactor % 3 == 0) {
+		if (randomFactor % 8 == 0) {
 			setStatus("Some whispers come to you as if they were lost in the silence of emptiness...\n");
 		}
 		else if (randomFactor % 7 == 0) {
