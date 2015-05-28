@@ -163,7 +163,7 @@ class BattleExecuter {
 	}
 	
 	// Monsters turn
-	boolean monsterAI (IMob monster, IMob victim) {
+	boolean monsterAI (IMob monster, IMob victim, ref boolean defending) {
 		// wait for body parts.
 		return true;
 	}

@@ -133,7 +133,9 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 			
 			// execute player move
 			if (input.contains("D")) {
+				battleExecuter.defend(player, false);
 				
+				playerDefending = true;
 			} else if (input.contains("R")) {
 				battleExecuter.escape(player, monster);
 				
