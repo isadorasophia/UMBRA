@@ -9,7 +9,7 @@ public class Characters {
     private IMonstro monstro;
     private IVulto vulto;
 
-    public void putPlayer(IPlayer player){
+    public void setPlayer(IPlayer player){
         this.player = player;
     }
 
@@ -17,14 +17,15 @@ public class Characters {
         return player;
     }
 
-    public void putMonstro(IMonstro monstro){
+    public void setMonstro(IMonstro monstro){
         this.monstro = monstro;
     }
 
     public IMonstro getMonstro(){
         return monstro;
+    }
 
-    }public void putVulto(IVulto vulto){
+    public void setVulto(IVulto vulto){
         this.vulto = vulto;
     }
 

@@ -17,7 +17,7 @@ public class Vulto extends ComponentBase implements IVulto {
         lightProtection = 0;
     }
     public boolean checkVulto(){
-        return distance-- == 0;
+        return distance == 0;
     }
     public void lightInterference(double light){
     	lightProtection = light;

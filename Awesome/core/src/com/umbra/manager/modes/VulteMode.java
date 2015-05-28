@@ -15,7 +15,7 @@ public class VulteMode implements IMode {
     public void init(IComunicator comunicator, Characters characters) {
         this.comunicator = comunicator;
         this.vulto = characters.getVulto();
-        comunicator.setText(text);
+        comunicator.newText(text);
     }
 
     @Override
@@ -26,7 +26,7 @@ public class VulteMode implements IMode {
                 try {
                     vulto.chooseAction(input);
                 } catch (UnknownInputException e) {
-                    comunicator.setText(" I don't understand this command :");
+                    comunicator.newText(" I don't understand this command :");
                 }
             }
         }

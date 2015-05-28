@@ -22,8 +22,9 @@ public class Selector extends ComponentBase implements ISelectorComponent {
     private IMobManager mobManager;
 
     public void init() {
-        characters.putPlayer(mobManager.createPlayer());
-        setMode(Modes.MAZE);
+        characters.setPlayer(mobManager.createPlayer());
+        characters.setMonstro(mobManager.createMonstro());
+        setMode(Modes.BATLLE);
     }
 
     public void setMode(Modes state){
@@ -59,7 +60,7 @@ public class Selector extends ComponentBase implements ISelectorComponent {
 
     @Override
     public void connect(IVulto vulto) {
-        characters.putVulto(vulto);
+        characters.setVulto(vulto);
     }
 
     @Override

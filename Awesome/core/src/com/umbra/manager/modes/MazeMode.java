@@ -43,7 +43,7 @@ public class MazeMode implements IMode {
         }
 
         this.comunicator = comunicator;
-        this.comunicator.setText(initialText);
+        this.comunicator.newText(initialText);
     }
 
     @Override

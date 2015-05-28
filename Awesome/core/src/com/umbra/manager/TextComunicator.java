@@ -39,11 +39,11 @@ public class TextComunicator implements IComunicator, InputProcessor {
         }
         font.setColor(1,1,1,1);
 
-        setText("");
+        newText("");
         Gdx.input.setInputProcessor(this);
     }
 
-    public void setText(String fullText){
+    public void newText(String fullText){
         this.fullText = fullText;
         counter = 0;
         index = 0;
