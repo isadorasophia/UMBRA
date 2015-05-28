@@ -5,8 +5,15 @@ import java.util.Vector;
 
 import com.umbra.mobModule.mobComponent.inter.IMonstro;
 import com.umbra.mobModule.mobComponent.inter.IPlayer;
+import anima.annotation.Component;
+import anima.component.base.ComponentBase;
 
-public class BattleManager {
+@Component(
+		id = "<http://purl.org/NET/dcc/com.umbra.battleModule.BattleManager>",
+		provides = {"<http://purl.org/NET/dcc/com.umbra.battleModule.iBattleManager>"}
+)
+
+public class BattleManager extends ComponentBase implements IBattleManager{
 	// Handler
 	private BattleExecuter battleExecuter = null;
 	

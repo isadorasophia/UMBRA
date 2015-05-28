@@ -2,8 +2,14 @@ package com.umbra.battleModule;
 
 import com.umbra.mobModule.mobComponent.inter.IMonstro;
 import com.umbra.mobModule.mobComponent.inter.IPlayer;
+import anima.annotation.ComponentInterface;
+import anima.component.ISupports;
 
-public interface IBattleManager {
+@ComponentInterface (
+		id = "<http://purl.org/NET/dcc/com.umbra.battleModule.BattleManager>"
+)
+
+public interface IBattleManager extends ISupports{
 	// function which initializes the class for further use
 	public void initialize (IPlayer player, IMonstro monster);
 	
