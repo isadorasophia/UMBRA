@@ -35,6 +35,7 @@ public class BattleMode implements IMode {
             String input = comunicator.getInput();
             if (input != null) {
                 battlemanager.processInput(input);
+                comunicator.newText(battlemanager.getStatus());
             }
         }
     }
