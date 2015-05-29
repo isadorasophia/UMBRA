@@ -24,7 +24,7 @@ public class Selector extends ComponentBase implements ISelectorComponent {
     public void init() {
         characters.setPlayer(mobManager.createPlayer());
         characters.setMonstro(mobManager.createMonstro());
-        setMode(Modes.BATLLE);
+        setMode(Modes.MAZE);
     }
 
     public void setMode(Modes state){
