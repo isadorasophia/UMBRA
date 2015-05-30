@@ -25,7 +25,7 @@ public class Vulto extends ComponentBase implements IVulto {
 
     public boolean chooseAction(String action, StringBuilder result) throws UnknownInputException {
         boolean isAlive = false;
-        System.out.println(action);
+        System.out.print(action);
         if(action.equalsIgnoreCase("f")) isAlive = chooseAction(Action.FIGHT,result);
         else if(action.equalsIgnoreCase("h")) isAlive = chooseAction(Action.HIDE, result);
         else if(action.equalsIgnoreCase("r")) isAlive = chooseAction(Action.RUN, result);

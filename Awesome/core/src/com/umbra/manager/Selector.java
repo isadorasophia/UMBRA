@@ -20,6 +20,7 @@ public class Selector extends ComponentBase implements ISelectorComponent {
     private Characters characters = new Characters();
     private IMode mode;
     private IMobManager mobManager;
+    Modes state;
 
     public void init() {
         characters.setPlayer(mobManager.createPlayer());
@@ -28,6 +29,7 @@ public class Selector extends ComponentBase implements ISelectorComponent {
     }
 
     public void setMode(Modes state){
+        this.state = state;
         switch (state){
             case BATLLE:
                 mode = ModesInstantiator.battleModeInstance(characters);
@@ -45,7 +47,7 @@ public class Selector extends ComponentBase implements ISelectorComponent {
         }
     }
     public void update(float dt){
-        if(characters.getVulto().checkVulto()){
+        if(this.state != Modes.BATLLE && this.state != Modes.VULTO && characters.getVulto().checkVulto()) {
             setMode(Modes.VULTO);
         }
         mode.handleInput();

@@ -24,7 +24,7 @@ public class TextComunicator implements IComunicator, InputProcessor {
     private String text;
     private String fullText;
     private int index;
-    String input;
+    StringBuilder input;
     // counter of updates
     private float counter;
 
@@ -52,13 +52,13 @@ public class TextComunicator implements IComunicator, InputProcessor {
         inputReady = false;
         readInput = false;
         end = false;
-        input = "";
+        input = new StringBuilder();
     }
     
     public String getInput(){
     	readInput = true;
     	if(inputReady){
-    		return input;
+    		return input.substring(0,input.length() - 1);
     	}else{
     		return null;
     	}
@@ -120,7 +120,7 @@ public class TextComunicator implements IComunicator, InputProcessor {
     @Override
 	public boolean keyTyped(char character) {
 		if(readInput){ 
-			input += character;
+			input.append(character);
 			addChar(character);
 		}
 		return false;
@@ -131,7 +131,7 @@ public class TextComunicator implements IComunicator, InputProcessor {
 		if(readInput){
             if(keycode == Input.Keys.ENTER) inputReady = true;
             if(keycode == Input.Keys.BACKSPACE){
-                input = "";
+                input = new StringBuilder();
                 text = fullText + ( (cursor) ? "_" : " ");
             }
 		}
