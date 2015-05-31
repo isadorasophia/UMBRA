@@ -11,7 +11,7 @@ import com.umbra.manager.interfaces.IComunicator;
 
 public class TextComunicator implements IComunicator, InputProcessor {
     // Define constants
-    static final int textSpeed = 10;
+    static final int textSpeed = 1;
 
     // Flags
     private boolean cursor;

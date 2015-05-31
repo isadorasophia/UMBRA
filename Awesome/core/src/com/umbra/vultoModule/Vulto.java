@@ -2,6 +2,9 @@ package com.umbra.vultoModule;
 
 import anima.annotation.Component;
 import anima.component.base.ComponentBase;
+import com.umbra.vultoModule.Exceptions.EmptyInputException;
+import com.umbra.vultoModule.Exceptions.InputException;
+import com.umbra.vultoModule.Exceptions.UnknownInputException;
 
 import java.util.Random;
 
@@ -27,10 +30,11 @@ public class Vulto extends ComponentBase implements IVulto {
     	lightProtection = light;
     }
 
-    public boolean chooseAction(String action, StringBuilder result, double luck) throws UnknownInputException {
+    public boolean chooseAction(String action, StringBuilder result, double luck) throws InputException {
         boolean isAlive = false;
 
         System.out.print(action);
+        if(action.length() == 0) throw new EmptyInputException();
         if(action.charAt(0) == 'f' || action.charAt(0) == 'F') isAlive = chooseAction(Action.FIGHT, result, luck);
         else  if(action.charAt(0) == 'h' || action.charAt(0) == 'H') isAlive = chooseAction(Action.HIDE, result, luck);
         else if(action.charAt(0) == 'r' || action.charAt(0) == 'R') isAlive = chooseAction(Action.RUN, result, luck);

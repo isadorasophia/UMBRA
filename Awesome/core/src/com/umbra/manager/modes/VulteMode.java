@@ -2,13 +2,14 @@ package com.umbra.manager.modes;
 
 import anima.annotation.Component;
 import anima.component.base.ComponentBase;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.umbra.manager.Characters;
 import com.umbra.manager.interfaces.IComunicator;
 import com.umbra.manager.interfaces.IMode;
 import com.umbra.mobModule.mobComponent.inter.IPlayer;
 import com.umbra.vultoModule.IVulto;
-import com.umbra.vultoModule.UnknownInputException;
-import com.umbra.vultoModule.Vulto;
+import com.umbra.vultoModule.Exceptions.InputException;
 
 
 @Component(
@@ -21,9 +22,13 @@ public class VulteMode extends ComponentBase implements IMode {
     IPlayer player;
     StringBuilder result = new StringBuilder(); 
     String text = "The mysterious figure is about to find you. What you do... [F]ace the figure, [H]ide or [R]un.";
+
+    // Flags
     boolean isAlive;
-    boolean modeOn;
-    
+    boolean modeOn; // Continue in the mode
+    boolean end; // Actions ere over
+    boolean done; // Last text already written
+
     @Override
     public void init(IComunicator comunicator, Characters characters) {
         this.comunicator = comunicator;
@@ -32,27 +37,31 @@ public class VulteMode extends ComponentBase implements IMode {
         comunicator.newText(text);
         isAlive = true;
         modeOn = true;
+        end = false;
     }
 
     @Override
     public Modes update(float dt) {
         Modes next_mode = Modes.VULTO;
         if (comunicator.update(dt)) {
-            if (modeOn) {
+            if (!end) {
                 String input = comunicator.getInput();
                 if (input != null) {
                     try {
                         result.delete(0, result.length());
                         isAlive = vulto.chooseAction(input, result, player.getAtt("luck").getValue());
-                        modeOn = false;
+                        end = true;
                         comunicator.newText(result.toString());
-                    } catch (UnknownInputException e) {
-                        comunicator.newText(" I don't understand this command :");
+                    } catch (InputException e) {
+                        comunicator.newText(e.getMessage());
                     }
                 }
             } else {
-                if (isAlive) next_mode = Modes.MAZE;
-                else next_mode = Modes.GAMEOVER;
+                done = true;
+                if(!modeOn) {
+                    if (isAlive) next_mode = Modes.MAZE;
+                    else next_mode = Modes.GAMEOVER;
+                }
             }
         }
         return next_mode;
@@ -65,7 +74,8 @@ public class VulteMode extends ComponentBase implements IMode {
 
     @Override
     public void handleInput() {
-
+        // wait press enter to exit Mode
+        if(done && Gdx.input.isKeyPressed(Input.Keys.ENTER)) modeOn = false;
     }
 
     @Override
