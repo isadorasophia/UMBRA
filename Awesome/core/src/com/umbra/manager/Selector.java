@@ -1,14 +1,12 @@
 package com.umbra.manager;
 
 import anima.annotation.Component;
-import anima.component.IRequires;
 import anima.component.base.ComponentBase;
 
 import com.umbra.manager.interfaces.*;
 import com.umbra.manager.modes.Modes;
 import com.umbra.manager.modes.ModesInstantiator;
 import com.umbra.mobModule.mobComponent.inter.IMobManager;
-import com.umbra.mobModule.mobComponent.inter.IPlayer;
 import com.umbra.vultoModule.IVulto;
 
 @Component(
@@ -23,9 +21,10 @@ public class Selector extends ComponentBase implements ISelectorComponent {
     Modes state;
 
     public void init() {
+        ModesInstantiator.init();
         characters.setPlayer(mobManager.createPlayer());
         characters.setMonstro(mobManager.createMonstro());
-        setMode(Modes.MAZE);
+        setMode(Modes.BATLLE);
     }
 
     public void setMode(Modes state){

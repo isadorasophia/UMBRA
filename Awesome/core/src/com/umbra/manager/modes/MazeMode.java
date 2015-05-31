@@ -1,5 +1,7 @@
 package com.umbra.manager.modes;
 
+import anima.annotation.Component;
+import anima.component.base.ComponentBase;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
@@ -11,7 +13,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class MazeMode implements IMode {
+@Component(
+		id="<http://purl.org/NET/dcc/com.umbra.manager.modes.MazeMode>",
+        provides="<http://purl.org/NET/dcc/com.umbra.com.umbra.manager.interfaces.IMode>"
+)
+public class MazeMode extends ComponentBase implements IMode {
     IComunicator comunicator;
 
     // Flags

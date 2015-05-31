@@ -18,15 +18,18 @@ public class Vulto extends ComponentBase implements IVulto {
         distance = 100;
         lightProtection = 0;
     }
+
     public boolean checkVulto(){
         return distance-- == 0;
     }
+
     public void lightInterference(double light){
     	lightProtection = light;
     }
 
     public boolean chooseAction(String action, StringBuilder result, double luck) throws UnknownInputException {
         boolean isAlive = false;
+
         System.out.print(action);
         if(action.charAt(0) == 'f' || action.charAt(0) == 'F') isAlive = chooseAction(Action.FIGHT, result, luck);
         else  if(action.charAt(0) == 'h' || action.charAt(0) == 'H') isAlive = chooseAction(Action.HIDE, result, luck);

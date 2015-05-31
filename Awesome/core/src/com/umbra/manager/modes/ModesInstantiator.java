@@ -1,46 +1,73 @@
 package com.umbra.manager.modes;
 
+import anima.context.exception.ContextException;
+import anima.factory.IGlobalFactory;
+import anima.factory.context.componentContext.ComponentContextFactory;
+import anima.factory.exception.FactoryException;
+import com.umbra.battleModule.BattleManager;
+import com.umbra.battleModule.IBattleManager;
 import com.umbra.manager.Characters;
+import com.umbra.manager.interfaces.IBattleModeComponent;
 import com.umbra.manager.interfaces.IComunicator;
 import com.umbra.manager.TextComunicator;
 import com.umbra.manager.interfaces.IMode;
 
 public class ModesInstantiator {
-    private static IMode uniquePuzzleMode = null, uniqueMazeMode = null, uniqueBattleMode = null,
-            uniqueVultoMode = null, uniqueGameOverMode = null;
+    private static IMode uniquePuzzleMode = null, uniqueMazeMode = null, uniqueVultoMode = null,
+            uniqueGameOverMode = null;
+    private static IBattleModeComponent uniqueBattleMode = null;
+    private static IGlobalFactory factory = null;
     private static IComunicator comunicator = new TextComunicator();
+
+    static public void init(){
+        try {
+            factory = ComponentContextFactory.createGlobalFactory();
+        } catch (ContextException e) {
+            e.printStackTrace();
+        } catch (FactoryException e) {
+            e.printStackTrace();
+        }
+    }
 
     static public IMode puzzleModeInstance(Characters characters){
         if(uniquePuzzleMode == null){
-            uniquePuzzleMode = new PuzzleMode();
+            factory.registerPrototype(PuzzleMode.class);
+            uniquePuzzleMode = factory.createInstance("<http://purl.org/NET/dcc/com.umbra.manager.modes.PuzzleMode>");
             uniquePuzzleMode.init(comunicator,characters);
         }
         return uniquePuzzleMode;
     }
     static public IMode mazeModeInstance(Characters characters){
         if(uniqueMazeMode == null){
-            uniqueMazeMode = new MazeMode();
+            factory.registerPrototype(MazeMode.class);
+            uniqueMazeMode = factory.createInstance("<http://purl.org/NET/dcc/com.umbra.manager.modes.MazeMode>");
             uniqueMazeMode.init(comunicator,characters);
         }
         return uniqueMazeMode;
     }
     static public IMode battleModeInstance(Characters characters){
         if(uniqueBattleMode == null){
-            uniqueBattleMode = new BattleMode();
+            factory.registerPrototype(BattleMode.class);
+            uniqueBattleMode = factory.createInstance("<http://purl.org/NET/dcc/com.umbra.manager.modes.BattleMode>");
+            factory.registerPrototype(BattleManager.class);
+            IBattleManager bm = factory.createInstance("<http://purl.org/NET/dcc/com.umbra.battleModule.BattleManager>");
+            uniqueBattleMode.connect(bm);
             uniqueBattleMode.init(comunicator,characters);
         }
         return uniqueBattleMode;
     }
     static public IMode vultoModeInstance(Characters characters){
         if(uniqueVultoMode == null){
-            uniqueVultoMode = new VulteMode();
+            factory.registerPrototype(VulteMode.class);
+            uniqueVultoMode = factory.createInstance("<http://purl.org/NET/dcc/com.umbra.manager.modes.VulteMode>");
             uniqueVultoMode.init(comunicator,characters);
         }
         return uniqueVultoMode;
     }
     static public IMode gameOverModeInstance(Characters characters){
         if(uniqueGameOverMode == null){
-            uniqueGameOverMode = new GameOverMode();
+            factory.registerPrototype(GameOverMode.class);
+            uniqueGameOverMode = factory.createInstance("<http://purl.org/NET/dcc/com.umbra.manager.modes.GameOverMode>");
             uniqueGameOverMode.init(comunicator,characters);
         }
         return uniqueGameOverMode;
@@ -55,6 +82,8 @@ public class ModesInstantiator {
     }
     static public void battleModeReset(Characters characters){
         uniqueBattleMode.dispose();
+        IBattleManager bm = factory.createInstance("<http://purl.org/NET/dcc/com.umbra.battleModule.BattleManager>");
+        uniqueBattleMode.connect(bm);
         uniqueBattleMode.init(comunicator,characters);
     }
     static public void vultoModeReset(Characters characters){

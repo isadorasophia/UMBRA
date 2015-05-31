@@ -1,10 +1,17 @@
 package com.umbra.manager.modes;
 
+import anima.annotation.Component;
+import anima.component.base.ComponentBase;
 import com.umbra.manager.Characters;
 import com.umbra.manager.interfaces.IComunicator;
 import com.umbra.manager.interfaces.IMode;
 
-public class PuzzleMode implements IMode {
+
+@Component(
+        id="<http://purl.org/NET/dcc/com.umbra.manager.modes.PuzzleMode>",
+        provides="<http://purl.org/NET/dcc/com.umbra.com.umbra.manager.interfaces.IMode>"
+)
+public class PuzzleMode extends ComponentBase implements IMode {
 
     @Override
     public void init(IComunicator comunicator, Characters characters) {

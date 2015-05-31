@@ -1,5 +1,7 @@
 package com.umbra.manager.modes;
 
+import anima.annotation.Component;
+import anima.component.base.ComponentBase;
 import com.umbra.manager.Characters;
 import com.umbra.manager.interfaces.IComunicator;
 import com.umbra.manager.interfaces.IMode;
@@ -8,7 +10,12 @@ import com.umbra.vultoModule.IVulto;
 import com.umbra.vultoModule.UnknownInputException;
 import com.umbra.vultoModule.Vulto;
 
-public class VulteMode implements IMode {
+
+@Component(
+        id="<http://purl.org/NET/dcc/com.umbra.manager.modes.VulteMode>",
+        provides="<http://purl.org/NET/dcc/com.umbra.com.umbra.manager.interfaces.IMode>"
+)
+public class VulteMode extends ComponentBase implements IMode {
     IComunicator comunicator;
     IVulto vulto;
     IPlayer player;
