@@ -32,14 +32,16 @@ public class MazeMode implements IMode {
             beginning = false;
         }
         int a = -1;
-        try {
-            do{
-                a = reader.read();
-                initialText += (char)a;
-            }while(a != -1);    // a == -1 at eof
-            reader.close();
-        } catch (IOException e) {
-            beginning = false;
+        if(beginning) {
+            try {
+                do {
+                    a = reader.read();
+                    initialText += (char) a;
+                } while (a != -1);    // a == -1 at eof
+                reader.close();
+            } catch (IOException e) {
+                beginning = false;
+            }
         }
 
         this.comunicator = comunicator;
@@ -47,7 +49,7 @@ public class MazeMode implements IMode {
     }
 
     @Override
-    public void update(float dt) {
+    public Modes update(float dt) {
 
         // First Text update
         if(beginning) {
@@ -57,7 +59,7 @@ public class MazeMode implements IMode {
         // Maze update
         else{
         }
-
+        return Modes.MAZE;
     }
 
     @Override

@@ -7,5 +7,5 @@ import anima.component.ISupports;
 public interface IVulto extends ISupports {
     public boolean checkVulto();
     public void lightInterference(double light);
-    public boolean chooseAction(String action, StringBuilder result) throws UnknownInputException;
+    public boolean chooseAction(String action, StringBuilder result, double luck) throws UnknownInputException;
 }

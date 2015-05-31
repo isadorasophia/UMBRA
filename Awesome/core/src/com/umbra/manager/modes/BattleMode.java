@@ -30,7 +30,7 @@ public class BattleMode implements IMode {
     }
 
     @Override
-    public void update(float dt) {
+    public Modes update(float dt) {
         if(comunicator.update(dt)) {
             String input = comunicator.getInput();
             if (input != null) {
@@ -38,6 +38,7 @@ public class BattleMode implements IMode {
                 comunicator.newText(battlemanager.getStatus());
             }
         }
+        return Modes.BATLLE;
     }
 
     @Override

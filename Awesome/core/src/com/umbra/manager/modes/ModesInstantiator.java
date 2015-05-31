@@ -6,7 +6,8 @@ import com.umbra.manager.TextComunicator;
 import com.umbra.manager.interfaces.IMode;
 
 public class ModesInstantiator {
-    private static IMode uniquePuzzleMode = null, uniqueMazeMode = null, uniqueBattleMode = null, uniqueVultoMode = null;
+    private static IMode uniquePuzzleMode = null, uniqueMazeMode = null, uniqueBattleMode = null,
+            uniqueVultoMode = null, uniqueGameOverMode = null;
     private static IComunicator comunicator = new TextComunicator();
 
     static public IMode puzzleModeInstance(Characters characters){
@@ -37,6 +38,13 @@ public class ModesInstantiator {
         }
         return uniqueVultoMode;
     }
+    static public IMode gameOverModeInstance(Characters characters){
+        if(uniqueGameOverMode == null){
+            uniqueGameOverMode = new GameOverMode();
+            uniqueGameOverMode.init(comunicator,characters);
+        }
+        return uniqueGameOverMode;
+    }
     static public void puzzleModeReset(Characters characters){
         uniquePuzzleMode.dispose();
         uniquePuzzleMode.init(comunicator,characters);
@@ -52,5 +60,9 @@ public class ModesInstantiator {
     static public void vultoModeReset(Characters characters){
         uniqueVultoMode.dispose();
         uniqueVultoMode.init(comunicator,characters);
+    }
+    static public void gameOverModeReset(Characters characters){
+        uniqueGameOverMode.dispose();
+        uniqueGameOverMode.init(comunicator,characters);
     }
 }

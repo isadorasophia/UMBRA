@@ -33,6 +33,7 @@ public class Selector extends ComponentBase implements ISelectorComponent {
         switch (state){
             case BATLLE:
                 mode = ModesInstantiator.battleModeInstance(characters);
+                ModesInstantiator.battleModeReset(characters);
                 break;
             case MAZE:
                 mode = ModesInstantiator.mazeModeInstance(characters);
@@ -44,14 +45,20 @@ public class Selector extends ComponentBase implements ISelectorComponent {
                 mode = ModesInstantiator.vultoModeInstance(characters);
                 ModesInstantiator.vultoModeReset(characters);
                 break;
+            case GAMEOVER:
+                mode = ModesInstantiator.gameOverModeInstance(characters);
+                ModesInstantiator.gameOverModeReset(characters);
         }
     }
     public void update(float dt){
+        Modes next;
+
         if(this.state != Modes.BATLLE && this.state != Modes.VULTO && characters.getVulto().checkVulto()) {
             setMode(Modes.VULTO);
         }
         mode.handleInput();
-        mode.update(dt);
+        next = mode.update(dt);
+        if(next != state) setMode(next);
     }
     public void draw(){
         mode.draw();
