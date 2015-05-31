@@ -24,6 +24,7 @@ public class umbraBase{
             e.printStackTrace();
         }
     }
+
     //Talvez fazer um factory que a primeira vez que o cara abrir um db ele ficar aberto?
 
     private String readDb(String info){
