@@ -33,7 +33,7 @@ public class TextComunicator implements IComunicator, InputProcessor {
 
         // initialize font
         try {
-            font = new BitmapFont(Gdx.files.internal("Fonts/proggy.fnt"));
+            font = new BitmapFont(Gdx.files.internal("Fonts/proggy25.fnt"));
         }catch (GdxRuntimeException e){
             font = new BitmapFont();
         }
