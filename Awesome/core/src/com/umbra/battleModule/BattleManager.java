@@ -133,11 +133,11 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 			
 			// execute player move
 			if (input.contains("D")) {
-				battleExecuter.defend(player, false);
+				this.battleExecuter.defend(player, false);
 				
-				playerDefending = true;
+				this.playerDefending = true;
 			} else if (input.contains("R")) {
-				battleExecuter.escape(player, monster);
+				this.battleExecuter.escape(player, monster);
 				
 			} else if (input.contains("A")) {
 				setStatus ("An attack is attempted. You can attack towards the [L]imbs, [B]rain or [V]ital organs"
@@ -172,11 +172,19 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 				this.enemyDefending = false;
 			}
 			
-			// execute monster move
-			setDone(battleExecuter.monsterAI(monster, player));
+			String monsterInput = this.battleExecuter.monsterAI(monster, player);
+			
+			if (monsterInput.contains("D")) {
+				this.battleExecuter.defend(monster, false);
+				
+				this.enemyDefending = true;
+			} else {
+				setDone(this.battleExecuter.attack(getPlayer(), getMonster(), monsterInput));
+			}
 			
 			// get battle status
 			setStatus(battleExecuter.getStatus());
+			
 			if (!getDone())
 				setStatus("You may procede to your turn - you can either [A]ttack, [D]efend or [R]un. Decide.\n");
 			

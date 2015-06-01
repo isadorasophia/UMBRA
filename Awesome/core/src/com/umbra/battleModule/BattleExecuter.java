@@ -4,8 +4,7 @@ import java.util.Random;
 import com.umbra.mobModule.mobComponent.inter.IMob;
 
 // Static class, which manages the battle AI
-class BattleExecuter {	
-	// Prevents to instantiate the class, since it's supposed to be static
+class BattleExecuter {
 	BattleExecuter () { 
 		status = new String ();
 		this.limbs = new BodyPart("Limbs", 1.2f, 0.7f);
@@ -162,9 +161,8 @@ class BattleExecuter {
 		}
 	}
 	
-	// Monsters turn
-	boolean monsterAI (IMob monster, IMob victim, ref boolean defending) {
-		// wait for body parts.
-		return true;
+	// Monster turn
+	String monsterAI (IMob monster, IMob victim) {
+		return null;
 	}
 }
