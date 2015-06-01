@@ -3,7 +3,7 @@ package com.umbra.battleModule;
 import java.util.Random;
 import com.umbra.mobModule.mobComponent.inter.IMob;
 
-// Static class, which manages the battle AI
+// Manages battle mechanics in general
 class BattleExecuter {
 	BattleExecuter () { 
 		status = new String ();
@@ -163,6 +163,27 @@ class BattleExecuter {
 	
 	// Monster turn
 	String monsterAI (IMob monster, IMob victim) {
-		return null;
+		Random random = new Random();
+		double hpProportion = monster.getAtt("hp").getValue()/monster.getAtt("maxHP").getValue();
+		double attackChance = (7 + monster.getAtt("attack").getValue() * 2) * (1 + random.nextFloat());
+		
+		if (hpProportion < 0.1) {
+			if (attackChance >= victim.getAtt("hp").getValue()) {
+				// higher chance to hit enemy
+				return "L";
+			}
+			// bets on higher chance of attack
+			else if (random.nextFloat() >= 0.3)
+				return "B";
+			else
+				return "D";
+		} else {
+			if (monster.getAtt("attack").getValue() * (1 - random.nextFloat() * 0.25) >= monster.getAtt("dexterity").getValue() * (1 - random.nextFloat() * 0.25)) {
+				return "L";
+			} else if (monster.getAtt("dexterity").getValue() * (1 - random.nextFloat() * 0.25) > monster.getAtt("attack").getValue() * 0.5) {
+				return "V";
+			} else
+				return "B";
+		}
 	}
 }

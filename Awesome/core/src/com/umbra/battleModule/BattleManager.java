@@ -25,10 +25,14 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 	private boolean isBattleSet = false;
 	private boolean playerTurn = true;
 	private boolean done = false;
+	private boolean isBattleOver = false;
 
 	// regarding defense move
 	private boolean playerDefending = false;
 	private boolean enemyDefending = false;
+	
+	// level up variables
+	private int attsSelected = 3;
 	
 	// Main string, which is passed to the main class
 	private String status = "";
@@ -105,6 +109,10 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		String oldStatus = getStatus();
 		setStatus(null);
 		
+		// if the battle was already over
+		if (isBattleOver)
+			levelUp(input);
+		
 		// If the battle isn't set yet
 		if (!this.isBattleSet) {
 			// If it was successfully equipped
@@ -146,7 +154,7 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 				return;
 				
 			} else if (input.contains("L") || input.contains("B") || input.contains("V")) {
-				setDone(this.battleExecuter.attack(getPlayer(), getMonster(), input));
+				isBattleOver = this.battleExecuter.attack(getPlayer(), getMonster(), input);
 				
 			} else {
 				setStatus("You must choose a valid action.\n" + oldStatus);
@@ -160,7 +168,7 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 			
 			// get battle status
 			setStatus(battleExecuter.getStatus());
-			if (!getDone())
+			if (!this.isBattleOver)
 				setStatus("Press return to procede.\n");
 			
 			// get ready for next move
@@ -179,13 +187,13 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 				
 				this.enemyDefending = true;
 			} else {
-				setDone(this.battleExecuter.attack(getPlayer(), getMonster(), monsterInput));
+				 isBattleOver = this.battleExecuter.attack(getPlayer(), getMonster(), monsterInput);
 			}
 			
 			// get battle status
 			setStatus(battleExecuter.getStatus());
 			
-			if (!getDone())
+			if (!isBattleOver)
 				setStatus("You may procede to your turn - you can either [A]ttack, [D]efend or [R]un. Decide.\n");
 			
 			// get ready for next move
@@ -193,7 +201,7 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		}
 		
 		// if the battle was lost...
-		if (getDone()) {
+		if (isBattleOver) {
 			if (getPlayer().dead()) {
 				lostBattle();
 			} else {
@@ -219,23 +227,34 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 	private void wonBattle () {
 		double gainedXP = getMonster().getAtt("XP").getValue();
 		
+		setStatus("You win this battle, for once. The creature is now dead, you may " +
+				"move on to your hopeless journey.\n");
+		setStatus("You won " + (int)monster.getAtt("xp").getValue() + " XP as you leave the battle.");
+		
+		// increase gained XP and checks if player has leveled up
 		if (getPlayer().addXP(gainedXP)) {
-			// level up
-		} else {
-			// ok
+			// leveled up!
+			// set map of atts to player choose which will he increase.
+			// then move on...
 		}
 	}
 	
 	private void lostBattle() {
-		// Player loses XP ):
-		// lower XP
-	}
-	
-	private void reset() {
+		setStatus("Suddenly, everything becomes darker... Your limbs are tembling... Everything is fading. Long gone. "
+				+ "No hopes, no chance of escape. You are dead.\n");
+		
 		setDone(true);
 		
+		// lower XP?
+	}
+	
+	private void levelUp (String answer) {
+		if (this.attsSelected == 0)
+			setDone(true);
+	}
+	
+	private void reset() {		
 		// Battle ended, reset class configurations
 		this.battleExecuter = null;
-		
 	}
 }
