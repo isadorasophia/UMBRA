@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.BitmapFont.BitmapFontData;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.umbra.manager.interfaces.IComunicator;
@@ -19,6 +20,7 @@ public class TextComunicator implements IComunicator, InputProcessor {
     boolean inputReady;
     boolean readInput;
     
+    private float hight;
     private BitmapFont font;
     private SpriteBatch batch;
     private String text;
@@ -33,9 +35,9 @@ public class TextComunicator implements IComunicator, InputProcessor {
 
         // initialize font
         try {
-            font = new BitmapFont(Gdx.files.internal("Fonts/proggy25.fnt"));
+            font = new BitmapFont(Gdx.files.internal("Fonts/proggy.fnt"));
         }catch (GdxRuntimeException e){
-            font = new BitmapFont();
+        	font = new BitmapFont();
         }
         font.setColor(1,1,1,1);
 
@@ -53,6 +55,7 @@ public class TextComunicator implements IComunicator, InputProcessor {
         readInput = false;
         end = false;
         input = new StringBuilder();
+        hight = Gdx.graphics.getHeight() - 50;
     }
     
     public String getInput(){
@@ -107,7 +110,8 @@ public class TextComunicator implements IComunicator, InputProcessor {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         if(text != null){
-            font.draw(batch,text,100,Gdx.graphics.getHeight() - 50,600f,-5,true);
+        	if(hight - 100 - ((font.getCapHeight()*text.length())/(Gdx.graphics.getWidth() - 300))*font.getCapHeight() < 0) hight += font.getCapHeight();
+        	font.draw(batch,text,100,hight,Gdx.graphics.getWidth() - 200,-5,true);
         }
         batch.end();
     }

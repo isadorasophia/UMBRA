@@ -1,14 +1,21 @@
 package com.umbra.mapModule;
 
-import com.umbra.mobModule.mobComponent.IMob;
+import com.umbra.Exceptions.UnknownInputException;
+import com.umbra.mobModule.mobComponent.inter.IMob;
 import com.umbra.puzzlesModule.IPuzzle;
+import anima.annotation.Component;
+import anima.component.base.ComponentBase;
 
 import java.util.Arrays;
 import java.util.Random;
 
-public class Map implements IMap{
+@Component(
+		id="<http://purl.org/NET/dcc/com.umbra.mapModule.Map>",
+		provides={"<http://purl.org/NET/dcc/com.umbra.com.umbra.mapModule.IMap>"}
+)
+public class Map extends ComponentBase implements IMap {
     private static int TAM_Y = 50;
-    private static int TAM_X = 5;
+    private static int TAM_X = 10;
     private static Map instance = null;
 
     private ICell[][] corredor = new ICell[TAM_Y][TAM_X];
@@ -21,37 +28,46 @@ public class Map implements IMap{
         return instance;
     }
 
-    // Contrutor privado.
+    // Construtor privado
     private Map(IMob personagem){
+        CellOperator operator = new CellOperator();
         Random generator = new Random();
         Boolean Ok;
         int cont = 0;
 
         personagem.setPosition(new Position(TAM_Y-2, 3));
 
-        for(int i = 0; i < TAM_Y; i++){
-            if(generator.nextInt(22)%7 == 0){
-                //Falta instancia o puzzle com suas caracteristicas
-                /*
-                IPuzzle sala = new IPuzzle() ;
-                if(generator.nextInt(2)%2 == 0){
-                    corredor[i][TAM_X-1] = new Cell(null, sala);
-                }else{
-                    corredor[i][0] = new Cell(null, sala);
-                }
-                */
+        for (int i = 1; i < TAM_Y-1; i++) {
+            for (int j = 1; j < TAM_X - 1; j++) {
+                corredor[i][j] = operator.makeVazio();
             }
         }
 
-        for(int i = 1;i < TAM_Y-1; i++) {
+        for (int i = 0; i < TAM_X; i++) {
+            operator.makeParede(corredor[0][i]);
+            operator.makeParede(corredor[TAM_Y-1][i]);
+        }
+        for (int i = 0; i < TAM_Y; i++) {
+            operator.makeParede(corredor[i][0]);
+            operator.makeParede(corredor[i][TAM_X-1]);
+        }
+
+        for(int i = 1; i < TAM_Y-1; i++) {
+            if(generator.nextInt(22)%10 == 0) {
+                //Falta instancia o puzzle com suas caracteristicas
+                if (generator.nextInt(2)%2 == 0) {
+                    operator.makePorta(corredor[i][TAM_X-1]);
+                } else {
+                    operator.makePorta(corredor[i][0]);
+                }
+            }
+        }
+
+        for(int i = 1; i < TAM_Y-1; i++) {
             Ok = false;
-            for(int j = 1; j < TAM_Y-5 && !Ok; j++) {
-                if(generator.nextInt(22)%7 == 0){
-                    //Falta instancia o monstro com suas caracteristicas
-                    /*
-                    IMob monstro = new IMob(null,null,null);
-                    corredor[i][j] = new Cell(monstro, null);
-                    */
+            for(int j = 1; j < TAM_X-1 && !Ok; j++) {
+                if(generator.nextInt(70)%60 == 0){
+                    operator.makeMonstro(corredor[i][j], i, j);
                     cont++;
                     Ok = true;
                 }
@@ -74,11 +90,12 @@ public class Map implements IMap{
         }
         return response;
     }
-    public boolean move(IMob entidade, char direction) {
+
+    public IMob move(IMob entidade, String direction) {
         Position posicao = (Position) entidade.getPosition();
         ICell atual;
 
-        switch (direction) {
+        switch (direction.charAt(0)) {
             case 'n':
                 atual = corredor[posicao.getY()][posicao.getX()];
                 ICell norte = corredor[posicao.getY()+1][posicao.getX()];
@@ -87,16 +104,16 @@ public class Map implements IMap{
                 atual = corredor[posicao.getY()][posicao.getX()];
                 ICell sul = corredor[posicao.getY()-1][posicao.getX()];
                 return posicao.moveSouth(sul, atual);
-            case 'w':
+            case 'l':
                 atual = corredor[posicao.getY()][posicao.getX()];
                 ICell oeste = corredor[posicao.getY()][posicao.getX()-1];
                 return posicao.moveWest(oeste, atual);
-            case 'e':
+            case 'o':
                 atual = corredor[posicao.getY()][posicao.getX()];
                 ICell leste = corredor[posicao.getY()][posicao.getX()+1];
                 return posicao.moveEast(leste, atual);
             default:
-                return false;
+                throw(new UnknownInputException());
         }
     }
 }

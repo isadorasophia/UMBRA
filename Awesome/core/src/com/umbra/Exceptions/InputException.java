@@ -1,4 +1,4 @@
-package com.umbra.vultoModule.Exceptions;
+package com.umbra.Exceptions;
 
 public class InputException extends Throwable {
     public InputException() {

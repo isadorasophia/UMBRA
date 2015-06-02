@@ -1,24 +1,31 @@
 package com.umbra.mapModule;
 
-import com.umbra.mobModule.mobComponent.IMob;
+import com.umbra.mobModule.mobComponent.inter.IMob;
 import com.umbra.puzzlesModule.IPuzzle;
 
 public class Cell implements ICell {
     private IMob entidade;
+    private IMob colisão;
     private IPuzzle porta;
     private boolean parede;
 
     // Constructor
     // Caso não tenha entidade e/ou porta, passar null como parametro
-    public Cell(IMob entidade, IPuzzle porta, boolean parede) {
-        this.entidade = entidade;
-        this.porta = porta;
-        this.parede = parede;
+    public Cell() {
+        this.entidade = null;
+        this.porta = null;
+        this.parede = false;
     }
 
     // Remove o mob da célula e o retorna
     public IMob removeMob() {
-        IMob aux = this.entidade;
+        IMob aux;
+        if(this.colisão != null){
+            aux = colisão;
+            colisão = null;
+            return aux;
+        }
+        aux = this.entidade;
         this.entidade = null;
         return aux;
     }
@@ -30,11 +37,18 @@ public class Cell implements ICell {
             this.entidade = entidade;
             return true;
         }
-        return false;
+        else{
+            colisão = entidade;
+            return false;
+        }
     }
 
     public IMob getMob() {
         return this.entidade;
+    }
+
+    public void setDoor(IPuzzle porta) {
+        this.porta = porta;
     }
 
     public IPuzzle getDoor() {
@@ -54,6 +68,8 @@ public class Cell implements ICell {
         }
         else if(parede) {
             return '#';
+        }else if(porta != null){
+           return '[';
         }
         else{
             return '.';

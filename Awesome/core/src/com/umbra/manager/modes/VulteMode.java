@@ -2,14 +2,15 @@ package com.umbra.manager.modes;
 
 import anima.annotation.Component;
 import anima.component.base.ComponentBase;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.umbra.Exceptions.InputException;
 import com.umbra.manager.Characters;
 import com.umbra.manager.interfaces.IComunicator;
 import com.umbra.manager.interfaces.IMode;
 import com.umbra.mobModule.mobComponent.inter.IPlayer;
 import com.umbra.vultoModule.IVulto;
-import com.umbra.vultoModule.Exceptions.InputException;
 
 
 @Component(
