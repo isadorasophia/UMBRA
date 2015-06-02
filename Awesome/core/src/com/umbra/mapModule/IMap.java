@@ -7,4 +7,5 @@ public interface IMap extends ISupports{
     public ICell getCell(IPosition posicao);
     public ICell[][] getCell(IPosition posicao,int range);
     public boolean move(IMob entidade, String direction);
+    public IMob move(IMob entidade, String direction);
 }

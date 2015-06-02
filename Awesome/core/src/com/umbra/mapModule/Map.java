@@ -1,5 +1,6 @@
 package com.umbra.mapModule;
 
+import com.umbra.Exceptions.UnknownInputException;
 import com.umbra.mobModule.mobComponent.impl.FabricaDeMonstro;
 import com.umbra.mobModule.mobComponent.inter.IMob;
 import com.umbra.puzzlesModule.IPuzzle;
@@ -109,7 +110,7 @@ public class Map extends ComponentBase implements IMap {
                 ICell leste = corredor[posicao.getY()][posicao.getX()+1];
                 return posicao.moveEast(leste, atual);
             default:
-                return null;
+                throw(UnknownInputException);
         }
     }
 }
