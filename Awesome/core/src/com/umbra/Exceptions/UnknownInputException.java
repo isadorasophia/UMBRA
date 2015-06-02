@@ -1,6 +1,6 @@
-package com.umbra.vultoModule.Exceptions;
+package com.umbra.Exceptions;
 
-import com.umbra.vultoModule.Exceptions.InputException;
+import com.umbra.Exceptions.InputException;
 
 public class UnknownInputException extends InputException {
 

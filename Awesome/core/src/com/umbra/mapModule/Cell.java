@@ -1,6 +1,6 @@
 package com.umbra.mapModule;
 
-import com.umbra.mobModule.mobComponent.IMob;
+import com.umbra.mobModule.mobComponent.inter.IMob;
 import com.umbra.puzzlesModule.IPuzzle;
 
 public class Cell implements ICell {
@@ -54,6 +54,8 @@ public class Cell implements ICell {
         }
         else if(parede) {
             return '#';
+        }else if(porta != null){
+           return '[';
         }
         else{
             return '.';

@@ -2,11 +2,13 @@ package com.umbra.manager.modes;
 
 import anima.annotation.Component;
 import anima.component.base.ComponentBase;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.umbra.manager.Characters;
 import com.umbra.manager.interfaces.IComunicator;
 import com.umbra.manager.interfaces.IMode;
+import com.umbra.mobModule.mobComponent.inter.IPlayer;
 
 @Component(
 		id="<http://purl.org/NET/dcc/com.umbra.manager.modes.GameOverMode>",
@@ -25,6 +27,8 @@ public class GameOverMode extends ComponentBase implements IMode {
         comunicator.newText("GAME OVER");
         done = false;
         modeOn = true;
+        IPlayer player = characters.getPlayer();
+        player.setXp(player.getXp()*0.90);
     }
 
     @Override
