@@ -11,10 +11,10 @@ public class Cell implements ICell {
 
     // Constructor
     // Caso não tenha entidade e/ou porta, passar null como parametro
-    public Cell(IMob entidade, IPuzzle porta, boolean parede) {
-        this.entidade = entidade;
-        this.porta = porta;
-        this.parede = parede;
+    public Cell() {
+        this.entidade = null;
+        this.porta = null;
+        this.parede = false;
     }
 
     // Remove o mob da célula e o retorna
@@ -45,6 +45,10 @@ public class Cell implements ICell {
 
     public IMob getMob() {
         return this.entidade;
+    }
+
+    public void setDoor(IPuzzle porta) {
+        this.porta = porta;
     }
 
     public IPuzzle getDoor() {

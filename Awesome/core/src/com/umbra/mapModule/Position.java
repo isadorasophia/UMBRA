@@ -13,7 +13,7 @@ public class Position implements IPosition{
 
     public IMob moveNorth(ICell norte, ICell atual) {
         if (norte.getMob() != null)
-            return norte.setMob();
+            return norte.getMob();
         else if (!norte.getParede()) {
             norte.setMob(atual.removeMob());
             this.posY++;
@@ -23,7 +23,7 @@ public class Position implements IPosition{
 
     public IMob moveSouth(ICell sul, ICell atual) {
         if (sul.getMob() != null)
-            return sul.setMob();
+            return sul.getMob();
         else if (!sul.getParede()) {
             sul.setMob(atual.removeMob());
             this.posY--;
@@ -33,7 +33,7 @@ public class Position implements IPosition{
 
     public IMob moveWest(ICell oeste, ICell atual) {
         if (oeste.getMob() != null)
-            return oeste.setMob();
+            return oeste.getMob();
         else if (!oeste.getParede()) {
             oeste.setMob(atual.removeMob());
             this.posX--;
@@ -43,7 +43,7 @@ public class Position implements IPosition{
 
     public IMob moveEast(ICell leste, ICell atual) {
         if (leste.getMob() != null)
-            return leste.setMob();
+            return leste.getMob();
         else if (!leste.getParede()) {
             leste.setMob(atual.removeMob());
             this.posX++;

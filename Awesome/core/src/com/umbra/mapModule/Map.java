@@ -1,7 +1,6 @@
 package com.umbra.mapModule;
 
 import com.umbra.Exceptions.UnknownInputException;
-import com.umbra.mobModule.mobComponent.impl.FabricaDeMonstro;
 import com.umbra.mobModule.mobComponent.inter.IMob;
 import com.umbra.puzzlesModule.IPuzzle;
 import anima.annotation.Component;
@@ -31,30 +30,35 @@ public class Map extends ComponentBase implements IMap {
 
     // Construtor privado
     private Map(IMob personagem){
+        CellOperator operator = new CellOperator();
         Random generator = new Random();
         Boolean Ok;
         int cont = 0;
 
         personagem.setPosition(new Position(TAM_Y-2, 3));
 
-<<<<<<< HEAD
+        for (int i = 1; i < TAM_Y-1; i++) {
+            for (int j = 1; j < TAM_X - 1; j++) {
+                corredor[i][j] = operator.makeVazio();
+            }
+        }
+
         for (int i = 0; i < TAM_X; i++) {
-            corredor[0][i] = new Cell(null, null, true);
-            corredor[TAM_Y-1][i] = new Cell(null, null, true);
+            operator.makeParede(corredor[0][i]);
+            operator.makeParede(corredor[TAM_Y-1][i]);
         }
         for (int i = 0; i < TAM_Y; i++) {
-            corredor[i][0] = new Cell(null, null, true);
-            corredor[i][TAM_X-1] = new Cell(null, null, true);
+            operator.makeParede(corredor[i][0]);
+            operator.makeParede(corredor[i][TAM_X-1]);
         }
 
         for(int i = 1; i < TAM_Y-1; i++) {
             if(generator.nextInt(22)%10 == 0) {
                 //Falta instancia o puzzle com suas caracteristicas
-                IPuzzle sala = new Puzzle();
                 if (generator.nextInt(2)%2 == 0) {
-                    corredor[i][TAM_X-1] = new Cell(null, sala, false);
+                    operator.makePorta(corredor[i][TAM_X-1]);
                 } else {
-                    corredor[i][0] = new Cell(null, sala, false);
+                    operator.makePorta(corredor[i][0]);
                 }
             }
         }
@@ -63,8 +67,7 @@ public class Map extends ComponentBase implements IMap {
             Ok = false;
             for(int j = 1; j < TAM_X-1 && !Ok; j++) {
                 if(generator.nextInt(70)%60 == 0){
-                    FabricaDeMonstro fabrica = new FabricaDeMonstro();
-                    corredor[i][j].setMob(fabrica.create(j, new Position(i,j) ));
+                    operator.makeMonstro(corredor[i][j], i, j);
                     cont++;
                     Ok = true;
                 }
@@ -110,7 +113,7 @@ public class Map extends ComponentBase implements IMap {
                 ICell leste = corredor[posicao.getY()][posicao.getX()+1];
                 return posicao.moveEast(leste, atual);
             default:
-                throw(UnknownInputException);
+                throw(new UnknownInputException());
         }
     }
 }
