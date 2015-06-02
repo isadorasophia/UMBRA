@@ -5,6 +5,7 @@ import com.umbra.puzzlesModule.IPuzzle;
 
 public class Cell implements ICell {
     private IMob entidade;
+    private IMob colisão;
     private IPuzzle porta;
     private boolean parede;
 
@@ -18,7 +19,13 @@ public class Cell implements ICell {
 
     // Remove o mob da célula e o retorna
     public IMob removeMob() {
-        IMob aux = this.entidade;
+        IMob aux;
+        if(this.colisão != null){
+            aux = colisão;
+            colisão = null;
+            return aux;
+        }
+        aux = this.entidade;
         this.entidade = null;
         return aux;
     }
@@ -30,7 +37,10 @@ public class Cell implements ICell {
             this.entidade = entidade;
             return true;
         }
-        return false;
+        else{
+            colisão = entidade;
+            return false;
+        }
     }
 
     public IMob getMob() {
