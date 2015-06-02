@@ -1,14 +1,19 @@
 package com.umbra.mapModule;
 
 import com.umbra.mobModule.mobComponent.impl.FabricaDeMonstro;
-import com.umbra.mobModule.mobComponent.impl.Mob;
 import com.umbra.mobModule.mobComponent.inter.IMob;
 import com.umbra.puzzlesModule.IPuzzle;
+import anima.annotation.Component;
+import anima.component.base.ComponentBase;
 
 import java.util.Arrays;
 import java.util.Random;
 
-public class Map implements IMap{
+@Component(
+		id="<http://purl.org/NET/dcc/com.umbra.mapModule.Map>",
+		provides={"<http://purl.org/NET/dcc/com.umbra.com.umbra.mapModule.IMap>"}
+)
+public class Map extends ComponentBase implements IMap {
     private static int TAM_Y = 50;
     private static int TAM_X = 5;
     private static Map instance = null;
