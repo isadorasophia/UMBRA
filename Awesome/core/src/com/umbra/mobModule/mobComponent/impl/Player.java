@@ -1,11 +1,8 @@
 package com.umbra.mobModule.mobComponent.impl;
 
 
-import java.util.Vector;
-
 import anima.factory.IGlobalFactory;
 import anima.factory.context.componentContext.ComponentContextFactory;
-
 import com.umbra.mapModule.IPosition;
 import com.umbra.mobModule.attComponent.impl.AttCreator;
 import com.umbra.mobModule.attComponent.inter.IAttManager;
@@ -13,6 +10,8 @@ import com.umbra.mobModule.attComponent.inter.IAttribute;
 import com.umbra.mobModule.enums.Type;
 import com.umbra.mobModule.itemComponent.inter.IItem;
 import com.umbra.mobModule.mobComponent.inter.IPlayer;
+
+import java.util.Vector;
 
 public class Player extends PlayerGeneric implements IPlayer{
 
@@ -53,8 +52,12 @@ public class Player extends PlayerGeneric implements IPlayer{
             atts.get("xp").setValue(xp);
         }
     }
-    public addXp(double xp){
+
+    public boolean addXp(double xp){
+        int nivel = getNivel();
         setXp(getXp() + xp);
+        return getNivel() > nivel;
+
     }
 
     public int getNivel(){
@@ -64,7 +67,11 @@ public class Player extends PlayerGeneric implements IPlayer{
             return getAtt("xp").getValue() > 1 ? (int) Math.floor(Math.log10(getAtt("xp").getValue())) + 1 : 1;
         }
     }
-    
+
+    public double getHealth() {
+        return getAtt("hp").getValue();
+    }
+
     public Vector<String> itemsForBattle() {
         Vector<IItem> items = inventory.getAllItems();
         Vector<String> resp = new Vector<String>(items.size(), 1);

@@ -41,8 +41,10 @@ public abstract class Mob extends MobGeneric implements IMob{
     }
     /* Retorna true se ainda esta vivo, falso caso contrário */
     public boolean decreaseHP (double hp){
-        setAtt("hp").setValue(getAtt("hp").getValue() - hp);
-        
-        return getAtt("hp").getValue > 0;
+        IAttribute att = getAtt("hp");
+        double value = att.getValue() - hp;
+        att.setValue(value);
+
+        return value > 0;
     }
 }
