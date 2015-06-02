@@ -1,6 +1,8 @@
 package com.umbra.mapModule;
 
-import com.umbra.mobModule.mobComponent.IMob;
+import com.umbra.mobModule.mobComponent.impl.FabricaDeMonstro;
+import com.umbra.mobModule.mobComponent.impl.Mob;
+import com.umbra.mobModule.mobComponent.inter.IMob;
 import com.umbra.puzzlesModule.IPuzzle;
 
 import java.util.Arrays;
@@ -31,15 +33,12 @@ public class Map implements IMap{
 
         for(int i = 0; i < TAM_Y; i++){
             if(generator.nextInt(22)%7 == 0){
-                //Falta instancia o puzzle com suas caracteristicas
-                /*
-                IPuzzle sala = new IPuzzle() ;
+                IPuzzle sala = new Puzzle() ;
                 if(generator.nextInt(2)%2 == 0){
                     corredor[i][TAM_X-1] = new Cell(null, sala);
                 }else{
                     corredor[i][0] = new Cell(null, sala);
                 }
-                */
             }
         }
 
@@ -47,11 +46,8 @@ public class Map implements IMap{
             Ok = false;
             for(int j = 1; j < TAM_Y-5 && !Ok; j++) {
                 if(generator.nextInt(22)%7 == 0){
-                    //Falta instancia o monstro com suas caracteristicas
-                    /*
-                    IMob monstro = new IMob(null,null,null);
-                    corredor[i][j] = new Cell(monstro, null);
-                    */
+                    FabricaDeMonstro fabrica = new FabricaDeMonstro();
+                    corredor[i][j].setMob(fabrica.create(j, new Position(i,j) ));
                     cont++;
                     Ok = true;
                 }
@@ -74,11 +70,11 @@ public class Map implements IMap{
         }
         return response;
     }
-    public boolean move(IMob entidade, char direction) {
+    public boolean move(IMob entidade, String direction) {
         Position posicao = (Position) entidade.getPosition();
         ICell atual;
 
-        switch (direction) {
+        switch (direction.charAt(0)) {
             case 'n':
                 atual = corredor[posicao.getY()][posicao.getX()];
                 ICell norte = corredor[posicao.getY()+1][posicao.getX()];
@@ -87,16 +83,16 @@ public class Map implements IMap{
                 atual = corredor[posicao.getY()][posicao.getX()];
                 ICell sul = corredor[posicao.getY()-1][posicao.getX()];
                 return posicao.moveSouth(sul, atual);
-            case 'w':
+            case 'l':
                 atual = corredor[posicao.getY()][posicao.getX()];
                 ICell oeste = corredor[posicao.getY()][posicao.getX()-1];
                 return posicao.moveWest(oeste, atual);
-            case 'e':
+            case 'o':
                 atual = corredor[posicao.getY()][posicao.getX()];
                 ICell leste = corredor[posicao.getY()][posicao.getX()+1];
                 return posicao.moveEast(leste, atual);
             default:
-                return false;
+                throw();
         }
     }
 }
