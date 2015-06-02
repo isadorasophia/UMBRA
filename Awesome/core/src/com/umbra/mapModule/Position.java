@@ -1,5 +1,7 @@
 package com.umbra.mapModule;
 
+import com.umbra.mobModule.mobComponent.inter.IMob;
+
 public class Position implements IPosition{
     private int posX;
     private int posY;
@@ -9,40 +11,44 @@ public class Position implements IPosition{
         this.posY = Yi;
     }
 
-    public Boolean moveNorth(ICell norte, ICell atual) {
-        if (norte.getMob() == null) {
+    public IMob moveNorth(ICell norte, ICell atual) {
+        if (norte.getMob() != null)
+            return norte.setMob();
+        else if (!norte.getParede()) {
             norte.setMob(atual.removeMob());
             this.posY++;
-            return true;
         }
-        return false;
+        return null;
     }
 
-    public Boolean moveSouth(ICell sul, ICell atual) {
-        if (sul.getMob() == null) {
+    public IMob moveSouth(ICell sul, ICell atual) {
+        if (sul.getMob() != null)
+            return sul.setMob();
+        else if (!sul.getParede()) {
             sul.setMob(atual.removeMob());
             this.posY--;
-            return true;
         }
-        return false;
+        return null;
     }
 
-    public Boolean moveWest(ICell oeste, ICell atual) {
-        if (oeste.getMob() == null) {
+    public IMob moveWest(ICell oeste, ICell atual) {
+        if (oeste.getMob() != null)
+            return oeste.setMob();
+        else if (!oeste.getParede()) {
             oeste.setMob(atual.removeMob());
             this.posX--;
-            return true;
         }
-        return false;
+        return null;
     }
 
-    public Boolean moveEast(ICell leste, ICell atual) {
-        if (leste.getMob() == null) {
+    public IMob moveEast(ICell leste, ICell atual) {
+        if (leste.getMob() != null)
+            return leste.setMob();
+        else if (!leste.getParede()) {
             leste.setMob(atual.removeMob());
             this.posX++;
-            return true;
         }
-        return false;
+        return null;
     }
 
     public int getX() {

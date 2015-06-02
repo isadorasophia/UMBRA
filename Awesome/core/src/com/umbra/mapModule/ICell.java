@@ -8,5 +8,6 @@ public interface ICell {
     public Boolean setMob(IMob entidade);
     public IMob getMob();
     public IPuzzle getDoor();
+    public boolean getParede();
     public char getDescription();
 }
