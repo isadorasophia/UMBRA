@@ -1,10 +1,6 @@
 package com.umbra.mapModule;
 
-<<<<<<< HEAD
-import com.umbra.mobModule.mobComponent.impl.Mob;
-=======
 import com.umbra.mobModule.mobComponent.impl.FabricaDeMonstro;
->>>>>>> 125e2eedc8146a05ac307f2e708a0a9d484a5343
 import com.umbra.mobModule.mobComponent.inter.IMob;
 import com.umbra.puzzlesModule.IPuzzle;
 import anima.annotation.Component;
@@ -58,33 +54,16 @@ public class Map extends ComponentBase implements IMap {
                     corredor[i][TAM_X-1] = new Cell(null, sala, false);
                 } else {
                     corredor[i][0] = new Cell(null, sala, false);
-=======
-        for(int i = 0; i < TAM_Y; i++){
-            if(generator.nextInt(22)%7 == 0){
-                IPuzzle sala = new Puzzle() ;
-                if(generator.nextInt(2)%2 == 0){
-                    corredor[i][TAM_X-1] = new Cell(null, sala);
-                }else{
-                    corredor[i][0] = new Cell(null, sala);
->>>>>>> 125e2eedc8146a05ac307f2e708a0a9d484a5343
                 }
             }
         }
 
         for(int i = 1; i < TAM_Y-1; i++) {
             Ok = false;
-<<<<<<< HEAD
-            for(int j = 1; j < TAM_X - 1 && !Ok; j++) {
+            for(int j = 1; j < TAM_X-1 && !Ok; j++) {
                 if(generator.nextInt(70)%60 == 0){
-                    //Falta instancia o monstro com suas caracteristicas
-                    IMob monstro = new Mob(null,null,null);
-                    corredor[i][j] = new Cell(monstro, null, false);
-=======
-            for(int j = 1; j < TAM_Y-5 && !Ok; j++) {
-                if(generator.nextInt(22)%7 == 0){
                     FabricaDeMonstro fabrica = new FabricaDeMonstro();
                     corredor[i][j].setMob(fabrica.create(j, new Position(i,j) ));
->>>>>>> 125e2eedc8146a05ac307f2e708a0a9d484a5343
                     cont++;
                     Ok = true;
                 }
@@ -107,11 +86,8 @@ public class Map extends ComponentBase implements IMap {
         }
         return response;
     }
-<<<<<<< HEAD
-    public IMob move(IMob entidade, char direction) {
-=======
-    public boolean move(IMob entidade, String direction) {
->>>>>>> 125e2eedc8146a05ac307f2e708a0a9d484a5343
+
+    public IMob move(IMob entidade, String direction) {
         Position posicao = (Position) entidade.getPosition();
         ICell atual;
 
@@ -133,11 +109,7 @@ public class Map extends ComponentBase implements IMap {
                 ICell leste = corredor[posicao.getY()][posicao.getX()+1];
                 return posicao.moveEast(leste, atual);
             default:
-<<<<<<< HEAD
                 return null;
-=======
-                throw();
->>>>>>> 125e2eedc8146a05ac307f2e708a0a9d484a5343
         }
     }
 }
