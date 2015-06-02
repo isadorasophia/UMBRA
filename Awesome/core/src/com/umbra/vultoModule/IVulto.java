@@ -2,7 +2,8 @@ package com.umbra.vultoModule;
 
 import anima.annotation.ComponentInterface;
 import anima.component.ISupports;
-import com.umbra.vultoModule.Exceptions.InputException;
+
+import com.umbra.Exceptions.InputException;
 
 @ComponentInterface("<http://purl.org/NET/dcc/com.umbra.com.umbra.vultoModule.IVulto>")
 public interface IVulto extends ISupports {

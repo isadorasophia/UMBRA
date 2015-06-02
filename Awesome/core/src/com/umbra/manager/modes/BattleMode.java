@@ -56,7 +56,7 @@ public class BattleMode extends ComponentBase implements IBattleModeComponent {
             }else{
                 done = true;
                 if(!modeOn) {
-                    if (player.getHealth() == 0) next_mode = Modes.GAMEOVER;
+                    if (player.dead()) next_mode = Modes.GAMEOVER;
                     else next_mode = Modes.MAZE;
                 }
             }

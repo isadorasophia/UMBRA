@@ -2,9 +2,10 @@ package com.umbra.vultoModule;
 
 import anima.annotation.Component;
 import anima.component.base.ComponentBase;
-import com.umbra.vultoModule.Exceptions.EmptyInputException;
-import com.umbra.vultoModule.Exceptions.InputException;
-import com.umbra.vultoModule.Exceptions.UnknownInputException;
+
+import com.umbra.Exceptions.EmptyInputException;
+import com.umbra.Exceptions.InputException;
+import com.umbra.Exceptions.UnknownInputException;
 
 import java.util.Random;
 
@@ -23,7 +24,7 @@ public class Vulto extends ComponentBase implements IVulto {
     }
 
     public boolean checkVulto(){
-        return distance-- == 0;
+        return distance--+lightProtection == 0;
     }
 
     public void lightInterference(double light){
@@ -35,9 +36,9 @@ public class Vulto extends ComponentBase implements IVulto {
 
         System.out.print(action);
         if(action.length() == 0) throw new EmptyInputException();
-        if(action.charAt(0) == 'f' || action.charAt(0) == 'F') isAlive = chooseAction(Action.FIGHT, result, luck);
-        else  if(action.charAt(0) == 'h' || action.charAt(0) == 'H') isAlive = chooseAction(Action.HIDE, result, luck);
-        else if(action.charAt(0) == 'r' || action.charAt(0) == 'R') isAlive = chooseAction(Action.RUN, result, luck);
+        if(action.equalsIgnoreCase("f") || action.equalsIgnoreCase("face")) isAlive = chooseAction(Action.FIGHT, result, luck);
+        else  if(action.equalsIgnoreCase("h") || action.equalsIgnoreCase("hide")) isAlive = chooseAction(Action.HIDE, result, luck);
+        else if(action.equalsIgnoreCase("r") || action.equalsIgnoreCase("run")) isAlive = chooseAction(Action.RUN, result, luck);
         else throw new UnknownInputException();
         return isAlive;
     }
