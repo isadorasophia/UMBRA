@@ -1,6 +1,7 @@
 package com.umbra.mapModule;
 
-import com.umbra.mobModule.mobComponent.IMob;
+import com.umbra.mobModule.mobComponent.impl.Mob;
+import com.umbra.mobModule.mobComponent.inter.IMob;
 import com.umbra.puzzlesModule.IPuzzle;
 
 import java.util.Arrays;
@@ -8,7 +9,7 @@ import java.util.Random;
 
 public class Map implements IMap{
     private static int TAM_Y = 50;
-    private static int TAM_X = 5;
+    private static int TAM_X = 10;
     private static Map instance = null;
 
     private ICell[][] corredor = new ICell[TAM_Y][TAM_X];
@@ -21,7 +22,7 @@ public class Map implements IMap{
         return instance;
     }
 
-    // Contrutor privado.
+    // Construtor privado
     private Map(IMob personagem){
         Random generator = new Random();
         Boolean Ok;
@@ -29,29 +30,34 @@ public class Map implements IMap{
 
         personagem.setPosition(new Position(TAM_Y-2, 3));
 
-        for(int i = 0; i < TAM_Y; i++){
-            if(generator.nextInt(22)%7 == 0){
+        for (int i = 0; i < TAM_X; i++) {
+            corredor[0][i] = new Cell(null, null, true);
+            corredor[TAM_Y-1][i] = new Cell(null, null, true);
+        }
+        for (int i = 0; i < TAM_Y; i++) {
+            corredor[i][0] = new Cell(null, null, true);
+            corredor[i][TAM_X-1] = new Cell(null, null, true);
+        }
+
+        for(int i = 1; i < TAM_Y-1; i++) {
+            if(generator.nextInt(22)%10 == 0) {
                 //Falta instancia o puzzle com suas caracteristicas
-                /*
-                IPuzzle sala = new IPuzzle() ;
-                if(generator.nextInt(2)%2 == 0){
-                    corredor[i][TAM_X-1] = new Cell(null, sala);
-                }else{
-                    corredor[i][0] = new Cell(null, sala);
+                IPuzzle sala = new Puzzle();
+                if (generator.nextInt(2)%2 == 0) {
+                    corredor[i][TAM_X-1] = new Cell(null, sala, false);
+                } else {
+                    corredor[i][0] = new Cell(null, sala, false);
                 }
-                */
             }
         }
 
-        for(int i = 1;i < TAM_Y-1; i++) {
+        for(int i = 1; i < TAM_Y-1; i++) {
             Ok = false;
-            for(int j = 1; j < TAM_Y-5 && !Ok; j++) {
-                if(generator.nextInt(22)%7 == 0){
+            for(int j = 1; j < TAM_X - 1 && !Ok; j++) {
+                if(generator.nextInt(70)%60 == 0){
                     //Falta instancia o monstro com suas caracteristicas
-                    /*
-                    IMob monstro = new IMob(null,null,null);
-                    corredor[i][j] = new Cell(monstro, null);
-                    */
+                    IMob monstro = new Mob(null,null,null);
+                    corredor[i][j] = new Cell(monstro, null, false);
                     cont++;
                     Ok = true;
                 }
@@ -74,7 +80,7 @@ public class Map implements IMap{
         }
         return response;
     }
-    public boolean move(IMob entidade, char direction) {
+    public IMob move(IMob entidade, char direction) {
         Position posicao = (Position) entidade.getPosition();
         ICell atual;
 
@@ -96,7 +102,7 @@ public class Map implements IMap{
                 ICell leste = corredor[posicao.getY()][posicao.getX()+1];
                 return posicao.moveEast(leste, atual);
             default:
-                return false;
+                return null;
         }
     }
 }
