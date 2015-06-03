@@ -4,6 +4,7 @@ import anima.factory.IGlobalFactory;
 import anima.factory.context.componentContext.ComponentContextFactory;
 
 import com.umbra.mapModule.IPosition;
+import com.umbra.mobModule.Margin;
 import com.umbra.mobModule.attComponent.impl.Attribute;
 import com.umbra.mobModule.attComponent.inter.IAttribute;
 import com.umbra.mobModule.enums.Type;
@@ -87,6 +88,16 @@ public class ItemBattle extends Item implements IItemBattle  {
                 src.setAtt(modatt.getName(), update.getValue());
             }
         }
+    }
+    public String toString(Margin m){
+        String resp = super.toString(m);
+        for(IModAtt modatt : modatts){
+           resp += modatt.toString(m);
+        }
+        return resp;
+    }
+    public String toString(){
+        return toString(Margin.first());
     }
 
     public Type getType(){

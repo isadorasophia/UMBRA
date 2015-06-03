@@ -8,9 +8,7 @@ import com.umbra.mobModule.attComponent.impl.AttCreator;
 import com.umbra.mobModule.attComponent.inter.IAttManager;
 import com.umbra.mobModule.attComponent.inter.IAttribute;
 import com.umbra.mobModule.enums.Type;
-import com.umbra.mobModule.itemComponent.inter.IItem;
 import com.umbra.mobModule.mobComponent.inter.IMobGeneric;
-import com.umbra.mobModule.mobComponent.inter.IPlayer;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -136,13 +134,6 @@ public abstract class MobGeneric implements IMobGeneric {
         resp += m.ident("#Attributes:");
         for(IAttribute a : getAllAtts()){
             resp += a.toString(m.next());
-        }
-        if(t.equals(Type.PLAYER)){
-            resp += "#Itens:\n";
-            IPlayer p = (Player) this;
-            for(IItem i : p.getAllItems()){
-                resp += i.toString(m.next());
-            }
         }
         return resp;
     }

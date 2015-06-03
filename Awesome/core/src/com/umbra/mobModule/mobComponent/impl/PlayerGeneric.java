@@ -3,6 +3,7 @@ package com.umbra.mobModule.mobComponent.impl;
 import anima.factory.IGlobalFactory;
 import anima.factory.context.componentContext.ComponentContextFactory;
 import com.umbra.mapModule.IPosition;
+import com.umbra.mobModule.Margin;
 import com.umbra.mobModule.enums.Type;
 import com.umbra.mobModule.exceptions.CannotDoubleModifyAttributeException;
 import com.umbra.mobModule.exceptions.CannotUnmodifyWhatHasNotBeenModifiedException;
@@ -115,6 +116,14 @@ public class PlayerGeneric extends Mob implements IPlayerGeneric {
 
         for (IItem item : items) {
             resp.add(item);
+        }
+        return resp;
+    }
+    public String toString(Margin m){
+        String resp = super.toString(m);
+        resp += m.ident("#Itens:");
+        for(IItem i : getAllItems()){
+            resp += i.toString(m.next());
         }
         return resp;
     }

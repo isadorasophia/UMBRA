@@ -44,8 +44,9 @@ public class MobTest {
             IItemBattle espada = itemmanager.instantiateItemBattle("Espada", "Fuderosa", 0.2, null);
 
             espada.addModAtt("Força", 10);
+            espada.addModAtt("Defesa", -30);
             player.putItem(espada);
-            player.equipItem("Espada");
+            //player.equipItem("Espada");
             System.out.println(player.toString());
             //System.out.println(player.getAtt("Força").getValue());
         } catch (Exception e) {

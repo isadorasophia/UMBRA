@@ -37,12 +37,12 @@ public abstract class Item implements IItem{
     }
     public abstract Type getType();
     public String toString(Margin m){
-        String resp = "";
         Type t = getType();
-        resp += m.ident(String.format("Item(%c): %s"));
-        resp += m.ident(getName());
-        resp += m.ident(getDescription());
-        resp += m.ident(String.format("%f", getFindProb()));
+        String resp = "";
+        resp += m.ident(String.format("Item(%c): %s", t.getChar(), t.getDescription()));
+        resp += m.ident(String.format("name = %s", getName()));
+        resp += m.ident(String.format("description = %s", getDescription()));
+        resp += m.ident(String.format("findProb = %f", getFindProb()));
         return resp;
     }
     public String toString(){
