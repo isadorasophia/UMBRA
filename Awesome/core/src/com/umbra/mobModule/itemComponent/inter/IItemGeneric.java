@@ -1,12 +1,13 @@
 package com.umbra.mobModule.itemComponent.inter;
 
-import com.umbra.mobModule.interGenerics.IDescriptionReadable;
-import com.umbra.mobModule.interGenerics.INameReadable;
-import com.umbra.mobModule.interGenerics.IPositionable;
-import com.umbra.mobModule.interGenerics.ITypeReadable;
+import com.umbra.mobModule.interGenerics.*;
 
-public interface IItemGeneric
-        extends IPositionable, IDescriptionReadable,
-        INameReadable, ITypeReadable {
+public interface IItemGeneric extends
+        IPositionable,
+        IDescriptionReadable,
+        INameReadable,
+        ITypeReadable,
+        Stringlizable
+{
     public double getFindProb();
 }

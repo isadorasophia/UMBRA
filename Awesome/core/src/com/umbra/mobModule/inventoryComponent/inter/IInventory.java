@@ -2,10 +2,9 @@ package com.umbra.mobModule.inventoryComponent.inter;
 
 import anima.annotation.ComponentInterface;
 import anima.component.ISupports;
-
 import com.umbra.mobModule.itemComponent.inter.IItem;
 
-import java.util.Vector;
+import java.util.List;
 
 /**
  * Interface para o inventario do player
@@ -26,5 +25,5 @@ public interface IInventory extends ISupports {
     public boolean hasItem(String name);
     public void setSize(int size);
     public int getSize();
-    public Vector<IItem> getAllItems();
+    public List<IItem> getAllItems();
 }

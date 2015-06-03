@@ -1,8 +1,9 @@
 package com.umbra.mobModule.attComponent.impl;
 
+import com.umbra.mobModule.Margin;
 import com.umbra.mobModule.attComponent.inter.IAttribute;
 
-public class Attribute implements IAttribute {
+public class Attribute implements IAttribute  {
     private String name;
     private double value;
     private Double min = null;
@@ -54,6 +55,21 @@ public class Attribute implements IAttribute {
         if (set) {
             this.value = value;
         }
+    }
+
+    public String toString(Margin m){
+        String resp = "";
+        resp += String.format("%s = %f", name, value);
+        if(min != null){
+            resp += String.format(", min = %.1f", min);
+        }
+        if(max != null){
+            resp += String.format(", max = %.1f", max);
+        }
+        return m.ident(resp);
+    }
+    public String toString(){
+        return toString(Margin.first());
     }
 
     public IAttribute clone() {

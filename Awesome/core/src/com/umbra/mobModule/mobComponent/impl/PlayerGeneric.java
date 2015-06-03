@@ -2,18 +2,19 @@ package com.umbra.mobModule.mobComponent.impl;
 
 import anima.factory.IGlobalFactory;
 import anima.factory.context.componentContext.ComponentContextFactory;
-
 import com.umbra.mapModule.IPosition;
 import com.umbra.mobModule.enums.Type;
 import com.umbra.mobModule.exceptions.CannotDoubleModifyAttributeException;
 import com.umbra.mobModule.exceptions.CannotUnmodifyWhatHasNotBeenModifiedException;
-import com.umbra.mobModule.itemComponent.inter.IItem;
-import com.umbra.mobModule.itemComponent.inter.IItemBattle;
 import com.umbra.mobModule.inventoryComponent.impl.Inventory;
 import com.umbra.mobModule.inventoryComponent.inter.IInventory;
+import com.umbra.mobModule.itemComponent.inter.IItem;
+import com.umbra.mobModule.itemComponent.inter.IItemBattle;
 import com.umbra.mobModule.mobComponent.inter.IPlayerGeneric;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
 
 public class PlayerGeneric extends Mob implements IPlayerGeneric {
@@ -36,10 +37,7 @@ public class PlayerGeneric extends Mob implements IPlayerGeneric {
     }
 
     public Type getType() {
-        Type resp = Type.PLAYER;
-        resp.setChar('@');
-        System.out.println(equiped.pop().getName());
-        return resp;
+        return Type.PLAYER;
     }
 
     public void putItem(IItem ...neoItem){
@@ -111,15 +109,13 @@ public class PlayerGeneric extends Mob implements IPlayerGeneric {
         	inventory.adItem(item);
         }
     }
-    
-    public Vector<String> getItems() {
-    	Vector<IItem> items = inventory.getAllItems();
-        Vector<String> resp = new Vector<String>(items.size(), 1);
+    public List<IItem> getAllItems(){
+        List<IItem> resp = new ArrayList<IItem>();
+        List<IItem> items = inventory.getAllItems();
 
         for (IItem item : items) {
-            resp.add(item.getName());
+            resp.add(item);
         }
-        
         return resp;
     }
     

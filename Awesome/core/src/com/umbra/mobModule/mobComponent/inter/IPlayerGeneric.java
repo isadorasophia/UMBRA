@@ -3,7 +3,6 @@ package com.umbra.mobModule.mobComponent.inter;
 import com.umbra.mobModule.itemComponent.inter.IItem;
 
 import java.util.List;
-import java.util.Vector;
 
 public interface IPlayerGeneric extends IMob {
     public void putItem(IItem ... novo);
@@ -12,5 +11,5 @@ public interface IPlayerGeneric extends IMob {
     public boolean equipItem(String itemName);
     public List<Boolean> equipItems(String ... itemName);
     public void unequipAll();
-    public Vector<String> getItems();
+    public List<IItem> getAllItems();
 }

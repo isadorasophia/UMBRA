@@ -11,6 +11,7 @@ import com.umbra.mobModule.enums.Type;
 import com.umbra.mobModule.itemComponent.inter.IItem;
 import com.umbra.mobModule.mobComponent.inter.IPlayer;
 
+import java.util.List;
 import java.util.Vector;
 
 public class Player extends PlayerGeneric implements IPlayer{
@@ -73,7 +74,7 @@ public class Player extends PlayerGeneric implements IPlayer{
     }
 
     public Vector<String> itemsForBattle() {
-        Vector<IItem> items = inventory.getAllItems();
+        List<IItem> items = inventory.getAllItems();
         Vector<String> resp = new Vector<String>(items.size(), 1);
 
         for (IItem item : items) {
@@ -86,7 +87,7 @@ public class Player extends PlayerGeneric implements IPlayer{
     }
     
     public Vector<String> itemsIlumination() {
-        Vector<IItem> items = inventory.getAllItems();
+        List<IItem> items = inventory.getAllItems();
         Vector<String> resp = new Vector<String>(items.size(), 1);
 
         for (IItem item : items) {
@@ -99,7 +100,7 @@ public class Player extends PlayerGeneric implements IPlayer{
     }
     
     public Vector<String> itemsPuzzle() {
-        Vector<IItem> items = inventory.getAllItems();
+        List<IItem> items = inventory.getAllItems();
         Vector<String> resp = new Vector<String>(items.size(), 1);
 
         for (IItem item : items) {

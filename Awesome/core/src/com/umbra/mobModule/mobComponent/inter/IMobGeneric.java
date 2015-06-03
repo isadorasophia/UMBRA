@@ -1,17 +1,15 @@
 package com.umbra.mobModule.mobComponent.inter;
 
 import com.umbra.mobModule.attComponent.inter.IAttribute;
-import com.umbra.mobModule.interGenerics.IDescriptionReadable;
-import com.umbra.mobModule.interGenerics.INameReadable;
-import com.umbra.mobModule.interGenerics.IPositionable;
-import com.umbra.mobModule.interGenerics.ITypeReadable;
+import com.umbra.mobModule.interGenerics.*;
 
 
 public interface IMobGeneric extends
         IPositionable,
         IDescriptionReadable,
         INameReadable,
-        ITypeReadable
+        ITypeReadable,
+        Stringlizable
 {
     public IAttribute getAtt(String type);
 
