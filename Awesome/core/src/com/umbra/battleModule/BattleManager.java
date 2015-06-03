@@ -92,7 +92,7 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 			boolean first = true;
 			
 			for (String item : items) {
-				if (!first) {
+				if (first) {
 					setStatus(item);
 					first = false;
 				} else {

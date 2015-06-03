@@ -99,8 +99,8 @@ class BattleExecuter {
 		double enemyRate = victim.getAtt("evasiveness").getValue() + victim.getAtt("luck").getValue();
 		
 		// chance to add up to 50% more to their stats
-		attackerRate *= random.nextFloat() * 0.5 + 0.1;
-		enemyRate *= random.nextFloat() * 0.5 + 0.1;
+		attackerRate *= random.nextFloat() * 0.5 + 1;
+		enemyRate *= random.nextFloat() * 0.5 + 1;
 		
 		if (attackerRate >= enemyRate) {
 			if (attackerRate >= enemyRate * 3)
