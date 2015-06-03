@@ -91,8 +91,9 @@ public class ItemBattle extends Item implements IItemBattle  {
     }
     public String toString(Margin m){
         String resp = super.toString(m);
+        resp += m.ident("#ModAtts:");
         for(IModAtt modatt : modatts){
-           resp += modatt.toString(m);
+           resp += modatt.toString(m.next());
         }
         return resp;
     }

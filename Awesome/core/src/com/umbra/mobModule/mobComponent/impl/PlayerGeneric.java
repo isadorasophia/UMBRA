@@ -117,6 +117,9 @@ public class PlayerGeneric extends Mob implements IPlayerGeneric {
         for (IItem item : items) {
             resp.add(item);
         }
+        for (IItem item : equiped){
+            resp.add(item);
+        }
         return resp;
     }
     public String toString(Margin m){

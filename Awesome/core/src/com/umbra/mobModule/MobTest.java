@@ -46,7 +46,7 @@ public class MobTest {
             espada.addModAtt("Força", 10);
             espada.addModAtt("Defesa", -30);
             player.putItem(espada);
-            //player.equipItem("Espada");
+            player.equipItem("Espada");
             System.out.println(player.toString());
             //System.out.println(player.getAtt("Força").getValue());
         } catch (Exception e) {
