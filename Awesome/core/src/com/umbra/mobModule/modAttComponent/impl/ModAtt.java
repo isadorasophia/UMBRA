@@ -2,7 +2,8 @@ package com.umbra.mobModule.modAttComponent.impl;
 
 import com.umbra.mobModule.Margin;
 import com.umbra.mobModule.attComponent.inter.IAttribute;
-import com.umbra.mobModule.exceptions.*;
+import com.umbra.mobModule.exceptions.CannotDoubleModifyAttributeException;
+import com.umbra.mobModule.exceptions.CannotUnmodifyWhatHasNotBeenModifiedException;
 import com.umbra.mobModule.modAttComponent.inter.IModAtt;
 import com.umbra.mobModule.modAttComponent.inter.IModificator;
 
@@ -30,13 +31,18 @@ public class ModAtt implements IModAtt {
 
     }
     /* Throws CannotUnmodifyWhatHasNoBeenModifiedException if(src == null)  */
-    public IAttribute unmodify() throws CannotUnmodifyWhatHasNotBeenModifiedException {
-        if (src == null) {
+    public IAttribute unmodify(IAttribute src) throws CannotUnmodifyWhatHasNotBeenModifiedException {
+        if (this.src == null) {
             throw new CannotUnmodifyWhatHasNotBeenModifiedException();
         }
-        IAttribute returnValue = src.clone();
-        src = null;
-        return returnValue;
+        IAttribute clone = src.clone();
+        IAttribute resp = operation.unmodify(clone, this.parameters);
+        IAttribute returnValue = this.src.clone();
+        if(resp != returnValue){
+            System.err.println("Erro, modAtt com src errado");
+        }
+        this.src = null;
+        return resp;
     }
 
     public String getName() {

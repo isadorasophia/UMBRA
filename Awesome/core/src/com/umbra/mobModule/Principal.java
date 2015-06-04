@@ -2,14 +2,9 @@ package com.umbra.mobModule;
 
 import anima.factory.IGlobalFactory;
 import anima.factory.context.componentContext.ComponentContextFactory;
-
-import com.umbra.mobModule.attComponent.impl.Attribute;
-import com.umbra.mobModule.attComponent.inter.IAttribute;
 import com.umbra.mobModule.itemComponent.impl.ItemManager;
 import com.umbra.mobModule.itemComponent.inter.IItemBattle;
-import com.umbra.mobModule.itemComponent.inter.IItemIlumination;
 import com.umbra.mobModule.itemComponent.inter.IItemManager;
-import com.umbra.mobModule.itemComponent.inter.IItemPuzzle;
 import com.umbra.mobModule.mobComponent.impl.MobManager;
 import com.umbra.mobModule.mobComponent.inter.IMobManager;
 import com.umbra.mobModule.mobComponent.inter.IPlayer;
@@ -30,10 +25,11 @@ public class Principal {
         	espada.addModAtt("Força", 10);
         	player.setAtt("Força", 5);
         	player.putItem(espada);
-        	player.equipItem("Espada");
-        	System.out.println(player.getAtt("Força").getValue());
+            System.out.println(player.toString());
+            player.equipItem("Espada");
+        	System.out.println(player.toString());
         	player.unequipAll();
-        	System.out.println(player.getAtt("Força").getValue());
+        	System.out.println(player.toString());
         } catch (Exception e) {
         	e.printStackTrace();
         }

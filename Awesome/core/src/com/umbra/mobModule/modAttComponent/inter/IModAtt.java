@@ -11,5 +11,5 @@ public interface IModAtt extends
         Stringlizable
 {
     public IAttribute modify(IAttribute src) throws CannotDoubleModifyAttributeException;
-    public IAttribute unmodify() throws CannotUnmodifyWhatHasNotBeenModifiedException;
+    public IAttribute unmodify(IAttribute src) throws CannotUnmodifyWhatHasNotBeenModifiedException;
 }

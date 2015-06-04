@@ -31,6 +31,7 @@ public class PlayerGeneric extends Mob implements IPlayerGeneric {
         				"<http://purl.org/NET/dcc/com.umbra.mobModule.inventoryComponent.impl.Inventory>");
         	this.inventory = inventory;
         	this.inventory.setSize(inventorySize);
+            this.equiped = new Stack<IItemBattle>();
         } catch (Exception e) {
         	e.printStackTrace();
         }
@@ -65,10 +66,6 @@ public class PlayerGeneric extends Mob implements IPlayerGeneric {
     public boolean equipItem(String itemName) {
         boolean resp = true;
         if (inventory.hasItem(itemName)) {
-            if (equiped == null) {
-                equiped = new Stack<IItemBattle>();
-            }
-            
             IItemBattle item = null;
             
             if (inventory.getItem(itemName).getType() == Type.ITEM_BATTLE) {

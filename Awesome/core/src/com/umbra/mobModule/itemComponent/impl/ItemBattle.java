@@ -85,8 +85,8 @@ public class ItemBattle extends Item implements IItemBattle  {
     public void unupdateMob(IMob src) throws CannotUnmodifyWhatHasNotBeenModifiedException {
         for (IModAtt modatt : modatts) {
             if (src.hasAtt(modatt.getName())) {
-                IAttribute update = modatt.unmodify();
-                src.getAtt(modatt.getName()).setValue(src.getAtt(modatt.getName()).getValue() - update.getValue());
+                IAttribute update = modatt.unmodify(src.getAtt(modatt.getName()));
+                src.setAtt(modatt.getName(), update.getValue());
             }
         }
     }

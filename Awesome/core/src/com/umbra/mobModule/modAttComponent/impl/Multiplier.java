@@ -9,4 +9,8 @@ public class Multiplier implements IModificator {
         src.setValue(src.getValue() * parameter[0]);
         return src;
     }
+    public IAttribute unmodify(IAttribute src, double... parameter) {
+        src.setValue(src.getValue() / parameter[0]);
+        return src;
+    }
 }
