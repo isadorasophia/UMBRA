@@ -7,6 +7,7 @@ import com.umbra.mapModule.IPosition;
 import com.umbra.mobModule.Margin;
 import com.umbra.mobModule.attComponent.impl.Attribute;
 import com.umbra.mobModule.attComponent.inter.IAttribute;
+import com.umbra.mobModule.enums.Operation;
 import com.umbra.mobModule.enums.Type;
 import com.umbra.mobModule.exceptions.CannotDoubleModifyAttributeException;
 import com.umbra.mobModule.exceptions.CannotUnmodifyWhatHasNotBeenModifiedException;
@@ -34,7 +35,7 @@ public class ItemBattle extends Item implements IItemBattle  {
 
     /* IModificator foi tirado da passagem para o metodo, pois
      * é uma interface interna do componente ModAtt */
-    public void addModAtt(String attName, double parameter, char type) {
+    public void addModAtt(String attName, double parameter, Operation type) {
         if (modatts == null) {
             modatts = new ArrayList<IModAtt>();
         }

@@ -1,8 +1,8 @@
 package com.umbra.mobModule.exceptions;
 
-
 public class BadConstructorException extends Exception {
-    public BadConstructorException() {
+	private static final long serialVersionUID = -7592543503017517730L;
+	public BadConstructorException() {
         super();
     }
     public BadConstructorException(String message) {

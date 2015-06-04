@@ -1,7 +1,8 @@
 package com.umbra.mobModule.exceptions;
 
 public class BadArgumentException extends Exception {
-    public  BadArgumentException() {
+	private static final long serialVersionUID = -6387658448933975334L;
+	public  BadArgumentException() {
         super();
     }
     public  BadArgumentException(String message) {

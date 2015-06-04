@@ -10,12 +10,12 @@ public enum Type {
     private final String id;
     private char anotherId;
     String description;
-    Type(char id, String description){
+    private Type(char id, String description){
         this.id = ""+id;
         this.anotherId = id;
         this.description = description;
     }
-    Type(String id, String description){
+    private Type(String id, String description){
         this.id = id;
         this.anotherId = id.charAt(1);
         this.description = description;

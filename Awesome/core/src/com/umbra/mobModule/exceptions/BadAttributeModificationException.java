@@ -1,8 +1,8 @@
 package com.umbra.mobModule.exceptions;
 
-
 public class BadAttributeModificationException extends Exception {
-    public BadAttributeModificationException() {
+	private static final long serialVersionUID = -1164578061017317459L;
+	public BadAttributeModificationException() {
         super();
     }
     public BadAttributeModificationException(String message) {

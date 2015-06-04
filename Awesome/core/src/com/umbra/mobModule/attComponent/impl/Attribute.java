@@ -73,6 +73,6 @@ public class Attribute implements IAttribute  {
     }
 
     public IAttribute clone() {
-        return new Attribute(name, value);
+        return new Attribute(min, name, value, max);
     }
 }
