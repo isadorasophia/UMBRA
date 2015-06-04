@@ -86,7 +86,7 @@ public class ItemBattle extends Item implements IItemBattle  {
         for (IModAtt modatt : modatts) {
             if (src.hasAtt(modatt.getName())) {
                 IAttribute update = modatt.unmodify();
-                src.setAtt(modatt.getName(), update.getValue());
+                src.getAtt(modatt.getName()).setValue(src.getAtt(modatt.getName()).getValue() - update.getValue());
             }
         }
     }

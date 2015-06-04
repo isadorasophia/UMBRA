@@ -102,7 +102,7 @@ public class PlayerGeneric extends Mob implements IPlayerGeneric {
     public void unequipAll() {
         while (!equiped.empty()) {
             IItemBattle item = equiped.pop(); 
-        	try {
+        	try {	
             	item.unupdateMob(this);
             } catch (CannotUnmodifyWhatHasNotBeenModifiedException e) {
                 e.printStackTrace();

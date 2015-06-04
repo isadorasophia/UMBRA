@@ -31,7 +31,7 @@ public class ModAtt implements IModAtt {
     }
     /* Throws CannotUnmodifyWhatHasNoBeenModifiedException if(src == null)  */
     public IAttribute unmodify() throws CannotUnmodifyWhatHasNotBeenModifiedException {
-        if(src == null){
+        if (src == null) {
             throw new CannotUnmodifyWhatHasNotBeenModifiedException();
         }
         IAttribute returnValue = src.clone();

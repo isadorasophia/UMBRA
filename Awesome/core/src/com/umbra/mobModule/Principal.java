@@ -3,6 +3,8 @@ package com.umbra.mobModule;
 import anima.factory.IGlobalFactory;
 import anima.factory.context.componentContext.ComponentContextFactory;
 
+import com.umbra.mobModule.attComponent.impl.Attribute;
+import com.umbra.mobModule.attComponent.inter.IAttribute;
 import com.umbra.mobModule.itemComponent.impl.ItemManager;
 import com.umbra.mobModule.itemComponent.inter.IItemBattle;
 import com.umbra.mobModule.itemComponent.inter.IItemIlumination;
@@ -26,8 +28,11 @@ public class Principal {
         	IPlayer player = mobmanager.createPlayer();
         	IItemBattle espada = itemmanager.instantiateItemBattle("Espada", "Fuderosa", 0.2, null);
         	espada.addModAtt("Força", 10);
+        	player.setAtt("Força", 5);
         	player.putItem(espada);
         	player.equipItem("Espada");
+        	System.out.println(player.getAtt("Força").getValue());
+        	player.unequipAll();
         	System.out.println(player.getAtt("Força").getValue());
         } catch (Exception e) {
         	e.printStackTrace();
