@@ -2,11 +2,13 @@ package com.umbra.mobModule.mobComponent.impl;
 
 import anima.factory.IGlobalFactory;
 import anima.factory.context.componentContext.ComponentContextFactory;
+
 import com.umbra.mapModule.IPosition;
 import com.umbra.mobModule.Margin;
 import com.umbra.mobModule.enums.Type;
 import com.umbra.mobModule.exceptions.CannotDoubleModifyAttributeException;
 import com.umbra.mobModule.exceptions.CannotUnmodifyWhatHasNotBeenModifiedException;
+import com.umbra.mobModule.exceptions.FullInventoryException;
 import com.umbra.mobModule.inventoryComponent.impl.Inventory;
 import com.umbra.mobModule.inventoryComponent.inter.IInventory;
 import com.umbra.mobModule.itemComponent.inter.IItem;
@@ -44,7 +46,11 @@ public class PlayerGeneric extends Mob implements IPlayerGeneric {
 
     public void putItem(IItem ...neoItem){
         for (IItem neo : neoItem) {
-            inventory.adItem(neo);
+            try {
+				inventory.adItem(neo);
+			} catch (FullInventoryException e) {
+				e.printStackTrace();
+			}
         }
     }
 
@@ -104,7 +110,11 @@ public class PlayerGeneric extends Mob implements IPlayerGeneric {
             } catch (CannotUnmodifyWhatHasNotBeenModifiedException e) {
                 e.printStackTrace();
             }
-        	inventory.adItem(item);
+        	try {
+				inventory.adItem(item);
+			} catch (FullInventoryException e) {
+				e.printStackTrace();
+			}
         }
     }
     public List<IItem> getAllItems(){

@@ -54,7 +54,7 @@ public class Player extends PlayerGeneric implements IPlayer{
         }
     }
 
-    public boolean addXp(double xp){
+    public boolean addXP(double xp){
         int nivel = getNivel();
         setXp(getXp() + xp);
         return getNivel() > nivel;

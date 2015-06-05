@@ -13,7 +13,7 @@ public interface IPlayer extends IPlayerGeneric {
     public double getXp();
     public void setXp(double xp);
     /* Retorna true se  o player 'upou' o nivel, false caso contrario*/
-    public boolean addXp (double xp);
+    public boolean addXP(double xp);
     public int getNivel();
     public double getHealth();
     
