@@ -19,12 +19,14 @@ import com.umbra.mapModule.IPosition;
 
 public interface IItemManager extends ISupports {
     /**
-     * 
+     *
      * @param name
      * @param description
      * @param findProb
      * @param pos
      * @return
+     *
+     * @see
      */
     public IItemBattle instantiateItemBattle(String name, String description, double findProb, IPosition pos);
     public IItemPuzzle instantiateItemPuzzle(String name, String description, double findProb, IPosition pos);
