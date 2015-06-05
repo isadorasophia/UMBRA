@@ -5,7 +5,7 @@ public class UmbraDBCSV implements iDB{
     private File file;
 
     // Construtor do banco de dados
-    public umbraBase(String name_of_file){
+    public void umbraBase(String name_of_file){
         path = name_of_file;
 
         try {
