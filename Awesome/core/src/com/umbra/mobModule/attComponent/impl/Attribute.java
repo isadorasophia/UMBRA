@@ -79,11 +79,11 @@ public class Attribute implements IAttribute  {
     public void setValue(double value) {
         boolean set = true;
         if (min != null && value < min) {
-        	this.value = min;
+        	setToMin();
             set = false;
         }
         if (max != null && value > max) {
-        	this.value = max;
+        	setToMax();
             set = false;
         }
         if (set) {
@@ -91,6 +91,17 @@ public class Attribute implements IAttribute  {
         }
     }
 
+    @Override
+    public void setToMax() {
+        value = max;
+    }
+
+    @Override
+    public void setToMin() {
+        value = min;
+    }
+
+    @Override
     public String toString(Margin m){
         String resp = "";
         resp += String.format("%s = %f", name, value);

@@ -93,6 +93,8 @@ public abstract class MobGeneric implements IMobGeneric {
     public void setAtt(double min, String name, double value, double max){
         setAtt(min, name, value, max);
     }
+
+
     public boolean hasAtt(String name){
         return atts.containsKey(name);
     }

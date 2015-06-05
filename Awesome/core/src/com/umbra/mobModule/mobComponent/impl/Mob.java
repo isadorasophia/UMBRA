@@ -3,11 +3,13 @@ package com.umbra.mobModule.mobComponent.impl;
 
 import com.umbra.mapModule.IPosition;
 import com.umbra.mobModule.attComponent.inter.IAttribute;
+import com.umbra.mobModule.enums.Att;
 import com.umbra.mobModule.enums.Type;
 import com.umbra.mobModule.mobComponent.inter.IMob;
 
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Random;
 
 public abstract class Mob extends MobGeneric implements IMob{
 
@@ -47,4 +49,5 @@ public abstract class Mob extends MobGeneric implements IMob{
 
         return value > 0;
     }
+
 }
