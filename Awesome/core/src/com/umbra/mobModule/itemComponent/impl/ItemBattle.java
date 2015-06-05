@@ -33,8 +33,6 @@ public class ItemBattle extends Item implements IItemBattle  {
         this.modatts = modatts;
     }
 
-    /* IModificator foi tirado da passagem para o metodo, pois
-     * é uma interface interna do componente ModAtt */
     public void addModAtt(String attName, double parameter, Operation type) {
         if (modatts == null) {
             modatts = new ArrayList<IModAtt>();
@@ -45,7 +43,7 @@ public class ItemBattle extends Item implements IItemBattle  {
         	factory.registerPrototype(ModAttCreator.class);
         	IModAttManager modattmanager = factory.createInstance(
         				   "<http://purl.org/NET/dcc/com.umbra.mobModule.modAttComponent.impl.ModAttCreator>");
-        	IModAtt novo = modattmanager.create(attName, parameter, type);
+        	IModAtt novo = modattmanager.create(attName, type, parameter);
         	modatts.add(novo);
         } catch (Exception e) {
         	e.printStackTrace();

@@ -9,5 +9,9 @@ public interface IItemGeneric extends
         ITypeReadable,
         Stringlizable
 {
+    /**
+     * Permite leitura da probabilidade de se achar um ítem no jogo
+     * @return Retorna a probabilidade de achar o item no jogo
+     */
     public double getFindProb();
 }

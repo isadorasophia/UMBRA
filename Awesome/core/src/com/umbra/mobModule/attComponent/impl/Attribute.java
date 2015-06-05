@@ -11,27 +11,61 @@ public class Attribute implements IAttribute  {
 
     public static final double MIN = 0;
 
+    /**
+     * Constroi um Attribute setando os parametros:
+     * @param name : o nome do atributo a ser criado
+     * @param value : o valor inicial do atributo a ser criado
+     */
+    public Attribute(String name, double value){
+        this(null, name, value,  null);
+    }
+
+    /**
+     * Constroi um Attribute setando os parametros:
+     * @param name : o nome do atributo a ser criado
+     * @param value : o valor inicial do atributo a ser criado
+     * @param max : o valor máximo do atributo a ser criado
+     */
+    public Attribute(String name, double value, double max){
+        this(null, name, value,  new Double(max));
+    }
+
+    /**
+     * Constroi um Attribute setando os parametros:
+     * @param min : o valor mínimo do atributo a ser criado
+     * @param name : o nome do atributo a ser criado
+     * @param value : o valor inicial do atributo a ser criado
+     */
+    public Attribute(double min, String name, double value){
+        this(new Double(min), name, value, null);
+    }
+
+    /**
+     * É muito semelhante ao construtor principal de Attribute, mas recebe parâmetros double e não Double,
+     * para fascilitar a passagem de parâmetros por parte do usuário.
+     * @param min : o valor mínimo do atributo a ser criado
+     * @param name : o nome do atributo a ser criado
+     * @param value : o valor inicial do atributo a ser criado
+     * @param max : o valor máximo do atributo a ser criado
+     */
+    public Attribute(double min, String name, double value, double max){
+        this(new Double(min), name, value, new Double(max));
+    }
+
+    /**
+     * Representa o construtor principal de Attribute, pois é o mais geral, todos os outros o chamam direta ou
+     * indiretamente passando os parâmetros que recebem e marcando com null os que não recebem.
+     * @param min : o valor mínimo do atributo a ser criado
+     * @param name : o nome do atributo a ser criado
+     * @param value : o valor inicial do atributo a ser criado
+     * @param max : o valor máximo do atributo a ser criado
+     * @return : retorna o atributo construído com os parâmetros passados
+     */
     public Attribute(Double min, String name, double value, Double max){
         this.name = name;
         this.value = value;
         this.min = min;
         this.max = max;
-    }
-
-    public Attribute(double min, String name, double value, double max){
-        this(new Double(min), name, value, new Double(max));
-    }
-
-    public Attribute(String name, double value){
-        this(null, name, value,  null);
-    }
-
-    public Attribute(String name, double value, double max){
-        this(null, name, value,  max);
-    }
-
-    public Attribute(double min, String name, double value){
-        this(min, name, value, null);
     }
 
     public String getName() {

@@ -15,42 +15,36 @@ import com.umbra.mobModule.modAttComponent.inter.IModificator;
 )
 
 public class ModAttCreator extends ComponentBase implements IModAttManager {
+
     private IModAtt create(String attName, IModificator operation, double ... parameter) {
         IModAtt resp = new ModAtt(attName, operation, parameter);
         return resp;
     }
     
     public IModAtt create(String attName, double parameter) {
-        IModAtt resp;
-        IModificator operation = null;
-        
-        try {
-	        if (parameter >= 0) {
-	        	operation = ModificatorFactory.operationCreator(Operation.ADICAO, parameter);
-	        } else if (parameter < 0) {
-	        	parameter = Math.abs(parameter);
-	        	operation = ModificatorFactory.operationCreator(Operation.SUBTRACAO, parameter);
-	        }
-        } catch (BadArgumentException e) {
-        	System.out.println(e.getMessage());
+        IModAtt resp = null;
+        Operation operation = null;
+
+        if (parameter >= 0) {
+            operation = Operation.ADICAO;
+        } else if (parameter < 0) {
+            parameter = -parameter;
+            operation = Operation.SUBTRACAO;
         }
-        
-        resp = create(attName, operation, parameter);
+
+        try {
+            resp = create(attName, operation, parameter);
+        } catch (BadArgumentException e) {
+            System.err.println("That is ridiculously impossible");
+        }
         return resp;
 
     }
     
-    public IModAtt create(String attName, double parameter, Operation type) throws BadArgumentException {
-        IModificator operation = null;
+    public IModAtt create(String attName, Operation type, double ... parameter) throws BadArgumentException {
+        IModificator operation;
         IModAtt resp;
-        parameter = Math.abs(parameter);
-        
-        try {
-        	operation = ModificatorFactory.operationCreator(type, parameter);
-        } catch (BadArgumentException e) {
-        	System.out.println(e.getMessage());
-        }
-        
+        operation = ModificatorFactory.operationCreator(type, parameter[0]);
         resp = create(attName, operation, parameter);
         return resp;
     }

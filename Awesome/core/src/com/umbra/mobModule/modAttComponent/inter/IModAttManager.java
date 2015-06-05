@@ -20,5 +20,5 @@ import anima.component.ISupports;
 
 public interface IModAttManager extends ISupports {
 	public IModAtt create(String attName, double parameter);
-    public IModAtt create(String attName, double parameter, Operation type) throws BadArgumentException;
+    public IModAtt create(String attName, Operation type, double ... parameter) throws BadArgumentException;
 }
