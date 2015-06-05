@@ -91,7 +91,7 @@ public abstract class MobGeneric implements IMobGeneric {
         setAtt(min, type, value, null);
     }
     public void setAtt(double min, String name, double value, double max){
-        setAtt(min, name, value, max);
+        setAtt(new Double(min), name, value, new Double(max));
     }
 
 
