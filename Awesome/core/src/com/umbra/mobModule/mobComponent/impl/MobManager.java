@@ -28,12 +28,12 @@ public class MobManager extends ComponentBase implements IMobManager {
 		return player;
 	}
 	
-	public IMonstro createMonstro() {
+	public IMonstro createMonstro(int nivel) {
 		MobFactory factory = MobFactory.createFactory("Monstro");
 		IMonstro monstro = null;
 		
 		try {
-			monstro = factory.create(1, null);
+			monstro = factory.create(nivel, null);
 		} catch (BadConstructorException e) {
 			e.printStackTrace();
 		}

@@ -32,9 +32,9 @@ public class MobTest {
 
             System.out.print("Digite o número de monstros a serem criados:");
             int n = s.nextInt();
-
+            int i = 0;
             while(n-- > 0){
-                IMonstro novo = mobmanager.createMonstro();
+                IMonstro novo = mobmanager.createMonstro(i++);
                 monstros.add(novo);
             }
             /*for(IMonstro m : monstros){

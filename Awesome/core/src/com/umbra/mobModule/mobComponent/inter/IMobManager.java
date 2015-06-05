@@ -17,5 +17,5 @@ import anima.component.ISupports;
 
 public interface IMobManager extends ISupports {
 	public IPlayer createPlayer();
-	public IMonstro createMonstro();
+	public IMonstro createMonstro(int nivel);
 }

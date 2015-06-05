@@ -32,14 +32,14 @@ public class FabricaDeMonstro extends MobFactory {
         return resp;
 
     }
-    public double randomExpAtt(Random r, int nivel, double coef , double dev, int rounding, Att att){
+    private double randomExpAtt(Random r, int nivel, double coef , double dev, int rounding, Att att){
         double resp = coef * Math.exp(nivel) + r.nextDouble() * dev - dev/2;
         double tens = Math.floor(Math.pow(10, rounding));
         resp = Math.floor(resp/tens)*tens;
         resp = Math.abs(resp);
         return resp;
     }
-    public double randomLinearAtt(Random r, int nivel, double coef , double dev, int rounding, Att att){
+    private double randomLinearAtt(Random r, int nivel, double coef , double dev, int rounding, Att att){
         double resp = coef*nivel + r.nextDouble() * dev - dev/2;
         double tens = Math.floor(Math.pow(10, rounding));
         resp = Math.floor(resp/tens)*tens;
@@ -72,12 +72,11 @@ public class FabricaDeMonstro extends MobFactory {
         double dexterity = randomLinearAtt(r, nivel, 34, nivel / 42, 0, Att.DEXTERITY);
         resp.setAtt(Att.DEXTERITY.getName(), dexterity);
 
-        double dexterity = randomLinearAtt(r, nivel, 34, nivel / 42, 0, Att.DEXTERITY);
-        resp.setAtt(Att.DEXTERITY.getName(), dexterity);
+        double luck = randomLinearAtt(r, nivel, 42, nivel / 42, 0, Att.LUCK);
+        resp.setAtt(Att.LUCK.getName(), luck);
 
-
-
-
+        double evasiveness = randomLinearAtt(r, nivel, 42, nivel / 42, 0, Att.EVASIVENESS);
+        resp.setAtt(Att.EVASIVENESS.getName(), evasiveness);
 
         id++;
 
