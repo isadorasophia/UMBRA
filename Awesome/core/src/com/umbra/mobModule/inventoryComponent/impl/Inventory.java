@@ -13,6 +13,14 @@ import java.util.*;
 		provides={"<http://purl.org/NET/dcc/com.umbra.mobModule.inventoryComponent.inter.IInventory>"}
 )
 
+/**
+ * Classe que representa o componente que é o inventário do Player
+ * 
+ * @author Lucas Alves Racoci
+ * @author Luiz Fernando Rodrigues da Fonseca
+ *
+ */
+
 public class Inventory extends ComponentBase implements IInventory {
     private Integer size = null;
     private Hashtable<String,IItem> items = new Hashtable<String,IItem>();

@@ -1,5 +1,13 @@
 package com.umbra.mobModule.enums;
 
+/**
+ * Tipo enumerado que representa os atributos que serão usados no jogo
+ * 
+ * @author Lucas Alves Racoci
+ * @author Luiz Fernando Rodrigues da Fonseca
+ *
+ */
+
 public enum Att {
     HP("hp"),
     DEFENSE("defense"),

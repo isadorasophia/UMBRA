@@ -3,6 +3,14 @@ package com.umbra.mobModule.attComponent.impl;
 import com.umbra.mobModule.Margin;
 import com.umbra.mobModule.attComponent.inter.IAttribute;
 
+/**
+ * Classe cujos objetos representam atributos dos mobs
+ * 
+ * @author Lucas Alves Racoci
+ * @author Luiz Fernando Rodrigues da Fonseca
+ *
+ */
+
 public class Attribute implements IAttribute  {
     private String name;
     private double value;

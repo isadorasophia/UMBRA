@@ -4,13 +4,21 @@ import com.umbra.mobModule.interGenerics.IClonable;
 import com.umbra.mobModule.interGenerics.INameReadable;
 import com.umbra.mobModule.interGenerics.Stringlizable;
 
+/**
+ * Interface com os metodos dos atributos
+ * 
+ * @author Lucas Alves Racoci
+ * @author Luiz Fernando Rodrigues da Fonseca
+ *
+ */
+
 public interface IAttribute extends
         INameReadable,
         IClonable<IAttribute>,
         Stringlizable
 {
     /**
-     * DA permição de leitura do valor do atributo aos outros componentes
+     * Da permição de leitura do valor do atributo aos outros componentes
      * @return Retorna o valor do atributo
      */
     public double getValue();

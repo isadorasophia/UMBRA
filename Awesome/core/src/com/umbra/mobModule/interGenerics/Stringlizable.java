@@ -2,6 +2,15 @@ package com.umbra.mobModule.interGenerics;
 
 import com.umbra.mobModule.Margin;
 
+/**
+ * Interface com métodos para debugar o código internamente,
+ * com métodos que imprimem os objetos formatados na tela
+ * 
+ * @author Lucas Alves Racoci
+ * @author Luiz Fernando Rodrigues da Fonseca
+ *
+ */
+
 public interface Stringlizable {
     /**
      * Permite retornar uma string identada por um objeto do tipo Margin que é passado como parâmetro
