@@ -7,9 +7,9 @@ import com.umbra.mobModule.mobComponent.inter.IMob;
 class BattleExecuter {
 	BattleExecuter () { 
 		status = new String ();
-		this.limbs = new BodyPart("Limbs", 1.2f, 0.7f);
-		this.brain = new BodyPart("Brain", 1.8f, 0.2f);
-		this.vitalOrgans = new BodyPart("Vital Organs", 1.6f, 0.3f);
+		this.limbs = new BodyPart("Limbs", 1.3f, 0.7f);
+		this.brain = new BodyPart("Brain", 1.8f, 0.3f);
+		this.vitalOrgans = new BodyPart("Vital Organs", 1.6f, 0.4f);
 	}
 	
 	private static enum AttackState { normal, critical, counter, missed }
@@ -60,48 +60,47 @@ class BattleExecuter {
 		AttackState attackState = stateOfAttack (attacker, victim, bodyPart.getHitChance());
 		
 		// If it isn't a counter move, clean up the string
-		if (!counter) {
+		if (!counter) 
 			setStatus(null);
 		
-			switch (attackState) {
-				case normal:
-					damage = calcDamage(attacker, victim, false, bodyPart.getAttFactor());
-					setStatus(attacker.getName() + " attacks and inflicted a damage of " + (int) damage + " on " + victim.getName() + "!\n");
+		switch (attackState) {
+			case normal:
+				damage = calcDamage(attacker, victim, false, bodyPart.getAttFactor());
+				setStatus(attacker.getName() + " attacks and inflicted a damage of " + (int) damage + " on " + victim.getName() + "!\n");
 					
-					victim.decreaseHP(damage); 
+				victim.decreaseHP(damage); 
 						
-					if (victim.dead()) {
-						setStatus (attacker.getName() + " just killed " + victim.getName() + "...\n");
-						return true;
-					}
-					break;
-				case critical:
-					damage = calcDamage(attacker, victim, true, bodyPart.getAttFactor());
-					setStatus(attacker.getName() + " attacks and inflicted a CRITICAL damage of " + (int) damage + " on " + victim.getName() + "!\n");
+				if (victim.dead()) {
+					setStatus (attacker.getName() + " just killed " + victim.getName() + "...\n");
+					return true;
+				}
+				break;
+			case critical:
+				damage = calcDamage(attacker, victim, true, bodyPart.getAttFactor());
+				setStatus(attacker.getName() + " attacks and inflicted a CRITICAL damage of " + (int) damage + " on " + victim.getName() + "!\n");
 					
-					victim.decreaseHP(damage);
-					if (victim.dead()) {
-						setStatus (attacker.getName() + " just killed " + victim.getName() + "...\n");
-						return true;
-					}
-					break;
-				case counter:
-					setStatus(null);
-					setStatus("Counter!\n");
-					damage = calcDamage(victim, attacker, false, bodyPart.getAttFactor());
-					setStatus(victim.getName() + " attacks and inflicted a damage of " + (int)damage + " on " + attacker.getName() + "!\n");
-					
-					attacker.decreaseHP(damage);
-					if (attacker.dead()) {
-						setStatus (victim.getName() + " just killed " + attacker.getName() + "...\n");
-						return true;
-					}
-					break;
-				case missed:
-					setStatus(attacker.getName() + " tried to attack " + victim.getName() + ", but missed!\n");
-					break;
-			}
-		} 
+				victim.decreaseHP(damage);
+				if (victim.dead()) {
+					setStatus (attacker.getName() + " just killed " + victim.getName() + "...\n");
+					return true;
+				}
+				break;
+			case counter:
+				setStatus("Counter!\n");
+				damage = calcDamage(victim, attacker, false, bodyPart.getAttFactor());
+				setStatus(victim.getName() + " attacks and inflicted a damage of " + (int)damage + " on " + attacker.getName() + "!\n");
+				
+				attacker.decreaseHP(damage);
+				if (attacker.dead()) {
+					setStatus (victim.getName() + " just killed " + attacker.getName() + "...\n");
+					return true;
+				}
+				break;
+			case missed:
+				setStatus(attacker.getName() + " tried to attack " + victim.getName() + ", but missed!\n");
+				break;
+		}
+ 
 		
 		return false;
 	}
@@ -146,7 +145,7 @@ class BattleExecuter {
 		//double defense = (victim.getAtt("defense").getValue() * 2) * (random.nextFloat() + 0.5);
 		//double attack = 3 + (attacker.getAtt("attack").getValue() * 2) * (random.nextFloat() + 0.5);
 		double defense = victim.getAtt("defense").getValue();
-		double attack = (attacker.getAtt("attack").getValue()) * (random.nextFloat() / 2 + 1);
+		double attack = attacker.getAtt("attack").getValue() * (random.nextFloat() * 0.6 + 1);
 		
 		if (critical) {
 			attack *= attackFactor;
@@ -180,7 +179,7 @@ class BattleExecuter {
 	String monsterAI (IMob monster, IMob victim) {
 		Random random = new Random();
 		double hpProportion = monster.getAtt("hp").getValue()/monster.getAtt("maxHP").getValue();
-		double attackChance = (7 + monster.getAtt("attack").getValue() * 2) * (1 + random.nextFloat());
+		double attackChance = (monster.getAtt("attack").getValue() * 2) * (1 + random.nextFloat()/2);
 		
 		if (hpProportion < 0.2) {
 			if (attackChance >= victim.getAtt("hp").getValue()) {

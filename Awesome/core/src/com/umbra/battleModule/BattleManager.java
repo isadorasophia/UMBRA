@@ -60,22 +60,22 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		setMonster(monster);
 		
 		// For testing sake
-		this.player.setAtt("attack", 10);
-		this.player.setAtt("defense", 8);
-		this.player.setAtt("dexterity", 10);
-		this.player.setAtt("evasiveness", 15);
-		this.player.setAtt("luck", 8);
-		this.player.setAtt("sanity", 5);
-		player.setAtt("hp", 20);
+		this.player.setAtt("attack", 17);
+		this.player.setAtt("defense", 14);
+		this.player.setAtt("dexterity", 7);
+		this.player.setAtt("evasiveness", 7);
+		this.player.setAtt("luck", 7);
+		this.player.setAtt("sanity", 7);
+		this.player.setAtt("hp", 100);
         
 		
-		this.monster.setAtt("attack", 12);
+		this.monster.setAtt("attack", 17);
 		this.monster.setAtt("defense", 10);
-		this.monster.setAtt("dexterity", 15);
-		this.monster.setAtt("evasiveness", 12);
+		this.monster.setAtt("dexterity", 8);
+		this.monster.setAtt("evasiveness", 6);
 		this.monster.setAtt("luck", 7);
 		this.monster.setAtt("sanity", 2);
-		this.monster.setAtt("hp", 25);
+		this.monster.setAtt("hp", 110);
 		
 		this.battleExecuter = new BattleExecuter();
 		
@@ -167,9 +167,9 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 				
 			} else if (input.contains("A")) {
 				setStatus ("An attack is attempted. You can attack towards the creature's\n"
-						+ "[L]imbs [ 1.2 | 70% ],\n"
-						+ "[B]rain [ 1.8 | 20% ] or\n"
-						+ "[V]ital organs [ 1.6 | 30% ]\n");
+						+ "[L]imbs [ 1.3 | 70% ],\n"
+						+ "[B]rain [ 1.8 | 30% ] or\n"
+						+ "[V]ital organs [ 1.6 | 40% ]\n");
 				
 				return;
 				
@@ -220,7 +220,8 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 			this.playerTurn = true;
 		}
 		
-		
+		System.out.println("Player: " + getPlayer().getAtt("hp"));
+		System.out.println("Monster: " + getMonster().getAtt("hp"));
 		
 		// if the battle was lost...
 		if (isBattleOver) {
