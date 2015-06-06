@@ -33,7 +33,7 @@ public class AttCreator extends ComponentBase implements IAttManager {
      * @param max : o valor máximo do atributo a ser criado
      * @return : retorna o atributo construído com os parâmetros passados
      */
-    public IAttribute create(String name, double value, double max){
+    public IAttribute create(String name, double value, Double max){
         IAttribute resp;
         resp = new Attribute(name, value, max);
         return resp;
@@ -48,7 +48,7 @@ public class AttCreator extends ComponentBase implements IAttManager {
      * @param value : o valor inicial do atributo a ser criado
      * @return : retorna o atributo construído com os parâmetros passados
      */
-    public IAttribute create(double min, String name, double value){
+    public IAttribute create(Double min, String name, double value){
         IAttribute resp;
         resp = new Attribute(min, name, value);
         return resp;
@@ -64,11 +64,6 @@ public class AttCreator extends ComponentBase implements IAttManager {
      * @return : retorna o atributo construído com os parâmetros passados
      */
     public IAttribute create(Double min, String name, double value, Double max){
-        IAttribute resp;
-        resp = new Attribute(min, name, value,  max);
-        return resp;
-    }
-    public IAttribute create(double min, String name, double value, double max){
         IAttribute resp;
         resp = new Attribute(min, name, value,  max);
         return resp;
