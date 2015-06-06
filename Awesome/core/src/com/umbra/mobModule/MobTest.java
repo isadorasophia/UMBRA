@@ -34,7 +34,7 @@ public class MobTest {
             int n = s.nextInt();
             int i = 1;
             while(n-- > 0){
-                System.out.printf("Nivel : %d\n", i);
+                //System.out.printf("Nivel : %d\n", i);
                 IMonstro novo = mobmanager.createMonstro(i++);
                 System.out.println(novo.toString());
                 monstros.add(novo);
@@ -46,6 +46,13 @@ public class MobTest {
             player.putItem(espada);
             player.equipItem("Espada");
             System.out.println(player.toString());
+            player.setAtt(0, "hp", 100);
+            System.out.println(player.getAtt("hp"));
+            player.setAtt("hp", 20);
+            System.out.println(player.getAtt("hp"));
+            player.decreaseHP(21);
+            System.out.println(player.getAtt("hp"));
+            System.out.println(player.dead());
             //System.out.println(player.getAtt("Força").getValue());
         } catch (Exception e) {
             e.printStackTrace();
