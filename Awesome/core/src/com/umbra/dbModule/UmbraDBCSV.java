@@ -1,12 +1,14 @@
+package com.umbra.dbModule;
+
 import java.io.*;
 
-public class UmbraDBCSV implements iDB{
+public class umbraDBCSV implements iDB{
     private String path;
     private File file;
 
     // Construtor do banco de dados
-    public void umbraBase(String name_of_file){
-        path = name_of_file;
+    public umbraDBCSV(String name_of_file){
+        path = name_of_file + ".csvdb";
 
         try {
             file = new File(path);
@@ -14,10 +16,11 @@ public class UmbraDBCSV implements iDB{
                 file.createNewFile();
             }
         }
+        //Caso não tenha encontrado o arquivo
         catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        //Caso tenha ddo algum outro erro
+        //Caso tenha dado algum outro erro
         catch (IOException e) {
             e.printStackTrace();
         }
@@ -28,65 +31,84 @@ public class UmbraDBCSV implements iDB{
         //Faz o arquivo em disco ir para a memória para agilizar a leitura
         BufferedReader bufferedFile = null;
 
-        try {
+        try{
             openedFile = new FileReader(file);
             bufferedFile = new BufferedReader(openedFile);
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
 
-            return bufferedFile;
-        }
-        //Primeiro catch caso passe o arquivo com nome errado
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        //Caso tenha ddo algum outro erro
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+        return bufferedFile;
     }
 
     public void closeDB(BufferedReader reader){
-        reader.close();
+        try{
+            reader.close();
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
     }
 
-    public String[] searchDB(String info){
+    public String getFromDB() throws NullPointerException {
+        throw new NullPointerException();
+    }
+
+    public String[] getFromDB(String info) throws NullPointerException{
         String linha;
         String[] valores;
         BufferedReader bufferedFile = this.readDB();
 
-
-        while (bufferedFile !=  null) {
-            linha = bufferedFile.readLine();
-            valores = linha.split(",");
-            for(int i = 0; i < valores.length; i++){
-                if(valores[i].equalsIgnoreCase(info)){
-                    return valores;
+        try{
+            while (bufferedFile !=  null) {
+                linha = bufferedFile.readLine();
+                valores = linha.split(",");
+                for(int i = 0; i < valores.length; i++){
+                    if(valores[i].equalsIgnoreCase(info)){
+                        return valores;
+                    }
                 }
             }
         }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+        finally{
+            this.closeDB(bufferedFile);
+        }
 
-        return null;
+        throw new NullPointerException();
     }
 
     //Sobrecarga de métodos
-    public String[] searchDB(String info1, String info2){
+    public String[] getFromDB(String info1, String info2) throws NullPointerException {
         Boolean achou = false;
         String linha;
         String[] valores;
         BufferedReader bufferedFile = this.readDB();
 
-        while (bufferedFile !=  null) {
-            linha = bufferedFile.readLine();
-            valores = linha.split(",");
-            for(int i = 0; i < valores.length; i++){
-                if(valores[i].equalsIgnoreCase(info1) || valores[i].equalsIgnoreCase(info2)){
-                    if(achou){
-                        return valores;
+        try{
+            while (bufferedFile !=  null) {
+                linha = bufferedFile.readLine();
+                valores = linha.split(",");
+                for(int i = 0; i < valores.length; i++){
+                    if(valores[i].equalsIgnoreCase(info1) || valores[i].equalsIgnoreCase(info2)){
+                        if(achou){
+                            return valores;
+                        }
+                        achou = true;
                     }
-                    achou = true;
                 }
             }
         }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+        finally{
+            this.closeDB(bufferedFile);
+        }
 
-        return null;
+        throw new NullPointerException();
     }
+
 }
