@@ -30,7 +30,7 @@ public interface IAttManager extends ISupports {
      * @param max : o valor máximo do atributo a ser criado
      * @return : retorna o atributo construído com os parâmetros passados
      */
-    public IAttribute create(String name, double value, double max);
+    public IAttribute create(String name, double value, Double max);
 
     /**
      * Substitui o terceiro construtor de Attribute, recebendo como parâmetros:
@@ -39,7 +39,7 @@ public interface IAttManager extends ISupports {
      * @param value : o valor inicial do atributo a ser criado
      * @return : retorna o atributo construído com os parâmetros passados
      */
-    public IAttribute create(double min, String name, double value);
+    public IAttribute create(Double min, String name, double value);
 
     /**
      * Esse é o mais completo de todos os construtores de Attribute, permite que o atributo esteja limitado em um
@@ -51,5 +51,5 @@ public interface IAttManager extends ISupports {
      * @return : retorna o atributo construído com os parâmetros passados
      */
     public IAttribute create(Double min, String name, double value, Double max);
-    public IAttribute create(double min, String name, double value, double max);
+
 }
