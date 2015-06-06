@@ -7,17 +7,33 @@ import com.umbra.mobModule.exceptions.CannotUnmodifyWhatHasNotBeenModifiedExcept
 import com.umbra.mobModule.modAttComponent.inter.IModAtt;
 import com.umbra.mobModule.modAttComponent.inter.IModificator;
 
+/**
+ * Classe que implementa um modificador de um atributo
+ * 
+ * @author Lucas Alves Racoci
+ * @author Luiz Fernando Rodrigues da Fonseca
+ *
+ */
+
 public class ModAtt implements IModAtt {
     private String attName;
     private IModificator operation;
     private double[] parameters;
     private IAttribute src;
 
+    /**
+     * Constrói um modificador de atributo com uma operação passada
+     * e vários valores que ele pode alterar
+     * @param attName
+     * @param operation
+     * @param parameter
+     */
     public ModAtt(String attName, IModificator operation, double ... parameter){
         this.attName = attName;
         this.operation = operation;
         parameters = parameter;
     }
+    
     /* Throws CannotDoubleModifyAttributeException if(this.src != null)*/
     public IAttribute modify(IAttribute src) throws CannotDoubleModifyAttributeException {
         if (this.src != null) {
@@ -30,6 +46,7 @@ public class ModAtt implements IModAtt {
         return resp;
 
     }
+    
     /* Throws CannotUnmodifyWhatHasNoBeenModifiedException if(src == null)  */
     public IAttribute unmodify(IAttribute src) throws CannotUnmodifyWhatHasNotBeenModifiedException {
         if (this.src == null) {
@@ -63,6 +80,8 @@ public class ModAtt implements IModAtt {
         resp += m.ident(partial);
         return resp;
     }
+    
     public String toString() {
-        return toString(Margin.first());}
+        return toString(Margin.first());
+    }
 }

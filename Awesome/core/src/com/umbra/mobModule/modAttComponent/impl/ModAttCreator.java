@@ -14,8 +14,24 @@ import com.umbra.mobModule.modAttComponent.inter.IModificator;
 		provides={"<http://purl.org/NET/dcc/com.umbra.mobModule.modAttComponent.inter.IModAttManager>"}
 )
 
+/**
+ * Classe que representa o componente que cria os modificadores de atributo
+ * 
+ * @author Lucas Alves Racoci
+ * @author Luiz Fernando Rodrigues da Fonseca
+ *
+ */
+
 public class ModAttCreator extends ComponentBase implements IModAttManager {
 
+	/**
+	 * Criador privado para criar o modificador de atributo
+	 * com uma operação e os parâmetros passados
+	 * @param attName
+	 * @param operation
+	 * @param parameter
+	 * @return
+	 */
     private IModAtt create(String attName, IModificator operation, double ... parameter) {
         IModAtt resp = new ModAtt(attName, operation, parameter);
         return resp;
@@ -44,7 +60,7 @@ public class ModAttCreator extends ComponentBase implements IModAttManager {
     public IModAtt create(String attName, Operation type, double ... parameter) throws BadArgumentException {
         IModificator operation;
         IModAtt resp;
-        operation = ModificatorFactory.operationCreator(type, parameter[0]);
+        operation = ModificatorFactory.operationCreator(type, parameter);
         resp = create(attName, operation, parameter);
         return resp;
     }
