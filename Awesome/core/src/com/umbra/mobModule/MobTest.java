@@ -37,10 +37,9 @@ public class MobTest {
                 IMonstro novo = mobmanager.createMonstro(i++);
                 monstros.add(novo);
             }
-            /*for(IMonstro m : monstros){
-                m.setAtt("força", (new Random(m.getId())).nextInt(100));
+            for(IMonstro m : monstros){
                 System.out.println(m.toString());
-            }*/
+            }
             IItemBattle espada = itemmanager.instantiateItemBattle("Espada", "Fuderosa", 0.2, null);
 
             espada.addModAtt("Força", 10);

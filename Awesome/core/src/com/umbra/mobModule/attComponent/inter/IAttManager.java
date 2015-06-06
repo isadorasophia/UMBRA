@@ -50,5 +50,6 @@ public interface IAttManager extends ISupports {
      * @param max : o valor máximo do atributo a ser criado
      * @return : retorna o atributo construído com os parâmetros passados
      */
+    public IAttribute create(Double min, String name, double value, Double max);
     public IAttribute create(double min, String name, double value, double max);
 }
