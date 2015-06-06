@@ -100,6 +100,16 @@ public class Attribute implements IAttribute  {
     }
 
     @Override
+    public Double getMax() {
+        return max;
+    }
+
+    @Override
+    public Double getMin() {
+        return min;
+    }
+
+    @Override
     public void setToMax() {
         value = max;
     }

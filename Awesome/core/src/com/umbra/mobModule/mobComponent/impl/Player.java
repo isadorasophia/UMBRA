@@ -16,6 +16,9 @@ import java.util.Vector;
 
 public class Player extends PlayerGeneric implements IPlayer{
 
+    public static double MAXHP = 200;
+
+
     private static Player instance;
 
     private Player(String name, String description, IPosition position, int invSize) {

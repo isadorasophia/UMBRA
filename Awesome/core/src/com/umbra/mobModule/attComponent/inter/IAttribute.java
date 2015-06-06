@@ -28,6 +28,18 @@ public interface IAttribute extends
      * @param value Recebe o valor a ser setado no atributo
      */
     public void setValue(double value);
+
+    /**
+     * Permite a leitura do valor máximo
+     * @return retorna o valor máximo
+     */
+    public Double getMax();
+
+    /**
+     * Permite a leitura do valor mínimo
+     * @return retorna o valor mínimo
+     */
+    public Double getMin();
     /**
      * Volta o valor do atributo para seu máximo
      */
