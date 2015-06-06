@@ -32,15 +32,19 @@ public class FabricaDeMonstro extends MobFactory {
         return resp;
 
     }
-    private double randomExpAtt(Random r, int nivel, double coef , double dev, int rounding, Att att){
-        double resp = coef * Math.exp(nivel) + r.nextDouble() * dev - dev/2;
+    private double randomExpAtt(Random r, int nivel, double coef , double percentDev, int rounding, Att att){
+        double resp = coef * Math.exp(nivel);
+        double dev = percentDev * resp;
+        resp +=  r.nextDouble() * dev - dev/2;
         double tens = Math.floor(Math.pow(10, rounding));
         resp = Math.floor(resp/tens)*tens;
         resp = Math.abs(resp);
         return resp;
     }
-    private double randomLinearAtt(Random r, int nivel, double coef , double dev, int rounding, Att att){
-        double resp = coef*nivel + r.nextDouble() * dev - dev/2;
+    private double randomLinearAtt(Random r, int nivel, double coef , double percentDev, int rounding, Att att){
+        double resp = coef*nivel;
+        double dev = percentDev * resp;
+        resp += r.nextDouble() * dev - dev/2;
         double tens = Math.floor(Math.pow(10, rounding));
         resp = Math.floor(resp/tens)*tens;
         resp = Math.abs(resp);
@@ -57,25 +61,25 @@ public class FabricaDeMonstro extends MobFactory {
 
         Random r = new Random(id*nivel);
 
-        double maxHp = randomExpAtt(r, nivel, 42,nivel/42, 2, Att.HP);
+        double maxHp = randomExpAtt(r, nivel, 42, 42/100, 2, Att.HP);
         resp.setAtt(0, Att.HP.getName(), maxHp, maxHp);
 
-        double xp = randomExpAtt(r, nivel, 34,nivel/34, 1, Att.XP);
+        double xp = randomExpAtt(r, nivel, 34, 25/100, 1, Att.XP);
         resp.setAtt(Att.XP.getName(), xp);
 
-        double defense = randomLinearAtt(r, nivel, 42,nivel/34, 0, Att.DEFENSE);
+        double defense = randomLinearAtt(r, nivel, 42, 22/100, 0, Att.DEFENSE);
         resp.setAtt(Att.DEFENSE.getName(), defense);
 
-        double attack = randomLinearAtt(r, nivel, 42, nivel / 34, 0, Att.ATTACK);
+        double attack = randomLinearAtt(r, nivel, 42, 34/100, 0, Att.ATTACK);
         resp.setAtt(Att.ATTACK.getName(), attack);
 
-        double dexterity = randomLinearAtt(r, nivel, 34, nivel / 42, 0, Att.DEXTERITY);
+        double dexterity = randomLinearAtt(r, nivel, 34, 42/100, 0, Att.DEXTERITY);
         resp.setAtt(Att.DEXTERITY.getName(), dexterity);
 
-        double luck = randomLinearAtt(r, nivel, 42, nivel / 42, 0, Att.LUCK);
+        double luck = randomLinearAtt(r, nivel, 42, 45/100, 0, Att.LUCK);
         resp.setAtt(Att.LUCK.getName(), luck);
 
-        double evasiveness = randomLinearAtt(r, nivel, 42, nivel / 42, 0, Att.EVASIVENESS);
+        double evasiveness = randomLinearAtt(r, nivel, 42, 52/100, 0, Att.EVASIVENESS);
         resp.setAtt(Att.EVASIVENESS.getName(), evasiveness);
 
         id++;
