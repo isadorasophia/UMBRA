@@ -32,13 +32,12 @@ public class MobTest {
 
             System.out.print("Digite o número de monstros a serem criados:");
             int n = s.nextInt();
-            int i = 0;
+            int i = 1;
             while(n-- > 0){
+                System.out.printf("Nivel : %d\n", i);
                 IMonstro novo = mobmanager.createMonstro(i++);
+                System.out.println(novo.toString());
                 monstros.add(novo);
-            }
-            for(IMonstro m : monstros){
-                System.out.println(m.toString());
             }
             IItemBattle espada = itemmanager.instantiateItemBattle("Espada", "Fuderosa", 0.2, null);
 

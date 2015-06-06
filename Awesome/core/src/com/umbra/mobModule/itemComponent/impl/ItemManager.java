@@ -10,14 +10,22 @@ import com.umbra.mobModule.itemComponent.inter.IItemManager;
 import com.umbra.mobModule.itemComponent.inter.IItemPuzzle;
 
 @Component(
-		id="<http://purl.org/NET/dcc/com.umbra.mobModule.itemComponent.impl.ItemManager>",
-		provides={"<http://purl.org/NET/dcc/com.umbra.mobModule.itemComponent.impl.IItemManager>"}
+		id = "<http://purl.org/NET/dcc/com.umbra.mobModule.itemComponent.impl.ItemManager>",
+		provides = {"<http://purl.org/NET/dcc/com.umbra.mobModule.itemComponent.impl.IItemManager>"}
 )
 
 public class ItemManager extends ComponentBase implements IItemManager {
 
     public IItemBattle instantiateItemBattle(String name, String description, double findProb, IPosition pos){
-        return new ItemBattle(name, description, findProb, pos);
+        IItemBattle resp = new ItemBattle(name, description, findProb, pos);
+        if(findProb != 0){
+            double rarity = 1/findProb;
+
+        }
+
+
+
+        return resp;
     }
     
     public IItemPuzzle instantiateItemPuzzle(String name, String description, double findProb, IPosition pos){
