@@ -3,6 +3,7 @@ package com.umbra.mobModule;
 import anima.factory.IGlobalFactory;
 import anima.factory.context.componentContext.ComponentContextFactory;
 
+import com.umbra.mobModule.enums.Att;
 import com.umbra.mobModule.itemComponent.impl.ItemManager;
 import com.umbra.mobModule.itemComponent.inter.IItemBattle;
 import com.umbra.mobModule.itemComponent.inter.IItemIlumination;
@@ -24,12 +25,10 @@ public class Principal {
         	IItemManager itemmanager = factory.createInstance(
         			"<http://purl.org/NET/dcc/com.umbra.mobModule.itemComponent.impl.ItemManager>");
         	IPlayer player = mobmanager.createPlayer("Player", "Teste", null);
-        	IItemBattle espada = itemmanager.instantiateItemBattle("espada", null);
-        	IItemPuzzle chave = itemmanager.instantiateItemPuzzle("chave", null);
-        	IItemIlumination lanterna = itemmanager.instantiateItemIlumination("lanterna", null);
-        	System.out.println(espada);
-        	System.out.println(chave);
-        	System.out.println(lanterna);
+        	
+        	player.setAtt("sanity", 20);
+        	System.out.println(player);
+        	
         } catch (Exception e) {
         	e.printStackTrace();
         }

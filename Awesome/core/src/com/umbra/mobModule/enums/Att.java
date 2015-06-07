@@ -12,7 +12,7 @@ public enum Att {
     HP("hp", 100, 10),
     XP("xp", 200, 13),
     DEFENSE("defense", 10, 3),
-    ATTACK("atack", 10, 2),
+    ATTACK("attack", 10, 2),
     DEXTERITY("dexterity", 12, 3),
     EVASIVENESS("evasiveness", 10, 1),
     LUCK("luck", 5, 1),
