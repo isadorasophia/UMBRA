@@ -48,4 +48,16 @@ public interface IAttribute extends
      * Volta o valor do atributo para seu mínimo
      */
     public void setToMin();
+
+    /**
+     * Permite editar o valor máximo do atributo
+     * @param max
+     */
+    public void setMax(double max);
+    /**
+     * Permite editar o valor mínimo do atributo
+     * @param min
+     */
+    public void setMin(double min);
 }
+

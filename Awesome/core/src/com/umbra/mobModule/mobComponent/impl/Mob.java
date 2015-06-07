@@ -51,7 +51,7 @@ public abstract class Mob extends MobGeneric implements IMob {
     }
 
     public boolean dead() {
-        return this.getAtt("hp").getValue() == 0;
+        return this.getAtt("hp").getValue() <= 0;
     }
 
     public abstract Type getType();

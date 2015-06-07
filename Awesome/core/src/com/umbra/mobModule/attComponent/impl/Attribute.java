@@ -135,6 +135,14 @@ public class Attribute implements IAttribute  {
         return toString(Margin.first());
     }
 
+    public void setMax(double max){
+        this.max = max;
+    }
+
+    public void setMin(double min){
+        this.min = min;
+    }
+
     public IAttribute clone() {
         return new Attribute(min, name, value, max);
     }
