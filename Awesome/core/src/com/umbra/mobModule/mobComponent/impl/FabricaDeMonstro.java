@@ -34,14 +34,18 @@ public class FabricaDeMonstro extends MobFactory {
      * @return Retorna uma lista que contem necessáriamente um nome e uma descrição
      */
     private static List<String> monster(int id){
-        List<String> resp = new ArrayList<String>(2);
+        List<String> resp = new ArrayList<String>(4);
         String path = BDMonstro.class.getResource(".").getPath() + "/monstro" + ((id % NUMBEROFMONSTRO) + 1);
 
         String name = null;
+        String win = null;
+        String death = null;
         String description = "";
         try {
             BufferedReader br = new BufferedReader(new FileReader(path + ".txt"));
             name = br.readLine();
+            win = br.readLine();
+            death = br.readLine();
             for(String line = br.readLine(); line != null; line = br.readLine()){
                 description += line + "\n";
             }
@@ -51,7 +55,9 @@ public class FabricaDeMonstro extends MobFactory {
         }
 
         resp.add(0, name);
-        resp.add(1, description);
+        resp.add(1, win);
+        resp.add(2, death);
+        resp.add(3, description);
 
         return resp;
 
@@ -85,11 +91,16 @@ public class FabricaDeMonstro extends MobFactory {
         List<String> monster = monster(id);
 
         String name =  monster.get(0);
-        String description = monster.get(1);
+        String win = monster.get(1);
+        String death = monster.get(2);
+        String description = monster.get(3);
         Hashtable<String,IAttribute> atts = new Hashtable<String, IAttribute>();
 
         IMonstro resp = new Monstro(name, description, position, atts, id);
 
+        resp.setWinDescription(win);
+        resp.setDeathDescription(death);
+        
         Random r = new Random(id*nivel);
 
         double maxHp = randomLinearAtt(r, nivel,  42.0/100, 0, Att.HP);

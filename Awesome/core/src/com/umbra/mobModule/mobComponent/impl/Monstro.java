@@ -16,7 +16,9 @@ import java.util.List;
  */
 
 public class Monstro extends MonstroGeneric implements IMonstro{
-
+	private String winDescription;
+	private String deathDescription;
+	
 	/**
 	 * Construtor padrão do monstro
 	 * @param name
@@ -52,4 +54,20 @@ public class Monstro extends MonstroGeneric implements IMonstro{
         super(name, description, position, atts, id);
     }
 
+	public String getWinDescription() {
+		return winDescription;
+	}
+
+	public void setWinDescription(String win) {
+		this.winDescription = win;
+	}
+
+	public String getDeathDescription() {
+		return deathDescription;
+	}
+
+	public void setDeathDescription(String death) {
+		this.deathDescription = death;
+	}
+	
 }
