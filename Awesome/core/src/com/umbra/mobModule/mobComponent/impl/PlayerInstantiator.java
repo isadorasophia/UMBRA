@@ -41,13 +41,15 @@ public class PlayerInstantiator extends MobFactory {
         IPlayer resp = Player.getInstance(name, description, position, INITIAL_SIZE);
         resp.setAtt(0, Att.HP.getName(), Player.MAXHP, Player.MAXHP);
         resp.setAtt(0, Att.XP.getName(), 0);
-        resp.setAtt(0, Att.SANITY.getName(), 1, 1);
-        resp.setAtt(0,Att.ATTACK.getName(), 0);
-        resp.setAtt(0,Att.DEFENSE.getName(), 0);
-        resp.setAtt(0,Att.DEXTERITY.getName(), 0);
-        resp.setAtt(0, Att.EVASIVENESS.getName(), 0);
-        resp.setAtt(0, Att.LUCK.getName(), 0.5, 1);
-        resp.setAtt(0, Att.SPEED.getName(), 0);
+        resp.setAtt(0,Att.ATTACK.getName(), 15);
+        resp.setAtt(0,Att.DEFENSE.getName(), 14);
+        resp.setAtt(0,Att.DEXTERITY.getName(), 13);
+        resp.setAtt(0, Att.EVASIVENESS.getName(), 10);
+        resp.setAtt(0, Att.LUCK.getName(), 9);
+        resp.setAtt(0, Att.SANITY.getName(), 0.5, 1);
+
+
+        resp.setAtt(0, Att.SPEED.getName(), 12);
 
         return resp;
 

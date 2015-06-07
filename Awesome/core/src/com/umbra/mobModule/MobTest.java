@@ -35,7 +35,7 @@ public class MobTest {
             int n = s.nextInt();
             int i = 1;
             while(n-- > 0){
-                //System.out.printf("Nivel : %d\n", i);
+                System.out.printf("Nivel : %d\n", i);
                 IMonstro novo = mobmanager.createMonstro(i++, null);
                 System.out.println(novo.toString());
                 monstros.add(novo);
