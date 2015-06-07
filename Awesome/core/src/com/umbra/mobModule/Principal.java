@@ -2,9 +2,12 @@ package com.umbra.mobModule;
 
 import anima.factory.IGlobalFactory;
 import anima.factory.context.componentContext.ComponentContextFactory;
+
 import com.umbra.mobModule.itemComponent.impl.ItemManager;
 import com.umbra.mobModule.itemComponent.inter.IItemBattle;
+import com.umbra.mobModule.itemComponent.inter.IItemIlumination;
 import com.umbra.mobModule.itemComponent.inter.IItemManager;
+import com.umbra.mobModule.itemComponent.inter.IItemPuzzle;
 import com.umbra.mobModule.mobComponent.impl.MobManager;
 import com.umbra.mobModule.mobComponent.inter.IMobManager;
 import com.umbra.mobModule.mobComponent.inter.IPlayer;
@@ -21,11 +24,9 @@ public class Principal {
         	IItemManager itemmanager = factory.createInstance(
         			"<http://purl.org/NET/dcc/com.umbra.mobModule.itemComponent.impl.ItemManager>");
         	IPlayer player = mobmanager.createPlayer("Player", "Teste", null);
-        	IItemBattle espada = itemmanager.instantiateItemBattle("Espada", "Fuderosa", 0.2, null);
+        	IItemBattle espada = itemmanager.instantiateItemBattle("espada", null);
         	
-        	System.out.println(player.addXP(5));
-        	System.out.println(player.getAtt("xp"));
-        	System.out.println(player.getNivel());
+        	System.out.println(espada);
         } catch (Exception e) {
         	e.printStackTrace();
         }
