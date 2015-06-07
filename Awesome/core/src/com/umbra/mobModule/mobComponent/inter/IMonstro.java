@@ -9,8 +9,27 @@ package com.umbra.mobModule.mobComponent.inter;
  */
 
 public interface IMonstro extends IMonstroGeneric {
+	/**
+	 * Pega a descrição de vitória do monstro
+	 * @return
+	 */
 	public String getWinDescription();
+	
+	/**
+	 * Seta a descrição de vitória do monstro 
+	 * @param win
+	 */
 	public void setWinDescription(String win);
+	
+	/**
+	 * Pega a descrição de morte do monstro
+	 * @return
+	 */
 	public String getDeathDescription();
+	
+	/**
+	 * Seta a descrição de morte do monstro
+	 * @param death
+	 */
 	public void setDeathDescription(String death);
 }
