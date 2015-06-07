@@ -20,16 +20,12 @@ public class Principal {
         			"<http://purl.org/NET/dcc/com.umbra.mobModule.mobComponent.impl.MobManager>");
         	IItemManager itemmanager = factory.createInstance(
         			"<http://purl.org/NET/dcc/com.umbra.mobModule.itemComponent.impl.ItemManager>");
-        	IPlayer player = mobmanager.createPlayer();
+        	IPlayer player = mobmanager.createPlayer("Player", "Teste", null);
         	IItemBattle espada = itemmanager.instantiateItemBattle("Espada", "Fuderosa", 0.2, null);
-        	espada.addModAtt("Força", 10);
-        	player.setAtt("Força", 5);
-        	player.putItem(espada);
-            System.out.println(player.toString());
-            player.equipItem("Espada");
-        	System.out.println(player.toString());
-        	player.unequipAll();
-        	System.out.println(player.toString());
+        	
+        	System.out.println(player.addXP(5));
+        	System.out.println(player.getAtt("xp"));
+        	System.out.println(player.getNivel());
         } catch (Exception e) {
         	e.printStackTrace();
         }

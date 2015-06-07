@@ -27,14 +27,15 @@ public interface IMobGeneric extends
     public IAttribute getAtt(String type);
 
     /**
-     * Modifica um atributo com um valor
+     * Modifica um atributo com um valor, mas mantém
+     * os valores mínimos e máximos antigos
      * @param type
      * @param value
      */
     public void setAtt(String type, double value);
     
     /**
-     * Modifica um atributo e seu valor máximo
+     * Modifica um atributo e seu valor máximo, muda mínimo para null
      * @param type
      * @param value
      * @param max
@@ -42,7 +43,7 @@ public interface IMobGeneric extends
     public void setAtt(String type, double value, double max);
     
     /**
-     * Modifica um atributo e seu valor mínimo
+     * Modifica um atributo e seu valor mínimo, muda máximo para null
      * @param min
      * @param type
      * @param value

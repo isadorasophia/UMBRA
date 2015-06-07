@@ -5,14 +5,13 @@ import com.umbra.dbModule.TypeDB;
 import com.umbra.dbModule.iDB;
 import com.umbra.mapModule.IPosition;
 import com.umbra.mobModule.attComponent.inter.IAttribute;
-import com.umbra.mobModule.dbMobModule.dbMob.dbMonstro.QC;
+import com.umbra.mobModule.dbMobModule.dbMob.dbMonstro.BDMonstro;
 import com.umbra.mobModule.enums.Att;
 import com.umbra.mobModule.exceptions.BadConstructorException;
 import com.umbra.mobModule.mobComponent.inter.IMonstro;
 import com.umbra.mobModule.mobComponent.inter.IPlayer;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -29,6 +28,7 @@ import java.util.Random;
 
 public class FabricaDeMonstro extends MobFactory {
     private static int id = 0;
+    private static final int NUMBEROFMONSTRO = 3;
 
     /**
      * Acessa o banco de dados para criar o monstro com o id
@@ -37,11 +37,8 @@ public class FabricaDeMonstro extends MobFactory {
      */
     private static List<String> monster(int id){
         List<String> resp = new ArrayList<String>(2);
-        String path = QC.class.getResource(".").getPath() + "/monstro" + id;
-        File file = new File(path);
-        if(!file.exists() || !file.canRead()){
-            //throw new CannotReadFileException();
-        }
+        String path = BDMonstro.class.getResource(".").getPath() + "/monstro" + ((id % NUMBEROFMONSTRO) + 1);
+
         DBFactory factory = new DBFactory(path);
         iDB db = factory.getDB(TypeDB.TXT);
         BufferedReader br = db.readDB();
