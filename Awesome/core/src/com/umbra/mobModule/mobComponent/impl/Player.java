@@ -24,7 +24,7 @@ import java.util.Vector;
 
 public class Player extends PlayerGeneric implements IPlayer{
 
-    public static double MAXHP = 200;
+    public static double MAXHP = 100;
 
     private static Player instance;
 
