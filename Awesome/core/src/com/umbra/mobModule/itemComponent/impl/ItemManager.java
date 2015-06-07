@@ -3,10 +3,18 @@ package com.umbra.mobModule.itemComponent.impl;
 import anima.annotation.Component;
 import anima.component.base.ComponentBase;
 
+import com.umbra.dbModule.DBFactory;
+import com.umbra.dbModule.TypeDB;
+import com.umbra.dbModule.iDB;
 import com.umbra.mapModule.IPosition;
+import com.umbra.mobModule.dbMobModule.dbItem.BDItem;
 import com.umbra.mobModule.enums.Att;
 import com.umbra.mobModule.itemComponent.inter.*;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 @Component(
@@ -24,48 +32,77 @@ import java.util.Random;
  */
 
 public class ItemManager extends ComponentBase implements IItemManager {
+    
+    private static List<String> item(String name, String pathadd){
+        List<String> resp = new ArrayList<String>();
+        String path = BDItem.class.getResource(".").getPath() + pathadd + "/" + name;
+        
+        DBFactory factory = new DBFactory(path);
+        iDB db = factory.getDB(TypeDB.TXT);
+        BufferedReader br = db.readDB();
+        String findprob = null;
+        String description = "";
+        try {
+            findprob = br.readLine();
+            resp.add(0, findprob);
+            resp.add(1, "");
+            
+            if (pathadd.equalsIgnoreCase("dbItemBattle")) {
+            	String modatt = br.readLine();
+            	resp.add(2, modatt);
+            	modatt = br.readLine();
+            	resp.add(3, modatt);
+            	modatt = br.readLine();
+            	resp.add(4, modatt);
+            } else if (pathadd.equals("dbItemIlumination")) {
+            	String ilumination = br.readLine();
+            	resp.add(2, ilumination);
+            }
+            
+            for(String line = br.readLine(); line != null; line = br.readLine()){
+                description += line + "\n";
+            }
+            resp.set(1, description);
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        return resp;
 
-	/**
-	 * Método auxilar para adicionar modificadores de atributo
-	 * aleatórios na criação de um item do tipo de batalha
-	 * @param item
-	 * @param rarity
-	 * @param att
-	 * @param r
-	 */
-    private static void addModAtt(IItemBattle item, double rarity, Att att, Random r){
-        double randRarity = r.nextDouble()/2 + 1/2;
-        double paramether = rarity * randRarity * att.getIncrement();
-        //paramether = Math.floor(paramether);
-        item.addModAtt(att.getName(), paramether);
     }
     
-    public IItemBattle instantiateItemBattle(String name, String description, double findProb, IPosition pos){
+    public IItemBattle instantiateItemBattle(String name, IPosition pos){
+    	List<String> item = item(name, "dbItemBattle");
+    	System.out.println(item.get(0));
+    	double findProb = Double.parseDouble(item.get(0));
+    	String description = item.get(1);
+    	
         IItemBattle resp = new ItemBattle(name, description, findProb, pos);
-        if(findProb != 0){
-            double rarity = 1/findProb;
-            Random r = new Random();
-            Att[] allowedToModify = {Att.ATTACK, Att.DEXTERITY, Att.DEFENSE};
-            boolean hasSome = false;
-            for(int j = 0; j < allowedToModify.length; j++){
-                if(r.nextBoolean()){
-                    addModAtt(resp, rarity, allowedToModify[j], r);
-                    hasSome = true;
-                }
-            }
-            if(!hasSome){
-                Att a =allowedToModify[r.nextInt(allowedToModify.length)];
-                addModAtt(resp, rarity, a, r);
-            }
+        if (findProb != 0) {
+        	Att[] allowedToModify = {Att.ATTACK, Att.DEXTERITY, Att.DEFENSE};
+        	double parameter;
+        	for(int j = 0; j < allowedToModify.length; j++) {
+        		parameter = Double.parseDouble(item.get(j + 2));
+        		resp.addModAtt(allowedToModify[j].getName(), parameter);
+        	}
         }
+        
         return resp;
     }
     
-    public IItemPuzzle instantiateItemPuzzle(String name, String description, double findProb, IPosition pos){
+    public IItemPuzzle instantiateItemPuzzle(String name, IPosition pos){
+    	List<String> item = item(name, "dbItemPuzzle");
+    	double findProb = Double.parseDouble(item.get(0));
+    	String description = item.get(1);
         return new ItemPuzzle(name, description, findProb, pos);
     }
     
-    public IItemIlumination instantiateItemIlumination(String name, String description, double findProb, IPosition pos, double ilumination){
+    public IItemIlumination instantiateItemIlumination(String name, IPosition pos){
+    	List<String> item = item(name, "dbItemIlumination");
+    	double findProb = Double.parseDouble(item.get(0)),
+    		   ilumination = Double.parseDouble(item.get(2));
+    	String description = item.get(1);
         return new ItemIlumination(name, description, findProb, pos, ilumination);
     }
     
