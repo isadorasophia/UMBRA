@@ -1,13 +1,17 @@
 package com.umbra.dbModule;
 
+import anima.component.IRequires;
+import anima.component.ISupports;
+import anima.component.InterfaceType;
+
 import java.io.*;
 
-public class umbraDBCSV implements iDB{
+public class UmbraDBCSV implements iDB{
     private String path;
     private File file;
 
     // Construtor do banco de dados
-    public umbraDBCSV(String name_of_file){
+    public UmbraDBCSV(String name_of_file){
         path = name_of_file + ".csvdb";
 
         try {
@@ -111,4 +115,33 @@ public class umbraDBCSV implements iDB{
         throw new NullPointerException();
     }
 
+    @Override
+    public <T extends ISupports> T queryInterface(String s) {
+        return null;
+    }
+
+    @Override
+    public <T extends ISupports> T queryInterface(String s, InterfaceType interfaceType) {
+        return null;
+    }
+
+    @Override
+    public <T extends ISupports> IRequires<T> queryReceptacle(String s) {
+        return null;
+    }
+
+    @Override
+    public int addRef() {
+        return 0;
+    }
+
+    @Override
+    public int release() {
+        return 0;
+    }
+
+    @Override
+    public String getInstanceId() {
+        return null;
+    }
 }

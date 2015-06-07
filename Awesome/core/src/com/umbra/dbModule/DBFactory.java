@@ -1,7 +1,5 @@
 package com.umbra.dbModule;
 
-import java.io.*;
-
 public class DBFactory{
     private String path;
     private iDB helper = null;
@@ -12,14 +10,14 @@ public class DBFactory{
 
     public iDB getDB(TypeDB tipo){
         if(tipo == TypeDB.CSV){
-            helper = new umbraDBCSV(path);
+            helper = new UmbraDBCSV(path);
             return helper;
         }
         else if(tipo == TypeDB.XML){
             return null;
         }
         else if(tipo == TypeDB.TXT){
-            helper = new umbraDBTXT(path);
+            helper = new UmbraDBTXT(path);
             return helper;
         }
         else{

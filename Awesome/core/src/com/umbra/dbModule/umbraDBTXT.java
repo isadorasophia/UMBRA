@@ -1,18 +1,21 @@
 package com.umbra.dbModule;
 
+import anima.annotation.*;
+import anima.component.base.ComponentBase;
+
 import java.io.*;
 
-@ComponentInterface(
-        id = "<http://purl.org/NET/dcc/com.umbra.dbModule.umbraDBTXT>"
+@Component(
+        id = "<http://purl.org/NET/dcc/com.umbra.dbModule.umbraDBTXT>",
         provides = {"<http://purl.org/NET/dcc/com.umbra.dbModule.iDB"}
 )
 
-public class umbraDBTXT extends ComponentBase implements iDB{
+public class UmbraDBTXT extends ComponentBase implements iDB{
     private String path;
     private File file;
 
     // Construtor
-    public umbraDBTXT(String name_of_file){
+    public UmbraDBTXT(String name_of_file){
         path = name_of_file + ".txtdb";
 
         try {
