@@ -10,17 +10,23 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.umbra.manager.interfaces.IComunicator;
 
+import java.awt.*;
+
 public class TextComunicator implements IComunicator, InputProcessor {
+
     // Define constants
-    static final int textSpeed = 1;
+    static final float textSpeed = 0.5f;
 
     // Flags
     private boolean cursor;
-    boolean end; // true when the text is written entirely
-    boolean inputReady;
-    boolean readInput;
+    private boolean cursorOn;
+    private boolean end; // true when the text is written entirely
+    private boolean inputReady;
+    private boolean readInput;
     
     private float hight;
+    private float width;
+    private float textSize;
     private BitmapFont font;
     private SpriteBatch batch;
     private String text;
@@ -41,23 +47,34 @@ public class TextComunicator implements IComunicator, InputProcessor {
         }
         font.setColor(1,1,1,1);
 
-        newText("");
-        Gdx.input.setInputProcessor(this);
+        newText("", 0,0,0,false);
     }
 
-    public void newText(String fullText){
-        this.fullText = fullText;
-        counter = 0;
-        index = 0;
-        text = "_";
-        cursor = true;
-        inputReady = false;
-        readInput = false;
-        end = false;
-        input = new StringBuilder();
-        hight = Gdx.graphics.getHeight() - 50;
+    public void newText(String fullText, float width, float hight, int letters, boolean cursorOn){
+        newText(fullText, width, hight, width + letters * font.getSpaceWidth(), cursorOn);
     }
-    
+
+    public void newText(String fullText, float width, float hight, float textSize, boolean cursorOn){
+        if(cursorOn) Gdx.input.setInputProcessor(this);
+        this.width = width;
+        this.hight = hight;
+        this.textSize = textSize;
+        this.cursorOn = cursorOn;
+        if(cursorOn) {
+            this.fullText = fullText;
+            counter = 0;
+            index = 0;
+            text = "_";
+            inputReady = false;
+            readInput = false;
+            cursor = true;
+            end = false;
+            input = new StringBuilder();
+        }else{
+            text = fullText;
+        }
+    }
+
     public String getInput(){
     	readInput = true;
     	if(inputReady){
@@ -68,19 +85,23 @@ public class TextComunicator implements IComunicator, InputProcessor {
     }
 
     public boolean update(float dt){
-        end = end || (fullText.length() + 1 == text.length());
-        // Control of text speed
-        counter += dt;
-        if (counter > textSpeed * dt) {
-            if (!end) {
-                nextChar(dt);
-            } else {
-                // no more characters to add start blink cursor
-                blink(dt);
+        if(cursorOn) {
+            end = end || (fullText.length() + 1 == text.length());
+            // Control of text speed
+            counter += dt;
+            if (counter > textSpeed * dt) {
+                if (!end) {
+                    nextChar(dt);
+                } else {
+                    // no more characters to add start blink cursor
+                    blink(dt);
+                }
+                counter = 0;
             }
-            counter = 0;
+            return end;
+        }else{
+            return true;
         }
-        return end;
     }
 
     public void addChar(char c){
@@ -106,12 +127,10 @@ public class TextComunicator implements IComunicator, InputProcessor {
     }
 
     public void draw(){
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         if(text != null){
         	if(hight - 100 - ((font.getCapHeight()*text.length())/(Gdx.graphics.getWidth() - 300))*font.getCapHeight() < 0) hight += font.getCapHeight();
-        	font.draw(batch,text,100,hight,Gdx.graphics.getWidth() - 200,-5,true);
+        	font.draw(batch,text,width,hight,textSize,-5,true);
         }
         batch.end();
     }
@@ -172,4 +191,5 @@ public class TextComunicator implements IComunicator, InputProcessor {
 	public boolean scrolled(int amount) {
 		return false;
 	}
+
 }

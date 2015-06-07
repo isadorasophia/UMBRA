@@ -5,6 +5,7 @@ import com.umbra.mobModule.mobComponent.inter.IPlayer;
 import com.umbra.vultoModule.IVulto;
 
 public class Characters {
+
     private IPlayer player;
     private IMonstro monstro;
     private IVulto vulto;
@@ -32,4 +33,5 @@ public class Characters {
     public IVulto getVulto(){
         return vulto;
     }
+
 }

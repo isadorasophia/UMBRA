@@ -15,11 +15,12 @@ import java.util.Random;
 		provides={"<http://purl.org/NET/dcc/com.umbra.com.umbra.vultoModule.IVulto>"}
 )
 public class Vulto extends ComponentBase implements IVulto {
+
     private int distance;
     private double lightProtection;
 
     public Vulto(){
-        distance = 100;
+        distance = 1000;
         lightProtection = 0;
     }
 
@@ -36,9 +37,9 @@ public class Vulto extends ComponentBase implements IVulto {
 
         System.out.print(action);
         if(action.length() == 0) throw new EmptyInputException();
-        if(action.equalsIgnoreCase("f") || action.equalsIgnoreCase("face")) isAlive = chooseAction(Action.FIGHT, result, luck);
-        else  if(action.equalsIgnoreCase("h") || action.equalsIgnoreCase("hide")) isAlive = chooseAction(Action.HIDE, result, luck);
-        else if(action.equalsIgnoreCase("r") || action.equalsIgnoreCase("run")) isAlive = chooseAction(Action.RUN, result, luck);
+        if(action.contains("f") || action.contains("F")) isAlive = chooseAction(Action.FIGHT, result, luck);
+        else  if(action.contains("h") || action.contains("H")) isAlive = chooseAction(Action.HIDE, result, luck);
+        else if(action.contains("r") || action.contains("R")) isAlive = chooseAction(Action.RUN, result, luck);
         else throw new UnknownInputException();
         return isAlive;
     }
@@ -57,4 +58,5 @@ public class Vulto extends ComponentBase implements IVulto {
         }
         return live;
     }
+
 }

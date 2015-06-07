@@ -17,7 +17,8 @@ import com.umbra.mobModule.mobComponent.inter.IPlayer;
 		requires="<http://purl.org/NET/dcc/com.umbra.battleModule.BattleManager>"
 )
 public class BattleMode extends ComponentBase implements IBattleModeComponent {
-	IComunicator comunicator;
+
+    IComunicator comunicator;
     Characters characters;
     IPlayer player;
     IMonstro monstro;
@@ -35,7 +36,7 @@ public class BattleMode extends ComponentBase implements IBattleModeComponent {
         player = characters.getPlayer();
         monstro = characters.getMonstro();
         battlemanager.initialize(player,monstro);
-        comunicator.newText(battlemanager.getStatus());
+        comunicator.newText(battlemanager.getStatus(), 100, Gdx.graphics.getHeight() - 50, Gdx.graphics.getWidth() - 200f, true);
         isAlive = true;
         modeOn = true;
         end = false;
@@ -45,12 +46,13 @@ public class BattleMode extends ComponentBase implements IBattleModeComponent {
     @Override
     public Modes update(float dt) {
         Modes next_mode = Modes.BATLLE;
+
         if(comunicator.update(dt)) {
             if(!end) {
                 String input = comunicator.getInput();
                 if (input != null) {
                     battlemanager.processInput(input);
-                    comunicator.newText(battlemanager.getStatus());
+                    comunicator.newText(battlemanager.getStatus(), 100, Gdx.graphics.getHeight() - 50, Gdx.graphics.getWidth() - 200f, true);
                     end = battlemanager.getDone();
                 }
             }else{
