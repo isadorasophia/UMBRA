@@ -2,7 +2,12 @@ package com.umbra.dbModule;
 
 import java.io.*;
 
-public class umbraDBTXT implements iDB{
+@ComponentInterface(
+        id = "<http://purl.org/NET/dcc/com.umbra.dbModule.umbraDBTXT>"
+        provides = {"<http://purl.org/NET/dcc/com.umbra.dbModule.iDB"}
+)
+
+public class umbraDBTXT extends ComponentBase implements iDB{
     private String path;
     private File file;
 
