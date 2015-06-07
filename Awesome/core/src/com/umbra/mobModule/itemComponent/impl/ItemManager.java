@@ -3,19 +3,16 @@ package com.umbra.mobModule.itemComponent.impl;
 import anima.annotation.Component;
 import anima.component.base.ComponentBase;
 
-import com.umbra.dbModule.DBFactory;
-import com.umbra.dbModule.TypeDB;
-import com.umbra.dbModule.iDB;
 import com.umbra.mapModule.IPosition;
 import com.umbra.mobModule.dbMobModule.dbItem.BDItem;
 import com.umbra.mobModule.enums.Att;
 import com.umbra.mobModule.itemComponent.inter.*;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 @Component(
 		id = "<http://purl.org/NET/dcc/com.umbra.mobModule.itemComponent.impl.ItemManager>",
@@ -37,12 +34,10 @@ public class ItemManager extends ComponentBase implements IItemManager {
         List<String> resp = new ArrayList<String>();
         String path = BDItem.class.getResource(".").getPath() + pathadd + "/" + name;
         
-        DBFactory factory = new DBFactory(path);
-        iDB db = factory.getDB(TypeDB.TXT);
-        BufferedReader br = db.readDB();
         String findprob = null;
         String description = "";
         try {
+        	BufferedReader br = new BufferedReader(new FileReader(path + ".txt"));
             findprob = br.readLine();
             resp.add(0, findprob);
             resp.add(1, "");
@@ -64,6 +59,7 @@ public class ItemManager extends ComponentBase implements IItemManager {
             }
             resp.set(1, description);
             
+            br.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -74,7 +70,6 @@ public class ItemManager extends ComponentBase implements IItemManager {
     
     public IItemBattle instantiateItemBattle(String name, IPosition pos){
     	List<String> item = item(name, "dbItemBattle");
-    	System.out.println(item.get(0));
     	double findProb = Double.parseDouble(item.get(0));
     	String description = item.get(1);
     	

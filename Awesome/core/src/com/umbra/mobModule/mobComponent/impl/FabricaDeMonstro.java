@@ -1,8 +1,5 @@
 package com.umbra.mobModule.mobComponent.impl;
 
-import com.umbra.dbModule.DBFactory;
-import com.umbra.dbModule.TypeDB;
-import com.umbra.dbModule.iDB;
 import com.umbra.mapModule.IPosition;
 import com.umbra.mobModule.attComponent.inter.IAttribute;
 import com.umbra.mobModule.dbMobModule.dbMob.dbMonstro.BDMonstro;
@@ -48,6 +45,7 @@ public class FabricaDeMonstro extends MobFactory {
             for(String line = br.readLine(); line != null; line = br.readLine()){
                 description += line + "\n";
             }
+            br.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

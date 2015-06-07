@@ -25,8 +25,11 @@ public class Principal {
         			"<http://purl.org/NET/dcc/com.umbra.mobModule.itemComponent.impl.ItemManager>");
         	IPlayer player = mobmanager.createPlayer("Player", "Teste", null);
         	IItemBattle espada = itemmanager.instantiateItemBattle("espada", null);
-        	
+        	IItemPuzzle chave = itemmanager.instantiateItemPuzzle("chave", null);
+        	IItemIlumination lanterna = itemmanager.instantiateItemIlumination("lanterna", null);
         	System.out.println(espada);
+        	System.out.println(chave);
+        	System.out.println(lanterna);
         } catch (Exception e) {
         	e.printStackTrace();
         }
