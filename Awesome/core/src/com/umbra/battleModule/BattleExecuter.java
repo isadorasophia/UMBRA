@@ -164,12 +164,12 @@ class BattleExecuter {
 		
 		if (over) {
 			// decrease
-			target.setAtt("defense", defense / 1.5);
+			target.setAtt("defense", defense / 2);
 			
 			setStatus(target.getName() + " defense move is now done.\n");
 		} else {
 			// increase
-			target.setAtt("defense", defense * 1.5);
+			target.setAtt("defense", defense * 2);
 			
 			setStatus(target.getName() + " chooses to defend itself.\n");
 		}
