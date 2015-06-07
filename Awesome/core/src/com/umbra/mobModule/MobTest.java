@@ -54,9 +54,13 @@ public class MobTest {
                 itens.add(itembattle);
             }
 
-            IItemBattle espada = itemmanager.instantiateItemBattle("Espada", "Fuderosa", 0.2, null);
+            //IItemBattle espada = itemmanager.instantiateItemBattle("Espada", "Fuderosa", 0.2, null);
 
-            espada.addModAtt("Força", 10);
+            for(IItemBattle i : itens){
+                i.updateMob(player);
+            }
+
+            /*espada.addModAtt("Força", 10);
             espada.addModAtt("Defesa", -30);
             player.putItem(espada);
             player.equipItem("Espada");
@@ -68,6 +72,7 @@ public class MobTest {
             player.decreaseHP(21);
             System.out.println(player.getAtt("hp"));
             System.out.println(player.dead());
+            */
             //System.out.println(player.getAtt("Força").getValue());
         } catch (Exception e) {
             e.printStackTrace();

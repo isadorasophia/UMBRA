@@ -29,15 +29,18 @@ public class ItemManager extends ComponentBase implements IItemManager {
         if(findProb != 0){
             double rarity = 1/findProb;
             Random r = new Random();
-            Att[] alowedToModify = {Att.ATTACK, Att.DEXTERITY, Att.DEFENSE};
+            Att[] allowedToModify = {Att.ATTACK, Att.DEXTERITY, Att.DEFENSE};
             boolean hasSome = false;
-            for(int j = 0; j < alowedToModify.length; j++){
+            for(int j = 0; j < allowedToModify.length; j++){
                 if(r.nextBoolean()){
-                    addModAtt(resp, rarity, alowedToModify[j], r);
+                    addModAtt(resp, rarity, allowedToModify[j], r);
                     hasSome = true;
                 }
             }
-
+            if(!hasSome){
+                Att a =allowedToModify[r.nextInt(allowedToModify.length)];
+                addModAtt(resp, rarity, a, r);
+            }
         }
         return resp;
     }
