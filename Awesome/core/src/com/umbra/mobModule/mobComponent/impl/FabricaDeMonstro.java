@@ -12,6 +12,7 @@ import com.umbra.mobModule.mobComponent.inter.IMonstro;
 import com.umbra.mobModule.mobComponent.inter.IPlayer;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -32,13 +33,16 @@ public class FabricaDeMonstro extends MobFactory {
     /**
      * Acessa o banco de dados para criar o monstro com o id
      * @param id
-     * @param nivel
      * @return Retorna uma lista que contem necessáriamente um nome e uma descrição
      */
-    private static List<String> monster(int id, int nivel){
+    private static List<String> monster(int id){
         List<String> resp = new ArrayList<String>(2);
-
-        DBFactory factory = new DBFactory(QC.class.getResource(".").getPath() + "/monstro1");
+        String path = QC.class.getResource(".").getPath() + "/monstro" + id;
+        File file = new File(path);
+        if(!file.exists() || !file.canRead()){
+            //throw new CannotReadFileException();
+        }
+        DBFactory factory = new DBFactory(path);
         iDB db = factory.getDB(TypeDB.TXT);
         BufferedReader br = db.readDB();
         String name = null;
@@ -84,7 +88,7 @@ public class FabricaDeMonstro extends MobFactory {
      * Cria um monstro com seus atributos de acordo com seu nivel passado
      */
     public IMonstro create(int nivel, IPosition position){
-        List<String> monster = monster(id, nivel);
+        List<String> monster = monster(id);
 
         String name =  monster.get(0);
         String description = monster.get(1);
