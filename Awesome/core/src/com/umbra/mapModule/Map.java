@@ -91,7 +91,10 @@ public class Map extends ComponentBase implements IMap {
         return response;
     }
 
-    public IMob move(IMob entidade, String direction) {
+    // Retorna uma célula se houver um monstro ou porta para onde se quer mover
+    // Retorna null se há uma parede, se conseguiu mover ou se a direção passada não seja válida
+
+    public ICell move(IMob entidade, String direction) {
         Position posicao = (Position) entidade.getPosition();
         ICell atual;
 
@@ -99,21 +102,28 @@ public class Map extends ComponentBase implements IMap {
             case 'n':
                 atual = corredor[posicao.getY()][posicao.getX()];
                 ICell norte = corredor[posicao.getY()+1][posicao.getX()];
-                return posicao.moveNorth(norte, atual);
+                if (posicao.moveNorth(norte, atual).equalsIgnoreCase("ocupado"))
+                    return norte;
+                break;
             case 's':
                 atual = corredor[posicao.getY()][posicao.getX()];
                 ICell sul = corredor[posicao.getY()-1][posicao.getX()];
-                return posicao.moveSouth(sul, atual);
-            case 'l':
-                atual = corredor[posicao.getY()][posicao.getX()];
-                ICell oeste = corredor[posicao.getY()][posicao.getX()-1];
-                return posicao.moveWest(oeste, atual);
+                if (posicao.moveSouth(sul, atual).equalsIgnoreCase("ocupado"))
+                    return sul;
+                break;
             case 'o':
                 atual = corredor[posicao.getY()][posicao.getX()];
+                ICell oeste = corredor[posicao.getY()][posicao.getX()-1];
+                if (posicao.moveWest(oeste, atual).equalsIgnoreCase("ocupado"))
+                    return oeste;
+                break;
+            case 'l':
+                atual = corredor[posicao.getY()][posicao.getX()];
                 ICell leste = corredor[posicao.getY()][posicao.getX()+1];
-                return posicao.moveEast(leste, atual);
-            default:
-                throw(new UnknownInputException());
+                if (posicao.moveEast(leste, atual).equalsIgnoreCase("ocupado"))
+                    return leste;
+                break;
         }
+        return null;
     }
 }
