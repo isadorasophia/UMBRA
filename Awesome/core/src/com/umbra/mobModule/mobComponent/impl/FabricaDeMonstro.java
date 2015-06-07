@@ -1,6 +1,5 @@
 package com.umbra.mobModule.mobComponent.impl;
 
-
 import com.umbra.mapModule.IPosition;
 import com.umbra.mobModule.attComponent.inter.IAttribute;
 import com.umbra.mobModule.enums.Att;
@@ -13,11 +12,23 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Random;
 
-/* VEEM MONXSTRO */
+/**
+ * Classe que implementa uma fábrica de monstros, extendendo a fábrica abstrata
+ * 
+ * @author Lucas Alves Racoci
+ * @author Luiz Fernando Rodrigues da Fonseca
+ *
+ */
+
 public class FabricaDeMonstro extends MobFactory {
     private static int id = 0;
 
-    /* Incompleto, usar bd*/
+    /**
+     * Acessa o banco de dados para criar o monstro com o id
+     * @param id
+     * @param nivel
+     * @return
+     */
     private static List monster(int id, int nivel){
         List resp = new ArrayList(3);
 
@@ -32,6 +43,17 @@ public class FabricaDeMonstro extends MobFactory {
         return resp;
 
     }
+    
+    /**
+     * Cria um valor aleatório para um atributo de acordo com
+     * o nivel e um desvio padrão percentual aleatório
+     * @param r
+     * @param nivel
+     * @param percentDev
+     * @param rounding
+     * @param att
+     * @return
+     */
     private double randomLinearAtt(Random r, int nivel, double percentDev, int rounding, Att att){
         double coef = att.getIncrement();
         double resp = coef*nivel + att.getBase();
@@ -42,6 +64,10 @@ public class FabricaDeMonstro extends MobFactory {
         resp = Math.abs(resp);
         return resp;
     }
+    
+    /**
+     * Cria um monstro com seus atributos de acordo com seu nivel passado
+     */
     public IMonstro create(int nivel, IPosition position){
         List monster = monster(id, nivel);
 
@@ -79,7 +105,9 @@ public class FabricaDeMonstro extends MobFactory {
         return resp;
     }
 
-    /*Throws exception BadConstructor*/
+    /**
+     * Retorna uma exceção pois não se pode instanciar um player nesse caso
+     */
     public IPlayer instantiate(String name, String description, IPosition position) throws BadConstructorException {
         throw new BadConstructorException();
     }

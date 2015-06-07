@@ -1,11 +1,18 @@
 package com.umbra.mobModule.mobComponent.impl;
 
-
 import com.umbra.mapModule.IPosition;
 import com.umbra.mobModule.enums.Att;
 import com.umbra.mobModule.exceptions.BadConstructorException;
 import com.umbra.mobModule.mobComponent.inter.IMonstro;
 import com.umbra.mobModule.mobComponent.inter.IPlayer;
+
+/**
+ * Classe que representa uma fábrica de player que extende a fábrica abstrata
+ * 
+ * @author Lucas Alves Racoci
+ * @author Luiz Fernando Rodrigues da Fonseca
+ *
+ */
 
 public class PlayerInstantiator extends MobFactory {
     
@@ -26,6 +33,9 @@ public class PlayerInstantiator extends MobFactory {
 
     public static final Integer INITIAL_SIZE = 10;
 
+    /**
+     * Método que retorna um novo player criado
+     */
     public IPlayer instantiate(String name, String description,  IPosition position){
 
         IPlayer resp = Player.getInstance(name, description, position, INITIAL_SIZE);
@@ -43,6 +53,10 @@ public class PlayerInstantiator extends MobFactory {
 
     }
 
+    /**
+     * Método que retorna uma exceção pois houve uma tentativa
+     * de instanciar um monstro com o instanciador de player
+     */
     public IMonstro create(int nivel, IPosition position) throws BadConstructorException {
         throw new BadConstructorException();
     }

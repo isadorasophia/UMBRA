@@ -2,10 +2,9 @@ package com.umbra.mapModule;
 
 import com.umbra.mobModule.mobComponent.inter.IMob;
 
-@ComponentInterface("<http://purl.org/NET/dcc/com.umbra.com.umbra.vultoModule.IVulto>")
+@ComponentInterface("<http://purl.org/NET/dcc/com.umbra.com.umbra.mapModule.IMap>")
 public interface IMap extends ISupports{
     public ICell getCell(IPosition posicao);
     public ICell[][] getCell(IPosition posicao,int range);
-    public boolean move(IMob entidade, String direction);
-    public IMob move(IMob entidade, String direction);
+    public ICell move(IMob entidade, String direction);
 }
