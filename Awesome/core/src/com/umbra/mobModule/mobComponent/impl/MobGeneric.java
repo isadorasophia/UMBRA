@@ -92,7 +92,7 @@ public abstract class MobGeneric implements IMobGeneric {
     }
     private void setAtt(Double min, String name, double value, Double max){
         IAttribute novo = atts.get(name);
-        if (novo == null || (min != novo.getMax() && max != novo.getMin()) ){
+        if (novo == null || !(min == null && max == null) ){
         	try {
         		IGlobalFactory factory = ComponentContextFactory.createGlobalFactory();
             	factory.registerPrototype(AttCreator.class);
