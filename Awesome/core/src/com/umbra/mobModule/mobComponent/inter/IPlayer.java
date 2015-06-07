@@ -29,7 +29,7 @@ public interface IPlayer extends IPlayerGeneric {
      * @param xp
      * @return
      */
-    public boolean addXP(double xp);
+    public int addXP(double xp);
     
     /**
      * Pega o nivel do player

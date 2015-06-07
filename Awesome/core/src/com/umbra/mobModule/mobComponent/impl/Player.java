@@ -81,10 +81,10 @@ public class Player extends PlayerGeneric implements IPlayer{
         }
     }
 
-    public boolean addXP(double xp){
+    public int addXP(double xp){
         int nivel = getNivel();
         setXp(getXp() + xp);
-        return getNivel() > nivel;
+        return getNivel() - nivel;
 
     }
 

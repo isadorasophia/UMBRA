@@ -107,7 +107,7 @@ public class FabricaDeMonstro extends MobFactory {
         double dexterity = randomLinearAtt(r, nivel, 42.0/100, 0, Att.DEXTERITY);
         resp.setAtt(Att.DEXTERITY.getName(), dexterity);
 
-        double luck = r.nextDouble();
+        double luck = randomLinearAtt(r, nivel, 42.0/100, 0, Att.LUCK);
         resp.setAtt(Att.LUCK.getName(), luck);
 
         double evasiveness = randomLinearAtt(r, nivel, 52.0/100, 0, Att.EVASIVENESS);
