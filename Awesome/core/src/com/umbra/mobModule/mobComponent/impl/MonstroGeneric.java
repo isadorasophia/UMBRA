@@ -59,7 +59,7 @@ public class MonstroGeneric extends Mob implements IMonstroGeneric {
     }
 
     public Type getType(){
-        Type resp =  Type.MONSTRO;
+        Type resp = Type.MONSTRO;
         resp.setChar(getName().charAt(0));
         return resp;
     }

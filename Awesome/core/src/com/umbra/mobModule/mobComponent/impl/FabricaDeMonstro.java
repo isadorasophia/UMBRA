@@ -5,6 +5,7 @@ import com.umbra.dbModule.TypeDB;
 import com.umbra.dbModule.iDB;
 import com.umbra.mapModule.IPosition;
 import com.umbra.mobModule.attComponent.inter.IAttribute;
+import com.umbra.mobModule.dbMobModule.dbMob.dbMonstro.QC;
 import com.umbra.mobModule.enums.Att;
 import com.umbra.mobModule.exceptions.BadConstructorException;
 import com.umbra.mobModule.mobComponent.inter.IMonstro;
@@ -16,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Stream;
 
 /**
  * Classe que implementa uma fábrica de monstros, extendendo a fábrica abstrata
@@ -36,9 +36,9 @@ public class FabricaDeMonstro extends MobFactory {
      * @return Retorna uma lista que contem necessáriamente um nome e uma descrição
      */
     private static List<String> monster(int id, int nivel){
-        List resp = new ArrayList(2);
+        List<String> resp = new ArrayList<String>(2);
 
-        DBFactory factory = new DBFactory("com.umbra.mobModule.dbMobModule.dbMob.dbMonstro");
+        DBFactory factory = new DBFactory(QC.class.getResource(".").getPath() + "/monstro1");
         iDB db = factory.getDB(TypeDB.TXT);
         BufferedReader br = db.readDB();
         String name = null;
@@ -46,7 +46,7 @@ public class FabricaDeMonstro extends MobFactory {
         try {
             name = br.readLine();
             for(String line = br.readLine(); line != null; line = br.readLine()){
-                description += line;
+                description += line + "\n";
             }
         } catch (IOException e) {
             e.printStackTrace();

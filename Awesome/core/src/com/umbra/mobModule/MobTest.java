@@ -31,7 +31,7 @@ public class MobTest {
             IPlayer player = mobmanager.createPlayer();
             List<IMonstro> monstros = new ArrayList<IMonstro>();
 
-            /*System.out.print("Digite o número de monstros a serem criados:");
+            System.out.print("Digite o número de monstros a serem criados:");
             int n = s.nextInt();
             int i = 1;
             while(n-- > 0){
@@ -39,8 +39,8 @@ public class MobTest {
                 IMonstro novo = mobmanager.createMonstro(i++);
                 System.out.println(novo.toString());
                 monstros.add(novo);
-            }*/
-            System.out.print("Digite o número de itens a serem criados:");
+            }
+            /*System.out.print("Digite o número de itens a serem criados:");
 
             List<IItemBattle> itens = new ArrayList<IItemBattle>();
             int n2 = s.nextInt();
@@ -65,7 +65,7 @@ public class MobTest {
                 System.out.println("... tem como resultado: ");
                 System.out.println(player);
 
-            }
+            }*/
 
             /*
             espada.addModAtt("Força", 10);
