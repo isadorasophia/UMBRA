@@ -6,12 +6,12 @@ import anima.component.InterfaceType;
 
 import java.io.*;
 
-public class UmbraDBCSV extends ComponentBase implements iDB{
+public class UmbraDBCSV implements iDB{
     private String path;
     private File file;
 
     // Construtor do banco de dados
-    public umbraDBCSV(String name_of_file){
+    public UmbraDBCSV(String name_of_file){
         path = name_of_file + ".csvdb";
 
         try {
@@ -30,7 +30,7 @@ public class UmbraDBCSV extends ComponentBase implements iDB{
         }
     }
 
-    private BufferedReader readDB(){
+    public BufferedReader readDB(){
         FileReader openedFile = null;
         //Faz o arquivo em disco ir para a memória para agilizar a leitura
         BufferedReader bufferedFile = null;
@@ -45,7 +45,7 @@ public class UmbraDBCSV extends ComponentBase implements iDB{
         return bufferedFile;
     }
 
-    private void closeDB(BufferedReader reader){
+    public void closeDB(BufferedReader reader){
         try{
             reader.close();
         }
@@ -54,13 +54,10 @@ public class UmbraDBCSV extends ComponentBase implements iDB{
         }
     }
 
-    @Override
-    public String getFromDB() throws NullPointerException, NoMethod {
-    	throw new NoMethod("Esse DB n�o suporta esse tipo de m�todo, tente passar "
-				+ "string(s) como par�metro");
+    public String getFromDB() throws NullPointerException {
+        throw new NullPointerException();
     }
 
-    @Override
     public String[] getFromDB(String info) throws NullPointerException{
         String linha;
         String[] valores;
@@ -87,7 +84,7 @@ public class UmbraDBCSV extends ComponentBase implements iDB{
         throw new NullPointerException();
     }
 
-    @Override
+    //Sobrecarga de métodos
     public String[] getFromDB(String info1, String info2) throws NullPointerException {
         Boolean achou = false;
         String linha;
@@ -118,18 +115,6 @@ public class UmbraDBCSV extends ComponentBase implements iDB{
         throw new NullPointerException();
     }
 
-    @Override
-    public boolean saveDB(Object obj)throws NullPointerException, NoMethod {
-    	throw new NoMethod("Esse DB n�o suporta esse tipo de m�todo");
-    }
-
-    @Override
-    public Object getObject()throws NullPointerException, NoMethod {
-    	throw new NoMethod("Esse DB n�o suporta esse tipo de m�todo");
-    }
-
-
-    // ---- Para funcionamento do framkework ---- //
     @Override
     public <T extends ISupports> T queryInterface(String s) {
         return null;

@@ -15,7 +15,7 @@ public class UmbraDBTXT extends ComponentBase implements iDB{
     private File file;
 
     // Construtor
-    public umbraDBTXT(String name_of_file){
+    public UmbraDBTXT(String name_of_file){
         path = name_of_file + ".txtdb";
 
         try {
@@ -34,7 +34,7 @@ public class UmbraDBTXT extends ComponentBase implements iDB{
         }
     }
 
-    private BufferedReader readDB(){
+    public BufferedReader readDB(){
         FileReader openedFile = null;
         //Faz o arquivo em disco ir para a memória para agilizar a leitura
         BufferedReader bufferedFile = null;
@@ -49,7 +49,7 @@ public class UmbraDBTXT extends ComponentBase implements iDB{
         return bufferedFile;
     }
 
-    private void closeDB(BufferedReader reader){
+    public void closeDB(BufferedReader reader){
         try{
             reader.close();
         }
@@ -58,7 +58,6 @@ public class UmbraDBTXT extends ComponentBase implements iDB{
         }
     }
 
-    @Override
     public String getFromDB() throws NullPointerException{
         String linha;
         String valor = "";
@@ -81,26 +80,11 @@ public class UmbraDBTXT extends ComponentBase implements iDB{
 
     }
 
-    @Override
-    public String[] getFromDB(String info) throws NullPointerException, NoMethod {
-    	throw new NoMethod("Esse DB n�o suporta esse tipo de m�todo, tente usar este m�todo"
-				+ "sem passar par�metros");
+    public String[] getFromDB(String info) throws NullPointerException {
+        throw new NullPointerException();
     }
-
-    @Override
-    public String[] getFromDB(String info1, String info2) throws NullPointerException, NoMethod{
-    	throw new NoMethod("Esse DB n�o suporta esse tipo de m�todo, tente usar este m�todo"
-    						+ "sem passar par�metros");
-    }
-
-    @Override
-    public boolean saveDB(Object obj)throws NullPointerException, NoMethod {
-    	throw new NoMethod("Esse DB n�o suporta esse tipo de m�todo");
-    }
-
-    @Override
-    public Object getObject()throws NullPointerException, NoMethod {
-    	throw new NoMethod("Esse DB n�o suporta esse tipo de m�todo");
+    public String[] getFromDB(String info1, String info2) throws NullPointerException{
+        throw new NullPointerException();
     }
 
 }
