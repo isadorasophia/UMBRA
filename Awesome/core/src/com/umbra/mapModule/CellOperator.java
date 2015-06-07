@@ -2,6 +2,7 @@ package com.umbra.mapModule;
 
 import com.umbra.mobModule.mobComponent.impl.FabricaDeMonstro;
 import com.umbra.puzzlesModule.IPuzzle;
+import com.umbra.puzzlesModule.Puzzle;
 
 /**
  * Created by laurocruz on 6/2/15.
