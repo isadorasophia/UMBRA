@@ -5,6 +5,13 @@ import com.umbra.mobModule.exceptions.CannotDoubleModifyAttributeException;
 import com.umbra.mobModule.exceptions.CannotUnmodifyWhatHasNotBeenModifiedException;
 import com.umbra.mobModule.mobComponent.inter.IMob;
 
+/**
+ * Interface que contém os métodos de um item de batalha que será usado no jogo
+ * 
+ * @author Lucas Alves Racoci
+ * @author Luiz Fernando Rodrigues da Fonseca
+ *
+ */
 
 public interface IItemBattle extends IItem {
     /**
@@ -25,7 +32,7 @@ public interface IItemBattle extends IItem {
     /**
      * Atualiza os atributos de um mob com os modificadores de atributos pertinentes
      * @param src Mob com os atributos a serem modificados
-     * @throws CannotDoubleModifyAttributeException  Excessão lançada quando houver tentativa de remodificar um atributo
+     * @throws CannotDoubleModifyAttributeException  Exceção lançada quando houver tentativa de remodificar um atributo
      *                                               que já foi modificado pelo mesmo modificador de atributo
      */
     public void updateMob(IMob src) throws CannotDoubleModifyAttributeException ;
@@ -33,7 +40,7 @@ public interface IItemBattle extends IItem {
     /**
      * Desfaz tudo que o método responsável por atualizar o mob fez
      * @param src Mob com os atributos a serem desmodificados
-     * @throws CannotUnmodifyWhatHasNotBeenModifiedException Excessão lançada quando houver tentativa de desmodificar
+     * @throws CannotUnmodifyWhatHasNotBeenModifiedException Exceção lançada quando houver tentativa de desmodificar
      *                                                       um mob que ainda não tenha sido modificado
      */
     public void unupdateMob(IMob src) throws CannotUnmodifyWhatHasNotBeenModifiedException;

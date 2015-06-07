@@ -7,8 +7,6 @@ import com.umbra.mapModule.IPosition;
 import com.umbra.mobModule.enums.Att;
 import com.umbra.mobModule.itemComponent.inter.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 @Component(
@@ -16,14 +14,32 @@ import java.util.Random;
 		provides = {"<http://purl.org/NET/dcc/com.umbra.mobModule.itemComponent.impl.IItemManager>"}
 )
 
+/**
+ * Classe que representa o componente que é uma fábrica de itens
+ * de três tipos: BATTLE, PUZZLE, ILUMINATION
+ * 
+ * @author Lucas Alves Racoci
+ * @author Luiz Fernando Rodrigues da Fonseca
+ *
+ */
+
 public class ItemManager extends ComponentBase implements IItemManager {
 
+	/**
+	 * Método auxilar para adicionar modificadores de atributo
+	 * aleatórios na criação de um item do tipo de batalha
+	 * @param item
+	 * @param rarity
+	 * @param att
+	 * @param r
+	 */
     private static void addModAtt(IItemBattle item, double rarity, Att att, Random r){
         double randRarity = r.nextDouble()/2 + 1/2;
         double paramether = rarity * randRarity * att.getIncrement();
         //paramether = Math.floor(paramether);
         item.addModAtt(att.getName(), paramether);
     }
+    
     public IItemBattle instantiateItemBattle(String name, String description, double findProb, IPosition pos){
         IItemBattle resp = new ItemBattle(name, description, findProb, pos);
         if(findProb != 0){

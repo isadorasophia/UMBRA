@@ -20,14 +20,37 @@ import com.umbra.mobModule.modAttComponent.inter.IModAttManager;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe que implementa um item de batalha que será usado no jogo
+ * 
+ * @author Lucas Alves Racoci
+ * @author Luiz Fernando Rodrigues da Fonseca
+ *
+ */
 
 public class ItemBattle extends Item implements IItemBattle  {
     List<IModAtt> modatts;
 
+    /**
+     * Construtor padrão do item de batalha
+     * @param name
+     * @param description
+     * @param findProb
+     * @param pos
+     */
     public ItemBattle(String name, String description, double findProb, IPosition pos){
         super(name, description, findProb, pos);
         this.modatts = new ArrayList<IModAtt>();
     }
+    
+    /**
+     * Construtor que recebe uma lista de modificadores de atributo
+     * @param name
+     * @param description
+     * @param findProb
+     * @param pos
+     * @param modatts
+     */
     public ItemBattle(String name, String description, double findProb, IPosition pos, List<IModAtt> modatts){
         super(name, description, findProb, pos);
         this.modatts = modatts;
@@ -88,6 +111,7 @@ public class ItemBattle extends Item implements IItemBattle  {
             }
         }
     }
+    
     public String toString(Margin m){
         String resp = super.toString(m);
         resp += m.ident("#ModAtts:");
@@ -96,6 +120,7 @@ public class ItemBattle extends Item implements IItemBattle  {
         }
         return resp;
     }
+    
     public String toString(){
         return toString(Margin.first());
     }
