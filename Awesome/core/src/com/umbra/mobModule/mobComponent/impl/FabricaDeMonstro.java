@@ -12,6 +12,7 @@ import com.umbra.mobModule.mobComponent.inter.IMonstro;
 import com.umbra.mobModule.mobComponent.inter.IPlayer;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -39,12 +40,10 @@ public class FabricaDeMonstro extends MobFactory {
         List<String> resp = new ArrayList<String>(2);
         String path = BDMonstro.class.getResource(".").getPath() + "/monstro" + ((id % NUMBEROFMONSTRO) + 1);
 
-        DBFactory factory = new DBFactory(path);
-        iDB db = factory.getDB(TypeDB.TXT);
-        BufferedReader br = db.readDB();
         String name = null;
         String description = "";
         try {
+            BufferedReader br = new BufferedReader(new FileReader(path + ".txt"));
             name = br.readLine();
             for(String line = br.readLine(); line != null; line = br.readLine()){
                 description += line + "\n";
