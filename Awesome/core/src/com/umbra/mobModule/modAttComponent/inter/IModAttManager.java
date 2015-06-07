@@ -19,6 +19,24 @@ import anima.component.ISupports;
 		"<http://purl.org/NET/dcc/com.umbra.mobModule.modAttComponent.inter.IModAttManager>")
 
 public interface IModAttManager extends ISupports {
+	
+	/**
+	 * Criador de um modificador de atributo sem uma operação específica,
+	 * portanto ele só soma um subtrai o valor de um atributo
+	 * @param attName
+	 * @param parameter
+	 * @return
+	 */
 	public IModAtt create(String attName, double parameter);
+	
+	/**
+	 * Criador de um modificador de atributo com alguma operação especificada
+	 * @param attName
+	 * @param type
+	 * @param parameter
+	 * @return
+	 * @throws BadArgumentException
+	 */
     public IModAtt create(String attName, Operation type, double ... parameter) throws BadArgumentException;
+    
 }

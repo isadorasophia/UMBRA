@@ -59,6 +59,24 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		setPlayer(player);
 		setMonster(monster);
 		
+		// For testing sake
+		this.player.setAtt("attack", 17);
+		this.player.setAtt("defense", 14);
+		this.player.setAtt("dexterity", 7);
+		this.player.setAtt("evasiveness", 7);
+		this.player.setAtt("luck", 7);
+		this.player.setAtt("sanity", 7);
+		this.player.setAtt("hp", 100);
+        
+		
+		this.monster.setAtt("attack", 17);
+		this.monster.setAtt("defense", 10);
+		this.monster.setAtt("dexterity", 8);
+		this.monster.setAtt("evasiveness", 6);
+		this.monster.setAtt("luck", 7);
+		this.monster.setAtt("sanity", 2);
+		this.monster.setAtt("hp", 110);
+		
 		this.battleExecuter = new BattleExecuter();
 		
 		this.playerTurn = true;
@@ -145,11 +163,13 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 				
 				this.playerDefending = true;
 			} else if (input.contains("R")) {
-				this.battleExecuter.escape(player, monster);
+				setDone(this.battleExecuter.escape(player, monster));
 				
 			} else if (input.contains("A")) {
-				setStatus ("An attack is attempted. You can attack towards the [L]imbs, [B]rain or [V]ital organs"
-						+ " of the creature.\n");
+				setStatus ("An attack is attempted. You can attack towards the creature's\n"
+						+ "[L]imbs [ 1.3 | 70% ],\n"
+						+ "[B]rain [ 1.8 | 30% ] or\n"
+						+ "[V]ital organs [ 1.6 | 40% ]\n");
 				
 				return;
 				
@@ -187,7 +207,7 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 				
 				this.enemyDefending = true;
 			} else {
-				 isBattleOver = this.battleExecuter.attack(getPlayer(), getMonster(), monsterInput);
+				 isBattleOver = this.battleExecuter.attack(getMonster(), getPlayer(), monsterInput);
 			}
 			
 			// get battle status
@@ -199,6 +219,9 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 			// get ready for next move
 			this.playerTurn = true;
 		}
+		
+		System.out.println("Player: " + getPlayer().getAtt("hp"));
+		System.out.println("Monster: " + getMonster().getAtt("hp"));
 		
 		// if the battle was lost...
 		if (isBattleOver) {
@@ -217,10 +240,10 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		int randomFactor = random.nextInt(24);
 		
 		if (randomFactor % 8 == 0) {
-			setStatus("Some whispers come to you as if they were lost in the silence of emptiness...\n");
+			setStatus("\nSome whispers come to you as if they were lost in the silence of emptiness...\n");
 		}
 		else if (randomFactor % 7 == 0) {
-			setStatus("Tic. Tac. Tic...\n");
+			setStatus("\nTic. Tac. Tic...\n");
 		}
 	}
 	
@@ -229,7 +252,7 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		
 		setStatus("You win this battle, for once. The creature is now dead, you may " +
 				"move on to your hopeless journey.\n");
-		setStatus("You won " + (int)monster.getAtt("xp").getValue() + " XP as you leave the battle.");
+		setStatus("You win " + (int)monster.getAtt("xp").getValue() + " XP as you leave the battle.");
 		
 		// increase gained XP and checks if player has leveled up
 		if (getPlayer().addXP(gainedXP)) {
@@ -237,6 +260,8 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 			// set map of atts to player choose which will he increase.
 			// then move on...
 		}
+		// Just for testing sake
+		setDone(true);
 	}
 	
 	private void lostBattle() {
