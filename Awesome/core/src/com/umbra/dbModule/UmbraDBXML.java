@@ -18,11 +18,6 @@ public class UmbraDBXML extends ComponentBase implements iDB{
     }
 
     @Override
-    public BufferedReader readDB() {
-        return null;
-    }
-
-    @Override
     public String getFromDB() {
         return null;
     }
@@ -35,5 +30,15 @@ public class UmbraDBXML extends ComponentBase implements iDB{
     @Override
     public String[] getFromDB(String info1, String info2) {
         return new String[0];
+    }
+
+    @Override
+    public boolean saveDB(Object obj){
+        return false;
+    }
+    
+    @Override
+    public Object getObject(){
+        return null;
     }
 }
