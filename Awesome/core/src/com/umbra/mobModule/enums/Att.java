@@ -16,7 +16,8 @@ public enum Att {
     DEXTERITY("dexterity", 12, 3),
     EVASIVENESS("evasiveness", 10, 1),
     LUCK("luck", 5, 1),
-    SANITY("sanity", 100, -1);
+    SANITY("sanity", 100, -1),
+    SPEED("speed", 10, 1);
 
 
     private String name;

@@ -57,10 +57,18 @@ public class MobTest {
             //IItemBattle espada = itemmanager.instantiateItemBattle("Espada", "Fuderosa", 0.2, null);
 
             for(IItemBattle i : itens){
+                System.out.println("Player: ...");
+                System.out.println(player);
+                System.out.println("... ser modificado por ...");
+                System.out.println(i);
                 i.updateMob(player);
+                System.out.println("... tem como resultado: ");
+                System.out.println(player);
+
             }
 
-            /*espada.addModAtt("Força", 10);
+            /*
+            espada.addModAtt("Força", 10);
             espada.addModAtt("Defesa", -30);
             player.putItem(espada);
             player.equipItem("Espada");

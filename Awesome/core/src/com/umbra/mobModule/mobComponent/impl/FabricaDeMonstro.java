@@ -27,18 +27,16 @@ public class FabricaDeMonstro extends MobFactory {
      * Acessa o banco de dados para criar o monstro com o id
      * @param id
      * @param nivel
-     * @return
+     * @return Retorna uma lista que contem necessáriamente um nome e uma descrição
      */
-    private static List monster(int id, int nivel){
-        List resp = new ArrayList(3);
+    private static List<String> monster(int id, int nivel){
+        List resp = new ArrayList(2);
 
         String name = "Monstro";
         String description = "Cruel";
-        Hashtable<String,IAttribute> atts = new Hashtable<String, IAttribute>();
 
         resp.add(0, name);
         resp.add(1, description);
-        resp.add(2, atts);
 
         return resp;
 
@@ -73,7 +71,7 @@ public class FabricaDeMonstro extends MobFactory {
 
         String name = (String) monster.get(0);
         String description = (String) monster.get(1);
-        Hashtable<String,IAttribute> atts = (Hashtable<String,IAttribute>) monster.get(2);
+        Hashtable<String,IAttribute> atts = new Hashtable<String, IAttribute>();
 
         IMonstro resp = new Monstro(name, description, position, atts, id);
 
