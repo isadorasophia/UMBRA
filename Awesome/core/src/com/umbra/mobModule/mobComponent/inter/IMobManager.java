@@ -2,6 +2,7 @@ package com.umbra.mobModule.mobComponent.inter;
 
 import anima.annotation.ComponentInterface;
 import anima.component.ISupports;
+import com.umbra.mapModule.IPosition;
 
 /**
  * Interface para o componente que retorna instancias
@@ -21,12 +22,12 @@ public interface IMobManager extends ISupports {
 	 * Cria um player com os atributos já pré definidos
 	 * @return
 	 */
-	public IPlayer createPlayer();
+	public IPlayer createPlayer(String name, String description, IPosition position);
 	
 	/**
 	 * Cria um monstro e seus atributos aleatoriamente de acordo com seu nível
 	 * @param nivel
 	 * @return
 	 */
-	public IMonstro createMonstro(int nivel);
+	public IMonstro createMonstro(int nivel, IPosition position);
 }

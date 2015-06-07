@@ -3,6 +3,7 @@ package com.umbra.mobModule.mobComponent.impl;
 import anima.annotation.Component;
 import anima.component.base.ComponentBase;
 
+import com.umbra.mapModule.IPosition;
 import com.umbra.mobModule.exceptions.BadConstructorException;
 import com.umbra.mobModule.mobComponent.inter.IMobManager;
 import com.umbra.mobModule.mobComponent.inter.IMonstro;
@@ -23,12 +24,12 @@ import com.umbra.mobModule.mobComponent.inter.IPlayer;
 
 public class MobManager extends ComponentBase implements IMobManager {
 	
-	public IPlayer createPlayer() {
+	public IPlayer createPlayer(String name, String description, IPosition position) {
 		MobFactory factory = MobFactory.createFactory("Player");
 		IPlayer player = null;
 		
 		try {
-			player = factory.instantiate("Player", "Jogador teste", null);
+			player = factory.instantiate(name, description, position);
 		} catch (BadConstructorException e) {
 			e.printStackTrace();
 		}
@@ -36,12 +37,12 @@ public class MobManager extends ComponentBase implements IMobManager {
 		return player;
 	}
 	
-	public IMonstro createMonstro(int nivel) {
+	public IMonstro createMonstro(int nivel, IPosition position) {
 		MobFactory factory = MobFactory.createFactory("Monstro");
 		IMonstro monstro = null;
 		
 		try {
-			monstro = factory.create(nivel, null);
+			monstro = factory.create(nivel, position);
 		} catch (BadConstructorException e) {
 			e.printStackTrace();
 		}
