@@ -19,11 +19,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+/**
+ * Classe que representa um player genérico que pode ser extendido
+ * 
+ * @author Lucas Alves Racoci
+ * @author Luiz Fernando Rodrigues da Fonseca
+ *
+ */
 
 public class PlayerGeneric extends Mob implements IPlayerGeneric {
     protected IInventory inventory = null;
     protected Stack<IItemBattle> equiped = null;
 
+    /**
+     * Construtor padrão do player genérico, que recebe
+     * nome, descrição, posição e tamanho do inventário
+     * @param name
+     * @param description
+     * @param position
+     * @param inventorySize
+     */
     public PlayerGeneric(String name, String description, IPosition position, int inventorySize){
         super(name, description, position);
         try {

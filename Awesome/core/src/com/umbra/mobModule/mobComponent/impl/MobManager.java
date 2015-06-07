@@ -13,6 +13,14 @@ import com.umbra.mobModule.mobComponent.inter.IPlayer;
 		provides={"<http://purl.org/NET/dcc/com.umbra.mobModule.mobComponent.inter.IMobManager>"}
 )
 
+/**
+ * Classe que representa o componente que instancia o player e os monstros
+ * 
+ * @author Lucas Alves Racoci
+ * @author Luiz Fernando Rodrigues da Fonseca
+ *
+ */
+
 public class MobManager extends ComponentBase implements IMobManager {
 	
 	public IPlayer createPlayer() {
