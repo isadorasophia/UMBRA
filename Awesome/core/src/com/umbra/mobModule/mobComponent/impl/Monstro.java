@@ -1,6 +1,7 @@
 package com.umbra.mobModule.mobComponent.impl;
 
 import com.umbra.mapModule.IPosition;
+import com.umbra.mobModule.Margin;
 import com.umbra.mobModule.attComponent.inter.IAttribute;
 import com.umbra.mobModule.mobComponent.inter.IMonstro;
 
@@ -68,6 +69,15 @@ public class Monstro extends MonstroGeneric implements IMonstro{
 
 	public void setDeathDescription(String death) {
 		this.deathDescription = death;
+	}
+
+	public String toString(Margin m){
+		String resp = super.toString(m);
+		resp += m.ident("Win Description");
+		resp += m.ident(getWinDescription());
+		resp += m.ident("Death Description");
+		resp += m.ident(getDeathDescription());
+		return resp;
 	}
 	
 }

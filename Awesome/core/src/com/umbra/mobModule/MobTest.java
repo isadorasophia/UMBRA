@@ -37,7 +37,7 @@ public class MobTest {
             while(n-- > 0){
                 System.out.printf("Nivel : %d\n", i);
                 IMonstro novo = mobmanager.createMonstro(i++, null);
-                System.out.println(novo.toString());
+                System.out.println(novo);
                 monstros.add(novo);
             }
             /*System.out.print("Digite o número de itens a serem criados:");
