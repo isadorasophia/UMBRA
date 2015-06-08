@@ -129,7 +129,7 @@ public class TextComunicator implements IComunicator, InputProcessor {
     public void draw(){
         batch.begin();
         if(text != null){
-        	if(hight - 100 - ((font.getCapHeight()*text.length())/(Gdx.graphics.getWidth() - 300))*font.getCapHeight() < 0) hight += font.getCapHeight();
+        	if(hight - 200 - ((font.getCapHeight()*text.length())/(Gdx.graphics.getWidth() - 300))*font.getCapHeight() < 0) hight += font.getCapHeight();
         	font.draw(batch,text,width,hight,textSize,-5,true);
         }
         batch.end();

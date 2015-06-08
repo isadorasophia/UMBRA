@@ -31,30 +31,26 @@ public class InitialMode extends ComponentBase implements IMode {
 
     @Override
     public void init(IComunicator comunicator, Characters characters) {
-        beginning = false;
+        beginning = true;
         eof = false;
         modeon = true;
 
         try {
             reader = new FileReader("Textos/initialText.txt");
+            int a = -1;
+            do {
+                a = reader.read();
+                initialText += (char) a;
+            } while (a != -1);    // a == -1 at eof
+            reader.close();
         } catch (FileNotFoundException e) {
             initialText = "";
-        }
-        int a = -1;
-        if(!eof) {
-            try {
-                do {
-                    a = reader.read();
-                    initialText += (char) a;
-                } while (a != -1);    // a == -1 at eof
-                reader.close();
-            } catch (IOException e) {
-                initialText = "";
-            }
+        } catch (IOException e) {
+            initialText = "";
         }
 
         this.comunicator = comunicator;
-        this.comunicator.newText(initialText, 100, Gdx.graphics.getHeight() - 50, Gdx.graphics.getWidth() - 200f, true);
+        this.comunicator.newText("Umbra", Gdx.graphics.getWidth()/2 - 50, Gdx.graphics.getHeight()/2 + 50, Gdx.graphics.getWidth() - 200, true);
     }
 
     @Override
@@ -63,7 +59,7 @@ public class InitialMode extends ComponentBase implements IMode {
 
         // First Text update
         if(comunicator.update(dt)) eof = true;
-        if(!modeon) return Modes.MAZE;
+        if(!modeon) return Modes.BATLLE;
         return newMode;
     }
 
@@ -76,7 +72,13 @@ public class InitialMode extends ComponentBase implements IMode {
     public void handleInput() {
 
         // wait press enter to exit first text
-        if(modeon && eof && Gdx.input.isKeyPressed(Input.Keys.ENTER)) modeon = false;
+        if(modeon && eof && Gdx.input.isKeyPressed(Input.Keys.ENTER)){
+            if(beginning){
+                beginning = false;
+                comunicator.newText(initialText, 100, Gdx.graphics.getHeight() - 50, Gdx.graphics.getWidth() - 200f, true);
+                eof = false;
+            }else modeon = false;
+        }
     }
 
     @Override
