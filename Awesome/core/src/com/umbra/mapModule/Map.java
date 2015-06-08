@@ -37,8 +37,8 @@ public class Map extends ComponentBase implements IMap {
 
         personagem.setPosition(new Position(TAM_Y-2, 3));
 
-        for (int i = 1; i < TAM_Y-1; i++) {
-            for (int j = 1; j < TAM_X - 1; j++) {
+        for (int i = 0; i < TAM_Y; i++) {
+            for (int j = 0; j < TAM_X; j++) {
                 corredor[i][j] = operator.makeVazio();
             }
         }
@@ -72,6 +72,12 @@ public class Map extends ComponentBase implements IMap {
                     Ok = true;
                 }
             }
+        }
+        for (int i = 0; i < TAM_Y; i++) {
+            for (int j = 0; j < TAM_X; j++) {
+                System.out.print(corredor[i][j].getDescription());
+            }
+            System.out.println();
         }
     }
 
