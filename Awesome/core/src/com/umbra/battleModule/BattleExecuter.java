@@ -178,8 +178,8 @@ class BattleExecuter {
 	// Monster turn
 	String monsterAI (IMob monster, IMob victim) {
 		Random random = new Random();
-		double hpProportion = monster.getAtt("hp").getValue()/monster.getAtt("maxHP").getValue();
-		double attackChance = (monster.getAtt("attack").getValue() * 2) * (1 + random.nextFloat()/2);
+		double hpProportion = monster.getAtt("hp").getValue()/monster.getAtt("hp").getMax();
+		double attackChance = (monster.getAtt("attack").getValue() * 2) * (random.nextFloat()/2);
 		
 		if (hpProportion < 0.2) {
 			if (attackChance >= victim.getAtt("hp").getValue()) {
