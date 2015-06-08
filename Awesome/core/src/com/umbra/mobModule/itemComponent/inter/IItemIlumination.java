@@ -1,5 +1,13 @@
 package com.umbra.mobModule.itemComponent.inter;
 
+/**
+ * Interface que contém métodos de um item de iluminação que será usado no jogo
+ * 
+ * @author Lucas Alves Racoci
+ * @author Luiz Fernando Rodrigues da Fonseca
+ *
+ */
+
 public interface IItemIlumination extends IItem {
     /**
      * Permite leitura do valor da itensidade luminosa de um item do tipo IItemIlumination

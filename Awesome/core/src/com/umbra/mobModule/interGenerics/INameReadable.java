@@ -1,5 +1,12 @@
 package com.umbra.mobModule.interGenerics;
 
+/**
+ * Interface que generaliza os objetos que tem um nome
+ * 
+ * @author Lucas Alves Racoci
+ * @author Luiz Fernando Rodrigues da Fonseca
+ *
+ */
 
 public interface INameReadable {
     /**

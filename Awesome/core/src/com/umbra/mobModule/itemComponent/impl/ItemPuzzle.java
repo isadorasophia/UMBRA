@@ -7,9 +7,24 @@ import com.umbra.mobModule.itemComponent.inter.IItemPuzzle;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Interface que contém métodos de um item do tipo puzzle que será usado no jogo
+ * 
+ * @author Lucas Alves Racoci
+ * @author Luiz Fernando Rodrigues da Fonseca
+ *
+ */
+
 public class ItemPuzzle extends Item implements IItemPuzzle {
     private List<String> adjectives;
 
+    /**
+     * Construtor padrão do item puzzle
+     * @param name
+     * @param description
+     * @param findProb
+     * @param pos
+     */
     public ItemPuzzle(String name, String description, double findProb, IPosition pos){
         super(name, description, findProb, pos);
         adjectives = new ArrayList<String>();
@@ -28,6 +43,7 @@ public class ItemPuzzle extends Item implements IItemPuzzle {
         adjectives.remove(index);
         adjectives.add(index, newAdj);
     }
+    
     public Type getType(){
         return Type.ITEM_PUZZLE;
     }

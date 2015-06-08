@@ -1,5 +1,14 @@
 package com.umbra.mobModule.enums;
 
+/**
+ * Tipo enumerado usado para identificar os tipos de mobs
+ * e os tipos de itens usados no programa
+ * 
+ * @author Lucas Alves Racoci
+ * @author Luiz Fernando Rodrigues da Fonseca
+ *
+ */
+
 public enum Type {
     MONSTRO('M', "Monsto"),
     PLAYER('@', "Player"),

@@ -3,6 +3,14 @@ package com.umbra.mobModule.attComponent.impl;
 import com.umbra.mobModule.Margin;
 import com.umbra.mobModule.attComponent.inter.IAttribute;
 
+/**
+ * Classe cujos objetos representam atributos dos mobs
+ * 
+ * @author Lucas Alves Racoci
+ * @author Luiz Fernando Rodrigues da Fonseca
+ *
+ */
+
 public class Attribute implements IAttribute  {
     private String name;
     private double value;
@@ -92,6 +100,16 @@ public class Attribute implements IAttribute  {
     }
 
     @Override
+    public Double getMax() {
+        return max;
+    }
+
+    @Override
+    public Double getMin() {
+        return min;
+    }
+
+    @Override
     public void setToMax() {
         value = max;
     }
@@ -115,6 +133,14 @@ public class Attribute implements IAttribute  {
     }
     public String toString(){
         return toString(Margin.first());
+    }
+
+    public void setMax(double max){
+        this.max = max;
+    }
+
+    public void setMin(double min){
+        this.min = min;
     }
 
     public IAttribute clone() {

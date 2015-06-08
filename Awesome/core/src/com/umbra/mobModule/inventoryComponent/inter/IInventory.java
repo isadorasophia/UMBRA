@@ -8,7 +8,7 @@ import com.umbra.mobModule.itemComponent.inter.IItem;
 import java.util.List;
 
 /**
- * Interface para o inventario do player
+ * Interface para o inventário do player
  * 
  * @author Luiz Fernando Rodrigues da Fonseca
  * @author Lucas Alves Racoci

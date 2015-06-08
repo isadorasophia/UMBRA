@@ -14,6 +14,13 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
+/**
+ * Classe que implementa um mob genérico que pode ser extendido
+ * 
+ * @author Lucas Alves Racoci
+ * @author Luiz Fernando Rodrigues da Fonseca
+ *
+ */
 
 public abstract class MobGeneric implements IMobGeneric {
     protected String name;
@@ -21,18 +28,39 @@ public abstract class MobGeneric implements IMobGeneric {
     protected IPosition position;
     protected Hashtable<String,IAttribute> atts;
 
+    /**
+     * Construtor padrão do mob genérico
+     * @param name
+     * @param description
+     * @param position
+     */
     protected MobGeneric(String name, String description, IPosition position){
         this.name = name;
         this.description = description;
         this.position = position;
         this.atts = new Hashtable<String,IAttribute>();
     }
+    
+    /**
+     * Construtor que recebe uma Hashtable com os atributos
+     * @param name
+     * @param description
+     * @param position
+     * @param atts
+     */
     protected MobGeneric(String name, String description, IPosition position,
                          Hashtable<String,IAttribute> atts){
         this(name, description, position);
         this.atts = atts;
     }
 
+    /**
+     * Construtor que recebe uma List com os atributos
+     * @param name
+     * @param description
+     * @param position
+     * @param atts
+     */
     protected MobGeneric(String name, String description, IPosition position,
                          List<IAttribute> atts){
         this(name, description, position);
@@ -64,7 +92,7 @@ public abstract class MobGeneric implements IMobGeneric {
     }
     private void setAtt(Double min, String name, double value, Double max){
         IAttribute novo = atts.get(name);
-        if (novo == null){
+        if (novo == null || !(min == null && max == null) ){
         	try {
         		IGlobalFactory factory = ComponentContextFactory.createGlobalFactory();
             	factory.registerPrototype(AttCreator.class);
@@ -79,6 +107,7 @@ public abstract class MobGeneric implements IMobGeneric {
             atts.remove(name);
         }
         novo.setValue(value);
+
         atts.put(name, novo);
     }
     public void setAtt(String type, double value){

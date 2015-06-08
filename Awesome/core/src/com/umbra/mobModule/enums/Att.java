@@ -1,21 +1,42 @@
 package com.umbra.mobModule.enums;
 
+/**
+ * Tipo enumerado que representa os atributos que serão usados no jogo
+ * 
+ * @author Lucas Alves Racoci
+ * @author Luiz Fernando Rodrigues da Fonseca
+ *
+ */
+
 public enum Att {
-    HP("hp"),
-    DEFENSE("defense"),
-    ATTACK("atack"),
-    DEXTERITY("dexterity"),
-    EVASIVENESS("evasiveness"),
-    LUCK("luck"), SANITY("sanity"),
-    XP("xp");
+    HP("hp", 100, 10),
+    XP("xp", 200, 20),
+    DEFENSE("defense", 8, 2),
+    ATTACK("attack", 10, 2),
+    DEXTERITY("dexterity", 8, 2),
+    EVASIVENESS("evasiveness", 10, 1),
+    LUCK("luck", 8, 1),
+    SANITY("sanity", 1, -0.01),
+    SPEED("speed", 10, 1);
+
 
     private String name;
+    private double base;
+    private double increment;
 
-    private Att(String name){
+    private Att(String name, double base, double increment){
         this.name = name;
+        this.base = base;
+        this.increment = increment;
     }
 
     public String getName(){
         return name;
+    }
+    public double getBase(){
+        return base;
+    }
+    public double getIncrement(){
+        return increment;
     }
 }

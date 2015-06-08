@@ -11,44 +11,48 @@ public class Position implements IPosition{
         this.posY = Yi;
     }
 
-    public IMob moveNorth(ICell norte, ICell atual) {
-        if (norte.getMob() != null)
-            return norte.getMob();
+    // Funções de movimento
+    // Retorna "ocupado" se houver um mob ou uma porta na célula de destino
+    // Retorna "desocupado" se não houver nada ou apenas uma parede na célula de destino
+
+    public String moveNorth(ICell norte, ICell atual) {
+        if (norte.getMob() != null || norte.getDoor() != null)
+            return "ocupado";
         else if (!norte.getParede()) {
             norte.setMob(atual.removeMob());
             this.posY++;
         }
-        return null;
+        return "desocupado";
     }
 
-    public IMob moveSouth(ICell sul, ICell atual) {
-        if (sul.getMob() != null)
-            return sul.getMob();
+    public String moveSouth(ICell sul, ICell atual) {
+        if (sul.getMob() != null || sul.getDoor() != null)
+            return "ocupado";
         else if (!sul.getParede()) {
             sul.setMob(atual.removeMob());
             this.posY--;
         }
-        return null;
+        return "desocupado";
     }
 
-    public IMob moveWest(ICell oeste, ICell atual) {
-        if (oeste.getMob() != null)
-            return oeste.getMob();
+    public String moveWest(ICell oeste, ICell atual) {
+        if (oeste.getMob() != null || oeste.getDoor() != null)
+            return "ocupado";
         else if (!oeste.getParede()) {
             oeste.setMob(atual.removeMob());
             this.posX--;
         }
-        return null;
+        return "desocupado";
     }
 
-    public IMob moveEast(ICell leste, ICell atual) {
-        if (leste.getMob() != null)
-            return leste.getMob();
+    public String moveEast(ICell leste, ICell atual) {
+        if (leste.getMob() != null || leste.getDoor() != null)
+            return "ocupado";
         else if (!leste.getParede()) {
             leste.setMob(atual.removeMob());
             this.posX++;
         }
-        return null;
+        return "desocupado";
     }
 
     public int getX() {

@@ -1,5 +1,14 @@
 package com.umbra.mobModule.interGenerics;
 
+/**
+ * Interface que viabiliza o uso do pattern
+ * Prototype para clonagem de objetos
+ * 
+ * @author Lucas Alves Racoci
+ * @author Luiz Fernando Rodrigues da Fonseca
+ *
+ * @param <T> objeto genérico que pode ser clonado
+ */
 
 public interface IClonable<T> {
     /**
