@@ -56,6 +56,9 @@ public class ModesInstantiator {
         if(uniqueMazeMode == null){
             factory.registerPrototype(MazeMode.class);
             uniqueMazeMode = factory.createInstance("<http://purl.org/NET/dcc/com.umbra.manager.modes.MazeMode>");
+            factory.registerPrototype(Map.class);
+            IMap map = factory.createInstance("<http://purl.org/NET/dcc/com.umbra.mapModule.Map>");
+            uniqueMazeMode.connect(map);
             uniqueMazeMode.init(comunicator,characters);
         }
         return uniqueMazeMode;
