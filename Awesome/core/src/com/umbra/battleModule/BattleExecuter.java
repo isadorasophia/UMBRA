@@ -58,7 +58,7 @@ class BattleExecuter {
 		
 		Random random = new Random ();
 		// TODO: sanity attribute
-		double escapeRate = (player.getAtt("luck").getValue() * 2 * ((random.nextFloat() * player.getAtt("sanity").getValue()) + 1)) + player.getAtt("evasiveness").getValue();
+		double escapeRate = (player.getAtt("luck").getValue() * 2 * ((player.getAtt("sanity").getValue()) + 1)) + player.getAtt("evasiveness").getValue();
 		double enemyRate = (player.getAtt("luck").getValue() * 2 * ((random.nextFloat() * 0.5) + 1)) + player.getAtt("dexterity").getValue();
 		
 		if (escapeRate >= enemyRate) {
@@ -259,7 +259,7 @@ class BattleExecuter {
 		double hpProportion = monster.getAtt("hp").getValue()/monster.getAtt("hp").getMax();
 		double attackChance = (monster.getAtt("attack").getValue() * 2) * (random.nextFloat()/2);
 		
-		if (hpProportion < 0.2) {
+		if (hpProportion < 0.25) {
 			if (attackChance >= victim.getAtt("hp").getValue()) {
 				// higher chance to hit enemy
 				return "L";

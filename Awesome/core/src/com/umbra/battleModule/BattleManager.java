@@ -3,7 +3,10 @@ package com.umbra.battleModule;
 import java.util.Random;
 import java.util.Vector;
 
+import com.umbra.mobModule.exceptions.FullInventoryException;
 import com.umbra.mobModule.exceptions.NoMaxMinException;
+import com.umbra.mobModule.itemComponent.impl.ItemManager;
+import com.umbra.mobModule.itemComponent.inter.IItemBattle;
 import com.umbra.mobModule.mobComponent.inter.IMonstro;
 import com.umbra.mobModule.mobComponent.inter.IPlayer;
 
@@ -122,13 +125,22 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		setPlayer(player);
 		setMonster(monster);
 		
+		/*ItemManager itemManager = new ItemManager();
+		IItemBattle item = itemManager.instantiateItemBattle("Long Sword", null);
+		try {
+			getPlayer().putItem(item);
+		} catch (FullInventoryException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		// For testing sake
-		/*this.player.setAtt("attack", 15);
+		 this.player.setAtt("attack", 15);
 		this.player.setAtt("defense", 14);
 		this.player.setAtt("dexterity", 13);
 		this.player.setAtt("evasiveness", 10);
 		this.player.setAtt("luck", 9);
-		this.player.setAtt("sanity", 0.5);
+		
 		this.player.setAtt("hp", 10);
         
 		
@@ -137,9 +149,9 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		this.monster.setAtt("dexterity", 8);
 		this.monster.setAtt("evasiveness", 6);
 		this.monster.setAtt("luck", 7);
-		this.monster.setAtt("sanity", 2);*/
-		this.monster.setAtt("hp", 10);
-		
+		this.monster.setAtt("sanity", 2);
+		this.monster.setAtt("hp", 10); */
+		this.player.setAtt("sanity", 0.7);
 		
 		this.battleExecuter = new BattleExecuter();
 		
@@ -147,9 +159,10 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		
 		this.hasLeveledUp = false;
 		this.isBattleSet = false;
+		setDone(false);
+		
 		this.playerDefending = false;
 		this.enemyDefending = false;
-		setDone(false);
 		
 		setStatus(null);
 
@@ -163,33 +176,43 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 	private void beReady () {
 		Vector <String> items = getPlayer().itemsForBattle();
 		
-		setStatus(monster.getDescription());
+		setStatus(monster.getDescription() + "\n");
 		
-		
-
 		if (items.isEmpty()) {
-			setStatus("\nIt seems that you don't have any item.\n"
+			setStatus("It seems that you don't have any item.\n"
 					+ "You use your hope as an exhausted fuel of not giving up. Quick, make a choice...\n"
 					+ "[A]ttack, [D]efend or [R]un.\n");
 					
 			this.isBattleSet = true;
 		}
 		else {
-			setStatus(getMonster().getDescription() + "\n You must choose your items:\n");
-			
-			boolean first = true;
-			
-			for (String item : items) {
-				if (first) {
-					setStatus(item);
-					first = false;
-				} else {
-					setStatus(" or " + item);
-				}
-			}
-			
-			setStatus(".");
+			setStatus("You must choose a item by typing its name:\n" + listItems(items));
 		}
+	}
+	
+	/**
+	 * Provê a lista de itens que podem ser esuipados antes da batalha
+	 * 
+	 * @param items - Lista de itens do jogador
+	 * @return String - Nome dos itens
+	 */
+	private String listItems(Vector <String> items) {
+		boolean first = true;
+		
+		String itemsToChoose = new String();
+		
+		for (String item : items) {
+			if (first) {
+				itemsToChoose += item;
+				first = false;
+			} else {
+				itemsToChoose += "; " + item;
+			}
+		}
+		
+		itemsToChoose += ".\n";
+		
+		return itemsToChoose;
 	}
 	
 	/**
@@ -202,10 +225,14 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		String oldStatus = getStatus();
 		setStatus(null);
 		
+		// in order to identify the input, set a pattern
+		input = input.toUpperCase();
+		
 		// if the battle was already over
-		if (this.isBattleOver && this.hasLeveledUp)
+		if (this.isBattleOver && this.hasLeveledUp) {
 			levelUp(input);
-		else {
+			return;
+		}
 		
 		// If the battle isn't set yet
 		if (!this.isBattleSet) {
@@ -218,7 +245,9 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 				
 				return;
 			} else {
-				setStatus("You must choose a valid item.\n");
+				Vector <String> items = getPlayer().itemsForBattle();
+				
+				setStatus("You must choose a valid item:\n" + listItems(items));
 				
 				randomStatus();
 				
@@ -226,14 +255,17 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 			}
 		}
 		
+		// if it is the player turn
 		if (this.playerTurn) {
 			// reset defense status, if that is the case
 			if (this.playerDefending && this.turnsPassed == 2) {
 				this.battleExecuter.defend(getPlayer(), true);
 				this.playerDefending = false;
-			} else
-				if(this.turnsPassed != 2 && this.playerDefending)
+			} else { // player can keep on defending, just count as a passed turn
+				if (this.turnsPassed != 2 && this.playerDefending) {
 					this.turnsPassed += 1;
+				}
+			}
 			
 			// execute player move
 			if (input.contains("D")) {
@@ -245,7 +277,7 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 				setDone(this.battleExecuter.escape(getPlayer(), getMonster()));
 				
 			} else if (input.contains("A")) {
-				setStatus ("An attack is attempted. You can attack towards the creature's\n"
+				setStatus ("An attack is attempted. You can attack towards the creature's...\n"
 						+ "[L]imbs [ 1.3 | 70% ],\n"
 						+ "[B]rain [ 1.8 | 30% ] or\n"
 						+ "[V]ital organs [ 1.6 | 40% ]\n");
@@ -256,9 +288,19 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 				isBattleOver = this.battleExecuter.attack(getPlayer(), getMonster(), input);
 				
 			} else {
-				setStatus("You must choose a valid action.\n" + oldStatus);
+				String retry = "You must choose a valid action.\n \n";
 				
-				System.out.println(input);
+				// if it contains the initial description, get rid of it
+				if (oldStatus.contains(monster.getDescription())) {
+					oldStatus = "[A]ttack, [D]efend or [R]un. Time is clocking.\n";
+				}
+				
+				// avoid repeating the same message
+				if (!oldStatus.contains(retry)) {
+					setStatus(retry + oldStatus);
+				} else {
+					setStatus(oldStatus);
+				}
 				
 				randomStatus();
 				
@@ -267,12 +309,13 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 			
 			// get battle status
 			setStatus(battleExecuter.getStatus());
+			
 			if (!this.isBattleOver)
 				setStatus("Press return to procede.\n");
 			
 			// get ready for next move
 			this.playerTurn = false;
-		} else {
+		} else { // if it is the monster turn
 			// reset defense status, if that is the case
 			if (this.enemyDefending) {
 				this.battleExecuter.defend(getMonster(), true);
@@ -292,14 +335,14 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 			// get battle status
 			setStatus(battleExecuter.getStatus());
 			
-			if (!isBattleOver)
+			if (!isBattleOver) {
 				setStatus("You may procede to your turn - you can either [A]ttack, [D]efend or [R]un. Decide.\n\n"
 						+ getMonster().getName() + "'s Health: " + (int)getMonster().getAtt("hp").getValue() + " / "
 						+ getMonster().getAtt("hp").getMax().intValue() + "\n");
+			}
 			
 			// get ready for next move
 			this.playerTurn = true;
-		}
 		}
 		
 		
@@ -346,20 +389,19 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		try {
 			getPlayer().getAtt("hp").setToMax();
 		} catch (NoMaxMinException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("XP = " + getPlayer().getAtt("xp").getValue());
 		
 		// increase gained XP and checks if player has leveled up
 		int levelGained;
 		levelGained = getPlayer().addXP(gainedXP);
 		
 		if (levelGained > 0) {
-			System.out.println("XP = " + getPlayer().getAtt("xp").getValue());
 			this.hasLeveledUp = true;
 			this.attsSelected *= levelGained;
-			
+		}
+		else {
+			setDone(true);
 		}
 	}
 	
@@ -385,18 +427,17 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		setStatus(null);
 		if(this.attsSelected != 0) {
 			
-			
 			// Level Up the stats selected!
 			if(answer.contains("1")) {
 				
 				getPlayer().getAtt("hp").setMax(getPlayer().getAtt("hp").getMax() + 10);
+				
 				try {
 					getPlayer().getAtt("hp").setToMax();
 				} catch (NoMaxMinException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				System.out.println("XP = " + getPlayer().getAtt("xp").getValue());
+				
 				this.attsSelected--;
 				
 			} else if(answer.contains("2")) {
@@ -425,7 +466,7 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 				this.attsSelected--;
 				
 			} else
-				setStatus("You must choose a valid action!\n");
+				setStatus("You must choose a valid action.\n");
 			
 			setStatus("You got to Level " + (int)getPlayer().getNivel() + "!\n"
 					+ "You have " + this.attsSelected + " Skill Points to spend. " + "Choose where you want to level up:\n" 
@@ -435,9 +476,9 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 					+ "[4] Dexterity = " + (int)getPlayer().getAtt("dexterity").getValue() + "\n"
 					+ "[5] Evasiveness = " + (int)getPlayer().getAtt("evasiveness").getValue() + "\n"
 					+ "[6] Luck = " + (int)getPlayer().getAtt("luck").getValue() + "\n");
-				
 		}
 		
+		// if all the atts have been chosen
 		if (this.attsSelected == 0)
 			setDone(true);
 	}

@@ -14,7 +14,7 @@ public enum Att {
     DEFENSE("defense", 10, 2),
     ATTACK("attack", 12, 2),
     DEXTERITY("dexterity", 9, 2),
-    EVASIVENESS("evasiveness", 10, 1),
+    EVASIVENESS("evasiveness", 9, 1),
     LUCK("luck", 8, 1),
     SANITY("sanity", 1, -0.01),
     SPEED("speed", 10, 1);
