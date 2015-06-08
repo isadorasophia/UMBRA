@@ -39,9 +39,9 @@ public class Principal {
         			"<http://purl.org/NET/dcc/com.umbra.mobModule.itemComponent.impl.ItemManager>");
         	IPlayer player = mobmanager.createPlayer("Player", "Teste", null);
         	
-        	IItemBattle longSword = itemmanager.instantiateItemBattle("longSword", null);
+        	IItemBattle longSword = itemmanager.instantiateItemBattle("Long Sword", null);
         	IItemPuzzle key = itemmanager.instantiateItemPuzzle("key", null);
-        	IItemIlumination lantern = itemmanager.instantiateItemIlumination("lantern", null);
+        	IItemIlumination lantern = itemmanager.instantiateItemIlumination("Lantern", null);
         	IMonstro monstro = mobmanager.createMonstro(5, null);
         	System.out.println(longSword);
         	System.out.println(key);
