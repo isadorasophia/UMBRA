@@ -3,6 +3,7 @@ package com.umbra.battleModule;
 import java.util.Random;
 import java.util.Vector;
 
+import com.umbra.mobModule.exceptions.CannotDoubleModifyAttributeException;
 import com.umbra.mobModule.exceptions.FullInventoryException;
 import com.umbra.mobModule.exceptions.NoMaxMinException;
 import com.umbra.mobModule.itemComponent.impl.ItemManager;
@@ -237,7 +238,13 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		// If the battle isn't set yet
 		if (!this.isBattleSet) {
 			// If it was successfully equipped
-			if (getPlayer().equipItem(input)) {
+			boolean b = false;
+			try {
+				b = getPlayer().equipItem(input);
+			} catch (CannotDoubleModifyAttributeException e) {
+				e.printStackTrace();
+			}
+			if (b) {
 				isBattleSet = true;
 				
 				setStatus("Your item was equipped.\n" + getMonster().getName() + " approaches slowly into your direction."
