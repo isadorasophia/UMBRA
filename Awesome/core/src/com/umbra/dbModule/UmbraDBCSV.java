@@ -1,8 +1,7 @@
 package com.umbra.dbModule;
 
-import anima.component.IRequires;
-import anima.component.ISupports;
-import anima.component.InterfaceType;
+import anima.annotation.Component;
+import anima.component.base.ComponentBase;
 
 import java.io.*;
 
@@ -74,7 +73,7 @@ public class UmbraDBCSV extends ComponentBase implements iDB{
         try{
             while (bufferedFile !=  null) {
                 linha = bufferedFile.readLine();
-                valores = linha.split(",");
+                valores = linha.split(";");
                 for(int i = 0; i < valores.length; i++){
                     if(valores[i].equalsIgnoreCase(info)){
                         return valores;
@@ -102,7 +101,7 @@ public class UmbraDBCSV extends ComponentBase implements iDB{
         try{
             while (bufferedFile !=  null) {
                 linha = bufferedFile.readLine();
-                valores = linha.split(",");
+                valores = linha.split(";");
                 for(int i = 0; i < valores.length; i++){
                     if(valores[i].equalsIgnoreCase(info1) || valores[i].equalsIgnoreCase(info2)){
                         if(achou){
