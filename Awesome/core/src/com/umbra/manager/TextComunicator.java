@@ -61,14 +61,18 @@ public class TextComunicator implements IComunicator, InputProcessor {
         this.textSize = textSize;
         this.cursorOn = cursorOn;
         if(cursorOn) {
-            this.fullText = fullText;
-            counter = 0;
-            index = 0;
-            text = "_";
+            if(this.fullText != fullText) {
+                this.fullText = fullText;
+                counter = 0;
+                index = 0;
+                text = "_";
+                readInput = false;
+                end = false;
+            } else {
+                text = "fullText" + "_";
+            }
             inputReady = false;
-            readInput = false;
             cursor = true;
-            end = false;
             input = new StringBuilder();
         }else{
             text = fullText;

@@ -25,7 +25,7 @@ public class GameOverMode extends ComponentBase implements IMode {
     @Override
     public void init(IComunicator comunicator, Characters characters) {
         this.comunicator = comunicator;
-        comunicator.newText("GAME OVER", Gdx.graphics.getWidth()/2 - 100, Gdx.graphics.getHeight()/2 + 100, Gdx.graphics.getWidth() - 200, true);
+        comunicator.newText("GAME OVER", Gdx.graphics.getWidth()/2 - 50, Gdx.graphics.getHeight()/2 + 50, Gdx.graphics.getWidth() - 200, true);
         done = false;
         modeOn = true;
         IPlayer player = characters.getPlayer();

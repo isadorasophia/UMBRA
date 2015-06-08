@@ -2,6 +2,7 @@ package com.umbra.manager;
 
 import com.umbra.mobModule.mobComponent.inter.IMonstro;
 import com.umbra.mobModule.mobComponent.inter.IPlayer;
+import com.umbra.puzzlesModule.IPuzzle;
 import com.umbra.vultoModule.IVulto;
 
 public class Characters {
@@ -9,6 +10,7 @@ public class Characters {
     private IPlayer player;
     private IMonstro monstro;
     private IVulto vulto;
+    private IPuzzle puzzle;
 
     public void setPlayer(IPlayer player){
         this.player = player;
@@ -34,4 +36,7 @@ public class Characters {
         return vulto;
     }
 
+    public void setPuzzle(IPuzzle puzzle){ this.puzzle = puzzle;}
+
+    public IPuzzle getPuzzle() { return puzzle; }
 }
