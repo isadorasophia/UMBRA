@@ -40,30 +40,29 @@ public class ItemManager extends ComponentBase implements IItemManager {
         try {
         	BufferedReader br = new BufferedReader(new FileReader(path + ".txt"));
             name = br.readLine();
-            resp.add(5, name);
             findprob = br.readLine();
-            resp.add(0, findprob);
-            resp.add(1, "");
+            resp.add(1, findprob);
+            resp.add(2, "");
             
             if (pathadd.equalsIgnoreCase("dbItemBattle")) {
             	String modatt = br.readLine();
-            	resp.add(2, modatt);
-            	modatt = br.readLine();
             	resp.add(3, modatt);
             	modatt = br.readLine();
             	resp.add(4, modatt);
+            	modatt = br.readLine();
+            	resp.add(5, modatt);
             } else if (pathadd.equals("dbItemIlumination")) {
             	String ilumination = br.readLine();
-            	resp.add(2, ilumination);
+            	resp.add(3, ilumination);
             } else if (pathadd.equals("dbItemPuzzle")) {
             	String adjectives = br.readLine();
-            	resp.add(2, adjectives);
+            	resp.add(3, adjectives);
             }
             
             for(String line = br.readLine(); line != null; line = br.readLine()){
                 description += line + "\n";
             }
-            resp.set(1, description);
+            resp.set(2, description);
             
             br.close();
         } catch (IOException e) {
@@ -76,16 +75,16 @@ public class ItemManager extends ComponentBase implements IItemManager {
     
     public IItemBattle instantiateItemBattle(String fileName, IPosition pos){
     	List<String> item = item(fileName, "dbItemBattle");
-    	double findProb = Double.parseDouble(item.get(0));
-    	String description = item.get(1);
-        String name = item.get(5);
+    	double findProb = Double.parseDouble(item.get(1));
+    	String description = item.get(2);
+        String name = item.get(0);
     	
         IItemBattle resp = new ItemBattle(name, description, findProb, pos);
         if (findProb != 0) {
         	Att[] allowedToModify = {Att.ATTACK, Att.DEXTERITY, Att.DEFENSE};
         	double parameter;
         	for(int j = 0; j < allowedToModify.length; j++) {
-        		parameter = Double.parseDouble(item.get(j + 2));
+        		parameter = Double.parseDouble(item.get(j + 3));
         		resp.addModAtt(allowedToModify[j].getName(), parameter);
         	}
         }
@@ -95,12 +94,12 @@ public class ItemManager extends ComponentBase implements IItemManager {
     
     public IItemPuzzle instantiateItemPuzzle(String fileName, IPosition pos){
     	List<String> item = item(fileName, "dbItemPuzzle");
-    	double findProb = Double.parseDouble(item.get(0));
-    	String description = item.get(1);
-        String name = item.get(5);
+    	double findProb = Double.parseDouble(item.get(1));
+    	String description = item.get(2);
+        String name = item.get(0);
 
     	IItemPuzzle resp = new ItemPuzzle(name, description, findProb, pos);
-    	String[] lista = item.get(2).split(",");
+    	String[] lista = item.get(3).split(",");
     	for (String adj : lista) {
     		resp.newAdjective(adj);
     	}
@@ -109,10 +108,10 @@ public class ItemManager extends ComponentBase implements IItemManager {
     
     public IItemIlumination instantiateItemIlumination(String fileName, IPosition pos){
     	List<String> item = item(fileName, "dbItemIlumination");
-    	double findProb = Double.parseDouble(item.get(0)),
-    		   ilumination = Double.parseDouble(item.get(2));
-    	String description = item.get(1);
-        String name = item.get(5);
+    	double findProb = Double.parseDouble(item.get(1)),
+    		   ilumination = Double.parseDouble(item.get(3));
+    	String description = item.get(2);
+        String name = item.get(0);
 
     	IItemIlumination resp = new ItemIlumination(name, description, findProb, pos, ilumination);
         return resp;
