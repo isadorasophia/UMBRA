@@ -1,6 +1,6 @@
 package com.umbra.dbModule;
 
-import anima.annotation.*;
+import anima.annotation.Component;
 import anima.component.base.ComponentBase;
 
 import java.io.*;

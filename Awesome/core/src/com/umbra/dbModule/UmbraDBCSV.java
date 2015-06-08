@@ -1,8 +1,7 @@
 package com.umbra.dbModule;
 
-import anima.component.IRequires;
-import anima.component.ISupports;
-import anima.component.InterfaceType;
+import anima.annotation.Component;
+import anima.component.base.ComponentBase;
 
 import java.io.*;
 

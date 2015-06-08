@@ -1,9 +1,12 @@
 package com.umbra.dbModule;
 
-import anima.annotation.*;
+import anima.annotation.Component;
 import anima.component.base.ComponentBase;
 
-import java.io.BufferedReader;
+import java.io.*;
+
+import java.beans.XMLDecoder;
+import java.beans.XMLEncoder;
 
 @Component(
         id = "<http://purl.org/NET/dcc/com.umbra.dbModule.UmbraDBXML>",
