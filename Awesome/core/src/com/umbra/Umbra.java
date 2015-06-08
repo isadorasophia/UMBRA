@@ -9,12 +9,15 @@ import com.badlogic.gdx.Gdx;
 import com.umbra.manager.Selector;
 import com.umbra.manager.interfaces.ISelector;
 import com.umbra.manager.interfaces.ISelectorComponent;
+import com.umbra.mapModule.IMap;
+import com.umbra.mapModule.Map;
 import com.umbra.mobModule.mobComponent.impl.MobManager;
 import com.umbra.mobModule.mobComponent.inter.IMobManager;
 import com.umbra.vultoModule.IVulto;
 import com.umbra.vultoModule.Vulto;
 
 public class Umbra extends ApplicationAdapter {
+
 	ISelectorComponent selector;
 
 	@Override
@@ -27,6 +30,7 @@ public class Umbra extends ApplicationAdapter {
 		} catch (FactoryException e) {
 			e.printStackTrace();
 		}
+
 		factory.registerPrototype(MobManager.class);
         IMobManager mobManeger = factory.createInstance("<http://purl.org/NET/dcc/com.umbra.mobModule.mobComponent.impl.MobManager>");
 		factory.registerPrototype(Vulto.class);
@@ -47,4 +51,5 @@ public class Umbra extends ApplicationAdapter {
 	public void dispose (){
 		selector.dispose();
 	}
+
 }

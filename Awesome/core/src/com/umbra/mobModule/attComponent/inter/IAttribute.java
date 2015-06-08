@@ -1,5 +1,6 @@
 package com.umbra.mobModule.attComponent.inter;
 
+import com.umbra.mobModule.exceptions.NoMaxMinException;
 import com.umbra.mobModule.interGenerics.IClonable;
 import com.umbra.mobModule.interGenerics.INameReadable;
 import com.umbra.mobModule.interGenerics.Stringlizable;
@@ -42,12 +43,14 @@ public interface IAttribute extends
     public Double getMin();
     /**
      * Volta o valor do atributo para seu máximo
+     * @throws NoMaxMinException 
      */
-    public void setToMax();
+    public void setToMax() throws NoMaxMinException;
     /**
      * Volta o valor do atributo para seu mínimo
+     * @throws NoMaxMinException 
      */
-    public void setToMin();
+    public void setToMin() throws NoMaxMinException;
 
     /**
      * Permite editar o valor máximo do atributo

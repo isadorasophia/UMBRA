@@ -12,14 +12,16 @@ import com.umbra.mobModule.modAttComponent.inter.IModificator;
  */
 
 public class Adder implements IModificator {
-
+	private Double oldValue;
+	
     public IAttribute modify(IAttribute src, double... parameter) {
+    	oldValue = src.getValue();
         src.setValue(src.getValue() + parameter[0]);
         return src;
     }
     
     public IAttribute unmodify(IAttribute src, double... parameter) {
-        src.setValue(src.getValue() - parameter[0]);
+        src.setValue(oldValue);
         return src;
     }
     

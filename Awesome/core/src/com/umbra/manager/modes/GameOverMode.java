@@ -15,6 +15,7 @@ import com.umbra.mobModule.mobComponent.inter.IPlayer;
         provides="<http://purl.org/NET/dcc/com.umbra.com.umbra.manager.interfaces.IMode>"
 )
 public class GameOverMode extends ComponentBase implements IMode {
+
     private IComunicator comunicator;
 
     // Flags
@@ -24,7 +25,7 @@ public class GameOverMode extends ComponentBase implements IMode {
     @Override
     public void init(IComunicator comunicator, Characters characters) {
         this.comunicator = comunicator;
-        comunicator.newText("GAME OVER");
+        comunicator.newText("GAME OVER", Gdx.graphics.getWidth()/2 - 100, Gdx.graphics.getHeight()/2 + 100, Gdx.graphics.getWidth() - 200, true);
         done = false;
         modeOn = true;
         IPlayer player = characters.getPlayer();

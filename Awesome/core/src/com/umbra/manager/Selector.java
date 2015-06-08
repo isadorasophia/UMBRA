@@ -3,37 +3,54 @@ package com.umbra.manager;
 import anima.annotation.Component;
 import anima.component.base.ComponentBase;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.umbra.manager.interfaces.*;
+import com.umbra.manager.modes.InitialMode;
 import com.umbra.manager.modes.Modes;
 import com.umbra.manager.modes.ModesInstantiator;
+import com.umbra.mapModule.IMap;
+import com.umbra.mapModule.Position;
 import com.umbra.mobModule.itemComponent.inter.IItem;
 import com.umbra.mobModule.itemComponent.inter.IItemIlumination;
+import com.umbra.mobModule.mobComponent.impl.Player;
+import com.umbra.mobModule.mobComponent.impl.PlayerInstantiator;
 import com.umbra.mobModule.mobComponent.inter.IMobManager;
 import com.umbra.vultoModule.IVulto;
 
 import java.util.Vector;
 
 @Component(
-		id="<http://purl.org/NET/dcc/com.umbra.manager.Selector>",
-		requires={"<http://purl.org/NET/dcc/com.umbra.mobModule.mobComponent.inter.IMobManager>",
-        "<http://purl.org/NET/dcc/com.umbra.vultoModule.Vulto>"}
+		id = "<http://purl.org/NET/dcc/com.umbra.manager.Selector>",
+        provides = "<http://purl.org/NET/dcc/com.umbra.com.umbra.manager.interfaces.ISelector>",
+		requires = {
+                "<http://purl.org/NET/dcc/com.umbra.mobModule.mobComponent.inter.IMobManager>",
+                "<http://purl.org/NET/dcc/com.umbra.vultoModule.Vulto>",
+                "<http://purl.org/NET/dcc/com.umbra.com.umbra.vultoModule.IVulto>"
+        }
 )
 public class Selector extends ComponentBase implements ISelectorComponent {
+
     private Characters characters = new Characters();
     private IMode mode;
     private IMobManager mobManager;
-    Modes state;
+    private Modes state;
+    private IComunicator comunicator;
 
     public void init() {
         ModesInstantiator.init();
-        characters.setPlayer(mobManager.createPlayer());
-        characters.setMonstro(mobManager.createMonstro());
-        setMode(Modes.MAZE);
+        characters.setPlayer(mobManager.createPlayer("Player","",new Position(0,0)));
+        characters.setMonstro(mobManager.createMonstro(1,new Position(0,0)));
+        setMode(Modes.INITIAL);
+        comunicator = new TextComunicator();
     }
 
     public void setMode(Modes state){
         this.state = state;
         switch (state){
+            case INITIAL:
+                mode = ModesInstantiator.inicialModeInstance(characters);
+                break;
             case BATLLE:
                 mode = ModesInstantiator.battleModeInstance(characters);
                 ModesInstantiator.battleModeReset(characters);
@@ -53,9 +70,15 @@ public class Selector extends ComponentBase implements ISelectorComponent {
                 ModesInstantiator.gameOverModeReset(characters);
         }
     }
+
     public void update(float dt){
         Modes next;
+        String playerInfo;
 
+        // set player info
+        playerInfo = "HP: " + characters.getPlayer().getHealth() + "  |XP: " + characters.getPlayer().getXp() +
+                "  |level: " + characters.getPlayer().getNivel();
+        comunicator.newText(playerInfo, 100, 100, Gdx.graphics.getWidth() - 200f, false);
         // Consider light influence on vulto
         double light = 0;
         Vector<String> lightItems = characters.getPlayer().itemsIlumination();
@@ -71,9 +94,14 @@ public class Selector extends ComponentBase implements ISelectorComponent {
         next = mode.update(dt);
         if(next != state) setMode(next);
     }
+
     public void draw(){
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         mode.draw();
+        if(state != Modes.INITIAL && state != Modes.GAMEOVER) comunicator.draw();
     }
+
     public void dispose(){
         mode.dispose();
     }
@@ -87,4 +115,6 @@ public class Selector extends ComponentBase implements ISelectorComponent {
     public void connect(IMobManager mobManager) {
         this.mobManager = mobManager;
     }
+
 }
+

@@ -1,5 +1,6 @@
 package com.umbra.mobModule.mobComponent.inter;
 
+import com.umbra.mobModule.exceptions.FullInventoryException;
 import com.umbra.mobModule.itemComponent.inter.IItem;
 
 import java.util.List;
@@ -17,8 +18,9 @@ public interface IPlayerGeneric extends IMob {
 	/**
 	 * Coloca um item no inventário do player
 	 * @param novo
+	 * @throws FullInventoryException Retorna a exceção caso o inventário esteja cheio
 	 */
-    public void putItem(IItem ... novo);
+    public void putItem(IItem ... novo) throws FullInventoryException;
     
     /**
      * Retira um item do inventário do player

@@ -1,4 +1,4 @@
-package com.umbra.manager.interfaces;
+package com.umbra.manager.interfaces.recepitacles;
 
 import anima.annotation.ComponentInterface;
 import com.umbra.battleModule.IBattleManager;

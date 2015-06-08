@@ -1,18 +1,22 @@
 package com.umbra.dbModule;
 
-import anima.component.IRequires;
-import anima.component.ISupports;
-import anima.component.InterfaceType;
+import anima.annotation.Component;
+import anima.component.base.ComponentBase;
 
 import java.io.*;
+
+@Component(
+        id = "<http://purl.org/NET/dcc/com.umbra.dbModule.UmbraDBCSV>",
+        provides = {"<http://purl.org/NET/dcc/com.umbra.dbModule.iDB"}
+)
 
 public class UmbraDBCSV extends ComponentBase implements iDB{
     private String path;
     private File file;
 
     // Construtor do banco de dados
-    public umbraDBCSV(String name_of_file){
-        path = name_of_file + ".csvdb";
+    public UmbraDBCSV(String name_of_file){
+        path = "data/" + name_of_file + ".csvdb";
 
         try {
             file = new File(path);
@@ -56,8 +60,8 @@ public class UmbraDBCSV extends ComponentBase implements iDB{
 
     @Override
     public String getFromDB() throws NullPointerException, NoMethod {
-    	throw new NoMethod("Esse DB n�o suporta esse tipo de m�todo, tente passar "
-				+ "string(s) como par�metro");
+    	throw new NoMethod("Esse DB não suporta esse tipo de método, tente passar "
+				+ "string(s) como parâmetro");
     }
 
     @Override
@@ -69,7 +73,7 @@ public class UmbraDBCSV extends ComponentBase implements iDB{
         try{
             while (bufferedFile !=  null) {
                 linha = bufferedFile.readLine();
-                valores = linha.split(",");
+                valores = linha.split(";");
                 for(int i = 0; i < valores.length; i++){
                     if(valores[i].equalsIgnoreCase(info)){
                         return valores;
@@ -97,7 +101,7 @@ public class UmbraDBCSV extends ComponentBase implements iDB{
         try{
             while (bufferedFile !=  null) {
                 linha = bufferedFile.readLine();
-                valores = linha.split(",");
+                valores = linha.split(";");
                 for(int i = 0; i < valores.length; i++){
                     if(valores[i].equalsIgnoreCase(info1) || valores[i].equalsIgnoreCase(info2)){
                         if(achou){
@@ -119,17 +123,19 @@ public class UmbraDBCSV extends ComponentBase implements iDB{
     }
 
     @Override
-    public boolean saveDB(Object obj)throws NullPointerException, NoMethod {
-    	throw new NoMethod("Esse DB n�o suporta esse tipo de m�todo");
+    public void saveDB(Object obj) throws NullPointerException, NoMethod {
+    	throw new NoMethod("Esse DB não suporta esse tipo de método");
     }
 
     @Override
-    public Object getObject()throws NullPointerException, NoMethod {
-    	throw new NoMethod("Esse DB n�o suporta esse tipo de m�todo");
+    public Object getObject() throws NullPointerException, NoMethod {
+    	throw new NoMethod("Esse DB não suporta esse tipo de método");
     }
 
+}
 
-    // ---- Para funcionamento do framkework ---- //
+// ---- Para funcionamento do framkework ---- //
+/*
     @Override
     public <T extends ISupports> T queryInterface(String s) {
         return null;
@@ -160,3 +166,4 @@ public class UmbraDBCSV extends ComponentBase implements iDB{
         return null;
     }
 }
+*/

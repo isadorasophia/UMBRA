@@ -39,9 +39,13 @@ public class ItemPuzzle extends Item implements IItemPuzzle {
     }
 
     public void modAdj(String src, String newAdj) {
-    	int index = adjectives.indexOf(src);
-        adjectives.remove(index);
-        adjectives.add(index, newAdj);
+    	if (adjectives.contains(src)) {
+    		int index = adjectives.indexOf(src);
+        	adjectives.remove(index);
+        	adjectives.add(index, newAdj);
+    	} else {
+    		newAdjective(newAdj);
+    	}
     }
     
     public Type getType(){

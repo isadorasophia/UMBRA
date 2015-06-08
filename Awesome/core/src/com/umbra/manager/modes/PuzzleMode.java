@@ -16,7 +16,8 @@ import com.umbra.mobModule.mobComponent.inter.IPlayer;
         provides="<http://purl.org/NET/dcc/com.umbra.com.umbra.manager.interfaces.IMode>"
 )
 public class PuzzleMode extends ComponentBase implements IMode {
-	IComunicator comunicator;
+
+    IComunicator comunicator;
     Characters characters;
     IPlayer player;
 
@@ -30,7 +31,6 @@ public class PuzzleMode extends ComponentBase implements IMode {
     public void init(IComunicator comunicator, Characters characters) {
     	this.comunicator = comunicator;
         player = characters.getPlayer();
-        comunicator.newText("");
         isAlive = true;
         modeOn = true;
         end = false;
@@ -56,4 +56,5 @@ public class PuzzleMode extends ComponentBase implements IMode {
     public void dispose() {
 
     }
+
 }

@@ -2,6 +2,7 @@ package com.umbra.mobModule.inventoryComponent.inter;
 
 import anima.annotation.ComponentInterface;
 import anima.component.ISupports;
+
 import com.umbra.mobModule.exceptions.FullInventoryException;
 import com.umbra.mobModule.itemComponent.inter.IItem;
 

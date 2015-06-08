@@ -18,6 +18,7 @@ import com.umbra.vultoModule.IVulto;
         provides="<http://purl.org/NET/dcc/com.umbra.com.umbra.manager.interfaces.IMode>"
 )
 public class VulteMode extends ComponentBase implements IMode {
+
     IComunicator comunicator;
     IVulto vulto;
     IPlayer player;
@@ -35,7 +36,7 @@ public class VulteMode extends ComponentBase implements IMode {
         this.comunicator = comunicator;
         this.vulto = characters.getVulto();
         this.player = characters.getPlayer();
-        comunicator.newText(text);
+        comunicator.newText(text, 100, Gdx.graphics.getHeight() - 50, Gdx.graphics.getWidth() - 200f, true);
         isAlive = true;
         modeOn = true;
         end = false;
@@ -52,9 +53,9 @@ public class VulteMode extends ComponentBase implements IMode {
                         result.delete(0, result.length());
                         isAlive = vulto.chooseAction(input, result, player.getAtt("luck").getValue());
                         end = true;
-                        comunicator.newText(result.toString());
+                        comunicator.newText(result.toString(), 100, Gdx.graphics.getHeight() - 50, Gdx.graphics.getWidth() - 200f, true);
                     } catch (InputException e) {
-                        comunicator.newText(e.getMessage());
+                        comunicator.newText(e.getMessage(), 100, Gdx.graphics.getHeight() - 50, Gdx.graphics.getWidth() - 200f, true);
                     }
                 }
             } else {
@@ -83,4 +84,5 @@ public class VulteMode extends ComponentBase implements IMode {
     public void dispose() {
 
     }
+
 }

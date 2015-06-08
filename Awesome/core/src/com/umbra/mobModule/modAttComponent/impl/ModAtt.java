@@ -54,10 +54,7 @@ public class ModAtt implements IModAtt {
         }
         IAttribute clone = src.clone();
         IAttribute resp = operation.unmodify(clone, this.parameters);
-        IAttribute returnValue = this.src.clone();
-        if(resp != returnValue){
-            System.err.println("Erro, modAtt com src errado");
-        }
+        
         this.src = null;
         return resp;
     }
