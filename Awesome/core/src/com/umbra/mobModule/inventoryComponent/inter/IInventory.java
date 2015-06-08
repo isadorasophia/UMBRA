@@ -4,6 +4,7 @@ import anima.annotation.ComponentInterface;
 import anima.component.ISupports;
 
 import com.umbra.mobModule.exceptions.FullInventoryException;
+import com.umbra.mobModule.exceptions.SameItemException;
 import com.umbra.mobModule.itemComponent.inter.IItem;
 
 import java.util.List;
@@ -30,9 +31,10 @@ public interface IInventory extends ISupports {
     /**
      *  Adiciona o item passado como parâmetro e joga uma excessão caso o item não caiba
      * @param item Objeto que implementa a interface IItem, a ser adicionado ao inventário, se possível
-     * @throws FullInventoryException Excessão lançada caso o ítem não caiba no inventário
+     * @throws FullInventoryException Exceção lançada caso o ítem não caiba no inventário
+     * @throws SameItemException Exceção lançada quando o item já está no inventário
      */
-    public void adItem(IItem item) throws FullInventoryException;
+    public void adItem(IItem item) throws FullInventoryException, SameItemException;
 
     /**
      * Permite recuperar um objeto do tipo IItem do inventário a partir de seu nome
