@@ -7,18 +7,18 @@ public class DbTeste{
         //Criacao da fabrica
         //Cada modulo deve colocar o nome do modulo (String) no construtor
         //Nesse caso seria o módulo "teste"
-        DBFactory factory = new DBFactory("item");
+        DBFactory factory = new DBFactory("monstro");
 
         iDB objectDBCSV = factory.getDB(TypeDB.CSV);
         iDB objectDBTXT = factory.getDB(TypeDB.TXT);
-        iDB objectDBXML = factory.getDB(TypeDB.XML);
+        //iDB objectDBXML = factory.getDB(TypeDB.XML);
 
         /* ---- Teste CSV ---- */
         //Retorna um vetor de string
         String[] csv = null;
         try {
-            csv = objectDBCSV.getFromDB("itemPuzzle");
-		} catch (NullPointerException | NoMethod e) {
+            csv = objectDBCSV.getFromDB("monstro1");
+		} catch (NoMethod e) {
 			e.printStackTrace();
 		}
 

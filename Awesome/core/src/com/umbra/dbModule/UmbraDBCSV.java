@@ -5,6 +5,8 @@ import anima.component.base.ComponentBase;
 
 import java.io.*;
 
+import com.umbra.dbModule.data.Directory;
+
 @Component(
         id = "<http://purl.org/NET/dcc/com.umbra.dbModule.UmbraDBCSV>",
         provides = {"<http://purl.org/NET/dcc/com.umbra.dbModule.iDB"}
@@ -13,10 +15,11 @@ import java.io.*;
 public class UmbraDBCSV extends ComponentBase implements iDB{
     private String path;
     private File file;
+    private String dir = Directory.DIRETORIO;
 
     // Construtor do banco de dados
     public UmbraDBCSV(String name_of_file){
-        path = "data/" + name_of_file + ".csvdb";
+        path = dir + name_of_file + ".csvdb";
 
         try {
             file = new File(path);

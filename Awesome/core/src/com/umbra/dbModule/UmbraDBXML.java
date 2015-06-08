@@ -4,9 +4,10 @@ import anima.annotation.Component;
 import anima.component.base.ComponentBase;
 
 import java.io.*;
-
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
+
+import com.umbra.dbModule.data.Directory;
 
 @Component(
         id = "<http://purl.org/NET/dcc/com.umbra.dbModule.UmbraDBXML>",
@@ -17,9 +18,10 @@ public class UmbraDBXML extends ComponentBase implements iDB{
     private String path;
     private File file;
 	private XMLEncoder encoder = null;
+	private String dir = Directory.DIRETORIO;
 
     public UmbraDBXML(String name_of_file){
-    	path = "data/" + name_of_file + ".xmldb";
+    	path = dir + name_of_file + ".xmldb";
 
     	try {
             file = new File(path);

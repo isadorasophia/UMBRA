@@ -3,8 +3,6 @@ package com.umbra.dbModule;
 import anima.annotation.ComponentInterface;
 import anima.component.ISupports;
 
-import java.io.*;
-
 @ComponentInterface(
         value = "<http://purl.org/NET/dcc/com.umbra.dbModule.iDB>"
 )
