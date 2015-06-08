@@ -23,25 +23,29 @@ public class Map extends ComponentBase implements IMap {
     // Método único estático de acesso único ao objeto
     // SINGLETON!!! 
     public static Map getInstance(IMob personagem) {
-        if (instance == null)
-            instance = new Map(personagem);
+        if (instance == null) {
+            instance = new Map();
+            instance.init(personagem);
+        }
         return instance;
     }
 
     // Construtor privado
-    private Map(IMob personagem){
+    public void init(IMob personagem){
         CellOperator operator = new CellOperator();
         Random generator = new Random();
         Boolean Ok;
         int cont = 0;
 
-        personagem.setPosition(new Position(TAM_Y-2, 3));
 
         for (int i = 0; i < TAM_Y; i++) {
             for (int j = 0; j < TAM_X; j++) {
                 corredor[i][j] = operator.makeVazio();
             }
         }
+
+        personagem.setPosition(new Position(TAM_Y-2, 3));
+        corredor[TAM_Y-2][3].setMob(personagem);
 
         for (int i = 0; i < TAM_X; i++) {
             operator.makeParede(corredor[0][i]);
