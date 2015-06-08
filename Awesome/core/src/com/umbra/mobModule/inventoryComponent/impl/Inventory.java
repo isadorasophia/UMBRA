@@ -4,6 +4,7 @@ import anima.annotation.Component;
 import anima.component.base.ComponentBase;
 
 import com.umbra.mobModule.exceptions.FullInventoryException;
+import com.umbra.mobModule.exceptions.SameItemException;
 import com.umbra.mobModule.inventoryComponent.inter.IInventory;
 import com.umbra.mobModule.itemComponent.inter.IItem;
 
@@ -43,13 +44,14 @@ public class Inventory extends ComponentBase implements IInventory {
     }
 
     public boolean hasItem(String name) {
-    	name = name.toLowerCase();
         return items.containsKey(name);
     }
 
-    public void adItem(IItem item) throws FullInventoryException {
-        if (size == null || items.size() < size) {
-            items.put(item.getName().toLowerCase(), item);
+    public void adItem(IItem item) throws FullInventoryException, SameItemException {
+    	if (items.containsKey(item.getName())) {
+    		throw new SameItemException("This Item already exist in the inventory");
+    	} else if (size == null || items.size() < size) {
+            items.put(item.getName(), item);
         } else {
             throw new FullInventoryException("This Item was not added to the inventory");
         }

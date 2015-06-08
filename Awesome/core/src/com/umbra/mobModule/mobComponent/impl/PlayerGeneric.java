@@ -9,6 +9,7 @@ import com.umbra.mobModule.enums.Type;
 import com.umbra.mobModule.exceptions.CannotDoubleModifyAttributeException;
 import com.umbra.mobModule.exceptions.CannotUnmodifyWhatHasNotBeenModifiedException;
 import com.umbra.mobModule.exceptions.FullInventoryException;
+import com.umbra.mobModule.exceptions.SameItemException;
 import com.umbra.mobModule.inventoryComponent.impl.Inventory;
 import com.umbra.mobModule.inventoryComponent.inter.IInventory;
 import com.umbra.mobModule.itemComponent.inter.IItem;
@@ -59,13 +60,15 @@ public class PlayerGeneric extends Mob implements IPlayerGeneric {
         return Type.PLAYER;
     }
 
-    public void putItem(IItem ...neoItem) throws FullInventoryException {
+    public void putItem(IItem ...neoItem) throws FullInventoryException, SameItemException {
     	int addItens = 0;
         for (IItem neo : neoItem) {
         	try {
         		inventory.adItem(neo);
         	} catch (FullInventoryException e) {
         		e.setAddItens(addItens);
+        		throw e;
+        	} catch (SameItemException e) {
         		throw e;
         	}
 			addItens++;
@@ -130,7 +133,7 @@ public class PlayerGeneric extends Mob implements IPlayerGeneric {
             }
         	try {
 				inventory.adItem(item);
-			} catch (FullInventoryException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
         }

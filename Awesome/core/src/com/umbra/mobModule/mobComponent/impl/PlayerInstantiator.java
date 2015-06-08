@@ -19,7 +19,6 @@ public class PlayerInstantiator extends MobFactory {
     /*
     atributos:
         nivel = 1
-        maxHP
         currentHP
         currentXP
         defense
