@@ -52,6 +52,9 @@ public class ItemManager extends ComponentBase implements IItemManager {
             } else if (pathadd.equals("dbItemIlumination")) {
             	String ilumination = br.readLine();
             	resp.add(2, ilumination);
+            } else if (pathadd.equals("dbItemPuzzle")) {
+            	String adjectives = br.readLine();
+            	resp.add(2, adjectives);
             }
             
             for(String line = br.readLine(); line != null; line = br.readLine()){
@@ -90,7 +93,12 @@ public class ItemManager extends ComponentBase implements IItemManager {
     	List<String> item = item(name, "dbItemPuzzle");
     	double findProb = Double.parseDouble(item.get(0));
     	String description = item.get(1);
-        return new ItemPuzzle(name, description, findProb, pos);
+    	IItemPuzzle resp = new ItemPuzzle(name, description, findProb, pos);
+    	String[] lista = item.get(2).split(",");
+    	for (String adj : lista) {
+    		resp.newAdjective(adj);
+    	}
+        return resp;
     }
     
     public IItemIlumination instantiateItemIlumination(String name, IPosition pos){
@@ -98,7 +106,8 @@ public class ItemManager extends ComponentBase implements IItemManager {
     	double findProb = Double.parseDouble(item.get(0)),
     		   ilumination = Double.parseDouble(item.get(2));
     	String description = item.get(1);
-        return new ItemIlumination(name, description, findProb, pos, ilumination);
+    	IItemIlumination resp = new ItemIlumination(name, description, findProb, pos, ilumination);
+        return resp;
     }
     
 }
