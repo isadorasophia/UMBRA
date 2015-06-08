@@ -35,13 +35,15 @@ public class Map extends ComponentBase implements IMap {
         Boolean Ok;
         int cont = 0;
 
-        personagem.setPosition(new Position(TAM_Y-2, 3));
 
         for (int i = 0; i < TAM_Y; i++) {
             for (int j = 0; j < TAM_X; j++) {
                 corredor[i][j] = operator.makeVazio();
             }
         }
+
+        personagem.setPosition(new Position(TAM_Y-2, 3));
+        corredor[TAM_Y-2][3].setMob(personagem);
 
         for (int i = 0; i < TAM_X; i++) {
             operator.makeParede(corredor[0][i]);
