@@ -21,6 +21,7 @@ import com.umbra.mobModule.itemComponent.inter.IItemManager;
 import com.umbra.mobModule.itemComponent.inter.IItemPuzzle;
 import com.umbra.mobModule.mobComponent.impl.MobManager;
 import com.umbra.mobModule.mobComponent.inter.IMobManager;
+import com.umbra.mobModule.mobComponent.inter.IMonstro;
 import com.umbra.mobModule.mobComponent.inter.IPlayer;
 import com.umbra.mobModule.modAttComponent.impl.ModAtt;
 import com.umbra.mobModule.modAttComponent.inter.IModAtt;
@@ -40,15 +41,9 @@ public class Principal {
         	
         	IItemBattle longSword = itemmanager.instantiateItemBattle("longSword", null);
         	IItemPuzzle key = itemmanager.instantiateItemPuzzle("key", null);
-        	player.putItem(longSword);
-        	player.putItem(key);
-        	System.out.println(player);
+        	IItemIlumination lantern = itemmanager.instantiateItemIlumination("lantern", null);
+        	IMonstro monstro = mobmanager.createMonstro(5, null);
         	
-        	player.equipItem("longSword");
-        	System.out.println(player);
-        	player.unequipAll();
-        	
-        	System.out.println(player);
         } catch (Exception e) {
         	e.printStackTrace();
         }
