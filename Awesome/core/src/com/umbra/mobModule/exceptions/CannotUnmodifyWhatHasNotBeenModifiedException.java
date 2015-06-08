@@ -1,5 +1,13 @@
 package com.umbra.mobModule.exceptions;
 
+/**
+ * Exceção disparada quando se tenta desmodificar o player
+ * sem tem modificado com aquele item ainda
+ * 
+ * @author Lucas Alves Racoci
+ * @author Luiz Fernando Rodrigues da Fonseca
+ *
+ */
 
 public class CannotUnmodifyWhatHasNotBeenModifiedException extends BadAttributeModificationException {
 	private static final long serialVersionUID = 4784126258877927469L;

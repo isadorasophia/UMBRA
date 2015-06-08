@@ -41,6 +41,7 @@ public class ItemManager extends ComponentBase implements IItemManager {
         	BufferedReader br = new BufferedReader(new FileReader(path + ".txt"));
             name = br.readLine();
             findprob = br.readLine();
+            resp.add(0, name);
             resp.add(1, findprob);
             resp.add(2, "");
             

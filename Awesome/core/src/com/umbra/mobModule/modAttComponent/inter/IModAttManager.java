@@ -1,7 +1,6 @@
 package com.umbra.mobModule.modAttComponent.inter;
 
 import com.umbra.mobModule.enums.Operation;
-import com.umbra.mobModule.exceptions.BadArgumentException;
 
 import anima.annotation.ComponentInterface;
 import anima.component.ISupports;
@@ -35,8 +34,8 @@ public interface IModAttManager extends ISupports {
 	 * @param type
 	 * @param parameter
 	 * @return
-	 * @throws BadArgumentException
+	 * @throws ArithmeticException Criação de divisão por zero
 	 */
-    public IModAtt create(String attName, Operation type, double ... parameter) throws BadArgumentException;
+    public IModAtt create(String attName, Operation type, double ... parameter) throws ArithmeticException;
     
 }

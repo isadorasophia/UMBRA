@@ -35,7 +35,7 @@ public class PlayerInstantiator extends MobFactory {
     /**
      * Método que retorna um novo player criado
      */
-    public IPlayer instantiate(String name, String description,  IPosition position){
+    public IPlayer instantiate(String name, String description,  IPosition position) {
 
         IPlayer resp = Player.getInstance(name, description, position, INITIAL_SIZE);
         resp.setAtt(0, Att.HP.getName(), Player.MAXHP, Player.MAXHP);

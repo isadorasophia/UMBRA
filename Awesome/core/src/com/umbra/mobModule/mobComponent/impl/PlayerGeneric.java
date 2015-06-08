@@ -90,7 +90,7 @@ public class PlayerGeneric extends Mob implements IPlayerGeneric {
         return resp;
     }
 
-    public boolean equipItem(String itemName) {
+    public boolean equipItem(String itemName) throws CannotDoubleModifyAttributeException {
         boolean resp = true;
         if (inventory.hasItem(itemName)) {
             IItemBattle item = null;
@@ -102,12 +102,8 @@ public class PlayerGeneric extends Mob implements IPlayerGeneric {
             if (item == null) {
                 resp = false;
             } else {
-                try {
-                    equiped.push(item);
-                    item.updateMob(this);
-                } catch (CannotDoubleModifyAttributeException e) {
-                    e.printStackTrace();
-                }
+                equiped.push(item);
+                item.updateMob(this);
             }
         } else {
             resp = false;
@@ -115,7 +111,7 @@ public class PlayerGeneric extends Mob implements IPlayerGeneric {
 
         return resp;
     }
-    public List<Boolean> equipItems(String... itemNames){
+    public List<Boolean> equipItems(String... itemNames) throws CannotDoubleModifyAttributeException {
         List<Boolean> resp = new ArrayList<Boolean>(itemNames.length);
         for (String itemName : itemNames) {
             resp.add(equipItem(itemName)) ;
@@ -123,17 +119,13 @@ public class PlayerGeneric extends Mob implements IPlayerGeneric {
         return resp;
     }
 
-    public void unequipAll() {
+    public void unequipAll() throws FullInventoryException, SameItemException {
         while (!equiped.empty()) {
             IItemBattle item = equiped.pop(); 
         	try {	
             	item.unupdateMob(this);
-            } catch (CannotUnmodifyWhatHasNotBeenModifiedException e) {
-                e.printStackTrace();
-            }
-        	try {
 				inventory.adItem(item);
-			} catch (Exception e) {
+			} catch (CannotUnmodifyWhatHasNotBeenModifiedException e) {
 				e.printStackTrace();
 			}
         }

@@ -43,7 +43,9 @@ public class Principal {
         	IItemPuzzle key = itemmanager.instantiateItemPuzzle("key", null);
         	IItemIlumination lantern = itemmanager.instantiateItemIlumination("lantern", null);
         	IMonstro monstro = mobmanager.createMonstro(5, null);
-        	
+        	System.out.println(longSword);
+        	System.out.println(key);
+        	System.out.println(lantern);
         } catch (Exception e) {
         	e.printStackTrace();
         }
