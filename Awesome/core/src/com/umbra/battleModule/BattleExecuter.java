@@ -187,7 +187,7 @@ class BattleExecuter {
 				return "L";
 			}
 			// bets on higher chance of attack
-			else if (random.nextFloat() <= 0.3)
+			else if (random.nextFloat() <= 0.6)
 				return "B";
 			else
 				return "D";

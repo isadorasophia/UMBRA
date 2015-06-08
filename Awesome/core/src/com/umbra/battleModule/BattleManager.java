@@ -3,8 +3,10 @@ package com.umbra.battleModule;
 import java.util.Random;
 import java.util.Vector;
 
+import com.umbra.mobModule.exceptions.NoMaxMinException;
 import com.umbra.mobModule.mobComponent.inter.IMonstro;
 import com.umbra.mobModule.mobComponent.inter.IPlayer;
+
 import anima.annotation.Component;
 import anima.component.base.ComponentBase;
 
@@ -135,8 +137,8 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		this.monster.setAtt("dexterity", 8);
 		this.monster.setAtt("evasiveness", 6);
 		this.monster.setAtt("luck", 7);
-		this.monster.setAtt("sanity", 2);
-		this.monster.setAtt("hp", 10);*/
+		this.monster.setAtt("sanity", 2);*/
+		this.monster.setAtt("hp", 20);
 		
 		
 		this.battleExecuter = new BattleExecuter();
@@ -343,9 +345,12 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		setStatus("You win " + (int)monster.getAtt("xp").getValue() + " XP as you leave the battle.");
 		
 		// Reset Player's Health
-		//double maxHealth = getPlayer().getAtt("hp").getMax();
-		//getPlayer().setAtt("hp", maxHealth);
-		getPlayer().getAtt("hp").setToMax();
+		try {
+			getPlayer().getAtt("hp").setToMax();
+		} catch (NoMaxMinException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println("XP = " + getPlayer().getAtt("xp").getValue());
 		
 		// increase gained XP and checks if player has leveled up
@@ -390,7 +395,13 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 			if(answer.contains("1")) {
 				
 				getPlayer().getAtt("hp").setMax(getPlayer().getAtt("hp").getMax() + 10);
-				System.out.println("penis");
+				try {
+					getPlayer().getAtt("hp").setToMax();
+				} catch (NoMaxMinException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.out.println("XP = " + getPlayer().getAtt("xp").getValue());
 				this.attsSelected--;
 				
 			} else if(answer.contains("2")) {
