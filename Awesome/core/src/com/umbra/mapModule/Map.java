@@ -73,12 +73,7 @@ public class Map extends ComponentBase implements IMap {
                 }
             }
         }
-        for (int i = 0; i < TAM_Y; i++) {
-            for (int j = 0; j < TAM_X; j++) {
-                System.out.print(corredor[i][j].getDescription());
-            }
-            System.out.println();
-        }
+
     }
 
     public ICell getCell(IPosition posicao) {
