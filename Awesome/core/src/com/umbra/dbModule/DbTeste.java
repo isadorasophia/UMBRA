@@ -7,7 +7,7 @@ public class DbTeste{
         //Criacao da fabrica
         //Cada modulo deve colocar o nome do modulo (String) no construtor
         //Nesse caso seria o módulo "teste"
-        DBFactory factory = new DBFactory("monstro");
+        DBFactory factory = new DBFactory("item");
 
         iDB objectDBCSV = factory.getDB(TypeDB.CSV);
         iDB objectDBTXT = factory.getDB(TypeDB.TXT);
@@ -17,7 +17,7 @@ public class DbTeste{
         //Retorna um vetor de string
         String[] csv = null;
         try {
-            csv = objectDBCSV.getFromDB("monstro1");
+            csv = objectDBCSV.getFromDB("Key");
 		} catch (NoMethod e) {
 			e.printStackTrace();
 		}
