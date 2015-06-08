@@ -17,9 +17,9 @@ class BattleExecuter {
 	 */
 	BattleExecuter () { 
 		status = new String ();
-		this.limbs = new BodyPart("Limbs", 1.3f, 0.7f);
-		this.brain = new BodyPart("Brain", 1.8f, 0.3f);
-		this.vitalOrgans = new BodyPart("Vital Organs", 1.6f, 0.4f);
+		this.limbs = new BodyPart("Limbs", 1.2f, 0.6f);
+		this.brain = new BodyPart("Brain", 1.7f, 0.3f);
+		this.vitalOrgans = new BodyPart("Vital Organs", 1.5f, 0.4f);
 	}
 	
 	private static enum AttackState { normal, critical, counter, missed }
@@ -163,7 +163,7 @@ class BattleExecuter {
 		
 		// chance to add up to 50% more to their stats
 		attackerRate *= (random.nextFloat() + 1);
-		enemyRate *= (random.nextFloat() * 0.3 + 1);
+		enemyRate *= (random.nextFloat() * 0.4 + 1);
 		
 		if (attackerRate >= enemyRate) {
 			if (random.nextFloat() < chance)
@@ -211,7 +211,7 @@ class BattleExecuter {
 		//double defense = (victim.getAtt("defense").getValue() * 2) * (random.nextFloat() + 0.5);
 		//double attack = 3 + (attacker.getAtt("attack").getValue() * 2) * (random.nextFloat() + 0.5);
 		double defense = victim.getAtt("defense").getValue();
-		double attack = attacker.getAtt("attack").getValue() * (random.nextFloat() * 0.5 + 1);
+		double attack = attacker.getAtt("attack").getValue() * (random.nextFloat() * 0.4 + 1.2);
 		
 		if (critical) {
 			attack *= attackFactor;
@@ -236,12 +236,12 @@ class BattleExecuter {
 		
 		if (over) {
 			// decrease
-			target.setAtt("defense", defense / 2);
+			target.setAtt("defense", defense / 	1.8);
 			
 			setStatus(target.getName() + " defense move is now done.\n");
 		} else {
 			// increase
-			target.setAtt("defense", defense * 2);
+			target.setAtt("defense", defense * 1.8);
 			
 			setStatus(target.getName() + " chooses to defend itself.\n");
 		}
@@ -270,7 +270,7 @@ class BattleExecuter {
 			else
 				return "D";
 		} else {
-			if (monster.getAtt("attack").getValue() * (1 - random.nextFloat() * 0.25) >= monster.getAtt("dexterity").getValue() * (1 - random.nextFloat() * 0.25)) {
+			if (monster.getAtt("attack").getValue() * (1 - random.nextFloat() * 0.8) >= monster.getAtt("dexterity").getValue() * (1 - random.nextFloat() * 0.25)) {
 				return "L";
 			} else if (monster.getAtt("dexterity").getValue() * (1 - random.nextFloat() * 0.25) > monster.getAtt("attack").getValue() * 0.5) {
 				return "V";

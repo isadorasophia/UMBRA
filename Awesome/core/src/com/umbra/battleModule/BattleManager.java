@@ -278,9 +278,9 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 				
 			} else if (input.contains("A")) {
 				setStatus ("An attack is attempted. You can attack towards the creature's...\n"
-						+ "[L]imbs [ 1.3 | 70% ],\n"
-						+ "[B]rain [ 1.8 | 30% ] or\n"
-						+ "[V]ital organs [ 1.6 | 40% ]\n");
+						+ "[L]imbs [ 1.2 | 60% ],\n"
+						+ "[B]rain [ 1.7 | 30% ] or\n"
+						+ "[V]ital organs [ 1.5 | 40% ]\n");
 				
 				return;
 				
