@@ -27,11 +27,16 @@ public class MobTest {
                     "<http://purl.org/NET/dcc/com.umbra.mobModule.mobComponent.impl.MobManager>");
             IItemManager itemmanager = factory.createInstance(
                     "<http://purl.org/NET/dcc/com.umbra.mobModule.itemComponent.impl.ItemManager>");
-
-
-            IPlayer player = mobmanager.createPlayer("Player", "Teste", null);
-            IItemPuzzle key = itemmanager.instantiateItemPuzzle("Key", null);
-            System.out.println(key);
+            List<IMonstro> monstros = new ArrayList<IMonstro>();
+            System.out.print("Digite o número de monstros a serem criados: ");
+            int n = s.nextInt();
+            int i = 1;
+            while(n-- > 0){
+                System.out.printf("Nivel : %d\n", i);
+                IMonstro novo = mobmanager.createMonstro(i++, null);
+                System.out.println(novo);
+                monstros.add(novo);
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
