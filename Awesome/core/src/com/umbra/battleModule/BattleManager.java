@@ -129,7 +129,7 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		this.player.setAtt("evasiveness", 10);
 		this.player.setAtt("luck", 9);
 		this.player.setAtt("sanity", 0.5);
-		this.player.setAtt("hp", 100);
+		this.player.setAtt("hp", 10);
         
 		
 		this.monster.setAtt("attack", 15);
@@ -137,8 +137,8 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		this.monster.setAtt("dexterity", 8);
 		this.monster.setAtt("evasiveness", 6);
 		this.monster.setAtt("luck", 7);
-		this.monster.setAtt("sanity", 2);
-		this.monster.setAtt("hp", 20);*/
+		this.monster.setAtt("sanity", 2);*/
+		this.monster.setAtt("hp", 10);
 		
 		
 		this.battleExecuter = new BattleExecuter();
@@ -164,8 +164,7 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		Vector <String> items = getPlayer().itemsForBattle();
 		
 		setStatus(monster.getDescription());
-		//setStatus(monster.getDeathDescription());
-		//setStatus(monster.getWinDescription());
+		
 		
 
 		if (items.isEmpty()) {
@@ -362,9 +361,6 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 			this.attsSelected *= levelGained;
 			
 		}
-		
-		// Just for testing sake
-		//setDone(true);
 	}
 	
 	/**
@@ -428,7 +424,8 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 				getPlayer().getAtt("luck").setValue(getPlayer().getAtt("luck").getValue() + 1);
 				this.attsSelected--;
 				
-			}
+			} else
+				setStatus("You must choose a valid action!\n");
 			
 			setStatus("You got to Level " + (int)getPlayer().getNivel() + "!\n"
 					+ "You have " + this.attsSelected + " Skill Points to spend. " + "Choose where you want to level up:\n" 

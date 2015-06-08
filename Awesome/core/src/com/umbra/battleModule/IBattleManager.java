@@ -9,14 +9,41 @@ import anima.component.ISupports;
 		value = "<http://purl.org/NET/dcc/com.umbra.battleModule.BattleManager>"
 )
 
+/**
+ * Interface provida para os utilitários do componente
+ * 
+ * @author Matheus Mortatti Diamantino 156740
+ * @author Isadora Sophia Garcia Rodopoulos 158018
+ *
+ */
 public interface IBattleManager extends ISupports{
-	// function which initializes the class for further use
+	
+	/**
+	 * Inicializa o componente
+	 * 
+	 * @param player
+	 * @param monster
+	 */
 	public void initialize (IPlayer player, IMonstro monster);
 	
-	// function called by the main module, updates the output
+	/**
+	 * Realiza o processamento do input do jogador
+	 * 
+	 * @param input
+	 */
 	public void processInput (String input);
 	
-	// in order to keep in track with the battle status
+	/**
+	 * Getter para a variável Done (se a batalha terminou ou não)
+	 * 
+	 * @return boolean - Se a batalha acabou ou não
+	 */
 	public boolean getDone ();
+	
+	/**
+	 * Getter para o output a ser impresso ao jogador
+	 * 
+	 * @return String - Output da batalha
+	 */
 	public String getStatus ();
 }

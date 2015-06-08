@@ -3,8 +3,18 @@ package com.umbra.battleModule;
 import java.util.Random;
 import com.umbra.mobModule.mobComponent.inter.IMob;
 
+/**
+ * Classe que realiza os procedimentos de ataque e defesa durante a batalha
+ * 
+ * @author Matheus Mortatti Diamantino 156740
+ * @author Isadora Sophia Garcia Rodopoulos 158018
+ *
+ */
 // Manages battle mechanics in general
 class BattleExecuter {
+	/**
+	 * Construtor
+	 */
 	BattleExecuter () { 
 		status = new String ();
 		this.limbs = new BodyPart("Limbs", 1.3f, 0.7f);
@@ -17,7 +27,18 @@ class BattleExecuter {
 	BodyPart limbs, brain, vitalOrgans;
 	private String status = "";
 	
+	/**
+	 * Getter para a variável Status
+	 * 
+	 * @return String - Estado que será adicionado ao output 
+	 */
 	String getStatus () { return this.status; }
+	
+	/**
+	 * Setter para a variável Status
+	 * 
+	 * @param status - Estado a ser setado
+	 */
 	private void setStatus (String status) { 
 		if (status == null)
 			this.status = "";
@@ -25,7 +46,13 @@ class BattleExecuter {
 			this.status += status; 
 	}
 	
-	// Tries to escape!
+	/**
+	 * Realiza cálculos que determinam se o player conseguiu fugir da batalha
+	 * 
+	 * @param player
+	 * @param enemy
+	 * @return boolean - Se o player conseguiu escapar
+	 */
 	boolean escape (IMob player, IMob enemy) {
 		setStatus(null);
 		
@@ -42,11 +69,27 @@ class BattleExecuter {
 			return false;
 	}
 	
+	/**
+	 * Função intermediária de ataque
+	 * 
+	 * @param attacker
+	 * @param victim
+	 * @param input - Parte do corpo que o jogador quer atacar
+	 * @return boolean - Se o monstro ou o player morreu
+	 */
 	boolean attack (IMob attacker, IMob victim, String input) {
 		return attack (attacker, victim, input, false);
 	}
 	
-	// returns true if the battle is over, false otherwise
+	/**
+	 * Realiza comparações e calcula as consequências do ataque realizado
+	 * 
+	 * @param attacker
+	 * @param victim
+	 * @param BP
+	 * @param counter
+	 * @return - boolean Se o monstro ou o player morreu
+	 */
 	private boolean attack (IMob attacker, IMob victim, String BP, boolean counter) {
 		double damage;
 		BodyPart bodyPart = returnBodyPart(BP);
@@ -71,7 +114,7 @@ class BattleExecuter {
 				victim.decreaseHP(damage); 
 						
 				if (victim.dead()) {
-					setStatus (attacker.getName() + " just killed " + victim.getName() + "...\n");
+					//setStatus (attacker.getName() + " just killed " + victim.getName() + "...\n");
 					return true;
 				}
 				break;
@@ -81,7 +124,7 @@ class BattleExecuter {
 					
 				victim.decreaseHP(damage);
 				if (victim.dead()) {
-					setStatus (attacker.getName() + " just killed " + victim.getName() + "...\n");
+					//setStatus (attacker.getName() + " just killed " + victim.getName() + "...\n");
 					return true;
 				}
 				break;
@@ -92,7 +135,7 @@ class BattleExecuter {
 				
 				attacker.decreaseHP(damage);
 				if (attacker.dead()) {
-					setStatus (victim.getName() + " just killed " + attacker.getName() + "...\n");
+					//setStatus (victim.getName() + " just killed " + attacker.getName() + "...\n");
 					return true;
 				}
 				break;
@@ -105,6 +148,14 @@ class BattleExecuter {
 		return false;
 	}
 	
+	/**
+	 * Determina o estado do ataque realizado (critical, normal, counter ou missed)
+	 * 
+	 * @param attacker
+	 * @param victim
+	 * @param chance - chance de CriticalHit
+	 * @return AttackState - Enum representativo do estado do ataque
+	 */
 	private AttackState stateOfAttack (IMob attacker, IMob victim, float chance) {
 		Random random = new Random();
 		double attackerRate = attacker.getAtt("dexterity").getValue() + attacker.getAtt("luck").getValue();
@@ -128,6 +179,12 @@ class BattleExecuter {
 		}
 	}
 	
+	/**
+	 * Provê a referencia à parte do corpo a ser atacada
+	 * 
+	 * @param input
+	 * @return BodyPart - Parte do corpo a ser atacada
+	 */
 	private BodyPart returnBodyPart (String input) {
 		if (input.contains("L"))
 			return this.limbs;
@@ -139,6 +196,15 @@ class BattleExecuter {
 		return null;
 	}
 	
+	/**
+	 * Calcula o valor do dano causado pelo ataque
+	 * 
+	 * @param attacker
+	 * @param victim
+	 * @param critical
+	 * @param attackFactor
+	 * @return double - Valor do ataque realizado
+	 */
 	private double calcDamage (IMob attacker, IMob victim, boolean critical, float attackFactor) {
 		Random random = new Random ();
 		
@@ -158,6 +224,12 @@ class BattleExecuter {
 		return attack - defense;
 	}
 	
+	/**
+	 * Realiza o procedimento de defesa
+	 * 
+	 * @param target - quem está defendendo
+	 * @param over - Se o periodo de defesa acabou
+	 */
 	void defend (IMob target, boolean over) {
 		double defense = target.getAtt("defense").getValue();
 		setStatus(null);
@@ -175,7 +247,13 @@ class BattleExecuter {
 		}
 	}
 	
-	// Monster turn
+	/**
+	 * Inteligência artificial do monstro
+	 * 
+	 * @param monster
+	 * @param victim
+	 * @return String - Parte do corpo que o monstro quer atacar
+	 */
 	String monsterAI (IMob monster, IMob victim) {
 		Random random = new Random();
 		double hpProportion = monster.getAtt("hp").getValue()/monster.getAtt("hp").getMax();
