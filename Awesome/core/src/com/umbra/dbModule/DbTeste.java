@@ -34,7 +34,7 @@ public class DbTeste{
         String txt = null;
         try {
 			txt = objectDBTXT.getFromDB();
-		} catch (NullPointerException | NoMethod e) {
+		} catch (NoMethod e) {
 			e.printStackTrace();
 		}
         System.out.println("O arquivo em txt:");
