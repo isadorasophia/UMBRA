@@ -121,7 +121,7 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		setMonster(monster);
 		
 		// For testing sake
-		this.player.setAtt("attack", 15);
+		/*this.player.setAtt("attack", 15);
 		this.player.setAtt("defense", 14);
 		this.player.setAtt("dexterity", 13);
 		this.player.setAtt("evasiveness", 10);
@@ -129,7 +129,7 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		this.player.setAtt("sanity", 0.5);
 		this.player.setAtt("hp", 100);
         
-		/*
+		
 		this.monster.setAtt("attack", 15);
 		this.monster.setAtt("defense", 13);
 		this.monster.setAtt("dexterity", 8);
@@ -292,7 +292,9 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 			setStatus(battleExecuter.getStatus());
 			
 			if (!isBattleOver)
-				setStatus("You may procede to your turn - you can either [A]ttack, [D]efend or [R]un. Decide.\n");
+				setStatus("You may procede to your turn - you can either [A]ttack, [D]efend or [R]un. Decide.\n\n"
+						+ "Your Health: " + (int)getPlayer().getHealth() + "\n" 
+						+ getMonster().getName() + "'s Health: " + (int)getMonster().getAtt("hp").getValue() + "\n");
 			
 			// get ready for next move
 			this.playerTurn = true;
@@ -335,6 +337,7 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 	private void wonBattle () {
 		double gainedXP = getMonster().getAtt("xp").getValue();
 		
+		setStatus(this.monster.getWinDescription());
 		setStatus("You win this battle, for once. The creature is now dead, you may " +
 				"move on to your hopeless journey.\n");
 		setStatus("You win " + (int)monster.getAtt("xp").getValue() + " XP as you leave the battle.");
@@ -353,6 +356,7 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 			System.out.println("XP = " + getPlayer().getAtt("xp").getValue());
 			this.hasLeveledUp = true;
 			this.attsSelected *= levelGained;
+			
 		}
 		
 		// Just for testing sake
@@ -363,6 +367,7 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 	 * Caso o jogador tenha perdido a batalha, realiza os processos necessários
 	 */
 	private void lostBattle() {
+		setStatus(this.monster.getDeathDescription());
 		setStatus("Suddenly, everything becomes darker... Your limbs are tembling... Everything is fading. Long gone. "
 				+ "No hopes, no chance of escape. You are dead.\n");
 		
@@ -384,32 +389,33 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 			// Level Up the stats selected!
 			if(answer.contains("1")) {
 				
-				getPlayer().getAtt("hp").setMax(getPlayer().getAtt("hp").getValue() + 10);
+				getPlayer().getAtt("hp").setMax(getPlayer().getAtt("hp").getMax() + 10);
+				System.out.println("penis");
 				this.attsSelected--;
 				
 			} else if(answer.contains("2")) {
 				
-				getPlayer().getAtt("attack").setMax(getPlayer().getAtt("attack").getValue() + 1);
+				getPlayer().getAtt("attack").setValue(getPlayer().getAtt("attack").getValue() + 1);
 				this.attsSelected--;
 				
 			} else if(answer.contains("3")) {
 				
-				getPlayer().getAtt("defense").setMax(getPlayer().getAtt("defense").getValue() + 1);
+				getPlayer().getAtt("defense").setValue(getPlayer().getAtt("defense").getValue() + 1);
 				this.attsSelected--;
 				
 			} else if(answer.contains("4")) {
 				
-				getPlayer().getAtt("dexterity").setMax(getPlayer().getAtt("dexterity").getValue() + 1);
+				getPlayer().getAtt("dexterity").setValue(getPlayer().getAtt("dexterity").getValue() + 1);
 				this.attsSelected--;
 				
 			} else if(answer.contains("5")) {
 				
-				getPlayer().getAtt("evasiveness").setMax(getPlayer().getAtt("evasiveness").getValue() + 1);
+				getPlayer().getAtt("evasiveness").setValue(getPlayer().getAtt("evasiveness").getValue() + 1);
 				this.attsSelected--;
 				
 			} else if(answer.contains("6")) {
 				
-				getPlayer().getAtt("luck").setMax(getPlayer().getAtt("luck").getValue() + 1);
+				getPlayer().getAtt("luck").setValue(getPlayer().getAtt("luck").getValue() + 1);
 				this.attsSelected--;
 				
 			}
@@ -421,8 +427,7 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 					+ "[3] Defense = " + (int)getPlayer().getAtt("defense").getValue() + "\n"
 					+ "[4] Dexterity = " + (int)getPlayer().getAtt("dexterity").getValue() + "\n"
 					+ "[5] Evasiveness = " + (int)getPlayer().getAtt("evasiveness").getValue() + "\n"
-					+ "[6] Luck = " + (int)getPlayer().getAtt("luck").getValue() + "\n"
-					+ "[7] Sanity = " + (int)getPlayer().getAtt("sanity").getValue() + "\n");
+					+ "[6] Luck = " + (int)getPlayer().getAtt("luck").getValue() + "\n");
 				
 		}
 		
