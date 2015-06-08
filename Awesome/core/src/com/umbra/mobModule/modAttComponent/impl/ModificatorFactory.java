@@ -33,7 +33,16 @@ public class ModificatorFactory {
 			}
 		}
 		
-		novo = type.getModificator();
+		if (type == Operation.ADICAO) {
+			novo = new Adder();
+		} else if (type == Operation.SUBTRACAO) {
+			novo = new Subtract();
+		} else if (type == Operation.MULTIPLICACAO) {
+			novo = new Multiplier();
+		} else if (type == Operation.DIVISAO) {
+			novo = new Divisor();
+		}
+		
 		return novo;
 	}
 }

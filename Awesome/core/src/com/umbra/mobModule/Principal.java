@@ -41,11 +41,14 @@ public class Principal {
         	IItemBattle longSword = itemmanager.instantiateItemBattle("longSword", null);
         	IItemPuzzle key = itemmanager.instantiateItemPuzzle("key", null);
         	player.putItem(longSword);
-        	IInventory inv = new Inventory();
-        	inv.setSize(2);
-        	inv.adItem(key);
-        	inv.adItem(longSword);
-        	System.out.println(inv.getAllItems());
+        	player.putItem(key);
+        	System.out.println(player);
+        	
+        	player.equipItem("longSword");
+        	System.out.println(player);
+        	player.unequipAll();
+        	
+        	System.out.println(player);
         } catch (Exception e) {
         	e.printStackTrace();
         }

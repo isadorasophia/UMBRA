@@ -39,16 +39,16 @@ public class ModAttCreator extends ComponentBase implements IModAttManager {
     
     public IModAtt create(String attName, double parameter) {
         IModAtt resp = null;
-        Operation operation = null;
-
-        if (parameter >= 0) {
-            operation = Operation.ADICAO;
-        } else if (parameter < 0) {
-            parameter = -parameter;
-            operation = Operation.SUBTRACAO;
-        }
+        IModificator operation = null;
 
         try {
+        	if (parameter >= 0) {
+	            operation = ModificatorFactory.operationCreator(Operation.ADICAO, parameter);
+	        } else if (parameter < 0) {
+	            parameter = -parameter;
+	            operation = ModificatorFactory.operationCreator(Operation.SUBTRACAO, parameter);;
+	        }
+        	
             resp = create(attName, operation, parameter);
         } catch (BadArgumentException e) {
             System.err.println("That is ridiculously impossible");
