@@ -107,22 +107,22 @@ public class FabricaDeMonstro extends MobFactory {
         resp.setAtt(0, Att.HP.getName(), maxHp, maxHp);
 
         double xp = randomLinearAtt(r, nivel, 25.0/100, 0, Att.XP);
-        resp.setAtt(Att.XP.getName(), xp);
+        resp.setAtt(0, Att.XP.getName(), xp);
 
         double defense = randomLinearAtt(r, nivel, 22.0/100, 0, Att.DEFENSE);
-        resp.setAtt(Att.DEFENSE.getName(), defense);
+        resp.setAtt(0, Att.DEFENSE.getName(), defense);
 
         double attack = randomLinearAtt(r, nivel, 34.0/100, 0, Att.ATTACK);
-        resp.setAtt(Att.ATTACK.getName(), attack);
+        resp.setAtt(0, Att.ATTACK.getName(), attack);
 
         double dexterity = randomLinearAtt(r, nivel, 42.0/100, 0, Att.DEXTERITY);
-        resp.setAtt(Att.DEXTERITY.getName(), dexterity);
+        resp.setAtt(0, Att.DEXTERITY.getName(), dexterity);
 
         double luck = randomLinearAtt(r, nivel, 42.0/100, 0, Att.LUCK);
-        resp.setAtt(Att.LUCK.getName(), luck);
+        resp.setAtt(0, Att.LUCK.getName(), luck);
 
         double evasiveness = randomLinearAtt(r, nivel, 52.0/100, 0, Att.EVASIVENESS);
-        resp.setAtt(Att.EVASIVENESS.getName(), evasiveness);
+        resp.setAtt(0, Att.EVASIVENESS.getName(), evasiveness);
 
         id++;
 
