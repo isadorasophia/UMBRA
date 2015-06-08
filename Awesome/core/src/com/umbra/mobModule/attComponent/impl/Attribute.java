@@ -2,6 +2,7 @@ package com.umbra.mobModule.attComponent.impl;
 
 import com.umbra.mobModule.Margin;
 import com.umbra.mobModule.attComponent.inter.IAttribute;
+import com.umbra.mobModule.exceptions.NoMaxMinException;
 
 /**
  * Classe cujos objetos representam atributos dos mobs
@@ -87,11 +88,11 @@ public class Attribute implements IAttribute  {
     public void setValue(double value) {
         boolean set = true;
         if (min != null && value < min) {
-        	setToMin();
+        	this.value = min;
             set = false;
         }
         if (max != null && value > max) {
-        	setToMax();
+        	this.value = max;
             set = false;
         }
         if (set) {
@@ -110,12 +111,18 @@ public class Attribute implements IAttribute  {
     }
 
     @Override
-    public void setToMax() {
+    public void setToMax() throws NoMaxMinException {
+    	if (max == null) {
+    		throw new NoMaxMinException("Max value doesn't exist");
+    	}
         value = max;
     }
 
     @Override
-    public void setToMin() {
+    public void setToMin() throws NoMaxMinException {
+    	if (min == null) {
+    		throw new NoMaxMinException("Min value doesn't exist");
+    	}
         value = min;
     }
 
@@ -137,10 +144,16 @@ public class Attribute implements IAttribute  {
 
     public void setMax(double max){
         this.max = max;
+        if (this.value > max) {
+        	this.value = max;
+        }
     }
 
     public void setMin(double min){
         this.min = min;
+        if (this.value < min) {
+        	this.value = min;
+        }
     }
 
     public IAttribute clone() {

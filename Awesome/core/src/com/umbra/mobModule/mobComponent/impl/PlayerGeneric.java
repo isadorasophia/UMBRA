@@ -59,13 +59,16 @@ public class PlayerGeneric extends Mob implements IPlayerGeneric {
         return Type.PLAYER;
     }
 
-    public void putItem(IItem ...neoItem){
+    public void putItem(IItem ...neoItem) throws FullInventoryException {
+    	int addItens = 0;
         for (IItem neo : neoItem) {
-            try {
-				inventory.adItem(neo);
-			} catch (FullInventoryException e) {
-				e.printStackTrace();
-			}
+        	try {
+        		inventory.adItem(neo);
+        	} catch (FullInventoryException e) {
+        		e.setAddItens(addItens);
+        		throw e;
+        	}
+			addItens++;
         }
     }
 

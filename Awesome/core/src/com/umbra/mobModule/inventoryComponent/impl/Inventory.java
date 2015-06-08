@@ -1,4 +1,5 @@
 package com.umbra.mobModule.inventoryComponent.impl;
+
 import anima.annotation.Component;
 import anima.component.base.ComponentBase;
 
@@ -31,7 +32,7 @@ public class Inventory extends ComponentBase implements IInventory {
         return resp;
     }
     
-    public IItem getItem(String name){
+    public IItem getItem(String name) {
 	   IItem resp;
 	   if (items.containsKey(name)) {
 		   resp = items.get(name);
@@ -42,13 +43,14 @@ public class Inventory extends ComponentBase implements IInventory {
     }
 
     public boolean hasItem(String name) {
+    	name = name.toLowerCase();
         return items.containsKey(name);
     }
 
     public void adItem(IItem item) throws FullInventoryException {
-        if(size == null || items.size() < size) {
-            items.put(item.getName(), item);
-        }else{
+        if (size == null || items.size() < size) {
+            items.put(item.getName().toLowerCase(), item);
+        } else {
             throw new FullInventoryException("This Item was not added to the inventory");
         }
     }
@@ -57,9 +59,9 @@ public class Inventory extends ComponentBase implements IInventory {
     }
     public int getSize(){
         int resp;
-        if(size == null){
+        if (size == null) {
             resp = -1;
-        }else{
+        } else {
             resp = size;
         }
         return resp;
@@ -68,7 +70,7 @@ public class Inventory extends ComponentBase implements IInventory {
     public List<IItem> getAllItems() {
         List<IItem> resp = new ArrayList<IItem>();
         Enumeration<IItem> e = items.elements();
-        while(e.hasMoreElements()){
+        while (e.hasMoreElements()) {
             resp.add(e.nextElement());
         }
         return resp;
