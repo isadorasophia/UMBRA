@@ -4,7 +4,6 @@ import anima.annotation.Component;
 import anima.component.base.ComponentBase;
 
 import com.umbra.mobModule.enums.Operation;
-import com.umbra.mobModule.exceptions.BadArgumentException;
 import com.umbra.mobModule.modAttComponent.inter.IModAtt;
 import com.umbra.mobModule.modAttComponent.inter.IModAttManager;
 import com.umbra.mobModule.modAttComponent.inter.IModificator;
@@ -46,18 +45,18 @@ public class ModAttCreator extends ComponentBase implements IModAttManager {
 	            operation = ModificatorFactory.operationCreator(Operation.ADICAO, parameter);
 	        } else if (parameter < 0) {
 	            parameter = -parameter;
-	            operation = ModificatorFactory.operationCreator(Operation.SUBTRACAO, parameter);;
+	            operation = ModificatorFactory.operationCreator(Operation.SUBTRACAO, parameter);
 	        }
         	
             resp = create(attName, operation, parameter);
-        } catch (BadArgumentException e) {
-            System.err.println("That is ridiculously impossible");
+        } catch (ArithmeticException e) {
+            resp = null;
         }
+        
         return resp;
-
     }
     
-    public IModAtt create(String attName, Operation type, double ... parameter) throws BadArgumentException {
+    public IModAtt create(String attName, Operation type, double ... parameter) throws ArithmeticException {
         IModificator operation;
         IModAtt resp;
         operation = ModificatorFactory.operationCreator(type, parameter);

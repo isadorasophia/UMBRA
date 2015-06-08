@@ -31,7 +31,7 @@ public class MobManager extends ComponentBase implements IMobManager {
 		try {
 			player = factory.instantiate(name, description, position);
 		} catch (BadConstructorException e) {
-			e.printStackTrace();
+			player = null;
 		}
 		
 		return player;
@@ -44,7 +44,7 @@ public class MobManager extends ComponentBase implements IMobManager {
 		try {
 			monstro = factory.create(nivel, position);
 		} catch (BadConstructorException e) {
-			e.printStackTrace();
+			monstro = null;
 		}
 		
 		return monstro;

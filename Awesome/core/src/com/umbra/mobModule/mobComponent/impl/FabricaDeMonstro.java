@@ -1,16 +1,12 @@
 package com.umbra.mobModule.mobComponent.impl;
 
+import com.umbra.dbModule.*;
 import com.umbra.mapModule.IPosition;
 import com.umbra.mobModule.attComponent.inter.IAttribute;
-import com.umbra.mobModule.dbMobModule.dbMob.dbMonstro.BDMonstro;
 import com.umbra.mobModule.enums.Att;
 import com.umbra.mobModule.exceptions.BadConstructorException;
 import com.umbra.mobModule.mobComponent.inter.IMonstro;
 import com.umbra.mobModule.mobComponent.inter.IPlayer;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -26,7 +22,7 @@ import java.util.Random;
 
 public class FabricaDeMonstro extends MobFactory {
     private static int id = 0;
-    private static final int NUMBEROFMONSTRO = 3;
+    private static final int NUMERODEMONSTROS = 3;
 
     /**
      * Acessa o banco de dados para criar o monstro com o id
@@ -34,24 +30,28 @@ public class FabricaDeMonstro extends MobFactory {
      * @return Retorna uma lista que contem necessáriamente um nome e uma descrição
      */
     private static List<String> monster(int id){
-        List<String> resp = new ArrayList<String>(4);
-        String path = BDMonstro.class.getResource(".").getPath() + "/monstro" + ((id % NUMBEROFMONSTRO) + 1);
+        //Instanciando um db do tipo CSV
+        DBFactory factory = new DBFactory("monstro");
+        iDB dbMonsters = factory.getDB(TypeDB.CSV);
 
-        String name = null;
-        String win = null;
-        String death = null;
-        String description = "";
+        //Recuperando dados do monstroX do DB
+        String[] fields = null;
+        String monsterX = "monstro" + ((id % NUMERODEMONSTROS) + 1);
         try {
-            BufferedReader br = new BufferedReader(new FileReader(path + ".txt"));
-            name = br.readLine();
-            win = br.readLine();
-            death = br.readLine();
-            for(String line = br.readLine(); line != null; line = br.readLine()){
-                description += line + "\n";
-            }
-            br.close();
-        } catch (IOException e) {
+            fields = dbMonsters.getFromDB(monsterX);
+        } catch (NoMethod e) {
             e.printStackTrace();
+        }
+
+        List<String> resp = new ArrayList<String>(4);
+
+        String name = fields[1];
+        String win = fields[2];
+        String death = fields[3];
+        String description = "";
+
+        for(int i = 4; i < fields.length; i++){
+            description += fields[i] + '\n';
         }
 
         resp.add(0, name);
@@ -62,7 +62,8 @@ public class FabricaDeMonstro extends MobFactory {
         return resp;
 
     }
-    
+
+
     /**
      * Cria um valor aleatório para um atributo de acordo com
      * o nivel e um desvio padrão percentual aleatório

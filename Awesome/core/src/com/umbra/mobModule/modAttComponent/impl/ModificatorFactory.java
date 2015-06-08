@@ -1,7 +1,6 @@
 package com.umbra.mobModule.modAttComponent.impl;
 
 import com.umbra.mobModule.enums.Operation;
-import com.umbra.mobModule.exceptions.BadArgumentException;
 import com.umbra.mobModule.modAttComponent.inter.IModificator;
 
 /**
@@ -22,13 +21,13 @@ public class ModificatorFactory {
 	 * @return
 	 * @throws BadArgumentException
 	 */
-	public static IModificator operationCreator(Operation type, double ... parameter) throws BadArgumentException {
+	public static IModificator operationCreator(Operation type, double ... parameter) throws ArithmeticException {
 		IModificator novo = null;
 		
 		if (type == Operation.DIVISAO) {
 			for (double p : parameter) {
 				if (p == 0) {
-					throw new BadArgumentException("You've tried to create an ByZeroDivider");
+					throw new ArithmeticException("You've tried to create an ByZeroDivider");
 				}
 			}
 		}
