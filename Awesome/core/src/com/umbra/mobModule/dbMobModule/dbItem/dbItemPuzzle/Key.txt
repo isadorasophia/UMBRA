@@ -1,3 +1,4 @@
+Key with spaces in the name
 0.3
 Broken,Dirty
 Hm... An old key

@@ -30,14 +30,17 @@ import java.util.List;
 
 public class ItemManager extends ComponentBase implements IItemManager {
     
-    private static List<String> item(String name, String pathadd){
+    private static List<String> item(String fileName, String pathadd){
         List<String> resp = new ArrayList<String>();
-        String path = BDItem.class.getResource(".").getPath() + pathadd + "/" + name;
-        
+        String name;
+        String path = BDItem.class.getResource(".").getPath() + pathadd + "/" + fileName;
+
         String findprob = null;
         String description = "";
         try {
         	BufferedReader br = new BufferedReader(new FileReader(path + ".txt"));
+            name = br.readLine();
+            resp.add(5, name);
             findprob = br.readLine();
             resp.add(0, findprob);
             resp.add(1, "");
@@ -71,10 +74,11 @@ public class ItemManager extends ComponentBase implements IItemManager {
 
     }
     
-    public IItemBattle instantiateItemBattle(String name, IPosition pos){
-    	List<String> item = item(name, "dbItemBattle");
+    public IItemBattle instantiateItemBattle(String fileName, IPosition pos){
+    	List<String> item = item(fileName, "dbItemBattle");
     	double findProb = Double.parseDouble(item.get(0));
     	String description = item.get(1);
+        String name = item.get(5);
     	
         IItemBattle resp = new ItemBattle(name, description, findProb, pos);
         if (findProb != 0) {
@@ -89,10 +93,12 @@ public class ItemManager extends ComponentBase implements IItemManager {
         return resp;
     }
     
-    public IItemPuzzle instantiateItemPuzzle(String name, IPosition pos){
-    	List<String> item = item(name, "dbItemPuzzle");
+    public IItemPuzzle instantiateItemPuzzle(String fileName, IPosition pos){
+    	List<String> item = item(fileName, "dbItemPuzzle");
     	double findProb = Double.parseDouble(item.get(0));
     	String description = item.get(1);
+        String name = item.get(5);
+
     	IItemPuzzle resp = new ItemPuzzle(name, description, findProb, pos);
     	String[] lista = item.get(2).split(",");
     	for (String adj : lista) {
@@ -101,11 +107,13 @@ public class ItemManager extends ComponentBase implements IItemManager {
         return resp;
     }
     
-    public IItemIlumination instantiateItemIlumination(String name, IPosition pos){
-    	List<String> item = item(name, "dbItemIlumination");
+    public IItemIlumination instantiateItemIlumination(String fileName, IPosition pos){
+    	List<String> item = item(fileName, "dbItemIlumination");
     	double findProb = Double.parseDouble(item.get(0)),
     		   ilumination = Double.parseDouble(item.get(2));
     	String description = item.get(1);
+        String name = item.get(5);
+
     	IItemIlumination resp = new ItemIlumination(name, description, findProb, pos, ilumination);
         return resp;
     }
