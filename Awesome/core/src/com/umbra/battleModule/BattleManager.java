@@ -137,8 +137,8 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		this.monster.setAtt("dexterity", 8);
 		this.monster.setAtt("evasiveness", 6);
 		this.monster.setAtt("luck", 7);
-		this.monster.setAtt("sanity", 2);*/
-		this.monster.setAtt("hp", 20);
+		this.monster.setAtt("sanity", 2);
+		this.monster.setAtt("hp", 20);*/
 		
 		
 		this.battleExecuter = new BattleExecuter();
@@ -229,21 +229,21 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		
 		if (this.playerTurn) {
 			// reset defense status, if that is the case
-			if (this.playerDefending && this.turnsPassed == 1) {
+			if (this.playerDefending && this.turnsPassed == 2) {
 				this.battleExecuter.defend(getPlayer(), true);
 				this.playerDefending = false;
 			} else
-				if(this.turnsPassed == 0)
-					this.turnsPassed = 1;
+				if(this.turnsPassed != 2 && this.playerDefending)
+					this.turnsPassed += 1;
 			
 			// execute player move
 			if (input.contains("D")) {
 				// The player increases his defense in the next 2 turns
-				this.battleExecuter.defend(player, false);
+				this.battleExecuter.defend(getPlayer(), false);
 				this.turnsPassed = 0;
 				this.playerDefending = true;
 			} else if (input.contains("R")) {
-				setDone(this.battleExecuter.escape(player, monster));
+				setDone(this.battleExecuter.escape(getPlayer(), getMonster()));
 				
 			} else if (input.contains("A")) {
 				setStatus ("An attack is attempted. You can attack towards the creature's\n"
@@ -283,7 +283,7 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 			String monsterInput = this.battleExecuter.monsterAI(monster, player);
 			
 			if (monsterInput.contains("D")) {
-				this.battleExecuter.defend(monster, false);
+				this.battleExecuter.defend(getMonster(), false);
 				
 				this.enemyDefending = true;
 			} else {
@@ -295,15 +295,14 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 			
 			if (!isBattleOver)
 				setStatus("You may procede to your turn - you can either [A]ttack, [D]efend or [R]un. Decide.\n\n"
-						+ "Your Health: " + (int)getPlayer().getHealth() + "\n" 
-						+ getMonster().getName() + "'s Health: " + (int)getMonster().getAtt("hp").getValue() + "\n");
+						+ getMonster().getName() + "'s Health: " + (int)getMonster().getAtt("hp").getValue() + " / "
+						+ getMonster().getAtt("hp").getMax().intValue() + "\n");
 			
 			// get ready for next move
 			this.playerTurn = true;
 		}
 		}
 		
-		System.out.println("Monstro: " + this.monster.getAtt("hp") + this.monster.getAtt("dexterity"));
 		
 		// if the battle was lost...
 		if (this.isBattleOver && !this.hasLeveledUp) {

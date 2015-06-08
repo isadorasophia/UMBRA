@@ -145,7 +145,7 @@ class BattleExecuter {
 		//double defense = (victim.getAtt("defense").getValue() * 2) * (random.nextFloat() + 0.5);
 		//double attack = 3 + (attacker.getAtt("attack").getValue() * 2) * (random.nextFloat() + 0.5);
 		double defense = victim.getAtt("defense").getValue();
-		double attack = attacker.getAtt("attack").getValue() * (random.nextFloat() * 0.6 + 1);
+		double attack = attacker.getAtt("attack").getValue() * (random.nextFloat() * 0.5 + 1);
 		
 		if (critical) {
 			attack *= attackFactor;
