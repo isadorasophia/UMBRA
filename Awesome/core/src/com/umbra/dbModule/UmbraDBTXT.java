@@ -6,7 +6,7 @@ import anima.component.base.ComponentBase;
 import java.io.*;
 
 @Component(
-        id = "<http://purl.org/NET/dcc/com.umbra.dbModule.umbraDBTXT>",
+        id = "<http://purl.org/NET/dcc/com.umbra.dbModule.UmbraDBTXT>",
         provides = {"<http://purl.org/NET/dcc/com.umbra.dbModule.iDB"}
 )
 
@@ -15,8 +15,8 @@ public class UmbraDBTXT extends ComponentBase implements iDB{
     private File file;
 
     // Construtor
-    public umbraDBTXT(String name_of_file){
-        path = name_of_file + ".txtdb";
+    public UmbraDBTXT(String name_of_file){
+        path = "data/" + name_of_file + ".txtdb";
 
         try {
             file = new File(path);
@@ -83,24 +83,25 @@ public class UmbraDBTXT extends ComponentBase implements iDB{
 
     @Override
     public String[] getFromDB(String info) throws NullPointerException, NoMethod {
-    	throw new NoMethod("Esse DB n�o suporta esse tipo de m�todo, tente usar este m�todo"
-				+ "sem passar par�metros");
+    	throw new NoMethod("Esse DB não suporta esse tipo de método, tente usar este método"
+				+ "sem passar parâmetros");
     }
 
     @Override
     public String[] getFromDB(String info1, String info2) throws NullPointerException, NoMethod{
-    	throw new NoMethod("Esse DB n�o suporta esse tipo de m�todo, tente usar este m�todo"
-    						+ "sem passar par�metros");
+        throw new NoMethod("Esse DB não suporta esse tipo de método, tente usar este método"
+				+ "sem passar parâmetros");
     }
 
     @Override
-    public boolean saveDB(Object obj)throws NullPointerException, NoMethod {
-    	throw new NoMethod("Esse DB n�o suporta esse tipo de m�todo");
+    public void saveDB(Object obj)throws NullPointerException, NoMethod {
+    	throw new NoMethod("Esse DB não suporta esse tipo de método");
     }
 
     @Override
     public Object getObject()throws NullPointerException, NoMethod {
-    	throw new NoMethod("Esse DB n�o suporta esse tipo de m�todo");
+    	throw new NoMethod("Esse DB não suporta esse tipo de método");
     }
+
 
 }
