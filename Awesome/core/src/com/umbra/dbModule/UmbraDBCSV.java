@@ -74,7 +74,7 @@ public class UmbraDBCSV extends ComponentBase implements iDB{
         try{
             while (bufferedFile !=  null) {
                 linha = bufferedFile.readLine();
-                valores = linha.split(",");
+                valores = linha.split(";");
                 for(int i = 0; i < valores.length; i++){
                     if(valores[i].equalsIgnoreCase(info)){
                         return valores;
@@ -102,7 +102,7 @@ public class UmbraDBCSV extends ComponentBase implements iDB{
         try{
             while (bufferedFile !=  null) {
                 linha = bufferedFile.readLine();
-                valores = linha.split(",");
+                valores = linha.split(";");
                 for(int i = 0; i < valores.length; i++){
                     if(valores[i].equalsIgnoreCase(info1) || valores[i].equalsIgnoreCase(info2)){
                         if(achou){
