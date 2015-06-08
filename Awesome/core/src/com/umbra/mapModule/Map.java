@@ -29,7 +29,7 @@ public class Map extends ComponentBase implements IMap {
     }
 
     // Construtor privado
-    public Map(IMob personagem){
+    public void init(IMob personagem){
         CellOperator operator = new CellOperator();
         Random generator = new Random();
         Boolean Ok;
