@@ -45,7 +45,7 @@ public class ModAttCreator extends ComponentBase implements IModAttManager {
 	            operation = ModificatorFactory.operationCreator(Operation.ADICAO, parameter);
 	        } else if (parameter < 0) {
 	            parameter = -parameter;
-	            operation = ModificatorFactory.operationCreator(Operation.SUBTRACAO, parameter);;
+	            operation = ModificatorFactory.operationCreator(Operation.SUBTRACAO, parameter);
 	        }
         	
             resp = create(attName, operation, parameter);
