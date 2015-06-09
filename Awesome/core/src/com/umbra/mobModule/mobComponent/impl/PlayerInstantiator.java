@@ -43,8 +43,6 @@ public class PlayerInstantiator extends MobFactory {
         resp.setAtt(0, Att.EVASIVENESS.getName(), 10);
         resp.setAtt(0, Att.LUCK.getName(), 9);
         resp.setAtt(0, Att.SANITY.getName(), 0.5, 1);
-
-
         resp.setAtt(0, Att.SPEED.getName(), 12);
 
         return resp;
