@@ -7,8 +7,8 @@ import com.umbra.mobModule.exceptions.CannotDoubleModifyAttributeException;
 import com.umbra.mobModule.exceptions.FullInventoryException;
 import com.umbra.mobModule.exceptions.NoMaxMinException;
 import com.umbra.mobModule.exceptions.SameItemException;
-import com.umbra.mobModule.itemComponent.impl.ItemManager;
-import com.umbra.mobModule.itemComponent.inter.IItemBattle;
+//import com.umbra.mobModule.itemComponent.impl.ItemManager;
+//import com.umbra.mobModule.itemComponent.inter.IItemBattle;
 import com.umbra.mobModule.mobComponent.inter.IMonstro;
 import com.umbra.mobModule.mobComponent.inter.IPlayer;
 
@@ -28,14 +28,12 @@ import anima.component.base.ComponentBase;
  * @author Isadora Sophia Garcia Rodopoulos 158018
  *
  */
-
 public class BattleManager extends ComponentBase implements IBattleManager{
 	// Handler
 	private BattleExecuter battleExecuter = null;
 	
-	// Mob components
-	private IMonstro monster = null;	
-	private IPlayer player = null;
+	// Data components
+	private BattleDao battleDao = null;
 	
 	// Flags
 	private boolean hasLeveledUp = false;
@@ -56,33 +54,6 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 	
 	// Main string, which is passed to the main class
 	private String status = "";
-	
-	/**
-	 * Getter para o monstro
-	 * 
-	 * @return IMonstro - objeto que implementa a interface IMonstro
-	 */
-	private IMonstro getMonster () { return this.monster; }
-	
-	/**
-	 * Setter para o monstro
-	 * 
-	 * @param monster - Monstro que será usado na batalha
-	 */
-	private void setMonster (IMonstro monster) { this.monster = monster; }
-	
-	/**
-	 * Getter para o Player
-	 * 
-	 * @return IPlayer - objeto que implementa a interface IPlayer
-	 */
-	private IPlayer getPlayer () { return this.player; }
-	/**
-	 * Setter para o player
-	 * 
-	 * @param player - Player que será usado na batalha
-	 */
-	private void setPlayer (IPlayer player) { this.player = player; }
 	
 	/**
 	 * Getter para a variavel Done
@@ -118,27 +89,31 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 	}
 	
 	/**
+	 * Checa se o player mudou de nível, em que a batalha entra em estado de distribuição de 
+	 * pontos em seus atributos
+	 * 
+	 * @return boolean - Retorna se mudou de nível
+	 */
+	public boolean getHasLeveledUp () { return this.hasLeveledUp; }
+	
+	/**
 	 * Inicialização das variáveis de batalha
 	 * 
 	 * @param player - Jogador da batalha
 	 * @param monster - Monstro da batalha
 	 */
 	public void initialize (IPlayer player, IMonstro monster) {
-		setPlayer(player);
-		setMonster(monster);
-		
-		//ISSO AQUI ZUERA
-		ItemManager itemManager = new ItemManager();
+		/*ItemManager itemManager = new ItemManager();
 		IItemBattle item = itemManager.instantiateItemBattle("LONG SWORD", null);
-			try {
-				getPlayer().putItem(item);
-			} catch (FullInventoryException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SameItemException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		try {
+			getPlayer().putItem(item);
+		} catch (FullInventoryException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SameItemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 		
 		
 		/*// For testing sake
@@ -158,13 +133,15 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		this.monster.setAtt("luck", 7);
 		this.monster.setAtt("sanity", 2);
 		this.monster.setAtt("hp", 10); */
-		this.monster.setAtt("hp", 5);
-		this.player.setAtt("sanity", 0.7);
 		
 		this.battleExecuter = new BattleExecuter();
+		this.battleDao = new BattleDaoImpl(player, monster);
 		
+		// information regarding turns
 		this.playerTurn = true;
+		this.turnsPassed = 0;
 		
+		// battle status
 		this.hasLeveledUp = false;
 		this.isBattleSet = false;
 		setDone(false);
@@ -182,9 +159,9 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 	 * 
 	 */
 	private void beReady () {
-		Vector <String> items = getPlayer().itemsForBattle();
+		Vector <String> items = battleDao.getPlayer().itemsForBattle();
 		
-		setStatus(monster.getDescription() + "\n");
+		setStatus(battleDao.getMonster().getDescription() + "\n");
 		
 		if (items.isEmpty()) {
 			setStatus("It seems that you don't have any item.\n"
@@ -230,6 +207,7 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 	 * @param input - Input do jogador
 	 */
 	public void processInput (String input) {
+		// restart settings
 		String oldStatus = getStatus();
 		setStatus(null);
 		
@@ -243,24 +221,27 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 			return;
 		}
 		
-		// If the battle isn't set yet
+		// if the battle isn't set yet
 		if (!this.isBattleSet) {
-			// If it was successfully equipped
+			// auxiliar boolean
 			boolean b = false;
+			
 			try {
-				b = getPlayer().equipItem(input);
+				b = battleDao.getPlayer().equipItem(input);
 			} catch (CannotDoubleModifyAttributeException e) {
 				e.printStackTrace();
 			}
+			
+			// if it was successfully equipped
 			if (b) {
 				isBattleSet = true;
 				
-				setStatus("Your item was equipped.\n" + getMonster().getName() + " approaches slowly into your direction."
+				setStatus("Your item was equipped.\n" + battleDao.getMonster().getName() + " approaches slowly into your direction."
 						+ " You must make a choice.\n[A]ttack, [D]efend or [R]un. Time is clocking.\n");
 				
 				return;
 			} else {
-				Vector <String> items = getPlayer().itemsForBattle();
+				Vector <String> items = battleDao.getPlayer().itemsForBattle();
 				
 				setStatus("You must choose a valid item:\n" + listItems(items));
 				
@@ -274,8 +255,9 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		if (this.playerTurn) {
 			// reset defense status, if that is the case
 			if (this.playerDefending && this.turnsPassed == 2) {
-				this.battleExecuter.defend(getPlayer(), true);
+				this.battleExecuter.defend(battleDao.getPlayer(), true);
 				this.playerDefending = false;
+				
 			} else { // player can keep on defending, just count as a passed turn
 				if (this.turnsPassed != 2 && this.playerDefending) {
 					this.turnsPassed += 1;
@@ -285,13 +267,14 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 			// execute player move
 			if (input.contains("D")) {
 				// The player increases his defense in the next 2 turns
-				this.battleExecuter.defend(getPlayer(), false);
+				this.battleExecuter.defend(battleDao.getPlayer(), false);
 				this.turnsPassed = 0;
 				this.playerDefending = true;
-			} else if (input.contains("R")) {
-				setDone(this.battleExecuter.escape(getPlayer(), getMonster()));
 				
-			} else if (input.contains("A")) {
+			} else if (input.contains("R")) { // run!
+				setDone(this.battleExecuter.escape(battleDao.getPlayer(), battleDao.getMonster()));
+				
+			} else if (input.contains("A")) { // proceed 
 				setStatus ("An attack is attempted. You can attack towards the creature's...\n"
 						+ "[L]imbs [ 1.15 | 50% ],\n"
 						+ "[B]rain [ 1.35 | 30% ] or\n"
@@ -299,14 +282,14 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 				
 				return;
 				
-			} else if (input.contains("L") || input.contains("B") || input.contains("V")) {
-				isBattleOver = this.battleExecuter.attack(getPlayer(), getMonster(), input);
+			} else if (input.contains("L") || input.contains("B") || input.contains("V")) { //attack!
+				isBattleOver = this.battleExecuter.attack(battleDao.getPlayer(), battleDao.getMonster(), input);
 				
-			} else {
+			} else { // invalid input
 				String retry = "You must choose a valid action.\n\n";
 				
 				// if it contains the initial description, get rid of it
-				if (oldStatus.contains(monster.getDescription())) {
+				if (oldStatus.contains(battleDao.getMonster().getDescription())) {
 					oldStatus = "[A]ttack, [D]efend or [R]un. Time is clocking.\n";
 				}
 				
@@ -333,27 +316,28 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		} else { // if it is the monster turn
 			// reset defense status, if that is the case
 			if (this.enemyDefending) {
-				this.battleExecuter.defend(getMonster(), true);
+				this.battleExecuter.defend(battleDao.getMonster(), true);
 				this.enemyDefending = false;
 			}
 			
-			String monsterInput = this.battleExecuter.monsterAI(monster, player);
+			// decides the next movement
+			String monsterInput = this.battleExecuter.monsterAI(battleDao.getMonster(), battleDao.getPlayer());
 			
 			if (monsterInput.contains("D")) {
-				this.battleExecuter.defend(getMonster(), false);
+				this.battleExecuter.defend(battleDao.getMonster(), false);
 				
 				this.enemyDefending = true;
 			} else {
-				 isBattleOver = this.battleExecuter.attack(getMonster(), getPlayer(), monsterInput);
+				 this.isBattleOver = this.battleExecuter.attack(battleDao.getMonster(), battleDao.getPlayer(), monsterInput);
 			}
 			
 			// get battle status
 			setStatus(battleExecuter.getStatus());
 			
-			if (!isBattleOver) {
+			if (!this.isBattleOver) {
 				setStatus("You may procede to your turn - you can either [A]ttack, [D]efend or [R]un. Decide.\n\n"
-						+ getMonster().getName() + "'s Health: " + (int)getMonster().getAtt("hp").getValue() + " / "
-						+ getMonster().getAtt("hp").getMax().intValue() + "\n");
+						+ battleDao.getMonster().getName() + "'s Health: " + (int)battleDao.getMonster().getAtt("hp").getValue() + " / "
+						+ battleDao.getMonster().getAtt("hp").getMax().intValue() + "\n");
 			}
 			
 			// get ready for next move
@@ -363,7 +347,7 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		
 		// if the battle was lost...
 		if (this.isBattleOver && !this.hasLeveledUp) {
-			if (getPlayer().dead()) {
+			if (battleDao.getPlayer().dead()) {
 				lostBattle();
 			} else {
 				wonBattle();
@@ -371,7 +355,7 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 			
 			// Unequip all items
 			try {
-				getPlayer().unequipAll();
+				battleDao.getPlayer().unequipAll();
 			} catch (FullInventoryException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -379,8 +363,6 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			reset ();
 		}
 	}
 	
@@ -404,23 +386,23 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 	 * Caso o jogador tenha ganhado a batalha, realiza os processos necessários
 	 */
 	private void wonBattle () {
-		double gainedXP = getMonster().getAtt("xp").getValue();
+		double gainedXP = battleDao.getMonster().getAtt("xp").getValue();
 		
-		setStatus(this.monster.getWinDescription());
+		setStatus(this.battleDao.getMonster().getWinDescription());
 		setStatus("You win this battle, for once. The creature is now dead, you may " +
 				"move on to your hopeless journey.\n");
-		setStatus("You win " + (int)monster.getAtt("xp").getValue() + " XP as you leave the battle.");
+		setStatus("You win " + (int)battleDao.getMonster().getAtt("xp").getValue() + " XP as you leave the battle.");
 		
 		// Reset Player's Health
 		try {
-			getPlayer().getAtt("hp").setToMax();
+			battleDao.getPlayer().getAtt("hp").setToMax();
 		} catch (NoMaxMinException e) {
 			e.printStackTrace();
 		}
 		
 		// increase gained XP and checks if player has leveled up
 		int levelGained;
-		levelGained = getPlayer().addXP(gainedXP);
+		levelGained = battleDao.getPlayer().addXP(gainedXP);
 		
 		if (levelGained > 0) {
 			this.hasLeveledUp = true;
@@ -428,6 +410,8 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		}
 		else {
 			setDone(true);
+			
+			reset();
 		}
 	}
 	
@@ -435,13 +419,10 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 	 * Caso o jogador tenha perdido a batalha, realiza os processos necessários
 	 */
 	private void lostBattle() {
-		setStatus(this.monster.getDeathDescription());
-		setStatus("Suddenly, everything becomes darker... Your limbs are tembling... Everything is fading. Long gone. "
-				+ "No hopes, no chance of escape. You are dead.\n");
+		setStatus(battleDao.getMonster().getDeathDescription());
 		
 		setDone(true);
-		
-		// lower XP?
+		reset();
 	}
 	
 	/**
@@ -455,11 +436,10 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		if (this.attsSelected != 0 && !answer.isEmpty()) {
 			// Level Up the stats selected!
 			if (answer.contains("1")) {
-				
-				getPlayer().getAtt("hp").setMax(getPlayer().getAtt("hp").getMax() + 10);
+				battleDao.getPlayer().getAtt("hp").setMax(battleDao.getPlayer().getAtt("hp").getMax() + 10);
 				
 				try {
-					getPlayer().getAtt("hp").setToMax();
+					battleDao.getPlayer().getAtt("hp").setToMax();
 				} catch (NoMaxMinException e) {
 					e.printStackTrace();
 				}
@@ -467,28 +447,23 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 				this.attsSelected--;
 				
 			} else if (answer.contains("2")) {
-				
-				getPlayer().getAtt("attack").setValue(getPlayer().getAtt("attack").getValue() + 1);
+				battleDao.getPlayer().getAtt("attack").setValue(battleDao.getPlayer().getAtt("attack").getValue() + 1);
 				this.attsSelected--;
 				
 			} else if (answer.contains("3")) {
-				
-				getPlayer().getAtt("defense").setValue(getPlayer().getAtt("defense").getValue() + 1);
+				battleDao.getPlayer().getAtt("defense").setValue(battleDao.getPlayer().getAtt("defense").getValue() + 1);
 				this.attsSelected--;
 				
 			} else if (answer.contains("4")) {
-				
-				getPlayer().getAtt("dexterity").setValue(getPlayer().getAtt("dexterity").getValue() + 1);
+				battleDao.getPlayer().getAtt("dexterity").setValue(battleDao.getPlayer().getAtt("dexterity").getValue() + 1);
 				this.attsSelected--;
 				
 			} else if (answer.contains("5")) {
-				
-				getPlayer().getAtt("evasiveness").setValue(getPlayer().getAtt("evasiveness").getValue() + 1);
+				battleDao.getPlayer().getAtt("evasiveness").setValue(battleDao.getPlayer().getAtt("evasiveness").getValue() + 1);
 				this.attsSelected--;
 				
 			} else if (answer.contains("6")) {
-				
-				getPlayer().getAtt("luck").setValue(getPlayer().getAtt("luck").getValue() + 1);
+				battleDao.getPlayer().getAtt("luck").setValue(battleDao.getPlayer().getAtt("luck").getValue() + 1);
 				this.attsSelected--;
 				
 			} else {
@@ -497,17 +472,19 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		}
 		
 		// if all the atts have been chosen
-		if (this.attsSelected == 0)
+		if (this.attsSelected == 0) {
 			setDone(true);
-		else
-			setStatus("You got to Level " + (int)getPlayer().getNivel() + "!\n"
+			reset();
+		} else {
+			setStatus("You got to Level " + (int)battleDao.getPlayer().getNivel() + "!\n"
 					+ "You have " + this.attsSelected + " Skill Points to spend. " + "Choose where you want to level up:\n" 
-					+ "[1] Health = " + getPlayer().getAtt("hp").getMax() + "\n"
-					+ "[2] Attack = " + (int)getPlayer().getAtt("attack").getValue() + "\n"
-					+ "[3] Defense = " + (int)getPlayer().getAtt("defense").getValue() + "\n"
-					+ "[4] Dexterity = " + (int)getPlayer().getAtt("dexterity").getValue() + "\n"
-					+ "[5] Evasiveness = " + (int)getPlayer().getAtt("evasiveness").getValue() + "\n"
-					+ "[6] Luck = " + (int)getPlayer().getAtt("luck").getValue() + "\n");
+					+ "[1] Health = " + battleDao.getPlayer().getAtt("hp").getMax() + "\n"
+					+ "[2] Attack = " + (int)battleDao.getPlayer().getAtt("attack").getValue() + "\n"
+					+ "[3] Defense = " + (int)battleDao.getPlayer().getAtt("defense").getValue() + "\n"
+					+ "[4] Dexterity = " + (int)battleDao.getPlayer().getAtt("dexterity").getValue() + "\n"
+					+ "[5] Evasiveness = " + (int)battleDao.getPlayer().getAtt("evasiveness").getValue() + "\n"
+					+ "[6] Luck = " + (int)battleDao.getPlayer().getAtt("luck").getValue() + "\n");
+		}
 	}
 	
 	/**
@@ -516,5 +493,6 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 	private void reset() {		
 		// Battle ended, reset class configurations
 		this.battleExecuter = null;
+		this.battleDao = null;
 	}
 }
