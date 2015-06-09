@@ -1,4 +1,4 @@
-package project;
+package com.umbra.puzzlesModule;
 
 public class PuzzleFactory{
 
@@ -19,14 +19,14 @@ public class PuzzleFactory{
 	
 	
 	//check for possible exceptions
-	public IPuzzle getPuzzle(IPuzzle currPuzzle){
+	public IPuzzle getPuzzle(){
 
 			
 		//in case of first call
 		if(this.currPuzzle == null && puzzleId == 0){
 			if(puzzleId < 3) this.puzzleId += 1;
 			this.currPuzzle = Puzzle1.getPuzzle1Instance();
-			if(this.maxTime != 0) currPuzzle.timer(this.maxTime);
+			if(this.maxTime != 0) this.currPuzzle.timer(this.maxTime);
 			currPuzzle.setSequenceOfTasks(); //this method does nothing if it had been called once;
 		}
 		

@@ -1,9 +1,9 @@
-package project;
+package com.umbra.puzzlesModule;
 
 import java.util.Hashtable;
 
 
-public class Puzzle1 implements IPuzzle{
+public class Puzzle1 implements IPuzzle {
 
 	
 	//private Iplayer player = null;
@@ -117,13 +117,13 @@ public class Puzzle1 implements IPuzzle{
 			this.tasks.put(getThisSetNextKey(), "As you enter the room, you see only a little point of light in the left corner. You can [C]heck the light.");
 			
 			//retrieve key = 1
-			this.tasks.put(getThisSetNextKey(), "While you walk slowly toward the light, you sense an object touching your feet. Trumbling, you fall on your knees trying to hold on to anything you can find. On the ground, you realize that the light was only a candle, almost running out. There’s a big candlestick on the wall. You can [L]ight the candlestick.");
+			this.tasks.put(getThisSetNextKey(), "While you walk slowly toward the light, you sense an object touching your feet. Trumbling, you fall on your knees trying to hold on to anything you can find. On the ground, you realize that the light was only a candle, almost running out. Thereï¿½s a big candlestick on the wall. You can [L]ight the candlestick.");
 			
 			//retrieve key = 2
-			this.tasks.put(getThisSetNextKey(), "You take the candle and use it to light the candlestick. The whole room lights up. You see a little table in the middle of the room with a wooden box sitting there. On the ground, there’s a big figure of a snake carved into a round shape of an unknown material, and that was probably what made you fall. You can [O]pen the wooden box or [T]ake the figure.");
+			this.tasks.put(getThisSetNextKey(), "You take the candle and use it to light the candlestick. The whole room lights up. You see a little table in the middle of the room with a wooden box sitting there. On the ground, thereï¿½s a big figure of a snake carved into a round shape of an unknown material, and that was probably what made you fall. You can [O]pen the wooden box or [T]ake the figure.");
 			
 			//retrieve key = 3
-			this.tasks.put(getThisSetNextKey(), "Your hands shake uncontrollably and you try to make them steady with no success. The wooden box creaks, filling the whole room with the noise. When you finally opened enough to see what’s inside, you notice a black liquid floating inside it. Fearfully, you put your hands inside the box, sensing a metalic material through the gooey liquid. It’s a medium sized metal blade. You can [T]ake the blade.");
+			this.tasks.put(getThisSetNextKey(), "Your hands shake uncontrollably and you try to make them steady with no success. The wooden box creaks, filling the whole room with the noise. When you finally opened enough to see whatï¿½s inside, you notice a black liquid floating inside it. Fearfully, you put your hands inside the box, sensing a metalic material through the gooey liquid. Itï¿½s a medium sized metal blade. You can [T]ake the blade.");
 			
 			//retrieve key = 4
 			this.tasks.put(getThisSetNextKey(), "You took the figure.");
