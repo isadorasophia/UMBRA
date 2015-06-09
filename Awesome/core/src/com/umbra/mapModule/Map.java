@@ -22,7 +22,7 @@ public class Map extends ComponentBase implements IMap {
 
     // Método único estático de acesso único ao objeto
     // SINGLETON!!! 
-    public static Map getInstance(IMob personagem) {
+    public Map getInstance(IMob personagem) {
         if (instance == null) {
             instance = new Map();
             instance.init(personagem);
@@ -31,7 +31,7 @@ public class Map extends ComponentBase implements IMap {
     }
 
     // Construtor privado
-    public void init(IMob personagem){
+    private void init(IMob personagem){
         CellOperator operator = new CellOperator();
         Random generator = new Random();
         Boolean Ok;
@@ -49,6 +49,10 @@ public class Map extends ComponentBase implements IMap {
         personagem.setPosition(new Position(TAM_Y-2, 3));
         corredor[TAM_Y-2][3].setMob(personagem);
 
+        operator.makePorta(corredor[TAM_Y-5][0]);
+        operator.makePorta(corredor[TAM_Y-25][TAM_X-1]);
+
+        /*
         // Coloca puzzles
         for(int i = 1; i < TAM_Y-1; i++) {
             if(generator.nextInt(22)%10 == 0) {
@@ -60,13 +64,12 @@ public class Map extends ComponentBase implements IMap {
                 }
             }
         }
+        */
 
         // Coloca paredes
         for (int i = 0; i < TAM_X; i++) {
-            if (corredor[0][i].getDoor() == null)
-                operator.makeParede(corredor[0][i]);
-            if (corredor[TAM_Y - 1][i].getDoor() == null)
-                operator.makeParede(corredor[TAM_Y - 1][i]);
+            operator.makeParede(corredor[0][i]);
+            operator.makeParede(corredor[TAM_Y - 1][i]);
         }
         for (int i = 0; i < TAM_Y; i++) {
             if (corredor[i][0].getDoor() == null)
@@ -80,7 +83,7 @@ public class Map extends ComponentBase implements IMap {
             Ok = false;
             for(int j = 1; j < TAM_X-1 && !Ok; j++) {
                 if(generator.nextInt(70)%60 == 0){
-                    operator.makeMonstro(corredor[i][j], i, j, n_mobs++/5);
+                    operator.makeMonstro(corredor[i][j], i, j, n_mobs++/8);
                     cont++;
                     Ok = true;
                 }

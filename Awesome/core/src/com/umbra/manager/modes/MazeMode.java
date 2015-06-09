@@ -35,7 +35,7 @@ public class MazeMode extends ComponentBase implements IMapModeComponent {
         this.comunicatorComand = new TextComunicator();
         comunicatorComand.newText("You are limited to move [W] up, [S] down, [A] left and [D] right. Where you go: ", 100, 150, Gdx.graphics.getWidth() - 200f, true);
         this.characters = characters;
-        map.init(characters.getPlayer());
+        map = map.getInstance(characters.getPlayer());
     }
 
     @Override
