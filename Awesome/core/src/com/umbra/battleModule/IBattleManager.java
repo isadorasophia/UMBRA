@@ -6,7 +6,7 @@ import anima.annotation.ComponentInterface;
 import anima.component.ISupports;
 
 @ComponentInterface (
-		value = "<http://purl.org/NET/dcc/com.umbra.battleModule.BattleManager>"
+		value = "<http://purl.org/NET/dcc/com.umbra.battleModule.IBattleManager>"
 )
 
 /**
