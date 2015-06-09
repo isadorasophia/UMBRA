@@ -22,7 +22,7 @@ public class Map extends ComponentBase implements IMap {
 
     // Método único estático de acesso único ao objeto
     // SINGLETON!!! 
-    public static Map getInstance(IMob personagem) {
+    public Map getInstance(IMob personagem) {
         if (instance == null) {
             instance = new Map();
             instance.init(personagem);
@@ -31,7 +31,7 @@ public class Map extends ComponentBase implements IMap {
     }
 
     // Construtor privado
-    public void init(IMob personagem){
+    private void init(IMob personagem){
         CellOperator operator = new CellOperator();
         Random generator = new Random();
         Boolean Ok;
