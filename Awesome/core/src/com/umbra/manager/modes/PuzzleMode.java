@@ -37,7 +37,7 @@ public class PuzzleMode extends ComponentBase implements IMode {
         end = false;
         done = false;
         puzzle = characters.getPuzzle();
-        comunicator.newText(puzzle.init(),100, Gdx.graphics.getHeight() - 50, Gdx.graphics.getWidth() - 200f, true);
+        comunicator.newText(puzzle.init(characters.getPlayer()),100, Gdx.graphics.getHeight() - 50, Gdx.graphics.getWidth() - 200f, true);
     }
 
     @Override
