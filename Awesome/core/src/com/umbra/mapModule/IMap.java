@@ -10,5 +10,6 @@ public interface IMap extends ISupports {
     public ICell getCell(IPosition posicao);
     public ICell[][] getCell(IPosition posicao,int range);
     public ICell move(IMob entidade, String direction) throws UnknownInputException;
+    public void kill(IMob monstro);
     public void init(IMob personagem);
 }
