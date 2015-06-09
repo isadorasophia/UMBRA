@@ -1,4 +1,4 @@
-package com.umbra.dbModule;
+package com.umbra.dbModule.products;
 
 import anima.annotation.Component;
 import anima.component.base.ComponentBase;
@@ -6,6 +6,8 @@ import anima.component.base.ComponentBase;
 import java.io.*;
 
 import com.umbra.dbModule.data.Directory;
+import com.umbra.dbModule.exceptions.NoMethod;
+import com.umbra.dbModule.interfaces.iDB;
 
 @Component(
         id = "<http://purl.org/NET/dcc/com.umbra.dbModule.UmbraDBCSV>",

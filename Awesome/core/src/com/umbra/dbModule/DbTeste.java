@@ -1,5 +1,9 @@
 package com.umbra.dbModule;
 
+import com.umbra.dbModule.enums.TypeDB;
+import com.umbra.dbModule.exceptions.NoMethod;
+import com.umbra.dbModule.interfaces.iDB;
+
 //Apenas para Teste
 public class DbTeste{
 

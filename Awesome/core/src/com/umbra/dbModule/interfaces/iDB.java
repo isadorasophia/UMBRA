@@ -1,4 +1,6 @@
-package com.umbra.dbModule;
+package com.umbra.dbModule.interfaces;
+
+import com.umbra.dbModule.exceptions.NoMethod;
 
 import anima.annotation.ComponentInterface;
 import anima.component.ISupports;

@@ -1,4 +1,4 @@
-package com.umbra.dbModule;
+package com.umbra.dbModule.enums;
 
 public enum TypeDB{
     XML,
