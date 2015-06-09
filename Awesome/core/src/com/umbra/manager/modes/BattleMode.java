@@ -30,6 +30,7 @@ public class BattleMode extends ComponentBase implements IBattleModeComponent {
     boolean modeOn; // Continue in the mode
     boolean end; // Actions ere over
     boolean done; // Last text already written
+    boolean closeToUp,levelup;
 
     @Override
     public void init(IComunicator comunicator, Characters characters) {
@@ -37,12 +38,16 @@ public class BattleMode extends ComponentBase implements IBattleModeComponent {
         battleComunicator = new TextComunicator();
         player = characters.getPlayer();
         monstro = characters.getMonstro();
+        player.setAtt("hp",100000,110000);
+        player.setAtt("attack",100);
         battlemanager.initialize(player,monstro);
         comunicator.newText(battlemanager.getStatus(), 100, Gdx.graphics.getHeight() - 50, Gdx.graphics.getWidth() - 200f, true);
         isAlive = true;
         modeOn = true;
         end = false;
         done = false;
+        levelup = false;
+        closeToUp = false;
     }
 
     @Override
@@ -50,25 +55,39 @@ public class BattleMode extends ComponentBase implements IBattleModeComponent {
         Modes next_mode = Modes.BATLLE;
 
         if(comunicator.update(dt)) {
-            if(!end) {
-                String input = comunicator.getInput();
-                if (input != null) {
-                    battlemanager.processInput(input);
-                    if (battlemanager.getHasLeveledUp()) {
-                        comunicator.newText(battlemanager.getStatus(), 100, Gdx.graphics.getHeight() - 50,
-                                Gdx.graphics.getWidth() - 200f, false);
-                        battleComunicator.newText("", 100, 150, Gdx.graphics.getWidth() - 200f, true);
+           if( (levelup) ? battleComunicator.update(dt) : true) {
+                if (!end) {
+                    String input;
+                    if (levelup) {
+                        input = battleComunicator.getInput();
+                        if (input != null) {
+                            battlemanager.processInput(input);
+                            comunicator.newText(battlemanager.getStatus(), 100, Gdx.graphics.getHeight() - 50,
+                                    Gdx.graphics.getWidth() - 200f, true);
+                            comunicator.newText(battlemanager.getStatus(), 100, Gdx.graphics.getHeight() - 50,
+                                    Gdx.graphics.getWidth() - 200f, true);
+                        }
+                        if(closeToUp) levelup = true;
+                        if(battlemanager.getHasLeveledUp()) closeToUp = true;
                     } else {
-                        comunicator.newText(battlemanager.getStatus(), 100, Gdx.graphics.getHeight() - 50,
-                                Gdx.graphics.getWidth() - 200f, true);
-                        end = battlemanager.getDone();
+                        input = comunicator.getInput();
+                        if (input != null) {
+                            battlemanager.processInput(input);
+                            comunicator.newText(battlemanager.getStatus(), 100, Gdx.graphics.getHeight() - 50,
+                                    Gdx.graphics.getWidth() - 200f, true);
+                            end = battlemanager.getDone();
+                        }
+                        if(!battlemanager.getHasLeveledUp()) {
+                            levelup = false;
+                            closeToUp = false;
+                        }
                     }
-                }
-            }else{
-                done = true;
-                if(!modeOn) {
-                    if (player.dead()) next_mode = Modes.GAMEOVER;
-                    else next_mode = Modes.MAZE;
+                } else {
+                    done = true;
+                    if (!modeOn) {
+                        if (player.dead()) next_mode = Modes.GAMEOVER;
+                        else next_mode = Modes.MAZE;
+                    }
                 }
             }
         }
