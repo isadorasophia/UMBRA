@@ -105,7 +105,7 @@ class BattleExecuter {
 	 * @return - boolean Se o monstro ou o player morreu
 	 */
 	private boolean attack (IMob attacker, IMob victim, String BP, boolean counter) {
-		double damage;
+		int damage;
 		BodyPart bodyPart = returnBodyPart(BP);
 		
 		if (bodyPart == null) {
@@ -122,7 +122,7 @@ class BattleExecuter {
 		
 		switch (attackState) {
 			case normal:
-				damage = calcDamage(attacker, victim, false, bodyPart.getAttFactor());
+				damage = (int)calcDamage(attacker, victim, false, bodyPart.getAttFactor());
 				setStatus(capitalize(attacker.getName()) + " attacked towards the " + bodyPart.getBodyPart() + " and inflicted a damage of " + (int) damage + " on " + victim.getName() + "!\n");
 					
 				victim.decreaseHP(damage); 
@@ -134,7 +134,7 @@ class BattleExecuter {
 				
 				break;
 			case critical:
-				damage = calcDamage(attacker, victim, true, bodyPart.getAttFactor());
+				damage = (int)calcDamage(attacker, victim, true, bodyPart.getAttFactor());
 				setStatus(capitalize(attacker.getName()) + " attacked towards the " + bodyPart.getBodyPart() + " and inflicted a CRITICAL damage of " + (int) damage + " on " + victim.getName() + "!\n");
 					
 				victim.decreaseHP(damage);
@@ -146,7 +146,7 @@ class BattleExecuter {
 				break;
 			case counter:
 				setStatus("Counter!\n");
-				damage = calcDamage(victim, attacker, false, bodyPart.getAttFactor());
+				damage = (int)calcDamage(victim, attacker, false, bodyPart.getAttFactor());
 				setStatus(capitalize(victim.getName()) + " attacked towards the " + bodyPart.getBodyPart() + " and inflicted a damage of " + (int)damage + " on " + attacker.getName() + "!\n");
 				
 				attacker.decreaseHP(damage);
