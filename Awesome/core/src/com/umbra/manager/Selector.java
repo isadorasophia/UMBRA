@@ -42,10 +42,10 @@ public class Selector extends ComponentBase implements ISelectorComponent {
 
     public void init() {
         ModesInstantiator.init();
-        characters.setPlayer(mobManager.createPlayer("Player","",new Position(0,0)));
+        characters.setPlayer(mobManager.createPlayer("you","",new Position(0,0)));
         characters.setMonstro(mobManager.createMonstro(1, new Position(3, 3)));
         characters.setPuzzle(new PuzzleFactory().getPuzzle());
-        setMode(Modes.INITIAL);
+        setMode(Modes.MAZE);
         comunicator = new TextComunicator();
     }
 
