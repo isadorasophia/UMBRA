@@ -50,7 +50,8 @@ public class TextComunicator implements IComunicator, InputProcessor {
         newText("", 0,0,0,false);
     }
 
-    public void newText(String fullText, float width, float hight, int letters, boolean cursorOn){
+    public void newText(String fullText, float width, float hight, int letters, boolean cursorOn, boolean map){
+        //if(map) font = new BitmapFont();
         newText(fullText, width, hight, width + letters * font.getSpaceWidth(), cursorOn);
     }
 
@@ -133,7 +134,7 @@ public class TextComunicator implements IComunicator, InputProcessor {
     public void draw(){
         batch.begin();
         if(text != null){
-        	if(hight - 200 - ((font.getCapHeight()*text.length())/(Gdx.graphics.getWidth() - 300))*font.getCapHeight() < 0) hight += font.getCapHeight();
+        	if(hight > 200 && ( hight - 200 - ((font.getCapHeight()*text.length())/(Gdx.graphics.getWidth() - 300))*font.getCapHeight() < 0 )) hight += font.getCapHeight();
         	font.draw(batch,text,width,hight,textSize,-5,true);
         }
         batch.end();

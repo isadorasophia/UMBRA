@@ -1,11 +1,14 @@
 package com.umbra.mobModule;
 
+import java.util.Vector;
+
 import anima.factory.IGlobalFactory;
 import anima.factory.context.componentContext.ComponentContextFactory;
 
 import com.umbra.mobModule.itemComponent.impl.ItemManager;
 import com.umbra.mobModule.itemComponent.inter.IItemBattle;
 import com.umbra.mobModule.itemComponent.inter.IItemManager;
+import com.umbra.mobModule.itemComponent.inter.IItemPuzzle;
 import com.umbra.mobModule.mobComponent.impl.MobManager;
 import com.umbra.mobModule.mobComponent.inter.IMobManager;
 import com.umbra.mobModule.mobComponent.inter.IPlayer;
@@ -31,10 +34,14 @@ public class ItemTest {
         			"<http://purl.org/NET/dcc/com.umbra.mobModule.itemComponent.impl.ItemManager>");
         	IPlayer player = mobmanager.createPlayer("Player", "Teste", null);
         	
-        	IItemBattle longSword = itemmanager.instantiateItemBattle("Long Sword", null);
-
+        	IItemBattle longSword = itemmanager.instantiateItemBattle("LONG SWORD", null);
+        	IItemPuzzle key = itemmanager.instantiateItemPuzzle("KEY", null);
+        	player.putItem(key);
+        	Vector<String> novo = player.itemsPuzzle();
+        	System.out.println(novo.contains("KEY"));
         	player.putItem(longSword);
-        	player.equipItem("Long Sword");
+        	player.equipItem("LONG SWORD");
+        	System.out.println(player);
         	player.unequipAll();
         	System.out.println(player);
         	

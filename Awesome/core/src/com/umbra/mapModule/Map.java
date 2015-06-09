@@ -87,8 +87,7 @@ public class Map extends ComponentBase implements IMap {
 
     public ICell[][] getCell(IPosition posicao,int size) {
         Position pos = (Position) posicao;
-        size--;
-        ICell[][] response = new Cell[size][size];
+        ICell[][] response = new Cell[2*size + 1][2*size + 1];
         int index_i = 0;
         int index_j = 0;
         for (int i = pos.getY() - size; i <= pos.getY() + size ; i++) {
@@ -100,43 +99,50 @@ public class Map extends ComponentBase implements IMap {
                     response[index_i][index_j++] = corredor[i][j];
                 }
             }
+            index_j = 0;
             index_i++;
         }
+
         return response;
     }
 
     // Retorna uma célula se houver um monstro ou porta para onde se quer mover
     // Retorna null se há uma parede, se conseguiu mover ou se a direção passada não seja válida
 
-    public ICell move(IMob entidade, String direction) {
+    public ICell move(IMob entidade, String direction) throws UnknownInputException {
         Position posicao = (Position) entidade.getPosition();
         ICell atual;
 
+        if(direction.isEmpty()){
+            throw new UnknownInputException();
+        }
         switch (direction.charAt(0)) {
-            case 'n':
+            case 'W':
                 atual = corredor[posicao.getY()][posicao.getX()];
                 ICell norte = corredor[posicao.getY()+1][posicao.getX()];
                 if (posicao.moveNorth(norte, atual).equalsIgnoreCase("ocupado"))
                     return norte;
                 break;
-            case 's':
+            case 'S':
                 atual = corredor[posicao.getY()][posicao.getX()];
                 ICell sul = corredor[posicao.getY()-1][posicao.getX()];
                 if (posicao.moveSouth(sul, atual).equalsIgnoreCase("ocupado"))
                     return sul;
                 break;
-            case 'o':
+            case 'A':
                 atual = corredor[posicao.getY()][posicao.getX()];
                 ICell oeste = corredor[posicao.getY()][posicao.getX()-1];
                 if (posicao.moveWest(oeste, atual).equalsIgnoreCase("ocupado"))
                     return oeste;
                 break;
-            case 'l':
+            case 'D':
                 atual = corredor[posicao.getY()][posicao.getX()];
                 ICell leste = corredor[posicao.getY()][posicao.getX()+1];
                 if (posicao.moveEast(leste, atual).equalsIgnoreCase("ocupado"))
                     return leste;
                 break;
+            default:
+                throw new UnknownInputException();
         }
         return null;
     }
