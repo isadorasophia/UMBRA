@@ -50,11 +50,12 @@ public class MazeMode extends ComponentBase implements IMapModeComponent {
             for (ICell cell : cellRow) {
                 if (cell == null) mapString.append("#");
                 else mapString.append(cell.getDescription());
+                mapString.append("  ");
             }
-            mapString.append("\n");
+            mapString.append("\n\n");
         }
-        comunicatorMap.newText(mapString.toString(), Gdx.graphics.getWidth()/2 - 150, Gdx.graphics.getHeight()/2 + 150,
-                range*2 + 1, false, true);
+        comunicatorMap.newText(mapString.toString(), Gdx.graphics.getWidth()/2 - 150, Gdx.graphics.getHeight()/2 + 200,
+                Gdx.graphics.getWidth() - 200f, false, true);
 
         // Manager Text Output and Input
         String new_text = "You can't go there. You are limited to move [W] up, [S] down, [A] left and [D] right. Where you go: ";

@@ -266,8 +266,19 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 			
 			// execute player move
 			if (input.contains("D")) {
-				// The player increases his defense in the next 2 turns
-				this.battleExecuter.defend(battleDao.getPlayer(), false);
+				// player increases his defense in the next 2 turns
+				if (!this.playerDefending) {
+					this.battleExecuter.defend(battleDao.getPlayer(), false);
+				} else { // manually defends, since it was already defending
+					this.turnsPassed = 0;
+					setStatus("You chose to defend, for once.\nPress return to procede.\n");
+				
+					// get ready for next move
+					this.playerTurn = false;
+					
+					return;
+				}
+				
 				this.turnsPassed = 0;
 				this.playerDefending = true;
 				
@@ -347,21 +358,19 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		
 		// if the battle was lost...
 		if (this.isBattleOver && !this.hasLeveledUp) {
-			if (battleDao.getPlayer().dead()) {
-				lostBattle();
-			} else {
-				wonBattle();
-			}
-			
 			// Unequip all items
 			try {
 				battleDao.getPlayer().unequipAll();
 			} catch (FullInventoryException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (SameItemException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}
+			
+			if (battleDao.getPlayer().dead()) {
+				lostBattle();
+			} else {
+				wonBattle();
 			}
 		}
 	}

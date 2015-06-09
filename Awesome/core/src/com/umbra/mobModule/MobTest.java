@@ -30,7 +30,7 @@ public class MobTest {
             IMobManager mobmanager = factory.createInstance(
                     "<http://purl.org/NET/dcc/com.umbra.mobModule.mobComponent.impl.MobManager>");
             List<IMonstro> monstros = new ArrayList<IMonstro>();
-            /*System.out.print("Digite o número de monstros a serem criados: ");
+            System.out.print("Digite o número de monstros a serem criados: ");
             int n = s.nextInt();
             int i = 1;
             while(n-- > 0){
@@ -39,7 +39,7 @@ public class MobTest {
                 System.out.println(novo);
                 monstros.add(novo);
             }
-            */
+            
             IPlayer player = mobmanager.createPlayer("nome", "descição", null);
             System.out.println(player);
 
