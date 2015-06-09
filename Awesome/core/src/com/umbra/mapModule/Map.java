@@ -136,34 +136,37 @@ public class Map extends ComponentBase implements IMap {
                 atual = corredor[posicao.getY()][posicao.getX()];
                 ICell norte = corredor[posicao.getY()-1][posicao.getX()];
                 presenca = posicao.moveNorth(norte, atual);
-                if (presenca.equalsIgnoreCase("monstro"))
+                if (presenca.equalsIgnoreCase("monstro") || (presenca.equalsIgnoreCase("porta") && entidade.getChar() == '@'))
                     retorna = norte;
                 else if (presenca.equalsIgnoreCase("player"))
                     retorna = atual;
                 break;
+
             case 'S':
                 atual = corredor[posicao.getY()][posicao.getX()];
                 ICell sul = corredor[posicao.getY()+1][posicao.getX()];
                 presenca = posicao.moveSouth(sul, atual);
-                if (presenca.equalsIgnoreCase("monstro"))
+                if (presenca.equalsIgnoreCase("monstro") || (presenca.equalsIgnoreCase("porta") && entidade.getChar() == '@'))
                     retorna = sul;
                 else if (presenca.equalsIgnoreCase("player"))
                     retorna = atual;
                 break;
+
             case 'A':
                 atual = corredor[posicao.getY()][posicao.getX()];
                 ICell oeste = corredor[posicao.getY()][posicao.getX()-1];
                 presenca = posicao.moveWest(oeste, atual);
-                if (presenca.equalsIgnoreCase("monstro"))
+                if (presenca.equalsIgnoreCase("monstro") || (presenca.equalsIgnoreCase("porta") && entidade.getChar() == '@'))
                     retorna = oeste;
                 else if (presenca.equalsIgnoreCase("player"))
                     retorna = atual;
                 break;
+
             case 'D':
                 atual = corredor[posicao.getY()][posicao.getX()];
                 ICell leste = corredor[posicao.getY()][posicao.getX()+1];
                 presenca = posicao.moveEast(leste, atual);
-                if (presenca.equalsIgnoreCase("monstro"))
+                if (presenca.equalsIgnoreCase("monstro") || (presenca.equalsIgnoreCase("porta") && entidade.getChar() == '@'))
                     retorna = leste;
                 else if (presenca.equalsIgnoreCase("player"))
                     retorna = atual;
@@ -179,20 +182,22 @@ public class Map extends ComponentBase implements IMap {
             for (IMob monstro : monstros) {
                 int dX = ((Position) monstro.getPosition()).getX() - player_x;
                 int dY = ((Position) monstro.getPosition()).getY() - player_y;
-                if (dX <= 0 && dY <= 0) {
-                    if (dX <= dY) pegou = this.move(monstro, "D");
-                    else pegou = this.move(monstro, "S");
-                } else if (dX >= 0 && dY >= 0) {
-                    if (dX >= dY) pegou = this.move(monstro, "A");
-                    else pegou = this.move(monstro, "W");
-                } else if (dX >= 0 && dY <= 0) {
-                    dY *= -1;
-                    if (dX >= dY) pegou = this.move(monstro, "A");
-                    else pegou = this.move(monstro, "S");
-                } else {
-                    dX *= -1;
-                    if (dX > dY) pegou = this.move(monstro, "D");
-                    else pegou = this.move(monstro, "W");
+                if (Math.abs(dX) <= 3 && Math.abs(dY) <= 3) {
+                    if (dX <= 0 && dY <= 0) {
+                        if (dX <= dY) pegou = this.move(monstro, "D");
+                        else pegou = this.move(monstro, "S");
+                    } else if (dX >= 0 && dY >= 0) {
+                        if (dX >= dY) pegou = this.move(monstro, "A");
+                        else pegou = this.move(monstro, "W");
+                    } else if (dX >= 0 && dY <= 0) {
+                        dY *= -1;
+                        if (dX >= dY) pegou = this.move(monstro, "A");
+                        else pegou = this.move(monstro, "S");
+                    } else {
+                        dX *= -1;
+                        if (dX > dY) pegou = this.move(monstro, "D");
+                        else pegou = this.move(monstro, "W");
+                    }
                 }
             }
             if (pegou != null) return pegou;
