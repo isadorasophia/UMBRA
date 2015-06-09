@@ -11,11 +11,7 @@ public class DbTeste{
         //Criacao da fabrica
         //Cada modulo deve colocar o nome do modulo (String) no construtor
         //Nesse caso seria o módulo "teste"
-<<<<<<< HEAD
-        DBFactory factory = new DBFactory("puzzle");
-=======
         DBFactory factory = new DBFactory("initialText");
->>>>>>> refs/remotes/origin/master
 
         iDB objectDBCSV = factory.getDB(TypeDB.CSV);
         iDB objectDBTXT = factory.getDB(TypeDB.TXT);
@@ -25,11 +21,7 @@ public class DbTeste{
         //Retorna um vetor de string
         String[] csv = null;
         try {
-<<<<<<< HEAD
-            csv = objectDBCSV.getFromDB("puzzle1");
-=======
             csv = objectDBCSV.getFromDB("initialText");
->>>>>>> refs/remotes/origin/master
 		} catch (NoMethod e) {
 			e.printStackTrace();
 		}
