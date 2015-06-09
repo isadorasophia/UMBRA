@@ -12,6 +12,7 @@ import java.util.Random;
 		id="<http://purl.org/NET/dcc/com.umbra.mapModule.Map>",
 		provides={"<http://purl.org/NET/dcc/com.umbra.com.umbra.mapModule.IMap>"}
 )
+
 public class Map extends ComponentBase implements IMap {
     private static int TAM_Y = 50;
     private static int TAM_X = 10;
@@ -35,9 +36,8 @@ public class Map extends ComponentBase implements IMap {
         CellOperator operator = new CellOperator();
         Random generator = new Random();
         Boolean Ok;
-        int cont = 0;
 
-        int n_mobs = 0;
+        int n_mobs = 18;
 
 
         for (int i = 0; i < TAM_Y; i++) {
@@ -83,8 +83,8 @@ public class Map extends ComponentBase implements IMap {
             Ok = false;
             for(int j = 1; j < TAM_X-1 && !Ok; j++) {
                 if(generator.nextInt(70)%60 == 0){
-                    operator.makeMonstro(corredor[i][j], i, j, n_mobs++/8, monstros);
-                    cont++;
+                    operator.makeMonstro(corredor[i][j], i, j, Math.abs(n_mobs)/8 + 1, monstros);
+                    n_mobs--;
                     Ok = true;
                 }
             }
