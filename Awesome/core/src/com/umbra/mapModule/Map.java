@@ -49,6 +49,10 @@ public class Map extends ComponentBase implements IMap {
         personagem.setPosition(new Position(TAM_Y-2, 3));
         corredor[TAM_Y-2][3].setMob(personagem);
 
+        operator.makePorta(corredor[TAM_Y-5][0]);
+        operator.makePorta(corredor[TAM_Y-25][TAM_X-1]);
+
+        /*
         // Coloca puzzles
         for(int i = 1; i < TAM_Y-1; i++) {
             if(generator.nextInt(22)%10 == 0) {
@@ -60,13 +64,12 @@ public class Map extends ComponentBase implements IMap {
                 }
             }
         }
+        */
 
         // Coloca paredes
         for (int i = 0; i < TAM_X; i++) {
-            if (corredor[0][i].getDoor() == null)
-                operator.makeParede(corredor[0][i]);
-            if (corredor[TAM_Y - 1][i].getDoor() == null)
-                operator.makeParede(corredor[TAM_Y - 1][i]);
+            operator.makeParede(corredor[0][i]);
+            operator.makeParede(corredor[TAM_Y - 1][i]);
         }
         for (int i = 0; i < TAM_Y; i++) {
             if (corredor[i][0].getDoor() == null)
