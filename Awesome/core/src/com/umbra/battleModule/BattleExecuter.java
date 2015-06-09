@@ -61,12 +61,26 @@ class BattleExecuter {
 		double escapeRate = (player.getAtt("luck").getValue() * 2 * ((player.getAtt("sanity").getValue()) + 1)) + player.getAtt("evasiveness").getValue();
 		double enemyRate = (player.getAtt("luck").getValue() * 2 * ((random.nextFloat() * 0.5) + 1)) + player.getAtt("dexterity").getValue();
 		
+		String playerName = player.getName();
+		playerName = playerName.substring(0, 1).toUpperCase() + playerName.substring(1);
+		
 		if (escapeRate >= enemyRate) {
-			setStatus(player.getName() + " was able to escape the battle and ran for his pitiful life...\n");
+			setStatus(capitalize(player.getName()) + " was able to escape the battle and ran for his pitiful life...\n");
 			return true;
-		} else
-			setStatus(player.getName() + " tried to escape the battle, but failed.\n");
+		} else {
+			setStatus(capitalize(player.getName()) + " tried to escape the battle, but failed.\n");
 			return false;
+		}
+	}
+	
+	/**
+	 * Retorna a string com a primeira letra capitalizada
+	 * 
+	 * @param Uma string arbitrária
+	 * @return String - a string recebida no parâmetro com a primeira letra maiúscula
+	 */
+	private String capitalize (String input) {
+		return input.substring(0, 1).toUpperCase() + input.substring(1);
 	}
 	
 	/**
@@ -109,7 +123,7 @@ class BattleExecuter {
 		switch (attackState) {
 			case normal:
 				damage = calcDamage(attacker, victim, false, bodyPart.getAttFactor());
-				setStatus(attacker.getName() + " attacks towards the " + bodyPart.getBodyPart() + " and inflicted a damage of " + (int) damage + " on " + victim.getName() + "!\n");
+				setStatus(capitalize(attacker.getName()) + " attacked towards the " + bodyPart.getBodyPart() + " and inflicted a damage of " + (int) damage + " on " + victim.getName() + "!\n");
 					
 				victim.decreaseHP(damage); 
 						
@@ -117,30 +131,31 @@ class BattleExecuter {
 					//setStatus (attacker.getName() + " just killed " + victim.getName() + "...\n");
 					return true;
 				}
+				
 				break;
 			case critical:
 				damage = calcDamage(attacker, victim, true, bodyPart.getAttFactor());
-				setStatus(attacker.getName() + " attacks towards the " + bodyPart.getBodyPart() + " and inflicted a CRITICAL damage of " + (int) damage + " on " + victim.getName() + "!\n");
+				setStatus(capitalize(attacker.getName()) + " attacked towards the " + bodyPart.getBodyPart() + " and inflicted a CRITICAL damage of " + (int) damage + " on " + victim.getName() + "!\n");
 					
 				victim.decreaseHP(damage);
+				
 				if (victim.dead()) {
-					//setStatus (attacker.getName() + " just killed " + victim.getName() + "...\n");
 					return true;
 				}
+				
 				break;
 			case counter:
 				setStatus("Counter!\n");
 				damage = calcDamage(victim, attacker, false, bodyPart.getAttFactor());
-				setStatus(victim.getName() + " attacks towards the " + bodyPart.getBodyPart() + " and inflicted a damage of " + (int)damage + " on " + attacker.getName() + "!\n");
+				setStatus(capitalize(victim.getName()) + " attacked towards the " + bodyPart.getBodyPart() + " and inflicted a damage of " + (int)damage + " on " + attacker.getName() + "!\n");
 				
 				attacker.decreaseHP(damage);
 				if (attacker.dead()) {
-					//setStatus (victim.getName() + " just killed " + attacker.getName() + "...\n");
 					return true;
 				}
 				break;
 			case missed:
-				setStatus(attacker.getName() + " tried to attack " + victim.getName() + ", but missed!\n");
+				setStatus(capitalize(attacker.getName()) + " tried to attack " + victim.getName() + ", but missed!\n");
 				break;
 		}
  
@@ -238,12 +253,12 @@ class BattleExecuter {
 			// decrease
 			target.setAtt("defense", defense / 	1.5);
 			
-			setStatus(target.getName() + " defense move is now done.\n");
+			setStatus(capitalize(target.getName()) + " lost the defense move.\n");
 		} else {
 			// increase
 			target.setAtt("defense", defense * 1.5);
 			
-			setStatus(target.getName() + " chooses to defend itself.\n");
+			setStatus(capitalize(target.getName()) + " chose to defend itself.\n");
 		}
 	}
 	
