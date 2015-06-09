@@ -31,6 +31,8 @@ import java.util.Vector;
 )
 public class Selector extends ComponentBase implements ISelectorComponent {
 
+    static final int HPMAX = 100;
+
     private Characters characters = new Characters();
     private IMode mode;
     private IMobManager mobManager;
@@ -41,7 +43,7 @@ public class Selector extends ComponentBase implements ISelectorComponent {
         ModesInstantiator.init();
         characters.setPlayer(mobManager.createPlayer("Player","",new Position(0,0)));
         characters.setMonstro(mobManager.createMonstro(1,new Position(3,3)));
-        setMode(Modes.BATLLE);
+        setMode(Modes.INITIAL);
         comunicator = new TextComunicator();
     }
 
@@ -76,9 +78,9 @@ public class Selector extends ComponentBase implements ISelectorComponent {
         String playerInfo;
 
         // set player info
-        playerInfo = "HP: " + characters.getPlayer().getHealth() + "  |XP: " + characters.getPlayer().getXp() +
-                "  |level: " + characters.getPlayer().getNivel();
-        comunicator.newText(playerInfo, 100, 100, Gdx.graphics.getWidth() - 200f, false);
+        playerInfo = "HP: " + (int)characters.getPlayer().getHealth() +  "/" + HPMAX + "  | XP: " + (int)characters.getPlayer().getXp() +
+                "  | Level: " + characters.getPlayer().getNivel();
+        comunicator.newText(playerInfo, 100, 50, Gdx.graphics.getWidth() - 200f, false);
         // Consider light influence on vulto
         double light = 0;
         Vector<String> lightItems = characters.getPlayer().itemsIlumination();

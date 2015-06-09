@@ -4,9 +4,9 @@ import anima.annotation.Component;
 import anima.component.base.ComponentBase;
 
 import com.umbra.dbModule.DBFactory;
-import com.umbra.dbModule.NoMethod;
-import com.umbra.dbModule.TypeDB;
-import com.umbra.dbModule.iDB;
+import com.umbra.dbModule.enums.TypeDB;
+import com.umbra.dbModule.exceptions.NoMethod;
+import com.umbra.dbModule.interfaces.iDB;
 import com.umbra.mapModule.IPosition;
 import com.umbra.mobModule.enums.Att;
 import com.umbra.mobModule.itemComponent.inter.*;

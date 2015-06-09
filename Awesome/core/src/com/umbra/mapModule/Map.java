@@ -89,9 +89,18 @@ public class Map extends ComponentBase implements IMap {
         Position pos = (Position) posicao;
         size--;
         ICell[][] response = new Cell[size][size];
-        int index = 0;
+        int index_i = 0;
+        int index_j = 0;
         for (int i = pos.getY() - size; i <= pos.getY() + size ; i++) {
-            response[index++] = Arrays.copyOfRange(corredor[i],pos.getX()-size,pos.getX()+size);
+            for( int j = pos.getX() - size; j <= pos.getX() + size; j++){
+                if(i < 0 || i >= TAM_Y || j < 0 || j >= TAM_X) {
+                    response[index_i][index_j++] = null;
+                }
+                else {
+                    response[index_i][index_j++] = corredor[i][j];
+                }
+            }
+            index_i++;
         }
         return response;
     }
@@ -130,5 +139,8 @@ public class Map extends ComponentBase implements IMap {
                 break;
         }
         return null;
+    }
+    public void kill(IMob monstro){
+        
     }
 }

@@ -3,16 +3,13 @@ package com.umbra.manager.modes;
 import anima.annotation.Component;
 import anima.component.base.ComponentBase;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.utils.*;
 import com.umbra.manager.Characters;
 import com.umbra.manager.TextComunicator;
 import com.umbra.manager.interfaces.IMapModeComponent;
 import com.umbra.manager.interfaces.IComunicator;
 import com.umbra.mapModule.ICell;
 import com.umbra.mapModule.IMap;
-import com.umbra.mapModule.Map;
-import com.umbra.mapModule.Position;
+import com.umbra.mobModule.mobComponent.inter.IMonstro;
 import com.umbra.mobModule.mobComponent.inter.IPlayer;
 
 import java.lang.StringBuilder;
@@ -26,30 +23,23 @@ public class MazeMode extends ComponentBase implements IMapModeComponent {
 
     private int range = 2;
     private IComunicator comunicatorMap, comunicatorComand;
-    private IPlayer player;
+    private Characters characters;
     private IMap map;
     private ICell cells[][];
     StringBuilder mapString;
-
-    // Flags
-    boolean modeOn; // Continue in the mode
-    boolean end; // Actions ere over
-    boolean done; // Last text already written
 
     @Override
     public void init(IComunicator comunicator, Characters characters) {
         this.comunicatorMap = comunicator;
         this.comunicatorComand = new TextComunicator();
         comunicatorComand.newText("Where you go: ", 100, 200, Gdx.graphics.getWidth() - 200f, true);
-        player = characters.getPlayer();
+        this.characters = characters;
         map.init(characters.getPlayer());
-        modeOn = true;
-        end = false;
-        done = false;
     }
 
     @Override
     public Modes update(float dt) {
+        IPlayer player = characters.getPlayer();
         Modes next_mode = Modes.MAZE;
 
         // Update Map
@@ -58,33 +48,39 @@ public class MazeMode extends ComponentBase implements IMapModeComponent {
             for(ICell cell : cellRow){
                 mapString.append(cell.getDescription());
             }
-        comunicatorMap.newText(mapString.toString(), Gdx.graphics.getWidth()/2 - 300, Gdx.graphics.getHeight()/2 - 300,
+        comunicatorMap.newText(mapString.toString(), Gdx.graphics.getWidth()/2 - 50, Gdx.graphics.getHeight()/2 + 50,
                 range, false);
 
         // Manager Text Output and Input
-
-
+        String new_text = "Where you go: ";
         if(comunicatorComand.update(dt)) {
-            if(!end) {
                 String input = comunicatorComand.getInput();
                 if (input != null) {
-                    //map.move(player,input);
-                    comunicatorComand.newText("Where you go: ", 100, 200, Gdx.graphics.getWidth() - 200f, true);
+                    ICell cell = map.move(player,input);
+                    if(cell == null) new_text = "You can't go there: ";
+                    else switch (cell.getDescription()){
+                        case '#':
+                            new_text = "You can't go there: ";
+                            break;
+                        case '[':
+                            characters.setPuzzle(cell.getDoor());
+                            next_mode = Modes.PUZZLE;
+                            break;
+                        case '.':
+                            break;
+                        default:
+                            characters.setMonstro((IMonstro)cell.getMob());
+                            next_mode = Modes.BATLLE;
+                    }
+                    if(next_mode == Modes.MAZE) comunicatorComand.newText(new_text, 100, 200, Gdx.graphics.getWidth() - 200f, true);
                 }
-            }else{
-                done = true;
-                if(!modeOn) {
-                    if (player.dead()) next_mode = Modes.GAMEOVER;
-                    else next_mode = Modes.MAZE;
-                }
-            }
         }
         return next_mode;
     }
 
     @Override
     public void draw() {
-        //comunicatorMap.draw();
+        comunicatorMap.draw();
         comunicatorComand.draw();
     }
 
