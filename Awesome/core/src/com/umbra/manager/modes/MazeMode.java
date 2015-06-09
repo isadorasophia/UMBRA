@@ -26,7 +26,7 @@ public class MazeMode extends ComponentBase implements IMapModeComponent {
     private Characters characters;
     private IMap map;
     private ICell cells[][];
-    StringBuilder mapString;
+    StringBuilder mapString = new StringBuilder();
 
     @Override
     public void init(IComunicator comunicator, Characters characters) {

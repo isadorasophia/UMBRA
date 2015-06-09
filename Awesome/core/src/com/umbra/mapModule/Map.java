@@ -102,6 +102,7 @@ public class Map extends ComponentBase implements IMap {
             index_j = 0;
             index_i++;
         }
+
         return response;
     }
 
@@ -112,6 +113,9 @@ public class Map extends ComponentBase implements IMap {
         Position posicao = (Position) entidade.getPosition();
         ICell atual;
 
+        if(direction.isEmpty()){
+            throw new UnknownInputException();
+        }
         switch (direction.charAt(0)) {
             case 'W':
                 atual = corredor[posicao.getY()][posicao.getX()];
@@ -137,6 +141,8 @@ public class Map extends ComponentBase implements IMap {
                 if (posicao.moveEast(leste, atual).equalsIgnoreCase("ocupado"))
                     return leste;
                 break;
+            default:
+                throw new UnknownInputException();
         }
         return null;
     }
