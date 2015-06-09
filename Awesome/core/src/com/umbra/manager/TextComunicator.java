@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.BitmapFontData;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -35,6 +36,12 @@ public class TextComunicator implements IComunicator, InputProcessor {
     StringBuilder input;
     // counter of updates
     private float counter;
+
+    public TextComunicator(SpriteBatch batch, BitmapFont font){
+        this.batch = batch;
+        this.font = font;
+        newText("",0,0,0,false);
+    }
 
     public TextComunicator(){
         batch = new SpriteBatch();
