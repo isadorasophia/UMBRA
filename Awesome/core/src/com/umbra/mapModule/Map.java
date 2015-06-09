@@ -22,7 +22,7 @@ public class Map extends ComponentBase implements IMap {
 
     // Método único estático de acesso único ao objeto
     // SINGLETON!!! 
-    public static Map getInstance(IMob personagem) {
+    public Map getInstance(IMob personagem) {
         if (instance == null) {
             instance = new Map();
             instance.init(personagem);
@@ -31,11 +31,13 @@ public class Map extends ComponentBase implements IMap {
     }
 
     // Construtor privado
-    public void init(IMob personagem){
+    private void init(IMob personagem){
         CellOperator operator = new CellOperator();
         Random generator = new Random();
         Boolean Ok;
         int cont = 0;
+
+        int n_mobs = 0;
 
 
         for (int i = 0; i < TAM_Y; i++) {
@@ -47,15 +49,11 @@ public class Map extends ComponentBase implements IMap {
         personagem.setPosition(new Position(TAM_Y-2, 3));
         corredor[TAM_Y-2][3].setMob(personagem);
 
-        for (int i = 0; i < TAM_X; i++) {
-            operator.makeParede(corredor[0][i]);
-            operator.makeParede(corredor[TAM_Y-1][i]);
-        }
-        for (int i = 0; i < TAM_Y; i++) {
-            operator.makeParede(corredor[i][0]);
-            operator.makeParede(corredor[i][TAM_X-1]);
-        }
+        operator.makePorta(corredor[TAM_Y-5][0]);
+        operator.makePorta(corredor[TAM_Y-25][TAM_X-1]);
 
+        /*
+        // Coloca puzzles
         for(int i = 1; i < TAM_Y-1; i++) {
             if(generator.nextInt(22)%10 == 0) {
                 //Falta instancia o puzzle com suas caracteristicas
@@ -66,12 +64,26 @@ public class Map extends ComponentBase implements IMap {
                 }
             }
         }
+        */
 
+        // Coloca paredes
+        for (int i = 0; i < TAM_X; i++) {
+            operator.makeParede(corredor[0][i]);
+            operator.makeParede(corredor[TAM_Y - 1][i]);
+        }
+        for (int i = 0; i < TAM_Y; i++) {
+            if (corredor[i][0].getDoor() == null)
+                operator.makeParede(corredor[i][0]);
+            if (corredor[i][TAM_X-1] == null)
+                operator.makeParede(corredor[i][TAM_X-1]);
+        }
+
+        // Coloca monstros
         for(int i = 1; i < TAM_Y-1; i++) {
             Ok = false;
             for(int j = 1; j < TAM_X-1 && !Ok; j++) {
                 if(generator.nextInt(70)%60 == 0){
-                    operator.makeMonstro(corredor[i][j], i, j);
+                    operator.makeMonstro(corredor[i][j], i, j, n_mobs++/5);
                     cont++;
                     Ok = true;
                 }
@@ -116,7 +128,7 @@ public class Map extends ComponentBase implements IMap {
         if(direction.isEmpty()){
             throw new UnknownInputException();
         }
-        switch (direction.charAt(0)) {
+        switch (direction.toUpperCase().charAt(0)) {
             case 'W':
                 atual = corredor[posicao.getY()][posicao.getX()];
                 ICell norte = corredor[posicao.getY()-1][posicao.getX()];
@@ -147,6 +159,7 @@ public class Map extends ComponentBase implements IMap {
         return null;
     }
     public void kill(IMob monstro){
-        
+        Position pos = (Position) monstro.getPosition();
+        corredor[pos.getY()][pos.getX()].removeMob();
     }
 }

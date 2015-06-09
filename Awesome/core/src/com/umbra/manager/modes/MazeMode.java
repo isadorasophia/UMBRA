@@ -35,7 +35,7 @@ public class MazeMode extends ComponentBase implements IMapModeComponent {
         this.comunicatorComand = new TextComunicator();
         comunicatorComand.newText("You are limited to move [W] up, [S] down, [A] left and [D] right. Where you go: ", 100, 150, Gdx.graphics.getWidth() - 200f, true);
         this.characters = characters;
-        map.init(characters.getPlayer());
+        map = map.getInstance(characters.getPlayer());
     }
 
     @Override
@@ -57,7 +57,7 @@ public class MazeMode extends ComponentBase implements IMapModeComponent {
                 range*2 + 1, false, true);
 
         // Manager Text Output and Input
-        String new_text = "You are limited to move [W] up, [S] down, [A] left and [D] right. Where you go: ";
+        String new_text = "You can't go there. You are limited to move [W] up, [S] down, [A] left and [D] right. Where you go: ";
         if(comunicatorComand.update(dt)) {
             String input = comunicatorComand.getInput();
             if(characters.getVulto().checkVulto()) next_mode = Modes.VULTO;
@@ -65,7 +65,7 @@ public class MazeMode extends ComponentBase implements IMapModeComponent {
                 ICell cell = null;
                 try {
                     cell = map.move(player,input);
-                    if(cell == null) new_text = "You can't go there. You are limited to move [W] up, [S] down, [A] left and [D] right: ";
+                    if(cell == null) new_text = "You are limited to move [W] up, [S] down, [A] left and [D] right: ";
                     
                     else switch (cell.getDescription()){
                         case '#':
@@ -79,6 +79,7 @@ public class MazeMode extends ComponentBase implements IMapModeComponent {
                             break;
                         default:
                             characters.setMonstro((IMonstro)cell.getMob());
+                            map.kill(cell.getMob());
                             next_mode = Modes.BATLLE;
                     }
                 } catch (UnknownInputException e) {
