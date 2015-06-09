@@ -11,7 +11,7 @@ public class DbTeste{
         //Criacao da fabrica
         //Cada modulo deve colocar o nome do modulo (String) no construtor
         //Nesse caso seria o módulo "teste"
-        DBFactory factory = new DBFactory("item");
+        DBFactory factory = new DBFactory("puzzle");
 
         iDB objectDBCSV = factory.getDB(TypeDB.CSV);
         iDB objectDBTXT = factory.getDB(TypeDB.TXT);
@@ -21,13 +21,13 @@ public class DbTeste{
         //Retorna um vetor de string
         String[] csv = null;
         try {
-            csv = objectDBCSV.getFromDB("Key");
+            csv = objectDBCSV.getFromDB("puzzle1");
 		} catch (NoMethod e) {
 			e.printStackTrace();
 		}
 
 
-        System.out.println("Toda a linha do CSV que possua a palavra itemPuzzle:");
+        System.out.println("Toda a linha do CSV que possua a palavra puzzle:");
         for(String a : csv){
             System.out.println(a);
         }
