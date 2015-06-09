@@ -6,6 +6,7 @@ import com.umbra.puzzlesModule.IPuzzle;
 import anima.annotation.Component;
 import anima.component.base.ComponentBase;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -17,6 +18,7 @@ public class Map extends ComponentBase implements IMap {
     private static int TAM_Y = 50;
     private static int TAM_X = 10;
     private static Map instance = null;
+    private static ArrayList<IMob> monstros = new ArrayList<IMob>();
 
     private ICell[][] corredor = new ICell[TAM_Y][TAM_X];
 
@@ -83,7 +85,7 @@ public class Map extends ComponentBase implements IMap {
             Ok = false;
             for(int j = 1; j < TAM_X-1 && !Ok; j++) {
                 if(generator.nextInt(40)%20 == 0){
-                    operator.makeMonstro(corredor[i][j], i, j, n_mobs++/5);
+                    operator.makeMonstro(corredor[i][j], i, j, /*n_mobs++/5*/ 0, monstros);
                     cont++;
                     Ok = true;
                 }
@@ -123,7 +125,8 @@ public class Map extends ComponentBase implements IMap {
 
     public ICell move(IMob entidade, String direction) throws UnknownInputException {
         Position posicao = (Position) entidade.getPosition();
-        ICell atual;
+        ICell atual, retorna = null;
+        String presenca;
 
         if(direction.isEmpty()){
             throw new UnknownInputException();
@@ -132,33 +135,73 @@ public class Map extends ComponentBase implements IMap {
             case 'W':
                 atual = corredor[posicao.getY()][posicao.getX()];
                 ICell norte = corredor[posicao.getY()-1][posicao.getX()];
-                if (posicao.moveNorth(norte, atual).equalsIgnoreCase("ocupado"))
-                    return norte;
+                presenca = posicao.moveNorth(norte, atual);
+                if (presenca.equalsIgnoreCase("monstro"))
+                    retorna = norte;
+                else if (presenca.equalsIgnoreCase("player"))
+                    retorna = atual;
                 break;
             case 'S':
                 atual = corredor[posicao.getY()][posicao.getX()];
                 ICell sul = corredor[posicao.getY()+1][posicao.getX()];
-                if (posicao.moveSouth(sul, atual).equalsIgnoreCase("ocupado"))
-                    return sul;
+                presenca = posicao.moveSouth(sul, atual);
+                if (presenca.equalsIgnoreCase("monstro"))
+                    retorna = sul;
+                else if (presenca.equalsIgnoreCase("player"))
+                    retorna = atual;
                 break;
             case 'A':
                 atual = corredor[posicao.getY()][posicao.getX()];
                 ICell oeste = corredor[posicao.getY()][posicao.getX()-1];
-                if (posicao.moveWest(oeste, atual).equalsIgnoreCase("ocupado"))
-                    return oeste;
+                presenca = posicao.moveWest(oeste, atual);
+                if (presenca.equalsIgnoreCase("monstro"))
+                    retorna = oeste;
+                else if (presenca.equalsIgnoreCase("player"))
+                    retorna = atual;
                 break;
             case 'D':
                 atual = corredor[posicao.getY()][posicao.getX()];
                 ICell leste = corredor[posicao.getY()][posicao.getX()+1];
-                if (posicao.moveEast(leste, atual).equalsIgnoreCase("ocupado"))
-                    return leste;
+                presenca = posicao.moveEast(leste, atual);
+                if (presenca.equalsIgnoreCase("monstro"))
+                    retorna = leste;
+                else if (presenca.equalsIgnoreCase("player"))
+                    retorna = atual;
                 break;
             default:
                 throw new UnknownInputException();
         }
-        return null;
+
+        if (retorna == null && entidade.getChar() == '@') {
+            int player_x = ((Position) entidade.getPosition()).getX();
+            int player_y = ((Position) entidade.getPosition()).getY();
+            ICell pegou = null;
+            for (IMob monstro : monstros) {
+                int dX = ((Position) monstro.getPosition()).getX() - player_x;
+                int dY = ((Position) monstro.getPosition()).getY() - player_y;
+                if (dX <= 0 && dY <= 0) {
+                    if (dX <= dY) pegou = this.move(monstro, "D");
+                    else pegou = this.move(monstro, "S");
+                } else if (dX >= 0 && dY >= 0) {
+                    if (dX >= dY) pegou = this.move(monstro, "A");
+                    else pegou = this.move(monstro, "W");
+                } else if (dX >= 0 && dY <= 0) {
+                    dY *= -1;
+                    if (dX >= dY) pegou = this.move(monstro, "A");
+                    else pegou = this.move(monstro, "S");
+                } else {
+                    dX *= -1;
+                    if (dX > dY) pegou = this.move(monstro, "D");
+                    else pegou = this.move(monstro, "W");
+                }
+            }
+            if (pegou != null) return pegou;
+        }
+
+        return retorna;
     }
     public void kill(IMob monstro){
+        monstros.remove(monstros.indexOf(monstro));
         Position pos = (Position) monstro.getPosition();
         corredor[pos.getY()][pos.getX()].removeMob();
     }

@@ -16,9 +16,12 @@ public class Position implements IPosition{
     // Retorna "desocupado" se não houver nada ou apenas uma parede na célula de destino
 
     public String moveNorth(ICell norte, ICell atual) {
-        if (norte.getMob() != null || norte.getDoor() != null)
-            return "ocupado";
-        else if (!norte.getParede()) {
+        if (norte.getMob() != null) {
+            if (norte.getMob().getChar() == '@') return "player";
+            else return "monstro";
+        } else if (norte.getDoor() != null) {
+            return "porta";
+        } else if (!norte.getParede()) {
             norte.setMob(atual.removeMob());
             this.posY--;
         }
@@ -26,9 +29,12 @@ public class Position implements IPosition{
     }
 
     public String moveSouth(ICell sul, ICell atual) {
-        if (sul.getMob() != null || sul.getDoor() != null)
-            return "ocupado";
-        else if (!sul.getParede()) {
+        if (sul.getMob() != null) {
+            if (sul.getMob().getChar() == '@') return "player";
+            else return "monstro";
+        } else if (sul.getDoor() != null) {
+            return "porta";
+        } else if (!sul.getParede()) {
             sul.setMob(atual.removeMob());
             this.posY++;
         }
@@ -36,9 +42,12 @@ public class Position implements IPosition{
     }
 
     public String moveWest(ICell oeste, ICell atual) {
-        if (oeste.getMob() != null || oeste.getDoor() != null)
-            return "ocupado";
-        else if (!oeste.getParede()) {
+        if (oeste.getMob() != null) {
+            if (oeste.getMob().getChar() == '@') return "player";
+            else return "monstro";
+        } else if (oeste.getDoor() != null) {
+            return "porta";
+        } else if (!oeste.getParede()) {
             oeste.setMob(atual.removeMob());
             this.posX--;
         }
@@ -46,9 +55,12 @@ public class Position implements IPosition{
     }
 
     public String moveEast(ICell leste, ICell atual) {
-        if (leste.getMob() != null || leste.getDoor() != null)
-            return "ocupado";
-        else if (!leste.getParede()) {
+        if (leste.getMob() != null) {
+            if (leste.getMob().getChar() == '@') return "player";
+            else return "monstro";
+        } else if (leste.getDoor() != null) {
+            return "porta";
+        } else if (!leste.getParede()) {
             leste.setMob(atual.removeMob());
             this.posX++;
         }
