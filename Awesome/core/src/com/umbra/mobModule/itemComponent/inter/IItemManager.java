@@ -20,25 +20,25 @@ import com.umbra.mapModule.IPosition;
 public interface IItemManager extends ISupports {
     /**
      * Cria um item do tipo de batalha
-     * @param name
-     * @param pos
-     * @return IItemBattle
+     * @param name : nome do item
+     * @param pos : posição
+     * @return Item de batalha criado
      */
     public IItemBattle instantiateItemBattle(String name, IPosition pos);
     
     /**
      * Cria um item do tipo de puzzle
-     * @param name
-     * @param pos
-     * @return IItemPuzzle
+     * @param name : nome do item
+     * @param pos : posição
+     * @return Item de puzzle criado
      */
     public IItemPuzzle instantiateItemPuzzle(String name, IPosition pos);
     
     /**
      * Cria um item do tipo de iluminação
-     * @param name
-     * @param pos
-     * @return IItemIlumination
+     * @param name : nome do item
+     * @param pos : posição
+     * @return Item de iluminação criado
      */
     public IItemIlumination instantiateItemIlumination(String name, IPosition pos);
 }

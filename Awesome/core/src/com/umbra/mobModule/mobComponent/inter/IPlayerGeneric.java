@@ -18,31 +18,31 @@ import java.util.List;
 public interface IPlayerGeneric extends IMob {
 	
 	/**
-	 * Coloca um item no inventário do player
-	 * @param novo
+	 * Coloca um item no inventário do player genérico
+	 * @param novo : item a ser adicionado
 	 * @throws FullInventoryException Retorna a exceção caso o inventário esteja cheio
 	 * @throws SameItemException Exceção lançada quando o item já está no inventário
 	 */
     public void putItem(IItem ... novo) throws FullInventoryException, SameItemException;
     
     /**
-     * Retira um item do inventário do player
-     * @param itemName
-     * @return
+     * Retira um item do inventário do player genérico
+     * @param itemName : nome do item a ser retirado
+     * @return Item retirado
      */
     public IItem dropItem(String itemName);
     
     /**
-     * Retira vários itens do inventário do player
-     * @param names
-     * @return
+     * Retira vários itens do inventário do player genérico
+     * @param names : lista dos nomes dos itens a serem retirados
+     * @return Lista de itens retirados
      */
     public List<IItem> dropItems(String ... names);
     
     /**
      * Equipa um item no player, e retorna se foi possível equipar
-     * @param itemName
-     * @return
+     * @param itemName : nome do item a ser equipado
+     * @return Se o item foi equipado
      * @throws CannotDoubleModifyAttributeException Exceção disparada quando se tenta modificar
      * 												duas vezes um atributo com o mesmo modificador
      */
@@ -50,8 +50,8 @@ public interface IPlayerGeneric extends IMob {
     
     /**
      * Equipa vários itens e retorna uma lista de quais foi possível equipar
-     * @param itemName
-     * @return
+     * @param itemName : lista dos nomes dos itens a serem equipados
+     * @return Se os itens foram equipados
      * @throws CannotDoubleModifyAttributeException Exceção disparada quando se tenta modificar
      * 												duas vezes um atributo com o mesmo modificador
      */
@@ -65,8 +65,8 @@ public interface IPlayerGeneric extends IMob {
     public void unequipAll() throws FullInventoryException, SameItemException;
     
     /**
-     * Retorna uma lista com todos os itens do player
-     * @return
+     * Retorna uma lista com todos os itens do player genérico
+     * @return Lista com todos os itens do player genérico
      */
     public List<IItem> getAllItems();
 }

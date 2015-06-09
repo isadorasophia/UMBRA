@@ -22,18 +22,18 @@ public interface IModAttManager extends ISupports {
 	/**
 	 * Criador de um modificador de atributo sem uma operação específica,
 	 * portanto ele só soma um subtrai o valor de um atributo
-	 * @param attName
-	 * @param parameter
-	 * @return
+	 * @param attName : nome do atributo que será modificado
+	 * @param parameter : parâmetro de modificação
+	 * @return Modificador de atributo criado
 	 */
 	public IModAtt create(String attName, double parameter);
 	
 	/**
 	 * Criador de um modificador de atributo com alguma operação especificada
-	 * @param attName
-	 * @param type
-	 * @param parameter
-	 * @return
+	 * @param attName : nome do atributo que será modificado
+	 * @param type : tipo da operação que modificará o atributo com o parâmetro passado
+	 * @param parameter : parâmetro de modificação
+	 * @return Modificador de atributo criado
 	 * @throws ArithmeticException Criação de divisão por zero
 	 */
     public IModAtt create(String attName, Operation type, double ... parameter) throws ArithmeticException;

@@ -11,14 +11,14 @@ package com.umbra.mobModule.mobComponent.inter;
 public interface IMonstroGeneric extends IMob {
 	
 	/**
-	 * Muda o identificador do monstro
-	 * @param id
+	 * Muda o identificador do monstro genérico
+	 * @param id : novo identificador
 	 */
     public void setId(int id);
     
     /**
-     * Pega o identificador do monstro
-     * @return
+     * Pega o identificador do monstro genérico
+     * @return Identificador do monstro genérico
      */
     public int getId();
 }

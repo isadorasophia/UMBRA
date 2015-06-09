@@ -21,48 +21,48 @@ public interface IMobGeneric extends
 	
 	/**
 	 * Pega um atributo do mob genérico
-	 * @param type
-	 * @return
+	 * @param type : nome do atributo
+	 * @return O atributo
 	 */
     public IAttribute getAtt(String type);
 
     /**
      * Modifica um atributo com um valor, mas mantém
      * os valores mínimos e máximos antigos
-     * @param type
-     * @param value
+     * @param type : nome do atributo
+     * @param value : valor novo
      */
     public void setAtt(String type, double value);
     
     /**
      * Modifica um atributo e seu valor máximo, muda mínimo para null
-     * @param type
-     * @param value
-     * @param max
+     * @param type : nome do atributo
+     * @param value : valor novo
+     * @param max : novo máximo
      */
     public void setAtt(String type, double value, double max);
     
     /**
      * Modifica um atributo e seu valor mínimo, muda máximo para null
-     * @param min
-     * @param type
-     * @param value
+     * @param min : novo mínimo
+     * @param type : nome do atributo
+     * @param value : valor novo
      */
     public void setAtt(double min, String type, double value);
     
     /**
      * Modifica um atributo, seus valores mínimo e máximo
-     * @param min
-     * @param type
-     * @param value
-     * @param max
+     * @param min : novo mínimo
+     * @param type : nome do atributo
+     * @param value : valor novo
+     * @param max : novo máximo
      */
     public void setAtt(double min, String type, double value, double max);
 
     /**
      * Checa se o mob genérico tem o atributo
-     * @param name
-     * @return
+     * @param name : nome do atributo
+     * @return Se o mob genérico tem o atributo
      */
     public boolean hasAtt(String name);
 }

@@ -21,10 +21,10 @@ public abstract class Item implements IItem{
 
     /**
      * Construtor padrão do item
-     * @param name
-     * @param description
-     * @param findProb
-     * @param pos
+     * @param name : nome do item
+     * @param description : descrição
+     * @param findProb : probabilidade de ser encontrado
+     * @param pos : posição
      */
     public Item(String name, String description, double findProb, IPosition pos){
         this.name = name;

@@ -1,5 +1,14 @@
 package com.umbra.mobModule;
 
+/**
+ * Classe que ajudava a imprimir as informações formatadas
+ * que ajudava a debugar o código internamente
+ * 
+ * @author Lucas Alves Racoci
+ * @author Luiz Fernando Rodrigues da Fonseca
+ *
+ */
+
 public class Margin {
     private int space;
     public static final int UNIDADE = 4;

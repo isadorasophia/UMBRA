@@ -13,20 +13,20 @@ public interface IItemPuzzle extends IItem {
 
 	/**
 	 * Pega os adjetivos que o item possui
-	 * @return List<String>
+	 * @return Lista de Strings com os adjetivos do item
 	 */
     public List<String> getAdjectives();
     
     /**
      * Adiciona um novo adjetivo ao item
-     * @param newAdj
+     * @param newAdj : novo adjetivo que será adicionado
      */
     public void newAdjective(String newAdj);
     
     /**
      * Modifica um adjetivo ja existente
-     * @param src
-     * @param newAdj
+     * @param src : antigo adjetivo que será substituído
+     * @param newAdj : novo adjetivo que será colocado
      */
     public void modAdj(String src, String newAdj);
 }

@@ -21,17 +21,17 @@ public interface IModAtt extends
 	
 	/**
 	 * Modifica um atributo passado com o valor já armazenado no objeto
-	 * @param src
-	 * @return
-	 * @throws CannotDoubleModifyAttributeException
+	 * @param src : atributo que será modificado
+	 * @return Atributo modificado
+	 * @throws CannotDoubleModifyAttributeException Tentativa de modificar um atributo duas vezes com o mesmo modificador
 	 */
     public IAttribute modify(IAttribute src) throws CannotDoubleModifyAttributeException;
     
     /**
      * Desmodifica um atributo passado com o valor armazenado no objeto
-     * @param src
-     * @return
-     * @throws CannotUnmodifyWhatHasNotBeenModifiedException
+     * @param src : atributo que foi modificado
+     * @return Atributo desmodificado
+     * @throws CannotUnmodifyWhatHasNotBeenModifiedException Tentativa de desmodificar um atributo sem ter modificado ainda
      */
     public IAttribute unmodify(IAttribute src) throws CannotUnmodifyWhatHasNotBeenModifiedException;
     

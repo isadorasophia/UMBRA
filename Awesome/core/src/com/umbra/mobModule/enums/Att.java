@@ -1,7 +1,8 @@
 package com.umbra.mobModule.enums;
 
 /**
- * Tipo enumerado que representa os atributos que serão usados no jogo
+ * Tipo enumerado que representa os atributos que serão usados no jogo,
+ * com valores base e valores de incremento para modificação
  * 
  * @author Lucas Alves Racoci
  * @author Luiz Fernando Rodrigues da Fonseca

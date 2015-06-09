@@ -33,12 +33,11 @@ public class PlayerGeneric extends Mob implements IPlayerGeneric {
     protected Stack<IItemBattle> equiped = null;
 
     /**
-     * Construtor padrão do player genérico, que recebe
-     * nome, descrição, posição e tamanho do inventário
-     * @param name
-     * @param description
-     * @param position
-     * @param inventorySize
+     * Construtor padrão do player genérico
+     * @param name : nome do player genérico
+     * @param description : descrição do player genérico
+     * @param position : posição
+     * @param invSize : tamanho do inventário
      */
     public PlayerGeneric(String name, String description, IPosition position, int inventorySize){
         super(name, description, position);

@@ -29,8 +29,8 @@ public class FabricaDeMonstro extends MobFactory {
     private static final int NUMERODEMONSTROS = 3;
 
     /**
-     * Acessa o banco de dados para criar o monstro com o id
-     * @param id
+     * Acessa o banco de dados para criar o monstro com o identificador
+     * @param id : identificador do monstro aleatório no BD
      * @return Retorna uma lista que contem necessáriamente um nome e uma descrição
      */
     private static List<String> monster(int id){
@@ -71,12 +71,12 @@ public class FabricaDeMonstro extends MobFactory {
     /**
      * Cria um valor aleatório para um atributo de acordo com
      * o nivel e um desvio padrão percentual aleatório
-     * @param r
-     * @param nivel
-     * @param percentDev
-     * @param rounding
-     * @param att
-     * @return
+     * @param r : objeto usado para criar números aleatórios
+     * @param nivel : nível do monstro
+     * @param percentDev : desvio padrão
+     * @param rounding : erro
+     * @param att : enumerado do atributo que contém números de modificação
+     * @return Número semi aleatório criado para algum atributo
      */
     private double randomLinearAtt(Random r, int nivel, double percentDev, int rounding, Att att){
         double coef = att.getIncrement();
@@ -89,10 +89,7 @@ public class FabricaDeMonstro extends MobFactory {
         return resp;
     }
     
-    /**
-     * Cria um monstro com seus atributos de acordo com seu nivel passado
-     */
-    public IMonstro create(int nivel, IPosition position){
+    public IMonstro create(int nivel, IPosition position) {
         List<String> monster = monster(id);
 
         String name =  monster.get(0);
@@ -134,9 +131,6 @@ public class FabricaDeMonstro extends MobFactory {
         return resp;
     }
 
-    /**
-     * Retorna uma exceção pois não se pode instanciar um player nesse caso
-     */
     public IPlayer instantiate(String name, String description, IPosition position) throws BadConstructorException {
         throw new BadConstructorException();
     }

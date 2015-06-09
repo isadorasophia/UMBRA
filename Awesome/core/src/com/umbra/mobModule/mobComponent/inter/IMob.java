@@ -12,20 +12,20 @@ public interface IMob extends IMobGeneric {
 	
 	/**
 	 * Retorna se o mob está vivo ou morto
-	 * @return
+	 * @return Se o mob está vivo ou morto
 	 */
     public boolean dead();
     
     /**
-     * Retorna o enumerado de identificação do mob
-     * @return
+     * Retorna o caracter do enumerado de identificação do mob
+     * @return Caractere de identificação
      */
     public char getChar();
     
     /**
      * Decrementa o hp e retorna se morreu ou não
-     * @param hp
-     * @return
+     * @param hp : vida do mob
+     * @return Checa se morreu ou não
      */
     public boolean decreaseHP(double hp);
     

@@ -29,12 +29,11 @@ public class Player extends PlayerGeneric implements IPlayer{
     private static Player instance;
 
     /**
-     * Construtor privado do player que recebe nome,
-     * descricão, posição e tamanho do inventário
-     * @param name
-     * @param description
-     * @param position
-     * @param invSize
+     * Construtor privado do player
+     * @param name : nome do player
+     * @param description : descrição do player
+     * @param position : posição
+     * @param invSize : tamanho do inventário
      */
     private Player(String name, String description, IPosition position, int invSize) {
         super(name, description, position, invSize);
@@ -42,11 +41,11 @@ public class Player extends PlayerGeneric implements IPlayer{
     
     /**
      * Método que retorna a instância do player, que é única de acordo com o Singleton
-     * @param name
-     * @param description
-     * @param position
-     * @param invSize
-     * @return
+     * @param name : nome do player
+     * @param description : descrição do player
+     * @param position : posição
+     * @param invSize : tamanho do inventário
+     * @return Única instância do Singleton player
      */
     public static Player getInstance(String name, String description, IPosition position, int invSize){
         if (instance == null) {

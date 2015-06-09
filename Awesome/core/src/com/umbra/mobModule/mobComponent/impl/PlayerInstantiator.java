@@ -32,9 +32,6 @@ public class PlayerInstantiator extends MobFactory {
 
     public static final Integer INITIAL_SIZE = 10;
 
-    /**
-     * Método que retorna um novo player criado
-     */
     public IPlayer instantiate(String name, String description,  IPosition position) {
 
         IPlayer resp = Player.getInstance(name, description, position, INITIAL_SIZE);
@@ -55,10 +52,6 @@ public class PlayerInstantiator extends MobFactory {
 
     }
 
-    /**
-     * Método que retorna uma exceção pois houve uma tentativa
-     * de instanciar um monstro com o instanciador de player
-     */
     public IMonstro create(int nivel, IPosition position) throws BadConstructorException {
         throw new BadConstructorException();
     }

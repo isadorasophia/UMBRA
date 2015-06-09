@@ -16,5 +16,10 @@ public interface IPositionable {
      * @return Um Objeto que implemente a interface IPosition
      */
     public IPosition getPosition();
+    
+    /**
+     * Permite setar a posição do objeto que implemente IPositionable
+     * @param position : nova posição
+     */
     public void setPosition(IPosition position);
 }

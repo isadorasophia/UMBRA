@@ -20,7 +20,7 @@ public class Subtract implements IModificator {
         return src;
     }
 	
-    public IAttribute unmodify(IAttribute src, double... parameter) {
+    public IAttribute unmodify(IAttribute src) {
         src.setValue(oldValue);
         return src;
     }

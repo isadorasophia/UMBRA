@@ -24,9 +24,9 @@ public class ModAtt implements IModAtt {
     /**
      * Constrói um modificador de atributo com uma operação passada
      * e vários valores que ele pode alterar
-     * @param attName
-     * @param operation
-     * @param parameter
+     * @param attName : nome do atributo modificado
+     * @param operation : operação que o modifica
+     * @param parameter : lista de parâmetros que modificam o atributo
      */
     public ModAtt(String attName, IModificator operation, double ... parameter){
         this.attName = attName;
@@ -53,7 +53,7 @@ public class ModAtt implements IModAtt {
             throw new CannotUnmodifyWhatHasNotBeenModifiedException();
         }
         IAttribute clone = src.clone();
-        IAttribute resp = operation.unmodify(clone, this.parameters);
+        IAttribute resp = operation.unmodify(clone);
         
         this.src = null;
         return resp;

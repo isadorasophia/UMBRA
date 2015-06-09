@@ -33,10 +33,10 @@ public class ItemBattle extends Item implements IItemBattle  {
 
     /**
      * Construtor padrão do item de batalha
-     * @param name
-     * @param description
-     * @param findProb
-     * @param pos
+     * @param name : nome do item
+     * @param description : descrição do item
+     * @param findProb : probabilidade de ser encontrado
+     * @param pos : posição
      */
     public ItemBattle(String name, String description, double findProb, IPosition pos){
         super(name, description, findProb, pos);
@@ -45,11 +45,11 @@ public class ItemBattle extends Item implements IItemBattle  {
     
     /**
      * Construtor que recebe uma lista de modificadores de atributo
-     * @param name
-     * @param description
-     * @param findProb
-     * @param pos
-     * @param modatts
+     * @param name : nome do item
+     * @param description : descrição do item
+     * @param findProb : probabilidade de ser encontrado
+     * @param pos : posição
+     * @param modatts : lista de modificadores de atributo
      */
     public ItemBattle(String name, String description, double findProb, IPosition pos, List<IModAtt> modatts){
         super(name, description, findProb, pos);

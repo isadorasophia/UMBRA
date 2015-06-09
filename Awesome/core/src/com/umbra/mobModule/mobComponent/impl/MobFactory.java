@@ -17,28 +17,28 @@ import com.umbra.mobModule.mobComponent.inter.IPlayer;
 public abstract class MobFactory {
 
 	/**
-	 * Retorna um player criado ou uma exceção se for na fábrica de monstro
-	 * @param name
-	 * @param description
-	 * @param position
-	 * @return
-	 * @throws BadConstructorException
+	 * Retorna um player criado com os atributos padrões
+     * @param name : nome do player
+     * @param description : descrição do player
+     * @param position : posição
+	 * @return Player criado
+	 * @throws BadConstructorException Tentativa de instanciar o player na fábrica de monstro
 	 */
     public abstract IPlayer instantiate(String name, String description,  IPosition position) throws BadConstructorException;
     
     /**
-     * Retorna um monstro criado ou uma exceção caso seja na fábrica de player
-     * @param nivel
-     * @param position
-     * @return
-     * @throws BadConstructorException
+     * Retorna um monstro criado acessado do DB
+     * @param nivel : nível do monstro
+     * @param position : posição
+     * @return Monstro criado
+     * @throws BadConstructorException Tentativa de instanciar o monstro no instanciador de player
      */
     public abstract IMonstro create(int nivel, IPosition position) throws BadConstructorException;
 
     /**
      * Cria uma fábrica do tipo especificado, player ou monstro
-     * @param id
-     * @return
+     * @param id : tipo da fábrica que se deseja ser instanciada
+     * @return Fábrica concreta criada
      */
     public static MobFactory createFactory(String id) {
         MobFactory factory = null;

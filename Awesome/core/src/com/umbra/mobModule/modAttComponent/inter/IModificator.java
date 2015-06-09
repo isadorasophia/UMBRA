@@ -14,17 +14,16 @@ public interface IModificator {
 	
 	/**
 	 * Modifica um atributo com os parâmetros que foram passados
-	 * @param src
-	 * @param parameters
-	 * @return
+	 * @param src : atributo que será modificado
+	 * @param parameters : lista de parâmetros que modificam o atributo
+	 * @return Novo atributo modificado
 	 */
     public IAttribute modify(IAttribute src, double ... parameters);
     
     /**
      * Desmodifica um atributo com os parâmetros que foram passados
-     * @param src
-     * @param parameters
-     * @return
+     * @param src : atributo que será desmodificado
+     * @return Novo atributo desmodificado
      */
-    public IAttribute unmodify(IAttribute src, double ... parameters);
+    public IAttribute unmodify(IAttribute src);
 }

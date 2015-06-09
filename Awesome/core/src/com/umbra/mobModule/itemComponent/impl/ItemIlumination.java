@@ -17,11 +17,11 @@ public class ItemIlumination extends Item implements IItemIlumination {
 
     /**
      * Construtor do item de iluminação
-     * @param name
-     * @param description
-     * @param findProb
-     * @param pos
-     * @param ilumination
+     * @param name : nome do item
+     * @param description : descrição do item
+     * @param findProb : probabilidade de ser encontrado
+     * @param pos : posição
+     * @param ilumination : valor da iluminação
      */
     public ItemIlumination(String name, String description, double findProb,
     					   IPosition pos, double ilumination) {

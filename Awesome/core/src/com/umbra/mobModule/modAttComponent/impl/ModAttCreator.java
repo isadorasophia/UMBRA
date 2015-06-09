@@ -26,10 +26,10 @@ public class ModAttCreator extends ComponentBase implements IModAttManager {
 	/**
 	 * Criador privado para criar o modificador de atributo
 	 * com uma operação e os parâmetros passados
-	 * @param attName
-	 * @param operation
-	 * @param parameter
-	 * @return
+	 * @param attName : nome do atributo modificado
+	 * @param operation : operação que modifica o atributo
+	 * @param parameter : lista de parâmetros de modificação
+	 * @return Modificador de atributo criado
 	 */
     private IModAtt create(String attName, IModificator operation, double ... parameter) {
         IModAtt resp = new ModAtt(attName, operation, parameter);

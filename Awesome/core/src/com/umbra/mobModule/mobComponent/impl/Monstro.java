@@ -22,10 +22,10 @@ public class Monstro extends MonstroGeneric implements IMonstro{
 	
 	/**
 	 * Construtor padrão do monstro
-	 * @param name
-	 * @param description
-	 * @param position
-	 * @param id
+	 * @param name : nome do monstro
+	 * @param description : descrição do monstro
+	 * @param position : posição
+	 * @param id : identificador do monstro
 	 */
     public Monstro(String name, String description, IPosition position, int id) {
         super(name, description, position, id);
@@ -33,11 +33,11 @@ public class Monstro extends MonstroGeneric implements IMonstro{
 
     /**
      * Construtor que recebe uma List de atributos
-     * @param name
-     * @param description
-     * @param position
-     * @param atts
-     * @param id
+	 * @param name : nome do monstro
+	 * @param description : descrição do monstro
+	 * @param position : posição
+     * @param atts : lista com os atributos
+	 * @param id : identificador do monstro
      */
     public Monstro(String name, String description, IPosition position, List<IAttribute> atts, int id) {
         super(name, description, position, atts, id);
@@ -45,11 +45,11 @@ public class Monstro extends MonstroGeneric implements IMonstro{
 
     /**
      * Construtor que recebe uma Hashtable com os atributos
-     * @param name
-     * @param description
-     * @param position
-     * @param atts
-     * @param id
+	 * @param name : nome do monstro
+	 * @param description : descrição do monstro
+	 * @param position : posição
+     * @param atts : Hashtable com os atributos
+	 * @param id : identificador do monstro
      */
     public Monstro(String name, String description, IPosition position, Hashtable<String, IAttribute> atts, int id) {
         super(name, description, position, atts, id);

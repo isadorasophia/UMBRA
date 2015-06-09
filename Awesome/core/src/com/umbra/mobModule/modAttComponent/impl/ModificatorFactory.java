@@ -16,10 +16,10 @@ public class ModificatorFactory {
 	
 	/**
 	 * Cria uma operação de acordo com o enumerado que for passado
-	 * @param type
-	 * @param parameter
-	 * @return
-	 * @throws BadArgumentException
+	 * @param type : enumerado que identifica a operação
+	 * @param parameter : lista de parâmetros de modificação
+	 * @return Operação criada
+	 * @throws ArithmeticException Tentativa de criar uma divisão por zero
 	 */
 	public static IModificator operationCreator(Operation type, double ... parameter) throws ArithmeticException {
 		IModificator novo = null;

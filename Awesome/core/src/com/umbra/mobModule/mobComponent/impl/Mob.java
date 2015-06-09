@@ -20,9 +20,9 @@ public abstract class Mob extends MobGeneric implements IMob {
 
 	/**
 	 * Construtor padrão
-	 * @param name
-	 * @param description
-	 * @param position
+	 * @param name : nome do mob
+	 * @param description : descrição do mob
+	 * @param position : posição
 	 */
     protected Mob(String name, String description, IPosition position) {
         super(name, description, position);
@@ -30,10 +30,10 @@ public abstract class Mob extends MobGeneric implements IMob {
 
     /**
      * Construtor que recebe uma Hashtable com os atributos
-     * @param name
-     * @param description
-     * @param position
-     * @param atts
+     * @param name : nome do mob
+     * @param description : descrição do mob
+     * @param position : posição
+     * @param atts : Hashtable com os atributos
      */
     protected Mob(String name, String description, IPosition position, Hashtable<String, IAttribute> atts) {
         super(name, description, position, atts);
@@ -41,10 +41,10 @@ public abstract class Mob extends MobGeneric implements IMob {
 
     /**
      * Construtor que recebe uma List com os atributos
-     * @param name
-     * @param description
-     * @param position
-     * @param atts
+     * @param name : nome do mob
+     * @param description : descrição do mob
+     * @param position : posição
+     * @param atts : lista com os atributos
      */
     protected Mob(String name, String description, IPosition position, List<IAttribute> atts) {
         super(name, description, position, atts);

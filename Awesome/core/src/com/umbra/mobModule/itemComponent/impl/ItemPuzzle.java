@@ -20,10 +20,10 @@ public class ItemPuzzle extends Item implements IItemPuzzle {
 
     /**
      * Construtor padrão do item puzzle
-     * @param name
-     * @param description
-     * @param findProb
-     * @param pos
+     * @param name : nome do item
+     * @param description : descrição do item
+     * @param findProb : probabilidade de ser encontrado
+     * @param pos : posição
      */
     public ItemPuzzle(String name, String description, double findProb, IPosition pos){
         super(name, description, findProb, pos);

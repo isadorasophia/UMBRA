@@ -2,7 +2,9 @@ package com.umbra.mobModule.exceptions;
 
 /**
  * Exceção que é disparada quando se tenta adicionar um item que já está no inventário
- * @author luizfrf
+ * 
+ * @author Lucas Alves Racoci
+ * @author Luiz Fernando Rodrigues da Fonseca
  *
  */
 

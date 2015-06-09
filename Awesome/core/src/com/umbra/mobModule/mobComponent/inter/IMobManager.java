@@ -20,14 +20,18 @@ public interface IMobManager extends ISupports {
 	
 	/**
 	 * Cria um player com os atributos já pré definidos
-	 * @return
+	 * @param name : nome do player
+	 * @param description : descrição do player
+	 * @param position : posição
+	 * @return Player criado
 	 */
 	public IPlayer createPlayer(String name, String description, IPosition position);
 	
 	/**
 	 * Cria um monstro e seus atributos aleatoriamente de acordo com seu nível
-	 * @param nivel
-	 * @return
+	 * @param nivel : nível que se deseja criar o monstro
+	 * @param position : posição
+	 * @return Monstro criado
 	 */
 	public IMonstro createMonstro(int nivel, IPosition position);
 }

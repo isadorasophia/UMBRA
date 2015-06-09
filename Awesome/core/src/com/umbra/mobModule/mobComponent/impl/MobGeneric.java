@@ -30,9 +30,9 @@ public abstract class MobGeneric implements IMobGeneric {
 
     /**
      * Construtor padrão do mob genérico
-     * @param name
-     * @param description
-     * @param position
+     * @param name : nome do mob genérico
+     * @param description : descrição do mob genérico
+     * @param position : posição
      */
     protected MobGeneric(String name, String description, IPosition position){
         this.name = name;
@@ -43,10 +43,10 @@ public abstract class MobGeneric implements IMobGeneric {
     
     /**
      * Construtor que recebe uma Hashtable com os atributos
-     * @param name
-     * @param description
-     * @param position
-     * @param atts
+     * @param name : nome do mob genérico
+     * @param description : descrição do mob genérico
+     * @param position : posição
+     * @param atts : Hashtable com os atributos
      */
     protected MobGeneric(String name, String description, IPosition position,
                          Hashtable<String,IAttribute> atts){
@@ -56,10 +56,10 @@ public abstract class MobGeneric implements IMobGeneric {
 
     /**
      * Construtor que recebe uma List com os atributos
-     * @param name
-     * @param description
-     * @param position
-     * @param atts
+     * @param name : nome do mob genérico
+     * @param description : descrição do mob genérico
+     * @param position : posição
+     * @param atts : lista com os atributos
      */
     protected MobGeneric(String name, String description, IPosition position,
                          List<IAttribute> atts){

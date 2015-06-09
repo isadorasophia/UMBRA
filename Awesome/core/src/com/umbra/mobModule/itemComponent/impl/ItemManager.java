@@ -30,6 +30,12 @@ import java.util.List;
 
 public class ItemManager extends ComponentBase implements IItemManager {
     
+	/**
+	 * Pega o item com o nome passado do DB
+	 * @param fileName : nome do item
+	 * @param pathadd : tipo do item
+	 * @return Lista com as Strings lidas do DB
+	 */
     private static List<String> item(String fileName, String pathadd){
     	//Instanciando um db do tipo CSV
         DBFactory factory = new DBFactory("item");

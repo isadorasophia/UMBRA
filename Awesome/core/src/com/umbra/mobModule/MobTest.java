@@ -3,18 +3,21 @@ package com.umbra.mobModule;
 import anima.factory.IGlobalFactory;
 import anima.factory.context.componentContext.ComponentContextFactory;
 import com.umbra.mobModule.itemComponent.impl.ItemManager;
-import com.umbra.mobModule.itemComponent.inter.IItemBattle;
-import com.umbra.mobModule.itemComponent.inter.IItemManager;
-import com.umbra.mobModule.itemComponent.inter.IItemPuzzle;
 import com.umbra.mobModule.mobComponent.impl.MobManager;
 import com.umbra.mobModule.mobComponent.inter.IMobManager;
 import com.umbra.mobModule.mobComponent.inter.IMonstro;
-import com.umbra.mobModule.mobComponent.inter.IPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.Scanner;
+
+/**
+ * Uma das aplicações para testar o módulo internamente
+ * 
+ * @author Lucas Alves Racoci
+ * @author Luiz Fernando Rodrigues da Fonseca
+ *
+ */
 
 public class MobTest {
     public static void main(String[] args) {
@@ -25,8 +28,6 @@ public class MobTest {
             factory.registerPrototype(ItemManager.class);
             IMobManager mobmanager = factory.createInstance(
                     "<http://purl.org/NET/dcc/com.umbra.mobModule.mobComponent.impl.MobManager>");
-            IItemManager itemmanager = factory.createInstance(
-                    "<http://purl.org/NET/dcc/com.umbra.mobModule.itemComponent.impl.ItemManager>");
             List<IMonstro> monstros = new ArrayList<IMonstro>();
             System.out.print("Digite o número de monstros a serem criados: ");
             int n = s.nextInt();

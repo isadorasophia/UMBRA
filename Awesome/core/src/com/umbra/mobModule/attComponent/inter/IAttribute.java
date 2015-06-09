@@ -43,23 +43,23 @@ public interface IAttribute extends
     public Double getMin();
     /**
      * Volta o valor do atributo para seu máximo
-     * @throws NoMaxMinException 
+     * @throws NoMaxMinException Exceção lançada quando não há o valor máximo
      */
     public void setToMax() throws NoMaxMinException;
     /**
      * Volta o valor do atributo para seu mínimo
-     * @throws NoMaxMinException 
+     * @throws NoMaxMinException Exceção lançada quando não há o valor mínimo
      */
     public void setToMin() throws NoMaxMinException;
 
     /**
      * Permite editar o valor máximo do atributo
-     * @param max
+     * @param max : seta o máximo
      */
     public void setMax(double max);
     /**
      * Permite editar o valor mínimo do atributo
-     * @param min
+     * @param min : seta o mínimo
      */
     public void setMin(double min);
 }
