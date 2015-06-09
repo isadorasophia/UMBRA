@@ -27,7 +27,7 @@ public class DbTeste{
 		}
 
 
-        System.out.println("Toda a linha do CSV que possua a palavra itemPuzzle:");
+        System.out.println("Toda a linha do CSV que possua a palavra puzzle:");
         for(String a : csv){
             System.out.println(a);
         }
