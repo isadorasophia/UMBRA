@@ -50,7 +50,8 @@ public class TextComunicator implements IComunicator, InputProcessor {
         newText("", 0,0,0,false);
     }
 
-    public void newText(String fullText, float width, float hight, int letters, boolean cursorOn){
+    public void newText(String fullText, float width, float hight, int letters, boolean cursorOn, boolean map){
+        //if(map) font = new BitmapFont();
         newText(fullText, width, hight, width + letters * font.getSpaceWidth(), cursorOn);
     }
 

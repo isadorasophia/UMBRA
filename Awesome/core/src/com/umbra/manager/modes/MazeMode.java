@@ -22,7 +22,7 @@ import java.lang.StringBuilder;
 )
 public class MazeMode extends ComponentBase implements IMapModeComponent {
 
-    private int range = 3;
+    private int range = 2;
     private IComunicator comunicatorMap, comunicatorComand;
     private Characters characters;
     private IMap map;
@@ -45,14 +45,16 @@ public class MazeMode extends ComponentBase implements IMapModeComponent {
 
         // Update Map
         mapString.delete(0, mapString.length());
-        cells = map.getCell(player.getPosition() ,range);
-        for(ICell[] cellRow : cells)
-            for(ICell cell : cellRow){
-                if(cell == null) mapString.append("#");
+        cells = map.getCell(player.getPosition(), range);
+        for (ICell[] cellRow : cells) {
+            for (ICell cell : cellRow) {
+                if (cell == null) mapString.append("#");
                 else mapString.append(cell.getDescription());
             }
+            mapString.append("\n");
+        }
         comunicatorMap.newText(mapString.toString(), Gdx.graphics.getWidth()/2 - 150, Gdx.graphics.getHeight()/2 + 150,
-                range, false);
+                range*2 + 1, false, true);
 
         // Manager Text Output and Input
         String new_text = "You are limited to move [W] up, [S] down, [A] left and [D] right. Where you go: ";
