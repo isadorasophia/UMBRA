@@ -26,7 +26,7 @@ import com.umbra.mobModule.mobComponent.inter.IPlayer;
 import com.umbra.mobModule.modAttComponent.impl.ModAtt;
 import com.umbra.mobModule.modAttComponent.inter.IModAtt;
 
-public class Principal {
+public class ItemTest {
 	public static void main(String[] args) {
 
         try {
@@ -43,9 +43,11 @@ public class Principal {
         	IItemPuzzle key = itemmanager.instantiateItemPuzzle("key", null);
         	IItemIlumination lantern = itemmanager.instantiateItemIlumination("Lantern", null);
         	IMonstro monstro = mobmanager.createMonstro(5, null);
-        	System.out.println(longSword);
-        	System.out.println(key);
-        	System.out.println(lantern);
+        	player.putItem(longSword);
+        	player.equipItem("Long Sword");
+        	player.unequipAll();
+        	System.out.println(player);
+        	
         } catch (Exception e) {
         	e.printStackTrace();
         }

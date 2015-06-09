@@ -36,7 +36,7 @@ public class InitialMode extends ComponentBase implements IMode {
         modeon = true;
 
         try {
-            reader = new FileReader("Textos/initialText.txt");
+            reader = new FileReader("Textos/initialText.txta");
             int a = -1;
             do {
                 a = reader.read();
@@ -59,7 +59,7 @@ public class InitialMode extends ComponentBase implements IMode {
 
         // First Text update
         if(comunicator.update(dt)) eof = true;
-        if(!modeon) return Modes.BATLLE;
+        if(!modeon) return Modes.MAZE;
         return newMode;
     }
 

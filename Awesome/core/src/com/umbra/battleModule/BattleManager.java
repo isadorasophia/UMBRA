@@ -6,6 +6,7 @@ import java.util.Vector;
 import com.umbra.mobModule.exceptions.CannotDoubleModifyAttributeException;
 import com.umbra.mobModule.exceptions.FullInventoryException;
 import com.umbra.mobModule.exceptions.NoMaxMinException;
+import com.umbra.mobModule.exceptions.SameItemException;
 import com.umbra.mobModule.itemComponent.impl.ItemManager;
 import com.umbra.mobModule.itemComponent.inter.IItemBattle;
 import com.umbra.mobModule.mobComponent.inter.IMonstro;
@@ -126,16 +127,22 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		setPlayer(player);
 		setMonster(monster);
 		
-		/*ItemManager itemManager = new ItemManager();
-		IItemBattle item = itemManager.instantiateItemBattle("Long Sword", null);
-		try {
-			getPlayer().putItem(item);
-		} catch (FullInventoryException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		//ISSO AQUI ZUERA
+		ItemManager itemManager = new ItemManager();
+		IItemBattle item = itemManager.instantiateItemBattle("LONG SWORD", null);
+		System.out.println(item);
+			try {
+				getPlayer().putItem(item);
+			} catch (FullInventoryException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SameItemException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		
-		// For testing sake
+		
+		/*// For testing sake
 		 this.player.setAtt("attack", 15);
 		this.player.setAtt("defense", 14);
 		this.player.setAtt("dexterity", 13);

@@ -1,6 +1,0 @@
-Long Sword
-0.4
-3.0
-1.0
-0.0
-This is a sword known for its enormity

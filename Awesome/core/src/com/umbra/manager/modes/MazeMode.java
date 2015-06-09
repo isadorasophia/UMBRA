@@ -42,7 +42,7 @@ public class MazeMode extends ComponentBase implements IMapModeComponent {
         this.comunicatorComand = new TextComunicator();
         comunicatorComand.newText("Where you go: ", 100, 200, Gdx.graphics.getWidth() - 200f, true);
         player = characters.getPlayer();
-        map = Map.getInstance(player);
+        map.init(characters.getPlayer());
         modeOn = true;
         end = false;
         done = false;
@@ -53,13 +53,13 @@ public class MazeMode extends ComponentBase implements IMapModeComponent {
         Modes next_mode = Modes.MAZE;
 
         // Update Map
-        //cells = map.getCell(new Position(5,2), range);
-        //for(ICell[] cellRow : cells)
-        //    for(ICell cell : cellRow){
-        //        mapString.append(cell.getDescription());
-        //    }
-        //comunicator.newText(mapString.toString(), Gdx.graphics.getWidth()/2 - 300, Gdx.graphics.getHeight()/2 - 300,
-        //        range, false);
+        cells = map.getCell(player.getPosition() ,range);
+        for(ICell[] cellRow : cells)
+            for(ICell cell : cellRow){
+                mapString.append(cell.getDescription());
+            }
+        comunicatorMap.newText(mapString.toString(), Gdx.graphics.getWidth()/2 - 300, Gdx.graphics.getHeight()/2 - 300,
+                range, false);
 
         // Manager Text Output and Input
 
@@ -100,7 +100,7 @@ public class MazeMode extends ComponentBase implements IMapModeComponent {
 
     @Override
     public void connect(IMap map) {
-
+        this.map = map;
     }
 
 }
