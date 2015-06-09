@@ -3,7 +3,7 @@ package com.umbra.mobModule.mobComponent.impl;
 import anima.annotation.Component;
 import anima.component.base.ComponentBase;
 
-import com.umbra.mapModule.IPosition;
+import com.umbra.mapModule.inter.IPosition;
 import com.umbra.mobModule.exceptions.BadConstructorException;
 import com.umbra.mobModule.mobComponent.inter.IMobManager;
 import com.umbra.mobModule.mobComponent.inter.IMonstro;

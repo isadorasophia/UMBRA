@@ -1,6 +1,6 @@
 package com.umbra.mobModule.mobComponent.impl;
 
-import com.umbra.mapModule.IPosition;
+import com.umbra.mapModule.inter.IPosition;
 import com.umbra.mobModule.attComponent.inter.IAttribute;
 import com.umbra.mobModule.enums.Type;
 import com.umbra.mobModule.mobComponent.inter.IMonstroGeneric;

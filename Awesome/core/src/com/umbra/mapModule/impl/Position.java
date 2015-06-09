@@ -1,6 +1,9 @@
-package com.umbra.mapModule;
+package com.umbra.mapModule.impl;
 
-public class Position implements IPosition{
+import com.umbra.mapModule.inter.ICell;
+import com.umbra.mapModule.inter.IPosition;
+
+public class Position implements IPosition {
     private int posX;
     private int posY;
 

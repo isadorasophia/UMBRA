@@ -1,6 +1,9 @@
-package com.umbra.mapModule;
+package com.umbra.mapModule.impl;
 
 import com.umbra.Exceptions.UnknownInputException;
+import com.umbra.mapModule.inter.ICell;
+import com.umbra.mapModule.inter.IMap;
+import com.umbra.mapModule.inter.IPosition;
 import com.umbra.mobModule.mobComponent.inter.IMob;
 import anima.annotation.Component;
 import anima.component.base.ComponentBase;
@@ -9,8 +12,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 @Component(
-		id="<http://purl.org/NET/dcc/com.umbra.mapModule.Map>",
-		provides={"<http://purl.org/NET/dcc/com.umbra.com.umbra.mapModule.IMap>"}
+		id="<http://purl.org/NET/dcc/com.umbra.mapModule.impl.Map>",
+		provides={"<http://purl.org/NET/dcc/com.umbra.com.umbra.mapModule.inter.IMap>"}
 )
 
 public class Map extends ComponentBase implements IMap {

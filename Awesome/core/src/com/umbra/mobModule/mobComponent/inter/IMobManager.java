@@ -2,7 +2,7 @@ package com.umbra.mobModule.mobComponent.inter;
 
 import anima.annotation.ComponentInterface;
 import anima.component.ISupports;
-import com.umbra.mapModule.IPosition;
+import com.umbra.mapModule.inter.IPosition;
 
 /**
  * Interface para o componente que retorna instancias

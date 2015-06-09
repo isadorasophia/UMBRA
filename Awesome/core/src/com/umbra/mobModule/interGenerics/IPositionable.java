@@ -1,6 +1,6 @@
 package com.umbra.mobModule.interGenerics;
 
-import com.umbra.mapModule.IPosition;
+import com.umbra.mapModule.inter.IPosition;
 
 /**
  * Interface que generaliza os objetos que guardam a posição no mapa

@@ -1,4 +1,4 @@
-package com.umbra.mapModule;
+package com.umbra.mapModule.inter;
 
 import com.umbra.mobModule.mobComponent.inter.IMob;
 import com.umbra.puzzlesModule.IPuzzle;
