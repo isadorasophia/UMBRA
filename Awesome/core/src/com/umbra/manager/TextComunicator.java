@@ -61,7 +61,7 @@ public class TextComunicator implements IComunicator, InputProcessor {
         this.textSize = textSize;
         this.cursorOn = cursorOn;
         if(cursorOn) {
-            if(this.fullText != fullText) {
+            if(this.fullText == null || !this.fullText.equals(fullText)) {
                 this.fullText = fullText;
                 counter = 0;
                 index = 0;
@@ -69,7 +69,7 @@ public class TextComunicator implements IComunicator, InputProcessor {
                 readInput = false;
                 end = false;
             } else {
-                text = "fullText" + "_";
+                text = fullText + "_";
             }
             inputReady = false;
             cursor = true;
@@ -82,7 +82,7 @@ public class TextComunicator implements IComunicator, InputProcessor {
     public String getInput(){
     	readInput = true;
     	if(inputReady){
-    		return input.substring(0,input.length() - 1);
+    		return input.toString();
     	}else{
     		return null;
     	}
@@ -146,7 +146,8 @@ public class TextComunicator implements IComunicator, InputProcessor {
     
     @Override
 	public boolean keyTyped(char character) {
-		if(readInput){ 
+		if(readInput && ( (character <= 'Z' && character >= 'A') || (character <= 'z' && character >= 'a') ||
+                (character <= '9' && character >= '0') || character == ' ') ){
 			input.append(character);
 			addChar(character);
 		}

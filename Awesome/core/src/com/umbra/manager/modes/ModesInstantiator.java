@@ -71,7 +71,6 @@ public class ModesInstantiator {
             factory.registerPrototype(BattleManager.class);
             IBattleManager bm = factory.createInstance("<http://purl.org/NET/dcc/com.umbra.battleModule.BattleManager>");
             uniqueBattleMode.connect(bm);
-            uniqueBattleMode.init(comunicator,characters);
         }
         return uniqueBattleMode;
     }

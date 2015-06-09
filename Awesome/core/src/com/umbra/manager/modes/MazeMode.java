@@ -32,7 +32,7 @@ public class MazeMode extends ComponentBase implements IMapModeComponent {
     public void init(IComunicator comunicator, Characters characters) {
         this.comunicatorMap = comunicator;
         this.comunicatorComand = new TextComunicator();
-        comunicatorComand.newText("Where you go: ", 100, 200, Gdx.graphics.getWidth() - 200f, true);
+        comunicatorComand.newText("You are limited to move [W] up, [S] down, [A] left and [D] right. Where you go: ", 100, 200, Gdx.graphics.getWidth() - 200f, true);
         this.characters = characters;
         map.init(characters.getPlayer());
     }
@@ -46,34 +46,36 @@ public class MazeMode extends ComponentBase implements IMapModeComponent {
         cells = map.getCell(player.getPosition() ,range);
         for(ICell[] cellRow : cells)
             for(ICell cell : cellRow){
-                mapString.append(cell.getDescription());
+                if(cell == null) mapString.append("#");
+                else mapString.append(cell.getDescription());
             }
         comunicatorMap.newText(mapString.toString(), Gdx.graphics.getWidth()/2 - 50, Gdx.graphics.getHeight()/2 + 50,
                 range, false);
 
         // Manager Text Output and Input
-        String new_text = "Where you go: ";
+        String new_text = "You are limited to move [W] up, [S] down, [A] left and [D] right. Where you go: ";
         if(comunicatorComand.update(dt)) {
-                String input = comunicatorComand.getInput();
-                if (input != null) {
-                    ICell cell = map.move(player,input);
-                    if(cell == null) new_text = "You can't go there: ";
-                    else switch (cell.getDescription()){
-                        case '#':
-                            new_text = "You can't go there: ";
-                            break;
-                        case '[':
-                            characters.setPuzzle(cell.getDoor());
-                            next_mode = Modes.PUZZLE;
-                            break;
-                        case '.':
-                            break;
-                        default:
-                            characters.setMonstro((IMonstro)cell.getMob());
-                            next_mode = Modes.BATLLE;
-                    }
-                    if(next_mode == Modes.MAZE) comunicatorComand.newText(new_text, 100, 200, Gdx.graphics.getWidth() - 200f, true);
+            String input = comunicatorComand.getInput();
+            if(characters.getVulto().checkVulto()) next_mode = Modes.VULTO;
+            if (input != null) {
+                ICell cell = map.move(player,input);
+                if(cell == null) new_text = "You can't go there: ";
+                else switch (cell.getDescription()){
+                    case '#':
+                        new_text = "You can't go there: ";
+                        break;
+                    case '[':
+                        characters.setPuzzle(cell.getDoor());
+                        next_mode = Modes.PUZZLE;
+                        break;
+                    case '.':
+                        break;
+                    default:
+                        characters.setMonstro((IMonstro)cell.getMob());
+                        next_mode = Modes.BATLLE;
                 }
+                if(next_mode == Modes.MAZE) comunicatorComand.newText(new_text, 100, 200, Gdx.graphics.getWidth() - 200f, true);
+            }
         }
         return next_mode;
     }

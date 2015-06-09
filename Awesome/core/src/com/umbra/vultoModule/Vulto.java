@@ -37,9 +37,9 @@ public class Vulto extends ComponentBase implements IVulto {
 
         System.out.print(action);
         if(action.length() == 0) throw new EmptyInputException();
-        if(action.contains("f") || action.contains("F")) isAlive = chooseAction(Action.FIGHT, result, luck);
-        else  if(action.contains("h") || action.contains("H")) isAlive = chooseAction(Action.HIDE, result, luck);
-        else if(action.contains("r") || action.contains("R")) isAlive = chooseAction(Action.RUN, result, luck);
+        if(action.equalsIgnoreCase("f") || action.equalsIgnoreCase("face")) isAlive = chooseAction(Action.FIGHT, result, luck);
+        else  if(action.equalsIgnoreCase("h") || action.equalsIgnoreCase("hide")) isAlive = chooseAction(Action.HIDE, result, luck);
+        else if(action.equalsIgnoreCase("r") || action.equalsIgnoreCase("run")) isAlive = chooseAction(Action.RUN, result, luck);
         else throw new UnknownInputException();
         return isAlive;
     }

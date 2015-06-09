@@ -16,6 +16,7 @@ import com.umbra.mobModule.itemComponent.inter.IItemIlumination;
 import com.umbra.mobModule.mobComponent.impl.Player;
 import com.umbra.mobModule.mobComponent.impl.PlayerInstantiator;
 import com.umbra.mobModule.mobComponent.inter.IMobManager;
+import com.umbra.puzzlesModule.PuzzleFactory;
 import com.umbra.vultoModule.IVulto;
 
 import java.util.Vector;
@@ -42,8 +43,9 @@ public class Selector extends ComponentBase implements ISelectorComponent {
     public void init() {
         ModesInstantiator.init();
         characters.setPlayer(mobManager.createPlayer("Player","",new Position(0,0)));
-        characters.setMonstro(mobManager.createMonstro(1,new Position(3,3)));
-        setMode(Modes.INITIAL);
+        characters.setMonstro(mobManager.createMonstro(1, new Position(3, 3)));
+        characters.setPuzzle(new PuzzleFactory().getPuzzle());
+        setMode(Modes.PUZZLE);
         comunicator = new TextComunicator();
     }
 

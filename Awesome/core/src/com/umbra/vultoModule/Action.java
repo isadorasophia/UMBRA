@@ -6,8 +6,8 @@ public enum Action {
             "But he finds you and everything become dark.",
             "He passes through where you are, but you don't see each other.",45.0/100.0),
     RUN("You try to run, faster than you ever ran before. ",
-            "But he reaches you and everything become dark.",
-            "You let him behind, but don't have sure where you are.",90.0/100.0),
+            "The figure approaches. No, no, it can't be! As it comes closer and closer, you begin to recognize it… Yes, it is horrible, but far worse than you could imagine. You want to cry, to scream… useless.",
+            "Somehow, you found a reason to not give up. You run for your life, for your luck and your sake - and you succeed. For once.",90.0/100.0),
     FIGHT("He is coming and you will see his face. That is the last thing you remember before everything became dark.",
             "","",0.0);
 

@@ -23,7 +23,9 @@ public class VulteMode extends ComponentBase implements IMode {
     IVulto vulto;
     IPlayer player;
     StringBuilder result = new StringBuilder(); 
-    String text = "The mysterious figure is about to find you. What you do... [F]ace the figure, [H]ide or [R]un.";
+    String text = "Everything becomes, suddenly, colder. A presence comes to you, the breathing thing. " +
+            "It does not appear to be friendly - although you can’t see it, it seems to be hostile and terrifying. " +
+            "You must do something. Quick. What you do... [F]ace the figure, [H]ide or [R]un.";
 
     // Flags
     boolean isAlive;
