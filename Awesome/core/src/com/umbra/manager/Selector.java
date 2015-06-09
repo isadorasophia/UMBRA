@@ -45,7 +45,7 @@ public class Selector extends ComponentBase implements ISelectorComponent {
         characters.setPlayer(mobManager.createPlayer("Player","",new Position(0,0)));
         characters.setMonstro(mobManager.createMonstro(1, new Position(3, 3)));
         characters.setPuzzle(new PuzzleFactory().getPuzzle());
-        setMode(Modes.MAZE);
+        setMode(Modes.INITIAL);
         comunicator = new TextComunicator();
     }
 
@@ -80,7 +80,7 @@ public class Selector extends ComponentBase implements ISelectorComponent {
         String playerInfo;
 
         // set player info
-        playerInfo = "HP: " + (int)characters.getPlayer().getHealth() +  "/" + HPMAX + "  | XP: " + (int)characters.getPlayer().getXp() +
+        playerInfo = "HP: " + (int)characters.getPlayer().getHealth() +  "/" + characters.getPlayer().getAtt("hp").getMax() + "  | XP: " + (int)characters.getPlayer().getXp() +
                 "  | Level: " + characters.getPlayer().getNivel();
         comunicator.newText(playerInfo, 100, 50, Gdx.graphics.getWidth() - 200f, false);
         // Consider light influence on vulto

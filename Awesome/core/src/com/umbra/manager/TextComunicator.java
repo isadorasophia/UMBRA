@@ -48,7 +48,7 @@ public class TextComunicator implements IComunicator, InputProcessor {
 
         // initialize font
         try {
-            font = new BitmapFont(Gdx.files.internal("Fonts/proggy.fnt"));
+            font = new BitmapFont(Gdx.files.internal("Fonts/proggy22.fnt"));
         }catch (GdxRuntimeException e){
         	font = new BitmapFont();
         }
@@ -59,6 +59,7 @@ public class TextComunicator implements IComunicator, InputProcessor {
 
     public void newText(String fullText, float width, float hight, int letters, boolean cursorOn, boolean map){
         // if(map) font = new BitmapFont();
+
         newText(fullText, width, hight, width + letters * font.getSpaceWidth(), cursorOn);
     }
 
