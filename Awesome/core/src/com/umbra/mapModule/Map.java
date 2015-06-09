@@ -87,8 +87,7 @@ public class Map extends ComponentBase implements IMap {
 
     public ICell[][] getCell(IPosition posicao,int size) {
         Position pos = (Position) posicao;
-        size--;
-        ICell[][] response = new Cell[size][size];
+        ICell[][] response = new Cell[2*size + 1][2*size + 1];
         int index_i = 0;
         int index_j = 0;
         for (int i = pos.getY() - size; i <= pos.getY() + size ; i++) {
@@ -100,6 +99,7 @@ public class Map extends ComponentBase implements IMap {
                     response[index_i][index_j++] = corredor[i][j];
                 }
             }
+            index_j = 0;
             index_i++;
         }
         return response;
