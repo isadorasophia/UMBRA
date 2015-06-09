@@ -159,6 +159,7 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		this.monster.setAtt("luck", 7);
 		this.monster.setAtt("sanity", 2);
 		this.monster.setAtt("hp", 10); */
+		this.monster.setAtt("hp", 5);
 		this.player.setAtt("sanity", 0.7);
 		
 		this.battleExecuter = new BattleExecuter();
@@ -237,8 +238,9 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		input = input.toUpperCase();
 		
 		// if the battle was already over
-		if (this.isBattleOver && this.hasLeveledUp) {
+		if (this.isBattleOver && this.hasLeveledUp) {			
 			levelUp(input);
+				
 			return;
 		}
 		
@@ -255,7 +257,7 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 				isBattleSet = true;
 				
 				setStatus("Your item was equipped.\n" + getMonster().getName() + " approaches slowly into your direction."
-						+ " You must make a choice.\n [A]ttack, [D]efend or [R]un. Time is clocking.\n");
+						+ " You must make a choice.\n[A]ttack, [D]efend or [R]un. Time is clocking.\n");
 				
 				return;
 			} else {
@@ -292,9 +294,9 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 				
 			} else if (input.contains("A")) {
 				setStatus ("An attack is attempted. You can attack towards the creature's...\n"
-						+ "[L]imbs [ 1.2 | 60% ],\n"
-						+ "[B]rain [ 1.7 | 30% ] or\n"
-						+ "[V]ital organs [ 1.5 | 40% ]\n");
+						+ "[L]imbs [ 1.15 | 50% ],\n"
+						+ "[B]rain [ 1.35 | 30% ] or\n"
+						+ "[V]ital organs [ 1.25 | 40% ]\n");
 				
 				return;
 				
@@ -302,7 +304,7 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 				isBattleOver = this.battleExecuter.attack(getPlayer(), getMonster(), input);
 				
 			} else {
-				String retry = "You must choose a valid action.\n \n";
+				String retry = "You must choose a valid action.\n\n";
 				
 				// if it contains the initial description, get rid of it
 				if (oldStatus.contains(monster.getDescription())) {
@@ -450,10 +452,10 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 	 */
 	private void levelUp (String answer) {
 		setStatus(null);
-		if(this.attsSelected != 0) {
-			
+		
+		if (this.attsSelected != 0 && !answer.isEmpty()) {
 			// Level Up the stats selected!
-			if(answer.contains("1")) {
+			if (answer.contains("1")) {
 				
 				getPlayer().getAtt("hp").setMax(getPlayer().getAtt("hp").getMax() + 10);
 				
@@ -465,34 +467,40 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 				
 				this.attsSelected--;
 				
-			} else if(answer.contains("2")) {
+			} else if (answer.contains("2")) {
 				
 				getPlayer().getAtt("attack").setValue(getPlayer().getAtt("attack").getValue() + 1);
 				this.attsSelected--;
 				
-			} else if(answer.contains("3")) {
+			} else if (answer.contains("3")) {
 				
 				getPlayer().getAtt("defense").setValue(getPlayer().getAtt("defense").getValue() + 1);
 				this.attsSelected--;
 				
-			} else if(answer.contains("4")) {
+			} else if (answer.contains("4")) {
 				
 				getPlayer().getAtt("dexterity").setValue(getPlayer().getAtt("dexterity").getValue() + 1);
 				this.attsSelected--;
 				
-			} else if(answer.contains("5")) {
+			} else if (answer.contains("5")) {
 				
 				getPlayer().getAtt("evasiveness").setValue(getPlayer().getAtt("evasiveness").getValue() + 1);
 				this.attsSelected--;
 				
-			} else if(answer.contains("6")) {
+			} else if (answer.contains("6")) {
 				
 				getPlayer().getAtt("luck").setValue(getPlayer().getAtt("luck").getValue() + 1);
 				this.attsSelected--;
 				
-			} else
-				setStatus("You must choose a valid action.\n");
-			
+			} else {
+				setStatus("You must choose a valid attribute.\n\n");
+			}
+		}
+		
+		// if all the atts have been chosen
+		if (this.attsSelected == 0)
+			setDone(true);
+		else
 			setStatus("You got to Level " + (int)getPlayer().getNivel() + "!\n"
 					+ "You have " + this.attsSelected + " Skill Points to spend. " + "Choose where you want to level up:\n" 
 					+ "[1] Health = " + getPlayer().getAtt("hp").getMax() + "\n"
@@ -501,11 +509,6 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 					+ "[4] Dexterity = " + (int)getPlayer().getAtt("dexterity").getValue() + "\n"
 					+ "[5] Evasiveness = " + (int)getPlayer().getAtt("evasiveness").getValue() + "\n"
 					+ "[6] Luck = " + (int)getPlayer().getAtt("luck").getValue() + "\n");
-		}
-		
-		// if all the atts have been chosen
-		if (this.attsSelected == 0)
-			setDone(true);
 	}
 	
 	/**

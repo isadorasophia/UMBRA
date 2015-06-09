@@ -17,9 +17,9 @@ class BattleExecuter {
 	 */
 	BattleExecuter () { 
 		status = new String ();
-		this.limbs = new BodyPart("Limbs", 1.2f, 0.6f);
-		this.brain = new BodyPart("Brain", 1.7f, 0.3f);
-		this.vitalOrgans = new BodyPart("Vital Organs", 1.5f, 0.4f);
+		this.limbs = new BodyPart("limbs", 1.15f, 0.5f);
+		this.brain = new BodyPart("brain", 1.35f, 0.3f);
+		this.vitalOrgans = new BodyPart("vital organs", 1.25f, 0.4f);
 	}
 	
 	private static enum AttackState { normal, critical, counter, missed }
@@ -109,7 +109,7 @@ class BattleExecuter {
 		switch (attackState) {
 			case normal:
 				damage = calcDamage(attacker, victim, false, bodyPart.getAttFactor());
-				setStatus(attacker.getName() + " attacks and inflicted a damage of " + (int) damage + " on " + victim.getName() + "!\n");
+				setStatus(attacker.getName() + " attacks towards the " + bodyPart.getBodyPart() + " and inflicted a damage of " + (int) damage + " on " + victim.getName() + "!\n");
 					
 				victim.decreaseHP(damage); 
 						
@@ -120,7 +120,7 @@ class BattleExecuter {
 				break;
 			case critical:
 				damage = calcDamage(attacker, victim, true, bodyPart.getAttFactor());
-				setStatus(attacker.getName() + " attacks and inflicted a CRITICAL damage of " + (int) damage + " on " + victim.getName() + "!\n");
+				setStatus(attacker.getName() + " attacks towards the " + bodyPart.getBodyPart() + " and inflicted a CRITICAL damage of " + (int) damage + " on " + victim.getName() + "!\n");
 					
 				victim.decreaseHP(damage);
 				if (victim.dead()) {
@@ -131,7 +131,7 @@ class BattleExecuter {
 			case counter:
 				setStatus("Counter!\n");
 				damage = calcDamage(victim, attacker, false, bodyPart.getAttFactor());
-				setStatus(victim.getName() + " attacks and inflicted a damage of " + (int)damage + " on " + attacker.getName() + "!\n");
+				setStatus(victim.getName() + " attacks towards the " + bodyPart.getBodyPart() + " and inflicted a damage of " + (int)damage + " on " + attacker.getName() + "!\n");
 				
 				attacker.decreaseHP(damage);
 				if (attacker.dead()) {
@@ -165,14 +165,14 @@ class BattleExecuter {
 		attackerRate *= (random.nextFloat() + 1);
 		enemyRate *= (random.nextFloat() * 0.4 + 1);
 		
-		if (attackerRate >= enemyRate) {
+		if (attackerRate >= enemyRate * (chance/10 + 1)) {
 			if (random.nextFloat() < chance)
 				return AttackState.critical;
 			else
 				return AttackState.normal;
 		}
 		else {
-			if (enemyRate > attackerRate * 2)
+			if (enemyRate > attackerRate * 2 * (chance/2 + 1))
 				return AttackState.counter;
 			else
 				return AttackState.missed;
@@ -211,7 +211,7 @@ class BattleExecuter {
 		//double defense = (victim.getAtt("defense").getValue() * 2) * (random.nextFloat() + 0.5);
 		//double attack = 3 + (attacker.getAtt("attack").getValue() * 2) * (random.nextFloat() + 0.5);
 		double defense = victim.getAtt("defense").getValue();
-		double attack = attacker.getAtt("attack").getValue() * (random.nextFloat() * 0.4 + 1.2);
+		double attack = attacker.getAtt("attack").getValue() * (random.nextFloat() * 0.5 + 1.25);
 		
 		if (critical) {
 			attack *= attackFactor;
@@ -236,12 +236,12 @@ class BattleExecuter {
 		
 		if (over) {
 			// decrease
-			target.setAtt("defense", defense / 	1.8);
+			target.setAtt("defense", defense / 	1.5);
 			
 			setStatus(target.getName() + " defense move is now done.\n");
 		} else {
 			// increase
-			target.setAtt("defense", defense * 1.8);
+			target.setAtt("defense", defense * 1.5);
 			
 			setStatus(target.getName() + " chooses to defend itself.\n");
 		}
@@ -270,9 +270,9 @@ class BattleExecuter {
 			else
 				return "D";
 		} else {
-			if (monster.getAtt("attack").getValue() * (1 - random.nextFloat() * 0.8) >= monster.getAtt("dexterity").getValue() * (1 - random.nextFloat() * 0.25)) {
+			if (monster.getAtt("attack").getValue() * limbs.getAttFactor() * (random.nextFloat() * .25) >= monster.getAtt("dexterity").getValue() * (1 + limbs.getHitChance()) * (random.nextFloat() * .25)) {
 				return "L";
-			} else if (monster.getAtt("dexterity").getValue() * (1 - random.nextFloat() * 0.25) > monster.getAtt("attack").getValue() * 0.5) {
+			} else if (monster.getAtt("dexterity").getValue() * vitalOrgans.getAttFactor() * (.3 + random.nextFloat() * .5) > monster.getAtt("attack").getValue() * (1 + vitalOrgans.getHitChance()) * (.25 + random.nextFloat() * .25)) {
 				return "V";
 			} else
 				return "B";
