@@ -12,11 +12,11 @@ package com.umbra.mobModule.enums;
 public enum Att {
     HP("hp", 100, 10),
     XP("xp", 100, 200),
-    DEFENSE("defense", 10, 2),
+    DEFENSE("defense", 11, 2),
     ATTACK("attack", 13, 2),
-    DEXTERITY("dexterity", 9, 2),
+    DEXTERITY("dexterity", 10, 2),
     EVASIVENESS("evasiveness", 8, 1),
-    LUCK("luck", 8, 1),
+    LUCK("luck", 10, 1),
     SANITY("sanity", 1, -0.01),
     SPEED("speed", 10, 1);
 
