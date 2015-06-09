@@ -130,7 +130,6 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		//ISSO AQUI ZUERA
 		ItemManager itemManager = new ItemManager();
 		IItemBattle item = itemManager.instantiateItemBattle("LONG SWORD", null);
-		System.out.println(item);
 			try {
 				getPlayer().putItem(item);
 			} catch (FullInventoryException e) {
