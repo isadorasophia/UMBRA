@@ -79,7 +79,6 @@ public class BattleMode extends ComponentBase implements IBattleModeComponent {
 
     @Override
     public void dispose() {
-
     }
 
     @Override
