@@ -20,7 +20,7 @@ public class Position implements IPosition{
             return "ocupado";
         else if (!norte.getParede()) {
             norte.setMob(atual.removeMob());
-            this.posY++;
+            this.posY--;
         }
         return "desocupado";
     }
@@ -30,7 +30,7 @@ public class Position implements IPosition{
             return "ocupado";
         else if (!sul.getParede()) {
             sul.setMob(atual.removeMob());
-            this.posY--;
+            this.posY++;
         }
         return "desocupado";
     }

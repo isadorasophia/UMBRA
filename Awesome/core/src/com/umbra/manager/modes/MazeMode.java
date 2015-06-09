@@ -46,11 +46,13 @@ public class MazeMode extends ComponentBase implements IMapModeComponent {
         // Update Map
         mapString.delete(0, mapString.length());
         cells = map.getCell(player.getPosition() ,range);
-        for(ICell[] cellRow : cells)
-            for(ICell cell : cellRow){
-                if(cell == null) mapString.append("#");
+        for(ICell[] cellRow : cells) {
+            for (ICell cell : cellRow) {
+                if (cell == null) mapString.append("#");
                 else mapString.append(cell.getDescription());
             }
+            mapString.append('\n');
+        }
         comunicatorMap.newText(mapString.toString(), Gdx.graphics.getWidth()/2 - 150, Gdx.graphics.getHeight()/2 + 150,
                 range, false);
 

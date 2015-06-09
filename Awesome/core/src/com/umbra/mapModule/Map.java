@@ -119,13 +119,13 @@ public class Map extends ComponentBase implements IMap {
         switch (direction.charAt(0)) {
             case 'W':
                 atual = corredor[posicao.getY()][posicao.getX()];
-                ICell norte = corredor[posicao.getY()+1][posicao.getX()];
+                ICell norte = corredor[posicao.getY()-1][posicao.getX()];
                 if (posicao.moveNorth(norte, atual).equalsIgnoreCase("ocupado"))
                     return norte;
                 break;
             case 'S':
                 atual = corredor[posicao.getY()][posicao.getX()];
-                ICell sul = corredor[posicao.getY()-1][posicao.getX()];
+                ICell sul = corredor[posicao.getY()+1][posicao.getX()];
                 if (posicao.moveSouth(sul, atual).equalsIgnoreCase("ocupado"))
                     return sul;
                 break;
