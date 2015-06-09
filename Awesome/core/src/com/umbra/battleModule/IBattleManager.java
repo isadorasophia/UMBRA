@@ -17,7 +17,6 @@ import anima.component.ISupports;
  *
  */
 public interface IBattleManager extends ISupports{
-	
 	/**
 	 * Inicializa o componente
 	 * 
@@ -34,16 +33,24 @@ public interface IBattleManager extends ISupports{
 	public void processInput (String input);
 	
 	/**
-	 * Getter para a variável Done (se a batalha terminou ou não)
-	 * 
-	 * @return boolean - Se a batalha acabou ou não
-	 */
-	public boolean getDone ();
-	
-	/**
 	 * Getter para o output a ser impresso ao jogador
 	 * 
 	 * @return String - Output da batalha
 	 */
 	public String getStatus ();
+	
+	/**
+	 * Checa se o player mudou de nível, em que a batalha entra em estado de distribuição de 
+	 * pontos em seus atributos
+	 * 
+	 * @return boolean - Retorna se mudou de nível
+	 */
+	public boolean getHasLeveledUp ();
+	
+	/**
+	 * Getter para a variável Done (se a batalha terminou ou não)
+	 * 
+	 * @return boolean - Se a batalha acabou ou não
+	 */
+	public boolean getDone ();
 }
