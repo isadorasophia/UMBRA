@@ -3,6 +3,7 @@ package com.umbra.manager.modes;
 import anima.annotation.Component;
 import anima.component.base.ComponentBase;
 import com.badlogic.gdx.Gdx;
+import com.umbra.Exceptions.UnknownInputException;
 import com.umbra.manager.Characters;
 import com.umbra.manager.TextComunicator;
 import com.umbra.manager.interfaces.IMapModeComponent;
@@ -59,23 +60,29 @@ public class MazeMode extends ComponentBase implements IMapModeComponent {
             String input = comunicatorComand.getInput();
             if(characters.getVulto().checkVulto()) next_mode = Modes.VULTO;
             if (input != null) {
-                ICell cell = map.move(player,input);
-                if(cell == null) new_text = "aaYou can't go there: ";
-                else switch (cell.getDescription()){
-                    case '#':
-                        new_text = "You can't go there. You are limited to move [W] up, [S] down, [A] left and [D] right: ";
-                        break;
-                    case '[':
-                        characters.setPuzzle(cell.getDoor());
-                        next_mode = Modes.PUZZLE;
-                        break;
-                    case '.':
-                        break;
-                    default:
-                        characters.setMonstro((IMonstro)cell.getMob());
-                        next_mode = Modes.BATLLE;
+                ICell cell = null;
+                try {
+                    cell = map.move(player,input);
+                    if(cell == null) new_text = "You can't go there. You are limited to move [W] up, [S] down, [A] left and [D] right: ";
+                    
+                    else switch (cell.getDescription()){
+                        case '#':
+                            new_text = "You can't go there. You are limited to move [W] up, [S] down, [A] left and [D] right:   ";
+                            break;
+                        case '[':
+                            characters.setPuzzle(cell.getDoor());
+                            next_mode = Modes.PUZZLE;
+                            break;
+                        case '.':
+                            break;
+                        default:
+                            characters.setMonstro((IMonstro)cell.getMob());
+                            next_mode = Modes.BATLLE;
+                    }
+                } catch (UnknownInputException e) {
+                    new_text = e.getMessage();
                 }
-                if(next_mode == Modes.MAZE) comunicatorComand.newText(new_text, 150, 100, Gdx.graphics.getWidth() - 200f, true);
+                if(next_mode == Modes.MAZE) comunicatorComand.newText(new_text, 100, 150, Gdx.graphics.getWidth() - 200f, true);
             }
         }
         return next_mode;
