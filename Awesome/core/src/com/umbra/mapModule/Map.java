@@ -183,26 +183,19 @@ public class Map extends ComponentBase implements IMap {
                 int dX = ((Position) monstro.getPosition()).getX() - player_x;
                 int dY = ((Position) monstro.getPosition()).getY() - player_y;
                 if (Math.abs(dX) <= 3 && Math.abs(dY) <= 3) {
-                    if (dX <= 0 && dY <= 0) {
-                        if (dX <= dY) pegou = this.move(monstro, "D");
-                        else pegou = this.move(monstro, "S");
-                    } else if (dX >= 0 && dY >= 0) {
-                        if (dX >= dY) pegou = this.move(monstro, "A");
+                    if (dX <= 0) {
+                        if (Math.abs(dX) >= Math.abs(dY)) pegou = this.move(monstro, "D");
+                        else if (dY <= 0) pegou = this.move(monstro, "S");
                         else pegou = this.move(monstro, "W");
-                    } else if (dX >= 0 && dY <= 0) {
-                        dY *= -1;
-                        if (dX >= dY) pegou = this.move(monstro, "A");
-                        else pegou = this.move(monstro, "S");
                     } else {
-                        dX *= -1;
-                        if (dX > dY) pegou = this.move(monstro, "D");
+                        if (dX >= Math.abs(dY)) pegou = this.move(monstro, "A");
+                        else if (dY <= 0) pegou = this.move(monstro, "S");
                         else pegou = this.move(monstro, "W");
                     }
                 }
             }
             if (pegou != null) return pegou;
         }
-
         return retorna;
     }
     public void kill(IMob monstro){
