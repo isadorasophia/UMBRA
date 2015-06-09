@@ -49,15 +49,7 @@ public class Map extends ComponentBase implements IMap {
         personagem.setPosition(new Position(TAM_Y-2, 3));
         corredor[TAM_Y-2][3].setMob(personagem);
 
-        for (int i = 0; i < TAM_X; i++) {
-            operator.makeParede(corredor[0][i]);
-            operator.makeParede(corredor[TAM_Y-1][i]);
-        }
-        for (int i = 0; i < TAM_Y; i++) {
-            operator.makeParede(corredor[i][0]);
-            operator.makeParede(corredor[i][TAM_X-1]);
-        }
-
+        // Coloca puzzles
         for(int i = 1; i < TAM_Y-1; i++) {
             if(generator.nextInt(22)%10 == 0) {
                 //Falta instancia o puzzle com suas caracteristicas
@@ -69,6 +61,21 @@ public class Map extends ComponentBase implements IMap {
             }
         }
 
+        // Coloca paredes
+        for (int i = 0; i < TAM_X; i++) {
+            if (corredor[0][i].getDoor() == null)
+                operator.makeParede(corredor[0][i]);
+            if (corredor[TAM_Y - 1][i].getDoor() == null)
+                operator.makeParede(corredor[TAM_Y - 1][i]);
+        }
+        for (int i = 0; i < TAM_Y; i++) {
+            if (corredor[i][0].getDoor() == null)
+                operator.makeParede(corredor[i][0]);
+            if (corredor[i][TAM_X-1] == null)
+                operator.makeParede(corredor[i][TAM_X-1]);
+        }
+
+        // Coloca monstros
         for(int i = 1; i < TAM_Y-1; i++) {
             Ok = false;
             for(int j = 1; j < TAM_X-1 && !Ok; j++) {
