@@ -21,18 +21,18 @@ import java.lang.StringBuilder;
 )
 public class MazeMode extends ComponentBase implements IMapModeComponent {
 
-    private int range = 2;
+    private int range = 3;
     private IComunicator comunicatorMap, comunicatorComand;
     private Characters characters;
     private IMap map;
     private ICell cells[][];
-    StringBuilder mapString;
+    StringBuilder mapString = new StringBuilder();
 
     @Override
     public void init(IComunicator comunicator, Characters characters) {
         this.comunicatorMap = comunicator;
         this.comunicatorComand = new TextComunicator();
-        comunicatorComand.newText("You are limited to move [W] up, [S] down, [A] left and [D] right. Where you go: ", 100, 200, Gdx.graphics.getWidth() - 200f, true);
+        comunicatorComand.newText("You are limited to move [W] up, [S] down, [A] left and [D] right. Where you go: ", 100, 150, Gdx.graphics.getWidth() - 200f, true);
         this.characters = characters;
         map.init(characters.getPlayer());
     }
@@ -43,13 +43,14 @@ public class MazeMode extends ComponentBase implements IMapModeComponent {
         Modes next_mode = Modes.MAZE;
 
         // Update Map
+        mapString.delete(0, mapString.length());
         cells = map.getCell(player.getPosition() ,range);
         for(ICell[] cellRow : cells)
             for(ICell cell : cellRow){
                 if(cell == null) mapString.append("#");
                 else mapString.append(cell.getDescription());
             }
-        comunicatorMap.newText(mapString.toString(), Gdx.graphics.getWidth()/2 - 50, Gdx.graphics.getHeight()/2 + 50,
+        comunicatorMap.newText(mapString.toString(), Gdx.graphics.getWidth()/2 - 150, Gdx.graphics.getHeight()/2 + 150,
                 range, false);
 
         // Manager Text Output and Input
@@ -59,10 +60,10 @@ public class MazeMode extends ComponentBase implements IMapModeComponent {
             if(characters.getVulto().checkVulto()) next_mode = Modes.VULTO;
             if (input != null) {
                 ICell cell = map.move(player,input);
-                if(cell == null) new_text = "You can't go there: ";
+                if(cell == null) new_text = "aaYou can't go there: ";
                 else switch (cell.getDescription()){
                     case '#':
-                        new_text = "You can't go there: ";
+                        new_text = "You can't go there. You are limited to move [W] up, [S] down, [A] left and [D] right: ";
                         break;
                     case '[':
                         characters.setPuzzle(cell.getDoor());
@@ -74,7 +75,7 @@ public class MazeMode extends ComponentBase implements IMapModeComponent {
                         characters.setMonstro((IMonstro)cell.getMob());
                         next_mode = Modes.BATLLE;
                 }
-                if(next_mode == Modes.MAZE) comunicatorComand.newText(new_text, 100, 200, Gdx.graphics.getWidth() - 200f, true);
+                if(next_mode == Modes.MAZE) comunicatorComand.newText(new_text, 150, 100, Gdx.graphics.getWidth() - 200f, true);
             }
         }
         return next_mode;
