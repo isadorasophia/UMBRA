@@ -2,12 +2,10 @@ package com.umbra.mapModule;
 
 import com.umbra.Exceptions.UnknownInputException;
 import com.umbra.mobModule.mobComponent.inter.IMob;
-import com.umbra.puzzlesModule.IPuzzle;
 import anima.annotation.Component;
 import anima.component.base.ComponentBase;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 @Component(
@@ -179,9 +177,11 @@ public class Map extends ComponentBase implements IMap {
             int player_x = ((Position) entidade.getPosition()).getX();
             int player_y = ((Position) entidade.getPosition()).getY();
             ICell pegou = null;
+
             for (IMob monstro : monstros) {
                 int dX = ((Position) monstro.getPosition()).getX() - player_x;
                 int dY = ((Position) monstro.getPosition()).getY() - player_y;
+
                 if (Math.abs(dX) <= 3 && Math.abs(dY) <= 3) {
                     if (dX <= 0) {
                         if (Math.abs(dX) >= Math.abs(dY)) pegou = this.move(monstro, "D");

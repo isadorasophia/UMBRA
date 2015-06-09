@@ -1,7 +1,5 @@
 package com.umbra.mapModule;
 
-import com.umbra.mobModule.mobComponent.inter.IMob;
-
 public class Position implements IPosition{
     private int posX;
     private int posY;
