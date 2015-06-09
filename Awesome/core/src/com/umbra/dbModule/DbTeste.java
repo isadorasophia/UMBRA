@@ -11,7 +11,7 @@ public class DbTeste{
         //Criacao da fabrica
         //Cada modulo deve colocar o nome do modulo (String) no construtor
         //Nesse caso seria o módulo "teste"
-        DBFactory factory = new DBFactory("initialText");
+        DBFactory factory = new DBFactory("manager");
 
         iDB objectDBCSV = factory.getDB(TypeDB.CSV);
         iDB objectDBTXT = factory.getDB(TypeDB.TXT);
