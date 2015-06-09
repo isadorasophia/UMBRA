@@ -79,6 +79,7 @@ public class MazeMode extends ComponentBase implements IMapModeComponent {
                             break;
                         default:
                             characters.setMonstro((IMonstro)cell.getMob());
+                            map.kill(cell.getMob());
                             next_mode = Modes.BATLLE;
                     }
                 } catch (UnknownInputException e) {

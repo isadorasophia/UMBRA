@@ -159,6 +159,7 @@ public class Map extends ComponentBase implements IMap {
         return null;
     }
     public void kill(IMob monstro){
-        
+        Position pos = (Position) monstro.getPosition();
+        corredor[pos.getY()][pos.getX()].removeMob();
     }
 }
