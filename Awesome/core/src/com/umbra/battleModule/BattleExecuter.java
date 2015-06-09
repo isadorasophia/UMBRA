@@ -258,7 +258,7 @@ class BattleExecuter {
 			// increase
 			target.setAtt("defense", defense * 1.5);
 			
-			setStatus(capitalize(target.getName()) + " chose to defend itself.\n");
+			setStatus(capitalize(target.getName()) + " chose to defend.\n");
 		}
 	}
 	
