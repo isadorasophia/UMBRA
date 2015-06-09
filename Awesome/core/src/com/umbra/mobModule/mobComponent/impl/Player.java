@@ -122,6 +122,9 @@ public class Player extends PlayerGeneric implements IPlayer{
     public double getHealth() {
         return getAtt("hp").getValue();
     }
+    public double getMaxHealth() {
+        return getAtt("hp").getMax();
+    }
 
     public Vector<String> itemsForBattle() {
         List<IItem> items = inventory.getAllItems();
