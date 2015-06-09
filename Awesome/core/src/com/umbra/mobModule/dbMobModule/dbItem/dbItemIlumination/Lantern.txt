@@ -1,4 +1,0 @@
-Lantern with spaces in the name
-0.8
-10.0
-Basic lantern

@@ -128,20 +128,9 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		setMonster(monster);
 		
 		//ISSO AQUI ZUERA
-		
-		try {
-			getPlayer().unequipAll();
-		} catch (FullInventoryException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SameItemException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println(getPlayer().getAllItems());
 		ItemManager itemManager = new ItemManager();
-		IItemBattle item = itemManager.instantiateItemBattle("Long Sword", null);
-		
+		IItemBattle item = itemManager.instantiateItemBattle("LONG SWORD", null);
+		System.out.println(item);
 			try {
 				getPlayer().putItem(item);
 			} catch (FullInventoryException e) {
