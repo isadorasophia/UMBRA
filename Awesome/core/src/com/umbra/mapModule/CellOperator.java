@@ -23,7 +23,7 @@ public class CellOperator {
         celula.setParede(true);
     }
 
-    public void makeMonstro(ICell celula, int i, int j) {
-        celula.setMob(fabricaMonstro.create(j, new Position(i,j) ));
+    public void makeMonstro(ICell celula, int i, int j,int nivel) {
+        celula.setMob(fabricaMonstro.create(nivel, new Position(i,j) ));
     }
 }

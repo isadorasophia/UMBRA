@@ -37,6 +37,8 @@ public class Map extends ComponentBase implements IMap {
         Boolean Ok;
         int cont = 0;
 
+        int n_mobs = 0;
+
 
         for (int i = 0; i < TAM_Y; i++) {
             for (int j = 0; j < TAM_X; j++) {
@@ -71,7 +73,7 @@ public class Map extends ComponentBase implements IMap {
             Ok = false;
             for(int j = 1; j < TAM_X-1 && !Ok; j++) {
                 if(generator.nextInt(70)%60 == 0){
-                    operator.makeMonstro(corredor[i][j], i, j);
+                    operator.makeMonstro(corredor[i][j], i, j, n_mobs++/5);
                     cont++;
                     Ok = true;
                 }
@@ -116,7 +118,7 @@ public class Map extends ComponentBase implements IMap {
         if(direction.isEmpty()){
             throw new UnknownInputException();
         }
-        switch (direction.charAt(0)) {
+        switch (direction.toUpperCase().charAt(0)) {
             case 'W':
                 atual = corredor[posicao.getY()][posicao.getX()];
                 ICell norte = corredor[posicao.getY()-1][posicao.getX()];
