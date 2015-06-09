@@ -1,13 +1,20 @@
 package com.umbra.mobModule.mobComponent.impl;
 
+import anima.context.exception.ContextException;
 import anima.factory.IGlobalFactory;
 import anima.factory.context.componentContext.ComponentContextFactory;
+import anima.factory.exception.FactoryException;
 import com.umbra.mapModule.IPosition;
 import com.umbra.mobModule.attComponent.impl.AttCreator;
 import com.umbra.mobModule.attComponent.inter.IAttManager;
 import com.umbra.mobModule.attComponent.inter.IAttribute;
 import com.umbra.mobModule.enums.Type;
+import com.umbra.mobModule.exceptions.FullInventoryException;
+import com.umbra.mobModule.exceptions.SameItemException;
+import com.umbra.mobModule.itemComponent.impl.ItemManager;
 import com.umbra.mobModule.itemComponent.inter.IItem;
+import com.umbra.mobModule.itemComponent.inter.IItemManager;
+import com.umbra.mobModule.itemComponent.inter.IItemPuzzle;
 import com.umbra.mobModule.mobComponent.inter.IPlayer;
 
 import java.util.List;
@@ -29,7 +36,7 @@ public class Player extends PlayerGeneric implements IPlayer{
     private static Player instance;
 
     /**
-     * Construtor privado do player
+     * Construtor privado do player, faz o player começar com uma lanterna;
      * @param name : nome do player
      * @param description : descrição do player
      * @param position : posição
@@ -37,6 +44,23 @@ public class Player extends PlayerGeneric implements IPlayer{
      */
     private Player(String name, String description, IPosition position, int invSize) {
         super(name, description, position, invSize);
+        try {
+            IGlobalFactory factory = null;
+            factory = ComponentContextFactory.createGlobalFactory();
+            factory.registerPrototype(ItemManager.class);
+            IItemManager itemmanager = factory.createInstance(
+                    "<http://purl.org/NET/dcc/com.umbra.mobModule.itemComponent.impl.ItemManager>");
+            IItemPuzzle lantern = itemmanager.instantiateItemPuzzle("LANTERN", null);
+            super.putItem(lantern);
+        } catch (ContextException e) {
+            e.printStackTrace();
+        } catch (FactoryException e) {
+            e.printStackTrace();
+        } catch (FullInventoryException e) {
+            e.printStackTrace();
+        } catch (SameItemException e) {
+            e.printStackTrace();
+        }
     }
     
     /**
@@ -97,6 +121,9 @@ public class Player extends PlayerGeneric implements IPlayer{
 
     public double getHealth() {
         return getAtt("hp").getValue();
+    }
+    public double getMaxHealth() {
+        return getAtt("hp").getMax();
     }
 
     public Vector<String> itemsForBattle() {

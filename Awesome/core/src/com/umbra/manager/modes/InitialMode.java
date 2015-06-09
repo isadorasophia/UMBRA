@@ -2,9 +2,14 @@ package com.umbra.manager.modes;
 
 import anima.annotation.Component;
 import anima.component.base.ComponentBase;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
+import com.umbra.dbModule.DBFactory;
+import com.umbra.dbModule.enums.TypeDB;
+import com.umbra.dbModule.exceptions.NoMethod;
+import com.umbra.dbModule.interfaces.iDB;
 import com.umbra.manager.Characters;
 import com.umbra.manager.interfaces.IComunicator;
 import com.umbra.manager.interfaces.IMode;
@@ -26,28 +31,27 @@ public class InitialMode extends ComponentBase implements IMode {
     private boolean eof;
     private boolean modeon;
 
-    private String initialText = "";
-    private FileReader reader;
+    private String initialText = null;
+    //private FileReader reader;
 
     @Override
     public void init(IComunicator comunicator, Characters characters) {
         beginning = true;
         eof = false;
         modeon = true;
+        
+      //Instanciando um db do tipo CSV
+        DBFactory factory = new DBFactory("manager");
+        iDB dbInitialText = factory.getDB(TypeDB.CSV);
 
+        //Recuperando dados do monstroX do DB
+        String[] texts = null;
         try {
-            reader = new FileReader("Textos/initialText.txta");
-            int a = -1;
-            do {
-                a = reader.read();
-                initialText += (char) a;
-            } while (a != -1);    // a == -1 at eof
-            reader.close();
-        } catch (FileNotFoundException e) {
-            initialText = "";
-        } catch (IOException e) {
-            initialText = "";
+            texts = dbInitialText.getFromDB("initialText");
+        } catch (NoMethod e) {
+            e.printStackTrace();
         }
+        initialText = texts[1];
 
         this.comunicator = comunicator;
         this.comunicator.newText("Umbra", Gdx.graphics.getWidth()/2 - 50, Gdx.graphics.getHeight()/2 + 50, Gdx.graphics.getWidth() - 200, true);
