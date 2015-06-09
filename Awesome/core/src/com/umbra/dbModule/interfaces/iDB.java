@@ -1,5 +1,13 @@
 package com.umbra.dbModule.interfaces;
 
+/**
+ * Interface utilizada por todas as classes de banco de dados
+ * 
+ * @author Henrique Noronha Facioli
+ * @author Thiago Silva de Farias
+ *
+ */
+
 import com.umbra.dbModule.exceptions.NoMethod;
 
 import anima.annotation.ComponentInterface;

@@ -1,5 +1,13 @@
 package com.umbra.dbModule;
 
+/**
+ * Fabrica para geração de banco de dados diferentes
+ * 
+ * @author Henrique Noronha Facioli
+ * @author Thiago Silva de Farias
+ *
+ */
+
 import com.umbra.dbModule.enums.TypeDB;
 import com.umbra.dbModule.interfaces.iDB;
 import com.umbra.dbModule.products.UmbraDBCSV;

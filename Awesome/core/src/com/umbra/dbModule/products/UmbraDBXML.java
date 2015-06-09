@@ -1,5 +1,13 @@
 package com.umbra.dbModule.products;
 
+/**
+ * Classe que implementa um banco de dados em XML
+ * 
+ * @author Henrique Noronha Facioli
+ * @author Thiago Silva de Farias
+ *
+ */
+
 import anima.annotation.Component;
 import anima.component.base.ComponentBase;
 
