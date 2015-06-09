@@ -83,7 +83,7 @@ public class Map extends ComponentBase implements IMap {
             Ok = false;
             for(int j = 1; j < TAM_X-1 && !Ok; j++) {
                 if(generator.nextInt(70)%60 == 0){
-                    operator.makeMonstro(corredor[i][j], i, j, n_mobs++/5);
+                    operator.makeMonstro(corredor[i][j], i, j, n_mobs++/8);
                     cont++;
                     Ok = true;
                 }
