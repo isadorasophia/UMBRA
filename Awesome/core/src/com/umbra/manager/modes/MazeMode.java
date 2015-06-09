@@ -33,7 +33,7 @@ public class MazeMode extends ComponentBase implements IMapModeComponent {
     public void init(IComunicator comunicator, Characters characters) {
         this.comunicatorMap = comunicator;
         this.comunicatorComand = new TextComunicator();
-        comunicatorComand.newText("You are limited to move [W] up, [S] down, [A] left and [D] right. Where you go: ", 100, 150, Gdx.graphics.getWidth() - 200f, true);
+        comunicatorComand.newText("You are limited to move [W] up, [S] down, [A] left and [D] right. Where you go. " + '\n', 100, 150, Gdx.graphics.getWidth() - 200f, true);
         this.characters = characters;
         map = map.getInstance(characters.getPlayer());
     }
@@ -58,7 +58,7 @@ public class MazeMode extends ComponentBase implements IMapModeComponent {
                 Gdx.graphics.getWidth() - 200f, false, true);
 
         // Manager Text Output and Input
-        String new_text = "You can't go there. You are limited to move [W] up, [S] down, [A] left and [D] right. Where you go: ";
+        String new_text = "You can't go there. You are limited to move [W] up, [S] down, [A] left and [D] right. Where you go. " + '\n';
         if(comunicatorComand.update(dt)) {
             String input = comunicatorComand.getInput();
             if(characters.getVulto().checkVulto()) next_mode = Modes.VULTO;
@@ -66,11 +66,11 @@ public class MazeMode extends ComponentBase implements IMapModeComponent {
                 ICell cell = null;
                 try {
                     cell = map.move(player,input);
-                    if(cell == null) new_text = "You are limited to move [W] up, [S] down, [A] left and [D] right: ";
+                    if(cell == null) new_text = "You are limited to move [W] up, [S] down, [A] left and [D] right. " + '\n';
                     
                     else switch (cell.getDescription()){
                         case '#':
-                            new_text = "You can't go there. You are limited to move [W] up, [S] down, [A] left and [D] right:   ";
+                            new_text = "You can't go there. You are limited to move [W] up, [S] down, [A] left and [D] right. " + '\n';
                             break;
                         case '[':
                             characters.setPuzzle(cell.getDoor());
@@ -84,7 +84,7 @@ public class MazeMode extends ComponentBase implements IMapModeComponent {
                             next_mode = Modes.BATLLE;
                     }
                 } catch (UnknownInputException e) {
-                    new_text = e.getMessage();
+                    new_text = e.getMessage() + '\n';
                 }
                 if(next_mode == Modes.MAZE) comunicatorComand.newText(new_text, 100, 150, Gdx.graphics.getWidth() - 200f, true);
             }

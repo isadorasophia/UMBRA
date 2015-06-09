@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.umbra.battleModule.IBattleManager;
 import com.umbra.manager.Characters;
+import com.umbra.manager.TextComunicator;
 import com.umbra.manager.interfaces.IBattleModeComponent;
 import com.umbra.manager.interfaces.IComunicator;
 import com.umbra.mobModule.mobComponent.inter.IMonstro;
@@ -18,7 +19,7 @@ import com.umbra.mobModule.mobComponent.inter.IPlayer;
 )
 public class BattleMode extends ComponentBase implements IBattleModeComponent {
 
-    IComunicator comunicator;
+    IComunicator comunicator, battleComunicator;
     Characters characters;
     IPlayer player;
     IMonstro monstro;
@@ -33,6 +34,7 @@ public class BattleMode extends ComponentBase implements IBattleModeComponent {
     @Override
     public void init(IComunicator comunicator, Characters characters) {
         this.comunicator = comunicator;
+        battleComunicator = new TextComunicator();
         player = characters.getPlayer();
         monstro = characters.getMonstro();
         battlemanager.initialize(player,monstro);
@@ -52,8 +54,15 @@ public class BattleMode extends ComponentBase implements IBattleModeComponent {
                 String input = comunicator.getInput();
                 if (input != null) {
                     battlemanager.processInput(input);
-                    comunicator.newText(battlemanager.getStatus(), 100, Gdx.graphics.getHeight() - 50, Gdx.graphics.getWidth() - 200f, true);
-                    end = battlemanager.getDone();
+                    if (battlemanager.getHasLeveledUp()) {
+                        comunicator.newText(battlemanager.getStatus(), 100, Gdx.graphics.getHeight() - 50,
+                                Gdx.graphics.getWidth() - 200f, false);
+                        battleComunicator.newText("", 100, 150, Gdx.graphics.getWidth() - 200f, true);
+                    } else {
+                        comunicator.newText(battlemanager.getStatus(), 100, Gdx.graphics.getHeight() - 50,
+                                Gdx.graphics.getWidth() - 200f, true);
+                        end = battlemanager.getDone();
+                    }
                 }
             }else{
                 done = true;
@@ -69,6 +78,7 @@ public class BattleMode extends ComponentBase implements IBattleModeComponent {
     @Override
     public void draw() {
         comunicator.draw();
+        battleComunicator.draw();
     }
 
     @Override

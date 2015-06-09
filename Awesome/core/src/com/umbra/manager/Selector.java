@@ -5,6 +5,10 @@ import anima.component.base.ComponentBase;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.umbra.manager.interfaces.*;
 import com.umbra.manager.modes.InitialMode;
 import com.umbra.manager.modes.Modes;
@@ -34,6 +38,8 @@ public class Selector extends ComponentBase implements ISelectorComponent {
 
     static final int HPMAX = 100;
 
+    private Sprite ret;
+    private SpriteBatch batch;
     private Characters characters = new Characters();
     private IMode mode;
     private IMobManager mobManager;
@@ -45,8 +51,11 @@ public class Selector extends ComponentBase implements ISelectorComponent {
         characters.setPlayer(mobManager.createPlayer("you","",new Position(0,0)));
         characters.setMonstro(mobManager.createMonstro(1, new Position(3, 3)));
         characters.setPuzzle(new PuzzleFactory().getPuzzle());
-        setMode(Modes.MAZE);
+        setMode(Modes.INITIAL);
         comunicator = new TextComunicator();
+        ret = new Sprite(new Texture(Gdx.graphics.getWidth(),50, Pixmap.Format.RGB565));
+        ret.setColor(0, 0, 0, 1);
+        ret.setPosition(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
     }
 
     public void setMode(Modes state){
@@ -104,6 +113,10 @@ public class Selector extends ComponentBase implements ISelectorComponent {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         mode.draw();
         if(state != Modes.INITIAL && state != Modes.GAMEOVER) comunicator.draw();
+        batch = new SpriteBatch();
+        batch.begin();
+        ret.draw(batch);
+        batch.end();
     }
 
     public void dispose(){

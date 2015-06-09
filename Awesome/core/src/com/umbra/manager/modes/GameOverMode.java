@@ -30,6 +30,7 @@ public class GameOverMode extends ComponentBase implements IMode {
         modeOn = true;
         IPlayer player = characters.getPlayer();
         player.setXp(player.getXp()*0.90);
+        player.setAtt("hp",player.getAtt("hp").getMax(),player.getAtt("hp").getMax());
     }
 
     @Override
