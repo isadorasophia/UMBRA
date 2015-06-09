@@ -109,7 +109,7 @@ public class Map extends ComponentBase implements IMap {
     // Retorna uma célula se houver um monstro ou porta para onde se quer mover
     // Retorna null se há uma parede, se conseguiu mover ou se a direção passada não seja válida
 
-    public ICell move(IMob entidade, String direction) {
+    public ICell move(IMob entidade, String direction) throws UnknownInputException {
         Position posicao = (Position) entidade.getPosition();
         ICell atual;
 
