@@ -368,6 +368,17 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 				wonBattle();
 			}
 			
+			// Unequip all items
+			try {
+				getPlayer().unequipAll();
+			} catch (FullInventoryException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SameItemException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			reset ();
 		}
 	}
