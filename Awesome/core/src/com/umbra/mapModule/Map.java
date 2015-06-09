@@ -93,7 +93,7 @@ public class Map extends ComponentBase implements IMap {
         int index_j = 0;
         for (int i = pos.getY() - size; i <= pos.getY() + size ; i++) {
             for( int j = pos.getX() - size; j <= pos.getX() + size; j++){
-                if(i< 0 || i > TAM_Y || j < 0 || j > TAM_X) {
+                if(i < 0 || i >= TAM_Y || j < 0 || j >= TAM_X) {
                     response[index_i][index_j++] = null;
                 }
                 else {
