@@ -1,21 +1,22 @@
 package com.umbra.mapModule;
 
 import com.umbra.mobModule.mobComponent.impl.FabricaDeMonstro;
-import com.umbra.puzzlesModule.IPuzzle;
-import com.umbra.puzzlesModule.Puzzle;
+import com.umbra.puzzlesModule.PuzzleFactory;
 
 /**
  * Created by laurocruz on 6/2/15.
  */
 public class CellOperator {
-    private FabricaDeMonstro fabrica = new FabricaDeMonstro();
+    private FabricaDeMonstro fabricaMonstro = new FabricaDeMonstro();
+    private PuzzleFactory fabricaPuzzle = new PuzzleFactory();
+
 
     public Cell makeVazio() {
         return new Cell();
     }
 
     public void makePorta(ICell celula) {
-        celula.setDoor(new Puzzle());
+        celula.setDoor(fabricaPuzzle.getPuzzle());
     }
 
     public void makeParede(ICell celula) {
@@ -23,6 +24,6 @@ public class CellOperator {
     }
 
     public void makeMonstro(ICell celula, int i, int j) {
-        celula.setMob(fabrica.create(j, new Position(i,j) ));
+        celula.setMob(fabricaMonstro.create(j, new Position(i,j) ));
     }
 }
