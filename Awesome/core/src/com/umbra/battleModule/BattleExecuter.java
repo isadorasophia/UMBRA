@@ -47,6 +47,16 @@ class BattleExecuter {
 	}
 	
 	/**
+	 * Retorna a string com a primeira letra capitalizada
+	 * 
+	 * @param Uma string arbitrária
+	 * @return String - a string recebida no parâmetro com a primeira letra maiúscula
+	 */
+	private String capitalize (String input) {
+		return input.substring(0, 1).toUpperCase() + input.substring(1);
+	}
+	
+	/**
 	 * Realiza cálculos que determinam se o player conseguiu fugir da batalha
 	 * 
 	 * @param player
@@ -57,7 +67,7 @@ class BattleExecuter {
 		setStatus(null);
 		
 		Random random = new Random ();
-		// TODO: sanity attribute
+		
 		double escapeRate = (player.getAtt("luck").getValue() * 2 * ((player.getAtt("sanity").getValue()) + 1)) + player.getAtt("evasiveness").getValue();
 		double enemyRate = (player.getAtt("luck").getValue() * 2 * ((random.nextFloat() * 0.5) + 1)) + player.getAtt("dexterity").getValue();
 		
@@ -71,16 +81,6 @@ class BattleExecuter {
 			setStatus(capitalize(player.getName()) + " tried to escape the battle, but failed.\n");
 			return false;
 		}
-	}
-	
-	/**
-	 * Retorna a string com a primeira letra capitalizada
-	 * 
-	 * @param Uma string arbitrária
-	 * @return String - a string recebida no parâmetro com a primeira letra maiúscula
-	 */
-	private String capitalize (String input) {
-		return input.substring(0, 1).toUpperCase() + input.substring(1);
 	}
 	
 	/**
