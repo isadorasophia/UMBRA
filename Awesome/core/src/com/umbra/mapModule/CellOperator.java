@@ -12,14 +12,15 @@ import java.util.ArrayList;
 public class CellOperator {
     private FabricaDeMonstro fabricaMonstro = new FabricaDeMonstro();
     private PuzzleFactory fabricaPuzzle = new PuzzleFactory();
-
+    private static int puzzleNum = 1;
 
     public Cell makeVazio() {
         return new Cell();
     }
 
     public void makePorta(ICell celula) {
-        celula.setDoor(fabricaPuzzle.getPuzzle());
+        celula.setDoor(fabricaPuzzle.getPuzzle(puzzleNum));
+        puzzleNum++;
     }
 
     public void makeParede(ICell celula) {

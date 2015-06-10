@@ -3,7 +3,6 @@ package com.umbra.puzzlesModule;
 public class PuzzleFactory{
 
 	private int maxTime = 0 ;
-	private static int puzzleNum = 1;
 	
 	private IPuzzle currPuzzle = null;
 	
@@ -20,7 +19,7 @@ public class PuzzleFactory{
 	//check for possible exceptions
 	
 	// mus pass the number of the wanted puzzle
-	public IPuzzle getPuzzle(){
+	public IPuzzle getPuzzle(int puzzleNum){
 
 		
 		if(puzzleNum == 1){
