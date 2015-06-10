@@ -24,7 +24,7 @@ public class Puzzle2 implements IPuzzle{
 	private boolean isFinished = false;
 	private int key = 0;
 	private int progress = 0;
-	public String currMessage;
+	private String currMessage;
 
 	
 	

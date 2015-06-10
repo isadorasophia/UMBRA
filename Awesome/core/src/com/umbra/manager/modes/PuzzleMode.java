@@ -56,8 +56,7 @@ public class PuzzleMode extends ComponentBase implements IMode {
             }else{
                 done = true;
                 if(!modeOn) {
-                    if (characters.getPlayer().dead()) next_mode = Modes.GAMEOVER;
-                    else next_mode = Modes.MAZE;
+                    next_mode = Modes.MAZE;
                 }
             }
         }

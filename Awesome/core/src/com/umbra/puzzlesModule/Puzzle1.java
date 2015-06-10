@@ -24,7 +24,7 @@ public class Puzzle1 implements IPuzzle {
 	private int hasTheFigure = 0;
 	private int key = 0;
 	private int progress = 0;
-	public String currMessage;
+	private String currMessage;
 	public int left = 0;
 
 	
