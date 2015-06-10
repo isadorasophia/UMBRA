@@ -353,6 +353,14 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 			} else {
 				wonBattle();
 			}
+			
+			if(this.enemyDefending != DefenseStatus.IDLE) {
+				this.battleExecuter.defend(battleDao.getMonster(), true);
+			}
+			
+			if(this.playerDefending != DefenseStatus.IDLE) {
+				this.battleExecuter.defend(battleDao.getPlayer(), true);
+			}
 		}
 	}
 	

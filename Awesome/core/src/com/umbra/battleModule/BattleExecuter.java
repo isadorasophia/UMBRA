@@ -246,12 +246,12 @@ class BattleExecuter {
 		
 		if (over) {
 			// decrease
-			target.setAtt("defense", defense / 	1.5);
+			target.setAtt("defense", defense / 	1.8);
 			
 			setStatus(capitalize(target.getName()) + " lost the defense move.\n");
 		} else {
 			// increase
-			target.setAtt("defense", defense * 1.5);
+			target.setAtt("defense", defense * 1.8);
 			
 			setStatus(capitalize(target.getName()) + " chose to defend.\n");
 		}
