@@ -1,4 +1,4 @@
-package com.umbra.puzzlesModule;
+package project;
 
 import java.util.Hashtable;
 
@@ -10,7 +10,9 @@ public class Puzzle2 implements IPuzzle{
 	
 	Hashtable<Integer, String> tasks = new Hashtable<Integer, String>();
 	Hashtable<String, Boolean> completedTasks = new Hashtable<String, Boolean>();
-	private int tasksSet = 0; 
+	Hashtable<String, String> appendStrings = new Hashtable<String, String>(); //<Key, Value>
+	private int tasksSet = 0;
+	private int appendFrases = 0;
 	private boolean isFinished = false;
 	private int key = 0;
 	private int progress = 0;
@@ -32,10 +34,16 @@ public class Puzzle2 implements IPuzzle{
 	
 	public String init(/*Iplayer playerReceived*/){
 		//this.player = playerReceived; 
-		setSequenceOfTasks();
-		setIsFinished(false);
-		this.currMessage = tasks.get(progress);
-		return outputMsg();
+		if (appendFrases == 0 && tasksSet == 0){
+			setSequenceOfTasks();
+			setAppendFrases();
+			setIsFinished(false);
+			this.currMessage = tasks.get(progress);
+			return outputMsg();
+		}
+		else{
+			return "This puzzle has been set already";
+		}
 	}
 	
 	//the inputMsg method calls the outputMsg method for returning the string
@@ -46,6 +54,7 @@ public class Puzzle2 implements IPuzzle{
 			
 			//in case time is used, checks the time and the player magically dies if the time is elapsed;
 			//else if there is no time, then the player progresses! 
+			
 			if(msgIn.equalsIgnoreCase("C") && getProgress() == 0){
 				completedTasks.put("task0", true);
 				setProgress();
@@ -54,7 +63,7 @@ public class Puzzle2 implements IPuzzle{
 			else if(msgIn.equalsIgnoreCase("L") && getProgress() == 1){
 				currMessage = tasks.get(progress);
 				setProgress();
-				completedTasks.put("task1", true);
+				
 			}
 			//takes a decision here
 			else if(msgIn.equalsIgnoreCase("O") && getProgress() == 2){			
@@ -114,25 +123,30 @@ public class Puzzle2 implements IPuzzle{
 		if(this.tasksSet == 0){
 			int i;
 			//retrieve key = 0
-			this.tasks.put(getThisSetNextKey(), "As you enter the room, you see only a little point of light in the left corner. You can [C]heck the light.");
+			this.tasks.put(getThisSetNextKey(), "Passed the door, there’s a giant metal web blocking the center of the room, with something inside but you’re not quite sure what it is. You look around and see blood stains all over the walls repeating the words “YOU ARE NOT THE ONLY YOU”. At your right, there’s a big round hole in the wall. At your left, a rusted lever almost hidden by the darkness that fills this room. You can [C]heck the hole in the wall, [S]ee what’s inside the web or [P]ull the lever.");
 			
-			//retrieve key = 1
-			this.tasks.put(getThisSetNextKey(), "While you walk slowly toward the light, you sense an object touching your feet. Trumbling, you fall on your knees trying to hold on to anything you can find. On the ground, you realize that the light was only a candle, almost running out. Thereï¿½s a big candlestick on the wall. You can [L]ight the candlestick.");
+			//retrieve key = 1 (+ 1.1 on success)
+			this.tasks.put(getThisSetNextKey(), "You come closer and see that inside the hole there’s only darkness. But you know that there’s something that could fit in there.");
 			
-			//retrieve key = 2
-			this.tasks.put(getThisSetNextKey(), "You take the candle and use it to light the candlestick. The whole room lights up. You see a little table in the middle of the room with a wooden box sitting there. On the ground, thereï¿½s a big figure of a snake carved into a round shape of an unknown material, and that was probably what made you fall. You can [O]pen the wooden box or [T]ake the figure.");
+			//retrieve key = 2 
+			this.tasks.put(getThisSetNextKey(), "Getting closer, you can see a humanoid figure lying on a table inside the web. But everything is so dark that you can’t really tell if that’s correct.");
 			
-			//retrieve key = 3
-			this.tasks.put(getThisSetNextKey(), "Your hands shake uncontrollably and you try to make them steady with no success. The wooden box creaks, filling the whole room with the noise. When you finally opened enough to see whatï¿½s inside, you notice a black liquid floating inside it. Fearfully, you put your hands inside the box, sensing a metalic material through the gooey liquid. Itï¿½s a medium sized metal blade. You can [T]ake the blade.");
+			//retrieve key = 3 (+ 3.1s on success)
+			this.tasks.put(getThisSetNextKey(), "You put the figure into the hole and hears a clicking noise.");
 			
-			//retrieve key = 4
-			this.tasks.put(getThisSetNextKey(), "You took the figure.");
+			//retrieve key = 4 (+ 6.1s on success)
+			this.tasks.put(getThisSetNextKey(), "There’s a naked corpse on the table with stiches all over it’s torso.");
 			
 			//retrieve key = 5
-			this.tasks.put(getThisSetNextKey(), "You took the blade.");
+			this.tasks.put(getThisSetNextKey(), "You take your blade and slowly cuts through the stitches, only to reveal a empty hole inside the corpse, without any organs inside. But what you see is a long sword inside it that goes from inside the corpse’s torso through it’s head, hiding the tip of the sword. You can [T]ry to remove the sword from inside the corpse.");
 			
-			for(i = 0; i < 6; i++)
+			//retrieve key = 6
+			this.tasks.put(getThisSetNextKey(), "You try to push the sword out of the body, covering your hands in blood. Moving it in the right direction, you succesfully take the sword out of the body and hears an unpleasant click. You stop for a moment and listen some cracks coming from the ceiling. Then, a loud noise echoes through the room followed by an ocean of unknown liquid that drops into your head. It’s blood. You hopelessly panic for a moment, but you can’t do a thing. [E]xit the room.");			
+			
+			for(i = 0; i < 7; i++)
 				completedTasks.put("task"+i, false);
+			
+			this.tasksSet = 1; // can't change tasksSet again besides this point and sets the variable to don't enter here again.
 			
 		}
 		else {/*Does nothing, tasks already set*/}
@@ -143,7 +157,7 @@ public class Puzzle2 implements IPuzzle{
 
 	public void checkCompletion(){
 		int i, flag = 1;
-		for(i = 0; i < 6; i++){
+		for(i = 0; i < 7; i++){
 			if(completedTasks.get("task"+i) == false){
 				flag = 0;
 				break;
@@ -182,23 +196,49 @@ public class Puzzle2 implements IPuzzle{
 	}
 	
 	public void setKey(){
-		if(key < 6)
+		if(key < 7)
 			this.key += +1;
 	}
 	
 	public void setProgress(){
-		if(this.progress < 6)
+		if(this.progress < 7)
 			this.progress += 1;
 	}
 	
 	public void defineProgress(int progr){
-		if(progr < 6 && progr >= 0)
+		if(progr < 7 && progr >= 0)
 			this.progress = progr;
 	}
 	
 	public int getProgress(){
 		return this.progress;
 	}
+	
+	
+	public void setAppendFrases(){
+		
+		if(this.appendFrases == 0){
+		
+			//retrieve key = 1.1
+			this.appendStrings.put("1.1", " [P]ut the snake figure into the hole");
+			
+			//retrieve key = 3.1s
+			this.appendStrings.put("3.1s", " You concentrate all your energy into your arms and succeeds. The metal web starts to get Orange, as if it was getting hot. It was. The metal melts from the bottom quickly and cools down right next to your feet. You can [C]heck what was inside the web.");
+			
+			//retrieve key = 3.1f
+			this.appendStrings.put("3.1f", " You concentrate all your energy into your arms but still fails.");
+			
+			//retrieve key = 4
+			this.appendStrings.put("6.1s", " You can [O]pen up the stitches.");
+			
+			//retrieve key = 5
+			this.appendStrings.put("Exit", " [E]xit the room.");
+			
+			this.appendFrases = 1; // can't change appendFrases again besides this point and sets the variable to don't enter here again.
+			
+		}
+	}
+	
 }
 
 	

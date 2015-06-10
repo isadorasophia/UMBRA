@@ -1,4 +1,4 @@
-package com.umbra.puzzlesModule;
+package project;
 
 public interface IPuzzle{
 	
