@@ -1,4 +1,4 @@
-package project;
+package com.umbra.puzzlesModule;
 
 import java.util.Hashtable;
 
@@ -123,25 +123,25 @@ public class Puzzle2 implements IPuzzle{
 		if(this.tasksSet == 0){
 			int i;
 			//retrieve key = 0
-			this.tasks.put(getThisSetNextKey(), "Passed the door, there’s a giant metal web blocking the center of the room, with something inside but you’re not quite sure what it is. You look around and see blood stains all over the walls repeating the words “YOU ARE NOT THE ONLY YOU”. At your right, there’s a big round hole in the wall. At your left, a rusted lever almost hidden by the darkness that fills this room. You can [C]heck the hole in the wall, [S]ee what’s inside the web or [P]ull the lever.");
+			this.tasks.put(getThisSetNextKey(), "Passed the door, thereï¿½s a giant metal web blocking the center of the room, with something inside but youï¿½re not quite sure what it is. You look around and see blood stains all over the walls repeating the words ï¿½YOU ARE NOT THE ONLY YOUï¿½. At your right, thereï¿½s a big round hole in the wall. At your left, a rusted lever almost hidden by the darkness that fills this room. You can [C]heck the hole in the wall, [S]ee whatï¿½s inside the web or [P]ull the lever.");
 			
 			//retrieve key = 1 (+ 1.1 on success)
-			this.tasks.put(getThisSetNextKey(), "You come closer and see that inside the hole there’s only darkness. But you know that there’s something that could fit in there.");
+			this.tasks.put(getThisSetNextKey(), "You come closer and see that inside the hole thereï¿½s only darkness. But you know that thereï¿½s something that could fit in there.");
 			
 			//retrieve key = 2 
-			this.tasks.put(getThisSetNextKey(), "Getting closer, you can see a humanoid figure lying on a table inside the web. But everything is so dark that you can’t really tell if that’s correct.");
+			this.tasks.put(getThisSetNextKey(), "Getting closer, you can see a humanoid figure lying on a table inside the web. But everything is so dark that you canï¿½t really tell if thatï¿½s correct.");
 			
 			//retrieve key = 3 (+ 3.1s on success)
 			this.tasks.put(getThisSetNextKey(), "You put the figure into the hole and hears a clicking noise.");
 			
 			//retrieve key = 4 (+ 6.1s on success)
-			this.tasks.put(getThisSetNextKey(), "There’s a naked corpse on the table with stiches all over it’s torso.");
+			this.tasks.put(getThisSetNextKey(), "Thereï¿½s a naked corpse on the table with stiches all over itï¿½s torso.");
 			
 			//retrieve key = 5
-			this.tasks.put(getThisSetNextKey(), "You take your blade and slowly cuts through the stitches, only to reveal a empty hole inside the corpse, without any organs inside. But what you see is a long sword inside it that goes from inside the corpse’s torso through it’s head, hiding the tip of the sword. You can [T]ry to remove the sword from inside the corpse.");
+			this.tasks.put(getThisSetNextKey(), "You take your blade and slowly cuts through the stitches, only to reveal a empty hole inside the corpse, without any organs inside. But what you see is a long sword inside it that goes from inside the corpseï¿½s torso through itï¿½s head, hiding the tip of the sword. You can [T]ry to remove the sword from inside the corpse.");
 			
 			//retrieve key = 6
-			this.tasks.put(getThisSetNextKey(), "You try to push the sword out of the body, covering your hands in blood. Moving it in the right direction, you succesfully take the sword out of the body and hears an unpleasant click. You stop for a moment and listen some cracks coming from the ceiling. Then, a loud noise echoes through the room followed by an ocean of unknown liquid that drops into your head. It’s blood. You hopelessly panic for a moment, but you can’t do a thing. [E]xit the room.");			
+			this.tasks.put(getThisSetNextKey(), "You try to push the sword out of the body, covering your hands in blood. Moving it in the right direction, you succesfully take the sword out of the body and hears an unpleasant click. You stop for a moment and listen some cracks coming from the ceiling. Then, a loud noise echoes through the room followed by an ocean of unknown liquid that drops into your head. Itï¿½s blood. You hopelessly panic for a moment, but you canï¿½t do a thing. [E]xit the room.");			
 			
 			for(i = 0; i < 7; i++)
 				completedTasks.put("task"+i, false);
