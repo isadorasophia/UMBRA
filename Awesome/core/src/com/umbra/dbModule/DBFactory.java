@@ -1,7 +1,7 @@
 package com.umbra.dbModule;
 
 /**
- * Fabrica para geração de banco de dados diferentes
+ * Fabrica para geração de bancos de dados diferentes
  * 
  * @author Henrique Noronha Facioli
  * @author Thiago Silva de Farias
