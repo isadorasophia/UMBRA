@@ -21,7 +21,7 @@ public class Vulto extends ComponentBase implements IVulto {
     private double maxLuck = 100;
 
     public Vulto(){
-        distance = 2;
+        distance = 20;
         lightProtection = 0;
     }
 
@@ -57,7 +57,7 @@ public class Vulto extends ComponentBase implements IVulto {
             result.append(action.lost);
             live = false;
         }
-        distance = 2;
+        distance = 20;
         return live;
     }
 

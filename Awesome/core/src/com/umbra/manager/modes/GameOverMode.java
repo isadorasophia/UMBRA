@@ -43,8 +43,7 @@ public class GameOverMode extends ComponentBase implements IMode {
 
         if(comunicator.update(dt)) done = true;
         if(!modeOn){
-            ModesInstantiator.mazeModeReset(characters);
-            next_mode = Modes.MAZE;
+           return Modes.RESET;
         }
         return next_mode;
     }

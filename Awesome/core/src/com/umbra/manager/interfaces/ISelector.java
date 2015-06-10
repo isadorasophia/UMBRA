@@ -8,7 +8,7 @@ public interface ISelector {
 
     public void init();
     public void setMode(Modes state);
-    public void update(float dt);
+    public boolean update(float dt);
     public void draw();
     public void dispose();
 

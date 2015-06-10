@@ -8,6 +8,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.umbra.manager.Selector;
 import com.umbra.manager.interfaces.ISelectorComponent;
+import com.umbra.manager.modes.ModesInstantiator;
 import com.umbra.mobModule.mobComponent.impl.MobManager;
 import com.umbra.mobModule.mobComponent.inter.IMobManager;
 import com.umbra.vultoModule.IVulto;
@@ -41,8 +42,13 @@ public class Umbra extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-		selector.update(Gdx.graphics.getDeltaTime());
-		selector.draw();
+		if(selector.update(Gdx.graphics.getDeltaTime())){
+			selector.dispose();
+			create();
+			ModesInstantiator.deletAll();
+			selector.init();
+		} else
+			selector.draw();
 	}
 
 	public void dispose (){

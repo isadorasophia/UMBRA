@@ -79,7 +79,6 @@ public class ModesInstantiator {
         if(uniqueVultoMode == null){
             factory.registerPrototype(VulteMode.class);
             uniqueVultoMode = factory.createInstance("<http://purl.org/NET/dcc/com.umbra.manager.modes.VulteMode>");
-            uniqueVultoMode.init(comunicator,characters);
         }
         return uniqueVultoMode;
     }
@@ -125,4 +124,12 @@ public class ModesInstantiator {
         uniqueGameOverMode.init(comunicator,characters);
     }
 
+    static public void deletAll(){
+        uniqueInicialMode = null;
+        uniquePuzzleMode = null;
+        uniqueMazeMode = null;
+        uniqueBattleMode = null;
+        uniqueVultoMode = null;
+        uniqueGameOverMode = null;
+    }
 }

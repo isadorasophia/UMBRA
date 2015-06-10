@@ -79,9 +79,10 @@ public class Selector extends ComponentBase implements ISelectorComponent {
         }
     }
 
-    public void update(float dt){
+    public boolean update(float dt){
         Modes next;
         String playerInfo;
+        boolean reset = false;
 
         // set player info
         playerInfo = "HP: " + (int)characters.getPlayer().getHealth() +  "/" + characters.getPlayer().getAtt("hp").getMax() + "  | XP: " + (int)characters.getPlayer().getXp() +
@@ -97,7 +98,9 @@ public class Selector extends ComponentBase implements ISelectorComponent {
         characters.getVulto().lightInterference(light);
         mode.handleInput();
         next = mode.update(dt);
-        if(next != state) setMode(next);
+        if(next == Modes.RESET) reset = true;
+        else if(next != state) setMode(next);
+        return reset;
     }
 
     public void draw(){
