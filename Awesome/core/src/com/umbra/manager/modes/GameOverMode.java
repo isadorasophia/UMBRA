@@ -17,13 +17,15 @@ import com.umbra.mobModule.mobComponent.inter.IPlayer;
 public class GameOverMode extends ComponentBase implements IMode {
 
     private IComunicator comunicator;
+    private Characters characters;
 
     // Flags
-    boolean modeOn; // Continue in the mode
-    boolean done; // Last text already written
+    private boolean modeOn; // Continue in the mode
+    private boolean done; // Last text already written
 
     @Override
     public void init(IComunicator comunicator, Characters characters) {
+        this.characters = characters;
         this.comunicator = comunicator;
         comunicator.newText("GAME OVER", Gdx.graphics.getWidth()/2 - 50, Gdx.graphics.getHeight()/2 + 50, Gdx.graphics.getWidth() - 200, true, true);
         done = false;
@@ -38,7 +40,10 @@ public class GameOverMode extends ComponentBase implements IMode {
         Modes next_mode = Modes.GAMEOVER;
 
         if(comunicator.update(dt)) done = true;
-        if(!modeOn) next_mode = Modes.MAZE;
+        if(!modeOn){
+            ModesInstantiator.mazeModeReset(characters);
+            next_mode = Modes.MAZE;
+        }
         return next_mode;
     }
 

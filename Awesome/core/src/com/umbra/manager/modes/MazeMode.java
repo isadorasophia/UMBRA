@@ -8,6 +8,7 @@ import com.umbra.manager.Characters;
 import com.umbra.manager.TextComunicator;
 import com.umbra.manager.interfaces.IMapModeComponent;
 import com.umbra.manager.interfaces.IComunicator;
+import com.umbra.mapModule.impl.Map;
 import com.umbra.mapModule.inter.ICell;
 import com.umbra.mapModule.inter.IMap;
 import com.umbra.mobModule.mobComponent.inter.IMonstro;
@@ -106,7 +107,7 @@ public class MazeMode extends ComponentBase implements IMapModeComponent {
 
     @Override
     public void dispose() {
-        comunicatorMap.dispose();
+        comunicatorComand.dispose();
     }
 
     @Override

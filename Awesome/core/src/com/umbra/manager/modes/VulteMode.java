@@ -38,7 +38,8 @@ public class VulteMode extends ComponentBase implements IMode {
         this.comunicator = comunicator;
         this.vulto = characters.getVulto();
         this.player = characters.getPlayer();
-        comunicator.newText(text, 100, Gdx.graphics.getHeight() - 50, Gdx.graphics.getWidth() - 200f, true);
+        comunicator.newText(text, 100, Gdx.graphics.getHeight() - 50, Gdx.graphics.getWidth() - 200f, true, false);
+        done = false;
         isAlive = true;
         modeOn = true;
         end = false;
@@ -63,7 +64,9 @@ public class VulteMode extends ComponentBase implements IMode {
             } else {
                 done = true;
                 if(!modeOn) {
-                    if (isAlive) next_mode = Modes.MAZE;
+                    if (isAlive){
+                        next_mode = Modes.MAZE;
+                    }
                     else next_mode = Modes.GAMEOVER;
                 }
             }

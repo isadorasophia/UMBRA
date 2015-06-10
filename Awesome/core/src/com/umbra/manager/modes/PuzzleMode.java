@@ -78,7 +78,4 @@ public class PuzzleMode extends ComponentBase implements IMode {
     public void dispose() {
 
     }
-
-
-
 }

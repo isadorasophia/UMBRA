@@ -18,14 +18,15 @@ public class Vulto extends ComponentBase implements IVulto {
 
     private int distance;
     private double lightProtection;
+    private double maxLuck = 100;
 
     public Vulto(){
-        distance = 1000;
+        distance = 2;
         lightProtection = 0;
     }
 
     public boolean checkVulto(){
-        return distance+lightProtection == 0;
+        return distance--+lightProtection == 0;
     }
 
     public void lightInterference(double light){
@@ -49,13 +50,14 @@ public class Vulto extends ComponentBase implements IVulto {
         boolean live;
 
         result.append(action.answer);
-        if (random.nextDouble() % 100 < action.probability_constant * luck) {
+        if (random.nextDouble() % 100 < action.probability_constant * 100 * luck / maxLuck) {
             result.append(action.won);
             live = true;
         }else{
             result.append(action.lost);
             live = false;
         }
+        distance = 2;
         return live;
     }
 
