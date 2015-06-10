@@ -62,19 +62,19 @@ public class Puzzle1 implements IPuzzle {
 			
 			//in case time is used, checks the time and the player magically dies if the time is elapsed;
 			//else if there is no time, then the player progresses! 
-			if(msgIn.equalsIgnoreCase("C") && getProgress() == 0){
+			if(msgIn.contains("C") && getProgress() == 0){
 				completedTasks.put("task0", true);
 				setProgress();
 				currMessage = tasks.get(progress); 
 			}
-			else if(msgIn.equalsIgnoreCase("L") && getProgress() == 1){
+			else if(msgIn.contains("L") && getProgress() == 1){
 				completedTasks.put("task1", true);
 				setProgress();
 				currMessage = tasks.get(progress); //returns the next message.
 				
 			}
 			//takes a decision here
-			else if(msgIn.equalsIgnoreCase("O") && getProgress() == 2){			
+			else if(msgIn.contains("O") && getProgress() == 2){			
 				setProgress();
 				currMessage = tasks.get(progress);
 				//Only sets the task 2 as true here, if the player is coming back to take the remaining item,
@@ -85,7 +85,7 @@ public class Puzzle1 implements IPuzzle {
 			
 	
 				//took the open box decision -> blade path
-				else if(msgIn.equalsIgnoreCase("T") && getProgress() == 3){
+				else if(msgIn.contains("T") && getProgress() == 3){
 					completedTasks.put("task3", true);
 					completedTasks.put("task5", true);
 					setProgress();
@@ -107,7 +107,7 @@ public class Puzzle1 implements IPuzzle {
 				}
 	
 			
-			else if(msgIn.equalsIgnoreCase("T") && getProgress() == 2){
+			else if(msgIn.contains("T") && getProgress() == 2){
 				completedTasks.put("task4", true);
 				setProgress();
 				setProgress();//advances the progress variable to point to task 4
