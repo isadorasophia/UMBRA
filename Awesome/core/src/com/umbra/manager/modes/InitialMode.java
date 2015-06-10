@@ -42,16 +42,16 @@ public class InitialMode extends ComponentBase implements IMode {
         
       //Instanciando um db do tipo CSV
         DBFactory factory = new DBFactory("manager");
-        iDB dbInitialText = factory.getDB(TypeDB.CSV);
+        iDB dbInitialText = factory.getDB(TypeDB.TXT);
 
         //Recuperando dados do monstroX do DB
-        String[] texts = null;
+        String texts = null;
         try {
-            texts = dbInitialText.getFromDB("initialText");
+            texts = dbInitialText.getFromDB();
         } catch (NoMethod e) {
             e.printStackTrace();
         }
-        initialText = texts[1];
+        initialText = texts;
 
         this.comunicator = comunicator;
         this.comunicator.newText("Umbra", Gdx.graphics.getWidth()/2 - 50, Gdx.graphics.getHeight()/2 + 50, Gdx.graphics.getWidth() - 200, true);
