@@ -119,7 +119,7 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		this.enemyDefending = DefenseStatus.IDLE;
 		
 		setStatus(null);
-		this.attsSelected = 3;
+		this.attsSelected = 5;
 
 		beReady();
 	}
