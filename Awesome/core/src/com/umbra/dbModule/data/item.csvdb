@@ -1,5 +1,6 @@
 itemBattle;LONG SWORD;0.4;10.0,5.0,5.0;This is a sword known for its enormity
-itemBattle;BLADE;0.9;3.0,3.0,1.0;Little blade for personal defense
+itemBattle;BLADE;0.9;7.0,5.0,5.0;Blade useful to kill
+itemBattle;KNIFE;0.9;3.0,3.0,1.0;Little knife for personal defense
 itemIlumination;LANTERN;0.8;10.0;Basic lantern
 itemPuzzle;KEY;0.3;Broken,Dirty;Hm... An old key
 itemPuzzle;FIGURE;0.3;Old,Strange;Someone who lived here before

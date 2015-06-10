@@ -4,6 +4,7 @@ import anima.context.exception.ContextException;
 import anima.factory.IGlobalFactory;
 import anima.factory.context.componentContext.ComponentContextFactory;
 import anima.factory.exception.FactoryException;
+
 import com.umbra.mapModule.inter.IPosition;
 import com.umbra.mobModule.attComponent.impl.AttCreator;
 import com.umbra.mobModule.attComponent.inter.IAttManager;
@@ -13,6 +14,7 @@ import com.umbra.mobModule.exceptions.FullInventoryException;
 import com.umbra.mobModule.exceptions.SameItemException;
 import com.umbra.mobModule.itemComponent.impl.ItemManager;
 import com.umbra.mobModule.itemComponent.inter.IItem;
+import com.umbra.mobModule.itemComponent.inter.IItemBattle;
 import com.umbra.mobModule.itemComponent.inter.IItemManager;
 import com.umbra.mobModule.itemComponent.inter.IItemPuzzle;
 import com.umbra.mobModule.mobComponent.inter.IPlayer;
@@ -51,7 +53,9 @@ public class Player extends PlayerGeneric implements IPlayer{
             IItemManager itemmanager = factory.createInstance(
                     "<http://purl.org/NET/dcc/com.umbra.mobModule.itemComponent.impl.ItemManager>");
             IItemPuzzle lantern = itemmanager.instantiateItemPuzzle("LANTERN", null);
+            IItemBattle knife = itemmanager.instantiateItemBattle("KNIFE", null);
             super.putItem(lantern);
+            super.putItem(knife);
         } catch (ContextException e) {
             e.printStackTrace();
         } catch (FactoryException e) {
