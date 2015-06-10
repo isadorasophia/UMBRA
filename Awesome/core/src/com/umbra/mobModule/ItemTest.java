@@ -35,7 +35,7 @@ public class ItemTest {
         	IPlayer player = mobmanager.createPlayer("Player", "Teste", null);
         	
         	IItemBattle longSword = itemmanager.instantiateItemBattle("LONG SWORD", null);
-        	IItemPuzzle key = itemmanager.instantiateItemPuzzle("KEY", null);
+        	IItemPuzzle key = itemmanager.instantiateItemPuzzle("FIGURE", null);
         	player.putItem(key);
         	Vector<String> novo = player.itemsPuzzle();
         	System.out.println(novo.contains("KEY"));

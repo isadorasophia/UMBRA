@@ -8,6 +8,7 @@ import anima.factory.context.componentContext.ComponentContextFactory;
 import com.umbra.mobModule.itemComponent.impl.ItemManager;
 import com.umbra.mobModule.itemComponent.inter.IItemBattle;
 import com.umbra.mobModule.itemComponent.inter.IItemManager;
+import com.umbra.mobModule.itemComponent.inter.IItemPuzzle;
 import com.umbra.mobModule.mobComponent.impl.MobManager;
 import com.umbra.mobModule.mobComponent.inter.IPlayer;
 
@@ -121,7 +122,7 @@ public class Puzzle1 implements IPuzzle {
 		        	factory.registerPrototype(ItemManager.class);
 					IItemManager itemmanager = factory.createInstance(
 		        			"<http://purl.org/NET/dcc/com.umbra.mobModule.itemComponent.impl.ItemManager>");
-					IItemBattle figure = itemmanager.instantiateItemBattle("FIGURE", null);
+					IItemPuzzle figure = itemmanager.instantiateItemPuzzle("FIGURE", null);
 					player.putItem(figure);
 				} catch (Exception e) {
 					e.printStackTrace();
