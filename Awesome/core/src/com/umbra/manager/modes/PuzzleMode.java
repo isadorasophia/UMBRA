@@ -33,6 +33,7 @@ public class PuzzleMode extends ComponentBase implements IMode {
     @Override
     public void init(IComunicator comunicator, Characters characters) {
     	this.comunicator = comunicator;
+        this.characters = characters;
         modeOn = true;
         end = false;
         done = false;
@@ -57,6 +58,7 @@ public class PuzzleMode extends ComponentBase implements IMode {
                 done = true;
                 if(!modeOn) {
                     next_mode = Modes.MAZE;
+                    ModesInstantiator.mazeModeReset(characters);
                 }
             }
         }
