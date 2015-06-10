@@ -75,7 +75,7 @@ public class Map extends ComponentBase implements IMap {
         for (int i = 0; i < TAM_Y; i++) {
             if (corredor[i][0].getDoor() == null)
                 operator.makeParede(corredor[i][0]);
-            if (corredor[i][TAM_X-1] == null)
+            if (corredor[i][TAM_X-1].getDoor() == null)
                 operator.makeParede(corredor[i][TAM_X-1]);
         }
 
