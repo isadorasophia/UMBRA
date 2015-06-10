@@ -29,6 +29,10 @@ import anima.component.base.ComponentBase;
  *
  */
 public class BattleManager extends ComponentBase implements IBattleManager{
+	private enum DefenseStatus {
+		IDLE, FIRST_TURN, SECOND_TURN
+	}
+	
 	// Handler
 	private BattleExecuter battleExecuter = null;
 	
@@ -36,24 +40,21 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 	private BattleDao battleDao = null;
 	
 	// Flags
-	private boolean hasLeveledUp = false;
-	private boolean isBattleSet = false;
 	private boolean playerTurn = true;
-	private boolean done = false;
+	private boolean isBattleSet = false;
 	private boolean isBattleOver = false;
+	private boolean hasLeveledUp = false;
+	private boolean done = false;
 	
-	// Keeps track of how many turns has passed
-	private int turnsPassed;
-
 	// regarding defense move
-	private boolean playerDefending = false;
-	private boolean enemyDefending = false;
+	private DefenseStatus playerDefending;
+	private DefenseStatus enemyDefending;
 	
 	// level up variables
-	private int attsSelected = 5;
+	private int attsSelected;
 	
 	// Main string, which is passed to the main class
-	private String status = "";
+	private String status;
 	
 	/**
 	 * Getter para a variavel Done
@@ -103,53 +104,22 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 	 * @param monster - Monstro da batalha
 	 */
 	public void initialize (IPlayer player, IMonstro monster) {
-		/*ItemManager itemManager = new ItemManager();
-		IItemBattle item = itemManager.instantiateItemBattle("LONG SWORD", null);
-		try {
-			getPlayer().putItem(item);
-		} catch (FullInventoryException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SameItemException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-		
-		
-		/*// For testing sake
-		 this.player.setAtt("attack", 15);
-		this.player.setAtt("defense", 14);
-		this.player.setAtt("dexterity", 13);
-		this.player.setAtt("evasiveness", 10);
-		this.player.setAtt("luck", 9);
-		
-		this.player.setAtt("hp", 10);
-        
-		
-		this.monster.setAtt("attack", 15);
-		this.monster.setAtt("defense", 13);
-		this.monster.setAtt("dexterity", 8);
-		this.monster.setAtt("evasiveness", 6);
-		this.monster.setAtt("luck", 7);
-		this.monster.setAtt("sanity", 2);
-		this.monster.setAtt("hp", 10); */
-		
 		this.battleExecuter = new BattleExecuter();
 		this.battleDao = new BattleDaoImpl(player, monster);
 		
-		// information regarding turns
+		// player starts first turn
 		this.playerTurn = true;
-		this.turnsPassed = 0;
 		
 		// battle status
 		this.hasLeveledUp = false;
 		this.isBattleSet = false;
 		setDone(false);
 		
-		this.playerDefending = false;
-		this.enemyDefending = false;
+		this.playerDefending = DefenseStatus.IDLE;
+		this.enemyDefending = DefenseStatus.IDLE;
 		
 		setStatus(null);
+		this.attsSelected = 3;
 
 		beReady();
 	}
@@ -176,7 +146,7 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 	}
 	
 	/**
-	 * Provê a lista de itens que podem ser esuipados antes da batalha
+	 * Provê a lista de itens que podem ser equipados antes da batalha
 	 * 
 	 * @param items - Lista de itens do jogador
 	 * @return String - Nome dos itens
@@ -254,33 +224,30 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		// if it is the player turn
 		if (this.playerTurn) {
 			// reset defense status, if that is the case
-			if (this.playerDefending && this.turnsPassed == 2) {
+			if (playerDefending == DefenseStatus.SECOND_TURN) {
 				this.battleExecuter.defend(battleDao.getPlayer(), true);
-				this.playerDefending = false;
+				this.playerDefending = DefenseStatus.IDLE;
 				
 			} else { // player can keep on defending, just count as a passed turn
-				if (this.turnsPassed != 2 && this.playerDefending) {
-					this.turnsPassed += 1;
+				if (this.playerDefending == DefenseStatus.FIRST_TURN) {
+					this.playerDefending = DefenseStatus.SECOND_TURN;
 				}
 			}
 			
 			// execute player move
 			if (input.contains("D")) {
 				// player increases his defense in the next 2 turns
-				if (!this.playerDefending) {
+				if (this.playerDefending == DefenseStatus.IDLE) {
 					this.battleExecuter.defend(battleDao.getPlayer(), false);
-				} else { // manually defends, since it was already defending
-					this.turnsPassed = 0;
-					setStatus("You chose to defend, for once.\nPress return to procede.\n");
-				
-					// get ready for next move
-					this.playerTurn = false;
 					
-					return;
-				}
+					this.playerDefending = DefenseStatus.FIRST_TURN;
+					
+				} else { // only increase turns, since it was already defending
+					this.playerDefending = DefenseStatus.FIRST_TURN;
+					setStatus("You chose to defend, for once.\n");
 				
-				this.turnsPassed = 0;
-				this.playerDefending = true;
+					battleExecuter.cleanStatus();
+				}
 				
 			} else if (input.contains("R")) { // run!
 				setDone(this.battleExecuter.escape(battleDao.getPlayer(), battleDao.getMonster()));
@@ -326,18 +293,32 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 			this.playerTurn = false;
 		} else { // if it is the monster turn
 			// reset defense status, if that is the case
-			if (this.enemyDefending) {
+			if (this.enemyDefending == DefenseStatus.SECOND_TURN) {
 				this.battleExecuter.defend(battleDao.getMonster(), true);
-				this.enemyDefending = false;
+				this.enemyDefending = DefenseStatus.IDLE;
+				
+			} else { // player can keep on defending, just count as a passed turn
+				if (this.enemyDefending == DefenseStatus.FIRST_TURN) {
+					this.enemyDefending = DefenseStatus.SECOND_TURN;
+				}
 			}
 			
 			// decides the next movement
 			String monsterInput = this.battleExecuter.monsterAI(battleDao.getMonster(), battleDao.getPlayer());
 			
 			if (monsterInput.contains("D")) {
-				this.battleExecuter.defend(battleDao.getMonster(), false);
-				
-				this.enemyDefending = true;
+				// player increases his defense in the next 2 turns
+				if (this.enemyDefending == DefenseStatus.IDLE) {
+					this.battleExecuter.defend(battleDao.getMonster(), false);
+					
+					this.enemyDefending = DefenseStatus.FIRST_TURN;
+					
+				} else { // only increase turns, since it was already defending
+					this.enemyDefending = DefenseStatus.FIRST_TURN;
+					setStatus(battleDao.getMonster().getName() + " chose to defend, for once.\n");
+					
+					battleExecuter.cleanStatus();
+				}
 			} else {
 				 this.isBattleOver = this.battleExecuter.attack(battleDao.getMonster(), battleDao.getPlayer(), monsterInput);
 			}
@@ -357,7 +338,7 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		
 		
 		// if the battle was lost...
-		if (this.isBattleOver && !this.hasLeveledUp) {
+		if (this.isBattleOver) {
 			// Unequip all items
 			try {
 				battleDao.getPlayer().unequipAll();
@@ -418,8 +399,6 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 			this.attsSelected *= levelGained;
 		}
 		else {
-			setDone(true);
-			
 			reset();
 		}
 	}
@@ -430,7 +409,6 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 	private void lostBattle() {
 		setStatus(battleDao.getMonster().getDeathDescription());
 		
-		setDone(true);
 		reset();
 	}
 	
@@ -482,7 +460,6 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		
 		// if all the atts have been chosen
 		if (this.attsSelected == 0) {
-			setDone(true);
 			reset();
 		} else {
 			setStatus("You got to Level " + (int)battleDao.getPlayer().getNivel() + "!\n"
@@ -503,5 +480,7 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 		// Battle ended, reset class configurations
 		this.battleExecuter = null;
 		this.battleDao = null;
+		
+		setDone(true);
 	}
 }

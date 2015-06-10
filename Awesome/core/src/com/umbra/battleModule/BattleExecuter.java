@@ -22,10 +22,10 @@ class BattleExecuter {
 		this.vitalOrgans = new BodyPart("vital organs", 1.25f, 0.4f);
 	}
 	
-	private static enum AttackState { normal, critical, counter, missed }
+	private enum AttackState { normal, critical, counter, missed }
 	
 	BodyPart limbs, brain, vitalOrgans;
-	private String status = "";
+	private String status;
 	
 	/**
 	 * Getter para a variável Status
@@ -47,6 +47,11 @@ class BattleExecuter {
 	}
 	
 	/**
+	 * Limpa o status da battle
+	 */
+	void cleanStatus() { setStatus(null); }
+	
+	/**
 	 * Retorna a string com a primeira letra capitalizada
 	 * 
 	 * @param Uma string arbitrária
@@ -57,6 +62,23 @@ class BattleExecuter {
 	}
 	
 	/**
+	 * Provê a referencia à parte do corpo a ser atacada
+	 * 
+	 * @param input
+	 * @return BodyPart - Parte do corpo a ser atacada
+	 */
+	private BodyPart returnBodyPart (String input) {
+		if (input.contains("L"))
+			return this.limbs;
+		else if (input.contains("B")) 
+			return this.brain;
+		else if (input.contains("V"))
+			return this.vitalOrgans;
+		
+		return null;
+	}
+	
+	/**
 	 * Realiza cálculos que determinam se o player conseguiu fugir da batalha
 	 * 
 	 * @param player
@@ -64,7 +86,7 @@ class BattleExecuter {
 	 * @return boolean - Se o player conseguiu escapar
 	 */
 	boolean escape (IMob player, IMob enemy) {
-		setStatus(null);
+		cleanStatus();
 		
 		Random random = new Random ();
 		
@@ -84,18 +106,6 @@ class BattleExecuter {
 	}
 	
 	/**
-	 * Função intermediária de ataque
-	 * 
-	 * @param attacker
-	 * @param victim
-	 * @param input - Parte do corpo que o jogador quer atacar
-	 * @return boolean - Se o monstro ou o player morreu
-	 */
-	boolean attack (IMob attacker, IMob victim, String input) {
-		return attack (attacker, victim, input, false);
-	}
-	
-	/**
 	 * Realiza comparações e calcula as consequências do ataque realizado
 	 * 
 	 * @param attacker
@@ -104,9 +114,11 @@ class BattleExecuter {
 	 * @param counter
 	 * @return - boolean Se o monstro ou o player morreu
 	 */
-	private boolean attack (IMob attacker, IMob victim, String BP, boolean counter) {
+	boolean attack (IMob attacker, IMob victim, String BP) {		
 		int damage;
 		BodyPart bodyPart = returnBodyPart(BP);
+		
+		cleanStatus();
 		
 		if (bodyPart == null) {
 			setStatus("That was an invalid move.\n");
@@ -116,10 +128,6 @@ class BattleExecuter {
 		
 		AttackState attackState = stateOfAttack (attacker, victim, bodyPart.getHitChance());
 		
-		// If it isn't a counter move, clean up the string
-		if (!counter) 
-			setStatus(null);
-		
 		switch (attackState) {
 			case normal:
 				damage = (int)calcDamage(attacker, victim, false, bodyPart.getAttFactor());
@@ -128,7 +136,6 @@ class BattleExecuter {
 				victim.decreaseHP(damage); 
 						
 				if (victim.dead()) {
-					//setStatus (attacker.getName() + " just killed " + victim.getName() + "...\n");
 					return true;
 				}
 				
@@ -146,16 +153,20 @@ class BattleExecuter {
 				break;
 			case counter:
 				setStatus("Counter!\n");
+				
 				damage = (int)calcDamage(victim, attacker, false, bodyPart.getAttFactor());
 				setStatus(capitalize(victim.getName()) + " attacked towards the " + bodyPart.getBodyPart() + " and inflicted a damage of " + (int)damage + " on " + attacker.getName() + "!\n");
 				
 				attacker.decreaseHP(damage);
+				
 				if (attacker.dead()) {
 					return true;
 				}
+				
 				break;
 			case missed:
 				setStatus(capitalize(attacker.getName()) + " tried to attack " + victim.getName() + ", but missed!\n");
+				
 				break;
 		}
  
@@ -195,23 +206,6 @@ class BattleExecuter {
 	}
 	
 	/**
-	 * Provê a referencia à parte do corpo a ser atacada
-	 * 
-	 * @param input
-	 * @return BodyPart - Parte do corpo a ser atacada
-	 */
-	private BodyPart returnBodyPart (String input) {
-		if (input.contains("L"))
-			return this.limbs;
-		else if (input.contains("B")) 
-			return this.brain;
-		else if (input.contains("V"))
-			return this.vitalOrgans;
-		
-		return null;
-	}
-	
-	/**
 	 * Calcula o valor do dano causado pelo ataque
 	 * 
 	 * @param attacker
@@ -246,8 +240,9 @@ class BattleExecuter {
 	 * @param over - Se o periodo de defesa acabou
 	 */
 	void defend (IMob target, boolean over) {
+		cleanStatus();
+		
 		double defense = target.getAtt("defense").getValue();
-		setStatus(null);
 		
 		if (over) {
 			// decrease
@@ -274,7 +269,7 @@ class BattleExecuter {
 		double hpProportion = monster.getAtt("hp").getValue()/monster.getAtt("hp").getMax();
 		double attackChance = (monster.getAtt("attack").getValue() * 2) * (random.nextFloat()/2);
 		
-		if (hpProportion < 0.25) {
+		if (hpProportion < .25) {
 			if (attackChance >= victim.getAtt("hp").getValue()) {
 				// higher chance to hit enemy
 				return "L";
@@ -285,12 +280,18 @@ class BattleExecuter {
 			else
 				return "D";
 		} else {
-			if (monster.getAtt("attack").getValue() * limbs.getAttFactor() * (random.nextFloat() * .25) >= monster.getAtt("dexterity").getValue() * (1 + limbs.getHitChance()) * (random.nextFloat() * .25)) {
+			if (monster.getAtt("attack").getValue() * limbs.getAttFactor() * (random.nextFloat() * .25) >= 
+					monster.getAtt("dexterity").getValue() * (1 + limbs.getHitChance()) * (random.nextFloat() * .25)) {
 				return "L";
-			} else if (monster.getAtt("dexterity").getValue() * vitalOrgans.getAttFactor() * (.3 + random.nextFloat() * .5) > monster.getAtt("attack").getValue() * (1 + vitalOrgans.getHitChance()) * (.25 + random.nextFloat() * .25)) {
+				
+			} else if (monster.getAtt("dexterity").getValue() * vitalOrgans.getAttFactor() * (.3 + random.nextFloat() * .5) > 
+			monster.getAtt("attack").getValue() * (1 + vitalOrgans.getHitChance()) * (.25 + random.nextFloat() * .25)) {
 				return "V";
-			} else
+			
+			} else { 
 				return "B";
+				
+			}
 		}
 	}
 }
