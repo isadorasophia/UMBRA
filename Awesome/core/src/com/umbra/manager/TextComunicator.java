@@ -73,6 +73,7 @@ public class TextComunicator implements IComunicator, InputProcessor {
         if(cursorOn) {
             if(this.fullText == null || !this.fullText.equals(fullText)) {
                 this.fullText = fullText;
+                System.out.println(fullText);
                 counter = 0;
                 index = 0;
                 text = "_";

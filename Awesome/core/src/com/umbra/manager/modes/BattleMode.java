@@ -37,7 +37,6 @@ public class BattleMode extends ComponentBase implements IBattleModeComponent {
         this.comunicator = comunicator;
         player = characters.getPlayer();
         monstro = characters.getMonstro();
-        player.setAtt("attack",10000);
         battlemanager.initialize(player,monstro);
         comunicator.newText(battlemanager.getStatus(), 100, Gdx.graphics.getHeight() - 50, Gdx.graphics.getWidth() - 200f, true, false);
         isAlive = true;
