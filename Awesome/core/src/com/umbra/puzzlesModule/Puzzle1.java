@@ -1,20 +1,54 @@
-package com.umbra.puzzlesModule;
+package project;
 
 import java.util.Hashtable;
+import java.util.Vector;
+
+import com.umbra.mobModule.IGlobalFactory;
+import com.umbra.mobModule.itemComponent.impl.ItemManager;
+import com.umbra.mobModule.itemComponent.inter.IItemBattle;
+import com.umbra.mobModule.itemComponent.inter.IItemManager;
+import com.umbra.mobModule.itemComponent.inter.IItemPuzzle;
+import com.umbra.mobModule.mobComponent.impl.MobManager;
+import com.umbra.mobModule.mobComponent.inter.IMobManager;
+import com.umbra.mobModule.mobComponent.inter.IPlayer;
 
 
-public class Puzzle1 implements IPuzzle {
+public class Puzzle1 implements IPuzzle{
 
+	try {
+    	IGlobalFactory factory = ComponentContextFactory.createGlobalFactory();
+    	factory.registerPrototype(ItemManager.class);
+    	IItemManager itemmanager = factory.createInstance(
+    			"<http://purl.org/NET/dcc/com.umbra.mobModule.itemComponent.impl.ItemManager>");
+    	
+    	IItemPuzzle key = itemmanager.instantiateItemPuzzle("KEY", null);
+    	player.putItem(key);
+    	Vector<String> novo = player.itemsPuzzle();
+    	System.out.println(novo.contains("KEY"));
+    	player.putItem(longSword);
+    	player.equipItem("LONG SWORD");
+    	System.out.println(player);
+    	
+    	
+    } catch (Exception e) {
+    	e.printStackTrace();
+    }
+	
+	
+	
 	
 	//private Iplayer player = null;
 	
-	Hashtable<Integer, String> tasks = new Hashtable<Integer, String>();
-	Hashtable<String, Boolean> completedTasks = new Hashtable<String, Boolean>();
+	public Hashtable<Integer, String> tasks = new Hashtable<Integer, String>();
+	public Hashtable<String, Boolean> completedTasks = new Hashtable<String, Boolean>();
 	private int tasksSet = 0; 
 	private boolean isFinished = false;
+	private int hasTheBlade = 0;
+	private int hasTheFigure = 0;
 	private int key = 0;
 	private int progress = 0;
 	public String currMessage;
+	public int left = 0;
 
 	
 	
@@ -23,7 +57,6 @@ public class Puzzle1 implements IPuzzle {
 	
 	
 	private Puzzle1(){
-		
 	}
 	
 	public static Puzzle1 getPuzzle1Instance(){
@@ -32,11 +65,17 @@ public class Puzzle1 implements IPuzzle {
 	
 	public String init(/*Iplayer playerReceived*/){
 		//this.player = playerReceived; 
-		setSequenceOfTasks();
-		setIsFinished(false);
-		this.currMessage = tasks.get(progress);
-		return outputMsg();
+		if(tasksSet == 0) {
+			setSequenceOfTasks();
+			setIsFinished(false);
+			this.currMessage = tasks.get(progress);
+			return outputMsg();
+		}
+		else{
+			return "This puzzle has been set already";
+		}
 	}
+		
 	
 	//the inputMsg method calls the outputMsg method for returning the string
 	//each condition of this method sets a different currMessage that will be returned to the caller
@@ -44,22 +83,21 @@ public class Puzzle1 implements IPuzzle {
 		if(getIsFinished() == false){
 			this.currMessage = "i don't know what to do!";
 			
-			msgIn = msgIn.toUpperCase();
-			
 			//in case time is used, checks the time and the player magically dies if the time is elapsed;
 			//else if there is no time, then the player progresses! 
-			if(msgIn.contains("C") && getProgress() == 0){
+			if(msgIn.equalsIgnoreCase("C") && getProgress() == 0){
 				completedTasks.put("task0", true);
 				setProgress();
-				currMessage = tasks.get(progress); //sets the next message.
+				currMessage = tasks.get(progress); 
 			}
-			else if(msgIn.contains("L") && getProgress() == 1){
-				currMessage = tasks.get(progress);
-				setProgress();
+			else if(msgIn.equalsIgnoreCase("L") && getProgress() == 1){
 				completedTasks.put("task1", true);
+				setProgress();
+				currMessage = tasks.get(progress); //returns the next message.
+				
 			}
 			//takes a decision here
-			else if(msgIn.contains("O") && getProgress() == 2){			
+			else if(msgIn.equalsIgnoreCase("O") && getProgress() == 2){			
 				setProgress();
 				currMessage = tasks.get(progress);
 				//Only sets the task 2 as true here, if the player is coming back to take the remaining item,
@@ -70,24 +108,27 @@ public class Puzzle1 implements IPuzzle {
 			
 	
 				//took the open box decision -> blade path
-				else if(msgIn.contains("T") && getProgress() == 3){
+				else if(msgIn.equalsIgnoreCase("T") && getProgress() == 3){
 					completedTasks.put("task3", true);
-					setProgress();
-					setProgress();//advances the progress variable to point to task 5
-					currMessage = tasks.get(progress);
 					completedTasks.put("task5", true);
+					setProgress();
+					setProgress(); //advances the progress variable to point to task 5
+					this.hasTheBlade = 1;
+					currMessage = tasks.get(progress);
+					if(hasTheFigure == 0) currMessage = tasks.get(progress)   + "\nBut still, there is that round-shaped figure on the ground... You can: [T]ake the figure.";
 					
 					//player.putItem("theBlade");
 					
 				}
 	
 			
-			else if(msgIn.contains("T") && getProgress() == 2){
-				currMessage = tasks.get(progress);
+			else if(msgIn.equalsIgnoreCase("T") && getProgress() == 2){
+				completedTasks.put("task4", true);
 				setProgress();
 				setProgress();//advances the progress variable to point to task 4
-				completedTasks.put("task4", true);
-	
+				this.hasTheFigure = 1;
+				currMessage = tasks.get(progress);
+				if(hasTheBlade == 0) currMessage = tasks.get(progress) + "\nBut still, there is that wooden box sitting there... You can: [O]pen the wooden box.";
 				
 				//player.putItem("theFigure");
 				
@@ -99,10 +140,15 @@ public class Puzzle1 implements IPuzzle {
 				
 			}
 				
+			
 				
-			if((completedTasks.get("task3") == true && completedTasks.get("task5") == true && completedTasks.get("task2") == false) || (completedTasks.get("task4") == true && completedTasks.get("task2") == false)) 
-				this.progress = 2;
-			checkCompletion(); //next time it enters inputMsg(), it will stop working in case PuzzleCompletion;
+			if((completedTasks.get("task3") == true && completedTasks.get("task5") == true && completedTasks.get("task2") == false) || (completedTasks.get("task4") == true && completedTasks.get("task2") == false)){ 
+				
+				this.progress = 2; //if entering Puzzle1.inputMsg() to get the left behind item it will start in the correct place.
+				
+			}
+			checkCompletion(); //next time it enters Puzzle1.inputMsg(), it will stop working in case PuzzleCompletion;
+			if(isFinished == true) currMessage = currMessage + "\nThis puzzle is over.";
 			return outputMsg();
 		}	
 		return "This puzzle is over!";
@@ -112,20 +158,20 @@ public class Puzzle1 implements IPuzzle {
 	
 	public void setSequenceOfTasks(){
 		// acts only one time
-		// 'key' here is used only for populating the 
+		// 'key' here is used only for populating hash table
 		if(this.tasksSet == 0){
 			int i;
 			//retrieve key = 0
 			this.tasks.put(getThisSetNextKey(), "As you enter the room, you see only a little point of light in the left corner. You can [C]heck the light.");
 			
 			//retrieve key = 1
-			this.tasks.put(getThisSetNextKey(), "While you walk slowly toward the light, you sense an object touching your feet. Trumbling, you fall on your knees trying to hold on to anything you can find. On the ground, you realize that the light was only a candle, almost running out. Thereï¿½s a big candlestick on the wall. You can [L]ight the candlestick.");
+			this.tasks.put(getThisSetNextKey(), "While you walk slowly toward the light, you sense an object touching your feet. Trumbling, you fall on your knees trying to hold on to anything you can find. On the ground, you realize that the light was only a candle, almost running out. There’s a big candlestick on the wall. You can [L]ight the candlestick.");
 			
 			//retrieve key = 2
-			this.tasks.put(getThisSetNextKey(), "You take the candle and use it to light the candlestick. The whole room lights up. You see a little table in the middle of the room with a wooden box sitting there. On the ground, thereï¿½s a big figure of a snake carved into a round shape of an unknown material, and that was probably what made you fall. You can [O]pen the wooden box or [T]ake the figure.");
+			this.tasks.put(getThisSetNextKey(), "You take the candle and use it to light the candlestick. The whole room lights up. You see a little table in the middle of the room with a wooden box sitting there. On the ground, there’s a big figure of a snake carved into a round shape of an unknown material, and that was probably what made you fall. You can [O]pen the wooden box or [T]ake the figure.");
 			
 			//retrieve key = 3
-			this.tasks.put(getThisSetNextKey(), "Your hands shake uncontrollably and you try to make them steady with no success. The wooden box creaks, filling the whole room with the noise. When you finally opened enough to see whatï¿½s inside, you notice a black liquid floating inside it. Fearfully, you put your hands inside the box, sensing a metalic material through the gooey liquid. Itï¿½s a medium sized metal blade. You can [T]ake the blade.");
+			this.tasks.put(getThisSetNextKey(), "Your hands shake uncontrollably and you try to make them steady with no success. The wooden box creaks, filling the whole room with the noise. When you finally opened enough to see what’s inside, you notice a black liquid floating inside it. Fearfully, you put your hands inside the box, sensing a metalic material through the gooey liquid. It’s a medium sized metal blade. You can [T]ake the blade.");
 			
 			//retrieve key = 4
 			this.tasks.put(getThisSetNextKey(), "You took the figure.");
@@ -135,6 +181,8 @@ public class Puzzle1 implements IPuzzle {
 			
 			for(i = 0; i < 6; i++)
 				completedTasks.put("task"+i, false);
+			
+			this.tasksSet = 1; // can't change tasksSet again besides this point and sets the variable to don't enter here again.
 			
 		}
 		else {/*Does nothing, tasks already set*/}

@@ -174,6 +174,7 @@ public class Map extends ComponentBase implements IMap {
         }
 
         if (retorna == null && entidade.getChar() == '@') {
+            Random movimento = new Random();
             int player_x = ((Position) entidade.getPosition()).getX();
             int player_y = ((Position) entidade.getPosition()).getY();
             ICell pegou = null;
@@ -183,18 +184,20 @@ public class Map extends ComponentBase implements IMap {
                 int dY = ((Position) monstro.getPosition()).getY() - player_y;
 
                 if (Math.abs(dX) <= 3 && Math.abs(dY) <= 3) {
-                    if (dX <= 0) {
-                        if (Math.abs(dX) >= Math.abs(dY)) pegou = this.move(monstro, "D");
-                        else if (dY <= 0) pegou = this.move(monstro, "S");
-                        else pegou = this.move(monstro, "W");
-                    } else {
-                        if (dX >= Math.abs(dY)) pegou = this.move(monstro, "A");
-                        else if (dY <= 0) pegou = this.move(monstro, "S");
-                        else pegou = this.move(monstro, "W");
+                    if (movimento.nextInt(2) == 1) {
+                        if (dX <= 0) {
+                            if (Math.abs(dX) >= Math.abs(dY)) pegou = this.move(monstro, "D");
+                            else if (dY <= 0) pegou = this.move(monstro, "S");
+                            else pegou = this.move(monstro, "W");
+                        } else {
+                            if (dX >= Math.abs(dY)) pegou = this.move(monstro, "A");
+                            else if (dY <= 0) pegou = this.move(monstro, "S");
+                            else pegou = this.move(monstro, "W");
+                        }
                     }
                 }
+                if (pegou != null) return pegou;
             }
-            if (pegou != null) return pegou;
         }
         return retorna;
     }
