@@ -47,7 +47,8 @@ public class Selector extends ComponentBase implements ISelectorComponent {
         characters.setMonstro(mobManager.createMonstro(1, new Position(3, 3)));
         setMode(Modes.INITIAL);
         comunicator = new TextComunicator();
-        ret = new Sprite(new Texture(Gdx.graphics.getWidth()*10,100, Pixmap.Format.RGB565));
+        batch = new SpriteBatch();
+        ret = new Sprite(new Texture(Gdx.graphics.getWidth()*10,30, Pixmap.Format.RGB565));
         ret.setColor(0, 0, 0, 1);
         ret.setPosition(Gdx.graphics.getWidth() - ret.getWidth(),Gdx.graphics.getHeight() - ret.getHeight());
     }
@@ -104,6 +105,9 @@ public class Selector extends ComponentBase implements ISelectorComponent {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         mode.draw();
         if(state != Modes.INITIAL && state != Modes.GAMEOVER) comunicator.draw();
+        batch.begin();
+        ret.draw(batch);
+        batch.end();
     }
 
     public void dispose(){
