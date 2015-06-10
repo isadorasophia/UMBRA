@@ -2,12 +2,20 @@ package com.umbra.puzzlesModule;
 
 import java.util.Hashtable;
 
+import anima.factory.IGlobalFactory;
+import anima.factory.context.componentContext.ComponentContextFactory;
+
+import com.umbra.mobModule.itemComponent.impl.ItemManager;
+import com.umbra.mobModule.itemComponent.inter.IItemBattle;
+import com.umbra.mobModule.itemComponent.inter.IItemManager;
+import com.umbra.mobModule.itemComponent.inter.IItemPuzzle;
+import com.umbra.mobModule.mobComponent.impl.MobManager;
 import com.umbra.mobModule.mobComponent.inter.IPlayer;
 
 
 public class Puzzle1 implements IPuzzle {
 	
-	//private Iplayer player = null;
+	private IPlayer player = null;
 	
 	public Hashtable<Integer, String> tasks = new Hashtable<Integer, String>();
 	public Hashtable<String, Boolean> completedTasks = new Hashtable<String, Boolean>();
@@ -34,7 +42,7 @@ public class Puzzle1 implements IPuzzle {
 	}
 	
 	public String init(IPlayer playerReceived){
-		//this.player = playerReceived; 
+		this.player = playerReceived; 
 		if(tasksSet == 0) {
 			setSequenceOfTasks();
 			setIsFinished(false);
@@ -86,8 +94,16 @@ public class Puzzle1 implements IPuzzle {
 					this.hasTheBlade = 1;
 					currMessage = tasks.get(progress);
 					if(hasTheFigure == 0) currMessage = tasks.get(progress)   + "\nBut still, there is that round-shaped figure on the ground... You can: [T]ake the figure.";
-					
-					//player.putItem("theBlade");
+					try {
+						IGlobalFactory factory = ComponentContextFactory.createGlobalFactory();
+			        	factory.registerPrototype(ItemManager.class);
+						IItemManager itemmanager = factory.createInstance(
+			        			"<http://purl.org/NET/dcc/com.umbra.mobModule.itemComponent.impl.ItemManager>");
+						IItemBattle blade = itemmanager.instantiateItemBattle("BLADE", null);
+						player.putItem(blade);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 					
 				}
 	
@@ -100,7 +116,17 @@ public class Puzzle1 implements IPuzzle {
 				currMessage = tasks.get(progress);
 				if(hasTheBlade == 0) currMessage = tasks.get(progress) + "\nBut still, there is that wooden box sitting there... You can: [O]pen the wooden box.";
 				
-				//player.putItem("theFigure");
+				
+				try {
+					IGlobalFactory factory = ComponentContextFactory.createGlobalFactory();
+		        	factory.registerPrototype(ItemManager.class);
+					IItemManager itemmanager = factory.createInstance(
+		        			"<http://purl.org/NET/dcc/com.umbra.mobModule.itemComponent.impl.ItemManager>");
+					IItemPuzzle figure = itemmanager.instantiateItemPuzzle("FIGURE", null);
+					player.putItem(figure);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				
 	
 				//Only sets the task 2 as true here, if the player is coming back to take the remaining item,
