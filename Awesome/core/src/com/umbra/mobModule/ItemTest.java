@@ -34,13 +34,13 @@ public class ItemTest {
         			"<http://purl.org/NET/dcc/com.umbra.mobModule.itemComponent.impl.ItemManager>");
         	IPlayer player = mobmanager.createPlayer("Player", "Teste", null);
         	
-        	IItemBattle longSword = itemmanager.instantiateItemBattle("LONG SWORD", null);
-        	IItemPuzzle key = itemmanager.instantiateItemPuzzle("FIGURE", null);
-        	player.putItem(key);
+        	IItemBattle sword = itemmanager.instantiateItemBattle("SWORD", null);
+        	IItemPuzzle figure = itemmanager.instantiateItemPuzzle("FIGURE", null);
+        	player.putItem(figure);
         	Vector<String> novo = player.itemsPuzzle();
-        	System.out.println(novo.contains("KEY"));
-        	player.putItem(longSword);
-        	player.equipItem("LONG SWORD");
+        	System.out.println(novo.contains("FIGURE"));
+        	player.putItem(sword);
+        	player.equipItem("SWORD");
         	System.out.println(player);
         	player.unequipAll();
         	System.out.println(player);

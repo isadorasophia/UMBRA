@@ -9,7 +9,6 @@ import com.umbra.mobModule.itemComponent.impl.ItemManager;
 import com.umbra.mobModule.itemComponent.inter.IItemBattle;
 import com.umbra.mobModule.itemComponent.inter.IItemManager;
 import com.umbra.mobModule.itemComponent.inter.IItemPuzzle;
-import com.umbra.mobModule.mobComponent.impl.MobManager;
 import com.umbra.mobModule.mobComponent.inter.IPlayer;
 
 
