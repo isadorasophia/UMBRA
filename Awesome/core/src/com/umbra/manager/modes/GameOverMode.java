@@ -22,6 +22,7 @@ public class GameOverMode extends ComponentBase implements IMode {
     // Flags
     private boolean modeOn; // Continue in the mode
     private boolean done; // Last text already written
+    private boolean pressed;
 
     @Override
     public void init(IComunicator comunicator, Characters characters) {
@@ -30,6 +31,7 @@ public class GameOverMode extends ComponentBase implements IMode {
         comunicator.newText("GAME OVER", Gdx.graphics.getWidth()/2 - 50, Gdx.graphics.getHeight()/2 + 50, Gdx.graphics.getWidth() - 200, true, true);
         done = false;
         modeOn = true;
+        pressed = true;
         IPlayer player = characters.getPlayer();
         player.setXp(player.getXp()*0.90);
         player.setAtt(0,"hp",player.getAtt("hp").getMax(),player.getAtt("hp").getMax());
@@ -55,7 +57,11 @@ public class GameOverMode extends ComponentBase implements IMode {
     @Override
     public void handleInput() {
         // wait press enter to exit Mode
-        if(done && Gdx.input.isKeyPressed(Input.Keys.ENTER)) modeOn = false;
+        if(Gdx.input.isKeyPressed(Input.Keys.ENTER)){
+            if(!pressed && done) modeOn = false;
+        }else{
+            pressed = false;
+        }
     }
 
     @Override

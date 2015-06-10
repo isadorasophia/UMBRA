@@ -105,8 +105,6 @@ public class ModesInstantiator {
 
     static public void mazeModeReset(Characters characters){
         uniqueMazeMode.dispose();
-        IMap map = factory.createInstance("<http://purl.org/NET/dcc/com.umbra.mapModule.impl.Map>");
-        uniqueMazeMode.connect(map);
         uniqueMazeMode.init(comunicator,characters);
     }
 
