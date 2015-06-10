@@ -45,7 +45,6 @@ public class Selector extends ComponentBase implements ISelectorComponent {
         ModesInstantiator.init();
         characters.setPlayer(mobManager.createPlayer("you","",new Position(0,0)));
         characters.setMonstro(mobManager.createMonstro(1, new Position(3, 3)));
-        characters.setPuzzle(new PuzzleFactory().getPuzzle());
         setMode(Modes.INITIAL);
         comunicator = new TextComunicator();
         ret = new Sprite(new Texture(Gdx.graphics.getWidth()*10,100, Pixmap.Format.RGB565));
