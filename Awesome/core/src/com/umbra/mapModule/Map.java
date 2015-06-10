@@ -50,8 +50,8 @@ public class Map extends ComponentBase implements IMap {
         corredor[TAM_Y-2][3].setMob(personagem);
 
         // Criacao semi-aleatoria para o nosso caso atual de apenas dois puzzles
-        operator.makePorta(corredor[TAM_Y-2-generator.nextInt(20)][generator.nextInt(2)*(TAM_X-1)]);
-        operator.makePorta(corredor[1+generator.nextInt(24)][generator.nextInt(2)*(TAM_X-1)]);
+        operator.makePorta(corredor[TAM_Y-2-generator.nextInt(20)][(generator.nextInt(2))*(TAM_X-1)]);
+        operator.makePorta(corredor[1+generator.nextInt(24)][(generator.nextInt(2))*(TAM_X-1)]);
 
         /*
         // Coloca puzzles
