@@ -72,22 +72,22 @@ public class Puzzle2 implements IPuzzle{
 			//in case time is used, checks the time and the player magically dies if the time is elapsed;
 			//else if there is no time, then the player progresses! 
 			
-			if(msgIn.equalsIgnoreCase("C") && getProgress() == 0){
+			if(msgIn.contains("C") && getProgress() == 0){
 				completedTasks.put("task0", true);
 				completedTasks.put("task1", true);
 				if(player.itemsPuzzle().contains("FIGURE"))setProgress();
 				currMessage = tasks.get(progress); //sets the next message.
 				if(player.itemsPuzzle().contains("FIGURE")) currMessage = currMessage + appendStrings.get("1.1"); // put the figure on the hole;
 			}
-			else if(msgIn.equalsIgnoreCase("S") && getProgress() == 0){
+			else if(msgIn.contains("S") && getProgress() == 0){
 				currMessage = tasks.get(progress) + "\n" + tasks.get(progress);
 			}
 			
-			else if(msgIn.equalsIgnoreCase("P") && getProgress() == 0){
+			else if(msgIn.contains("P") && getProgress() == 0){
 				currMessage = appendStrings.get("3.0") + appendStrings.get("3.0f");
 			}
 			
-			else if(msgIn.equalsIgnoreCase("P") && getProgress() == 1){			
+			else if(msgIn.contains("P") && getProgress() == 1){			
 				completedTasks.put("task2", true);
 				completedTasks.put("task3", true);
 				completedTasks.put("task4", true);
@@ -99,13 +99,13 @@ public class Puzzle2 implements IPuzzle{
 			}
 
 		
-			else if(msgIn.equalsIgnoreCase("P") && getProgress() == 3){ // only enters here if the item FIGURE has been used
+			else if(msgIn.contains("P") && getProgress() == 3){ // only enters here if the item FIGURE has been used
 				
 				currMessage = appendStrings.get("3.0") + appendStrings.get("3.1s");
 				setProgress();
 			}
 			
-			else if(msgIn.equalsIgnoreCase("C") && getProgress() == 4){
+			else if(msgIn.contains("C") && getProgress() == 4){
 				completedTasks.put("task5", true);
 				currMessage = tasks.get(progress);
 				if(player.itemsPuzzle().contains("BLADE")) {
@@ -117,12 +117,12 @@ public class Puzzle2 implements IPuzzle{
 				}
 			}
 			
-			else if(msgIn.equalsIgnoreCase("O") && getProgress() == 5){
+			else if(msgIn.contains("O") && getProgress() == 5){
 				currMessage = tasks.get(progress);
 				setProgress();
 			}
 			
-			else if(msgIn.equalsIgnoreCase("T") && getProgress() == 6){
+			else if(msgIn.contains("T") && getProgress() == 6){
 				currMessage = tasks.get(progress);
 				setProgress();
 				completedTasks.put("task6", true);
