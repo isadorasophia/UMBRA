@@ -1,6 +1,6 @@
 package com.umbra.mobModule.mobComponent.impl;
 
-import com.umbra.mapModule.IPosition;
+import com.umbra.mapModule.inter.IPosition;
 import com.umbra.mobModule.exceptions.BadConstructorException;
 import com.umbra.mobModule.mobComponent.inter.IMonstro;
 import com.umbra.mobModule.mobComponent.inter.IPlayer;

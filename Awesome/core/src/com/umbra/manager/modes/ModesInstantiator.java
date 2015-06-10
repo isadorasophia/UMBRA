@@ -12,8 +12,8 @@ import com.umbra.manager.interfaces.IBattleModeComponent;
 import com.umbra.manager.interfaces.IComunicator;
 import com.umbra.manager.TextComunicator;
 import com.umbra.manager.interfaces.IMode;
-import com.umbra.mapModule.IMap;
-import com.umbra.mapModule.Map;
+import com.umbra.mapModule.inter.IMap;
+import com.umbra.mapModule.impl.Map;
 
 public class ModesInstantiator {
 
@@ -57,7 +57,7 @@ public class ModesInstantiator {
             factory.registerPrototype(MazeMode.class);
             uniqueMazeMode = factory.createInstance("<http://purl.org/NET/dcc/com.umbra.manager.modes.MazeMode>");
             factory.registerPrototype(Map.class);
-            IMap map = factory.createInstance("<http://purl.org/NET/dcc/com.umbra.mapModule.Map>");
+            IMap map = factory.createInstance("<http://purl.org/NET/dcc/com.umbra.mapModule.impl.Map>");
             uniqueMazeMode.connect(map);
             uniqueMazeMode.init(comunicator,characters);
         }
@@ -105,7 +105,7 @@ public class ModesInstantiator {
 
     static public void mazeModeReset(Characters characters){
         uniqueMazeMode.dispose();
-        IMap map = factory.createInstance("<http://purl.org/NET/dcc/com.umbra.mapModule.Map>");
+        IMap map = factory.createInstance("<http://purl.org/NET/dcc/com.umbra.mapModule.impl.Map>");
         uniqueMazeMode.connect(map);
         uniqueMazeMode.init(comunicator,characters);
     }

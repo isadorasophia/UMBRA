@@ -3,7 +3,7 @@ package com.umbra.mobModule.itemComponent.inter;
 import anima.annotation.ComponentInterface;
 import anima.component.ISupports;
 
-import com.umbra.mapModule.IPosition;
+import com.umbra.mapModule.inter.IPosition;
 
 @ComponentInterface(
 		"<http://purl.org/NET/dcc/com.umbra.mobModule.itemComponent.inter.IItemManager>")

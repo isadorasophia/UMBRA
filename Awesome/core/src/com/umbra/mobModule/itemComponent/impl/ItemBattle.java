@@ -3,7 +3,7 @@ package com.umbra.mobModule.itemComponent.impl;
 import anima.factory.IGlobalFactory;
 import anima.factory.context.componentContext.ComponentContextFactory;
 
-import com.umbra.mapModule.IPosition;
+import com.umbra.mapModule.inter.IPosition;
 import com.umbra.mobModule.Margin;
 import com.umbra.mobModule.attComponent.impl.Attribute;
 import com.umbra.mobModule.attComponent.inter.IAttribute;

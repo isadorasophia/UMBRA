@@ -8,8 +8,8 @@ import com.umbra.manager.Characters;
 import com.umbra.manager.TextComunicator;
 import com.umbra.manager.interfaces.IMapModeComponent;
 import com.umbra.manager.interfaces.IComunicator;
-import com.umbra.mapModule.ICell;
-import com.umbra.mapModule.IMap;
+import com.umbra.mapModule.inter.ICell;
+import com.umbra.mapModule.inter.IMap;
 import com.umbra.mobModule.mobComponent.inter.IMonstro;
 import com.umbra.mobModule.mobComponent.inter.IPlayer;
 
@@ -18,7 +18,7 @@ import java.lang.StringBuilder;
 @Component(
 		id = "<http://purl.org/NET/dcc/com.umbra.manager.modes.MazeMode>",
         provides = "<http://purl.org/NET/dcc/com.umbra.com.umbra.manager.interfaces.IMode>",
-        requires = "<http://purl.org/NET/dcc/com.umbra.com.umbra.mapModule.IMap>"
+        requires = "<http://purl.org/NET/dcc/com.umbra.com.umbra.mapModule.inter.IMap>"
 )
 public class MazeMode extends ComponentBase implements IMapModeComponent {
 

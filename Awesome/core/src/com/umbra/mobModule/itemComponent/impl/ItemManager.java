@@ -7,7 +7,7 @@ import com.umbra.dbModule.DBFactory;
 import com.umbra.dbModule.enums.TypeDB;
 import com.umbra.dbModule.exceptions.NoMethod;
 import com.umbra.dbModule.interfaces.iDB;
-import com.umbra.mapModule.IPosition;
+import com.umbra.mapModule.inter.IPosition;
 import com.umbra.mobModule.enums.Att;
 import com.umbra.mobModule.itemComponent.inter.*;
 
