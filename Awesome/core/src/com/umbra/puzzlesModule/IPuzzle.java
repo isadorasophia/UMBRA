@@ -1,5 +1,7 @@
 package com.umbra.puzzlesModule;
 
+import com.umbra.mobModule.mobComponent.inter.IPlayer;
+
 public interface IPuzzle{
 	
 	/*		Inteface que possui os metodos responsaveis por receber e enviar mensagens aos puzzles
@@ -28,7 +30,7 @@ public interface IPuzzle{
 	public void setIsFinished();
 	
 	//method that sets the puzzle and return its single instance to the caller (Map module)
-	public String init();
+	public String init(IPlayer playerReceived);
 	
 	//Verifies if all the tasks are complete, then neutralizes the input processing mechanism
 	public void checkCompletion();

@@ -2,6 +2,8 @@ package com.umbra.puzzlesModule;
 
 import java.util.Hashtable;
 
+import com.umbra.mobModule.mobComponent.inter.IPlayer;
+
 
 public class Puzzle2 implements IPuzzle{
 
@@ -32,7 +34,7 @@ public class Puzzle2 implements IPuzzle{
 		return instance;
 	}
 	
-	public String init(/*Iplayer playerReceived*/){
+	public String init(IPlayer playerReceived){
 		//this.player = playerReceived; 
 		if (appendFrases == 0 && tasksSet == 0){
 			setSequenceOfTasks();
