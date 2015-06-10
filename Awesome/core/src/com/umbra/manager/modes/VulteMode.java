@@ -55,9 +55,9 @@ public class VulteMode extends ComponentBase implements IMode {
                         result.delete(0, result.length());
                         isAlive = vulto.chooseAction(input, result, player.getAtt("luck").getValue());
                         end = true;
-                        comunicator.newText(result.toString(), 100, Gdx.graphics.getHeight() - 50, Gdx.graphics.getWidth() - 200f, true);
+                        comunicator.newText(result.toString(), 100, Gdx.graphics.getHeight() - 50, Gdx.graphics.getWidth() - 200f, true, false);
                     } catch (InputException e) {
-                        comunicator.newText(e.getMessage(), 100, Gdx.graphics.getHeight() - 50, Gdx.graphics.getWidth() - 200f, true);
+                        comunicator.newText(e.getMessage(), 100, Gdx.graphics.getHeight() - 50, Gdx.graphics.getWidth() - 200f, true, false);
                     }
                 }
             } else {

@@ -3,15 +3,10 @@ package com.umbra.manager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.BitmapFont.BitmapFontData;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.umbra.manager.interfaces.IComunicator;
-
-import java.awt.*;
 
 public class TextComunicator implements IComunicator, InputProcessor {
 
@@ -45,16 +40,7 @@ public class TextComunicator implements IComunicator, InputProcessor {
 
     public TextComunicator(){
         batch = new SpriteBatch();
-
-        // initialize font
-        try {
-            font = new BitmapFont(Gdx.files.internal("Fonts/proggy22.fnt"));
-        }catch (GdxRuntimeException e){
-        	font = new BitmapFont();
-        }
-        font.setColor(1,1,1,1);
-
-        newText("", 0,0,0,false);
+        newText("", 0,0,0,false,false);
     }
 
     public void newText(String fullText, float width, float hight, float textSize, boolean cursorOn, boolean big){
@@ -66,10 +52,18 @@ public class TextComunicator implements IComunicator, InputProcessor {
                 font = new BitmapFont();
             }
             font.setColor(1, 1, 1, 1);
+        } else {
+            try {
+                font = new BitmapFont(Gdx.files.internal("Fonts/proggy22.fnt"));
+            } catch (GdxRuntimeException e) {
+                font = new BitmapFont();
+            }
+            font.setColor(1, 1, 1, 1);
         }
         newText(fullText,width,hight, textSize, cursorOn);
     }
 
+    @Deprecated
     public void newText(String fullText, float width, float hight, float textSize, boolean cursorOn){
         if(cursorOn) Gdx.input.setInputProcessor(this);
         this.width = width;

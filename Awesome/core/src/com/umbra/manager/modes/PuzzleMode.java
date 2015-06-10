@@ -37,7 +37,7 @@ public class PuzzleMode extends ComponentBase implements IMode {
         end = false;
         done = false;
         puzzle = characters.getPuzzle();
-        comunicator.newText(puzzle.init(characters.getPlayer()),100, Gdx.graphics.getHeight() - 50, Gdx.graphics.getWidth() - 200f, true);
+        comunicator.newText(puzzle.init(characters.getPlayer()),100, Gdx.graphics.getHeight() - 50, Gdx.graphics.getWidth() - 200f, true, false);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class PuzzleMode extends ComponentBase implements IMode {
                 if (input != null) {
                     new_text = puzzle.inputMsg(input);
                     if(new_text == "This puzzle is over!") end = true;
-                    else comunicator.newText(new_text, 100, Gdx.graphics.getHeight() - 50, Gdx.graphics.getWidth() - 200f, true);
+                    else comunicator.newText(new_text, 100, Gdx.graphics.getHeight() - 50, Gdx.graphics.getWidth() - 200f, true, false);
                 }
             }else{
                 done = true;

@@ -54,7 +54,7 @@ public class InitialMode extends ComponentBase implements IMode {
         initialText = texts;
 
         this.comunicator = comunicator;
-        this.comunicator.newText("Umbra", Gdx.graphics.getWidth()/2 - 50, Gdx.graphics.getHeight()/2 + 50, Gdx.graphics.getWidth() - 200, true);
+        this.comunicator.newText("Umbra", Gdx.graphics.getWidth()/2 - 50, Gdx.graphics.getHeight()/2 + 50, Gdx.graphics.getWidth() - 200, true, true);
     }
 
     @Override
@@ -79,7 +79,7 @@ public class InitialMode extends ComponentBase implements IMode {
         if(modeon && eof && Gdx.input.isKeyPressed(Input.Keys.ENTER)){
             if(beginning){
                 beginning = false;
-                comunicator.newText(initialText, 100, Gdx.graphics.getHeight() - 50, Gdx.graphics.getWidth() - 200f, true);
+                comunicator.newText(initialText, 100, Gdx.graphics.getHeight() - 50, Gdx.graphics.getWidth() - 200f, true, false);
                 eof = false;
             }else modeon = false;
         }

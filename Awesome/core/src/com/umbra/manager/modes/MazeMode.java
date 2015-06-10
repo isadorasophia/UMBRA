@@ -33,7 +33,8 @@ public class MazeMode extends ComponentBase implements IMapModeComponent {
     public void init(IComunicator comunicator, Characters characters) {
         this.comunicatorMap = comunicator;
         this.comunicatorComand = new TextComunicator();
-        comunicatorComand.newText("You are limited to move [W] up, [S] down, [A] left and [D] right. Where you go. " + '\n', 100, 150, Gdx.graphics.getWidth() - 200f, true);
+        comunicatorComand.newText("You are limited to move [W] up, [S] down, [A] left and [D] right. Where you go. " + '\n',
+                100, 150, Gdx.graphics.getWidth() - 200f, true, false);
         this.characters = characters;
         map = map.getInstance(characters.getPlayer());
     }
@@ -61,8 +62,8 @@ public class MazeMode extends ComponentBase implements IMapModeComponent {
         String new_text = "You can't go there. You are limited to move [W] up, [S] down, [A] left and [D] right. Where you go. " + '\n';
         if(comunicatorComand.update(dt)) {
             String input = comunicatorComand.getInput();
-            if(characters.getVulto().checkVulto()) next_mode = Modes.VULTO;
             if (input != null) {
+                if(characters.getVulto().checkVulto()) next_mode = Modes.VULTO;
                 ICell cell = null;
                 try {
                     cell = map.move(player,input);
@@ -86,7 +87,8 @@ public class MazeMode extends ComponentBase implements IMapModeComponent {
                 } catch (UnknownInputException e) {
                     new_text = e.getMessage() + '\n';
                 }
-                if(next_mode == Modes.MAZE) comunicatorComand.newText(new_text, 100, 150, Gdx.graphics.getWidth() - 200f, true);
+                if(next_mode == Modes.MAZE) comunicatorComand.newText(new_text, 100, 150,
+                        Gdx.graphics.getWidth() - 200f, true, false);
             }
         }
         return next_mode;
@@ -105,7 +107,6 @@ public class MazeMode extends ComponentBase implements IMapModeComponent {
     @Override
     public void dispose() {
         comunicatorMap.dispose();
-        comunicatorComand.dispose();
     }
 
     @Override

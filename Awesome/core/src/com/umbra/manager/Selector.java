@@ -94,9 +94,6 @@ public class Selector extends ComponentBase implements ISelectorComponent {
             light += item.getIlumination();
         }
         characters.getVulto().lightInterference(light);
-        if(this.state != Modes.BATLLE && this.state != Modes.VULTO && characters.getVulto().checkVulto()) {
-            setMode(Modes.VULTO);
-        }
         mode.handleInput();
         next = mode.update(dt);
         if(next != state) setMode(next);

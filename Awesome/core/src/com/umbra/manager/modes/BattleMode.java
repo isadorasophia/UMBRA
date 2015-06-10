@@ -53,17 +53,18 @@ public class BattleMode extends ComponentBase implements IBattleModeComponent {
         Modes next_mode = Modes.BATLLE;
 
         if(comunicator.update(dt)) {
-           if( (levelup) ? battleComunicator.update(dt) : true) {
+           if((!levelup) || battleComunicator.update(dt)) {
                 if (!end) {
                     String input;
                     if (levelup) {
                         input = battleComunicator.getInput();
                         if (input != null) {
                             battlemanager.processInput(input);
-                            comunicator.newText(battlemanager.getStatus(), 100, Gdx.graphics.getHeight() - 50,
-                                    Gdx.graphics.getWidth() - 200f, true);
-                            comunicator.newText(battlemanager.getStatus(), 100, Gdx.graphics.getHeight() - 50,
-                                    Gdx.graphics.getWidth() - 200f, true);
+                            String status = battlemanager.getStatus();
+                            comunicator.newText(status, 100, Gdx.graphics.getHeight() - 50,
+                                    Gdx.graphics.getWidth() - 200f, true, false);
+                            comunicator.newText(status, 100, Gdx.graphics.getHeight() - 50,
+                                    Gdx.graphics.getWidth() - 200f, true, false);
                         }
                         if(closeToUp) levelup = true;
                         if(battlemanager.getHasLeveledUp()) closeToUp = true;
@@ -72,7 +73,7 @@ public class BattleMode extends ComponentBase implements IBattleModeComponent {
                         if (input != null) {
                             battlemanager.processInput(input);
                             comunicator.newText(battlemanager.getStatus(), 100, Gdx.graphics.getHeight() - 50,
-                                    Gdx.graphics.getWidth() - 200f, true);
+                                    Gdx.graphics.getWidth() - 200f, true, false);
                             end = battlemanager.getDone();
                         }
                         if(!battlemanager.getHasLeveledUp()) {
