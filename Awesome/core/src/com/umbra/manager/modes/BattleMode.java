@@ -19,7 +19,7 @@ import com.umbra.mobModule.mobComponent.inter.IPlayer;
 )
 public class BattleMode extends ComponentBase implements IBattleModeComponent {
 
-    IComunicator comunicator, battleComunicator;
+    IComunicator comunicator;
     Characters characters;
     IPlayer player;
     IMonstro monstro;
@@ -30,14 +30,14 @@ public class BattleMode extends ComponentBase implements IBattleModeComponent {
     boolean modeOn; // Continue in the mode
     boolean end; // Actions ere over
     boolean done; // Last text already written
-    boolean closeToUp,levelup;
+    boolean levelup;
 
     @Override
     public void init(IComunicator comunicator, Characters characters) {
         this.comunicator = comunicator;
-        battleComunicator = new TextComunicator();
         player = characters.getPlayer();
         monstro = characters.getMonstro();
+        player.setAtt("attack",10000);
         battlemanager.initialize(player,monstro);
         comunicator.newText(battlemanager.getStatus(), 100, Gdx.graphics.getHeight() - 50, Gdx.graphics.getWidth() - 200f, true, false);
         isAlive = true;
@@ -45,7 +45,6 @@ public class BattleMode extends ComponentBase implements IBattleModeComponent {
         end = false;
         done = false;
         levelup = false;
-        closeToUp = false;
     }
 
     @Override
@@ -53,40 +52,32 @@ public class BattleMode extends ComponentBase implements IBattleModeComponent {
         Modes next_mode = Modes.BATLLE;
 
         if(comunicator.update(dt)) {
-           if((!levelup) || battleComunicator.update(dt)) {
-                if (!end) {
-                    String input;
+            if (!end) {
+                String input;
+                input = comunicator.getInput();
+                if (input != null) {
+                    battlemanager.processInput(input);
                     if (levelup) {
-                        input = battleComunicator.getInput();
-                        if (input != null) {
-                            battlemanager.processInput(input);
-                            String status = battlemanager.getStatus();
-                            comunicator.newText(status, 100, Gdx.graphics.getHeight() - 50,
-                                    Gdx.graphics.getWidth() - 200f, true, false);
-                            comunicator.newText(status, 100, Gdx.graphics.getHeight() - 50,
-                                    Gdx.graphics.getWidth() - 200f, true, false);
-                        }
-                        if(closeToUp) levelup = true;
-                        if(battlemanager.getHasLeveledUp()) closeToUp = true;
+                        String status = battlemanager.getStatus();
+                        comunicator.newText(status, 100, Gdx.graphics.getHeight() - 50,
+                                Gdx.graphics.getWidth() - 200f, true, false);
+                        comunicator.newText(status, 100, Gdx.graphics.getHeight() - 50,
+                                Gdx.graphics.getWidth() - 200f, true, false);
+                        if(!battlemanager.getHasLeveledUp()) levelup = false;
                     } else {
-                        input = comunicator.getInput();
                         if (input != null) {
-                            battlemanager.processInput(input);
                             comunicator.newText(battlemanager.getStatus(), 100, Gdx.graphics.getHeight() - 50,
                                     Gdx.graphics.getWidth() - 200f, true, false);
-                            end = battlemanager.getDone();
                         }
-                        if(!battlemanager.getHasLeveledUp()) {
-                            levelup = false;
-                            closeToUp = false;
-                        }
+                        if(battlemanager.getHasLeveledUp()) levelup = true;
                     }
-                } else {
-                    done = true;
-                    if (!modeOn) {
-                        if (player.dead()) next_mode = Modes.GAMEOVER;
-                        else next_mode = Modes.MAZE;
-                    }
+                    end = battlemanager.getDone();
+                }
+            } else {
+                done = true;
+                if (!modeOn) {
+                    if (player.dead()) next_mode = Modes.GAMEOVER;
+                    else next_mode = Modes.MAZE;
                 }
             }
         }
@@ -96,7 +87,6 @@ public class BattleMode extends ComponentBase implements IBattleModeComponent {
     @Override
     public void draw() {
         comunicator.draw();
-        battleComunicator.draw();
     }
 
     @Override
