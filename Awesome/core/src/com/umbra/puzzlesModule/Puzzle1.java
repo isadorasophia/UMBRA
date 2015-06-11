@@ -49,7 +49,7 @@ public class Puzzle1 implements IPuzzle {
 			return outputMsg();
 		}
 		else{
-			return "This puzzle has been set already";
+			return "There's nothing to do here";
 		}
 	}
 		
@@ -57,8 +57,10 @@ public class Puzzle1 implements IPuzzle {
 	//the inputMsg method calls the outputMsg method for returning the string
 	//each condition of this method sets a different currMessage that will be returned to the caller
 	public String inputMsg(String msgIn){
+		msgIn.toUpperCase();
+		
 		if(getIsFinished() == false){
-			this.currMessage = "i don't know what to do!";
+			this.currMessage = "You can't do that";
 			
 			//in case time is used, checks the time and the player magically dies if the time is elapsed;
 			//else if there is no time, then the player progresses! 
@@ -143,7 +145,7 @@ public class Puzzle1 implements IPuzzle {
 				
 			}
 			checkCompletion(); //next time it enters Puzzle1.inputMsg(), it will stop working in case PuzzleCompletion;
-			if(isFinished == true) currMessage = currMessage + "\nThis puzzle is over.";
+			if(isFinished == true) currMessage = currMessage + "\nThere's nothing else to do here.";
 			return outputMsg();
 		}	
 		return "This puzzle is over!";
