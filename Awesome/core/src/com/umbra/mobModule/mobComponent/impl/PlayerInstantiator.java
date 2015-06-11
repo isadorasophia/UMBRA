@@ -7,7 +7,8 @@ import com.umbra.mobModule.mobComponent.inter.IMonstro;
 import com.umbra.mobModule.mobComponent.inter.IPlayer;
 
 /**
- * Classe que representa uma fábrica de player que extende a fábrica abstrata
+ * Classe que representa um instanciador de player que extende a fábrica abstrata, 
+ * mas na verdade só pega a instancia do ítem
  * 
  * @author Lucas Alves Racoci
  * @author Luiz Fernando Rodrigues da Fonseca
