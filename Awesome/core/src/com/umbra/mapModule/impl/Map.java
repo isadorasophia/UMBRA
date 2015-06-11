@@ -17,7 +17,7 @@ import java.util.Random;
 )
 
 public class Map extends ComponentBase implements IMap {
-    private static int TAM_Y = 50;
+    private static int TAM_Y = 300;
     private static int TAM_X = 10;
     private static Map instance = null;
     private static ArrayList<IMob> monstros = new ArrayList<IMob>();
@@ -40,7 +40,7 @@ public class Map extends ComponentBase implements IMap {
         Random generator = new Random();
         Boolean Ok;
 
-        int n_mobs = 20;
+        int n_mobs = 120;
 
 
         for (int i = 0; i < TAM_Y; i++) {
@@ -53,8 +53,8 @@ public class Map extends ComponentBase implements IMap {
         corredor[TAM_Y-2][3].setMob(personagem);
 
         // Criacao semi-aleatoria para o nosso caso atual de apenas dois puzzles
-        operator.makePorta(corredor[TAM_Y-2-generator.nextInt(20)][(generator.nextInt(2))*(TAM_X-1)]);
-        operator.makePorta(corredor[1+generator.nextInt(24)][(generator.nextInt(2))*(TAM_X-1)]);
+        operator.makePorta(corredor[TAM_Y-2-generator.nextInt(50)][(generator.nextInt(2))*(TAM_X-1)]);
+        operator.makePorta(corredor[1+generator.nextInt(100)][(generator.nextInt(2))*(TAM_X-1)]);
 
         /*
         // Coloca puzzles
@@ -188,7 +188,7 @@ public class Map extends ComponentBase implements IMap {
                 int dY = ((Position) monstro.getPosition()).getY() - player_y;
 
                 if (Math.abs(dX) <= 3 && Math.abs(dY) <= 3) {
-                    if (movimento.nextInt(2) == 1) {
+                    if (movimento.nextInt(3) != 1) {
                         if (dX <= 0) {
                             if (Math.abs(dX) >= Math.abs(dY)) pegou = this.move(monstro, "D");
                             else if (dY <= 0) pegou = this.move(monstro, "S");
