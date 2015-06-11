@@ -51,7 +51,7 @@ public class PuzzleMode extends ComponentBase implements IMode {
                 String input = comunicator.getInput();
                 if (input != null) {
                     new_text = puzzle.inputMsg(input);
-                    if(new_text == "This puzzle is over!") end = true;
+                    if(new_text == "Leave. Now.") end = true;
                     else comunicator.newText(new_text, 100, Gdx.graphics.getHeight() - 50, Gdx.graphics.getWidth() - 200f, true, false);
                 }
             }else{

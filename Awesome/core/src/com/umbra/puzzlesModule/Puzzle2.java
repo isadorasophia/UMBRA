@@ -31,7 +31,6 @@ public class Puzzle2 implements IPuzzle{
 	// the next 3 declarations make the Puzzle 1 a "singleton" object
 	private static Puzzle2 instance =  new Puzzle2();
 	
-	
 	private Puzzle2(){
 	}
 	
@@ -41,22 +40,22 @@ public class Puzzle2 implements IPuzzle{
 	
 	public String init(IPlayer playerReceived){
 		this.player = playerReceived; 
+		
 		if (appendFrases == 0 && tasksSet == 0){
 			setSequenceOfTasks();
 			setAppendFrases();
+			
 			setIsFinished(false);
+			
 			this.currMessage = tasks.get(progress);
+			
 			return outputMsg();
 		}
-		else{
-			return "This puzzle has been set already";
+		
+		else {
+			return "Go away.\n";
 		}
-	}
-	
-	//the inputMsg method calls the outputMsg method for returning the string
-	//each condition of this method sets a different currMessage that will be returned to the caller
-	
-	
+	}	
 	
 	/*
 	 * OBSERVACAO: SE O PLAYER SAIR DO PUZZLE PARA RETORNAR AO PONTO O ARGUMENTO DE INPUTMSG DEVE SER "LAST (ignorecase)"
@@ -64,26 +63,46 @@ public class Puzzle2 implements IPuzzle{
 	 * 
 	 */
 	
-	
-	public String inputMsg(String msgIn){
-		if(getIsFinished() == false){
-			this.currMessage = "i don't know what to do!";
-			if(msgIn.equalsIgnoreCase("last")) msgIn = "C";
+	//the inputMsg method calls the outputMsg method for returning the string
+	//each condition of this method sets a different currMessage that will be returned to the caller
+	public String inputMsg(String msgIn) {
+		msgIn = msgIn.toUpperCase();
+		
+		System.out.println(getIsFinished());
+		
+		if (getIsFinished() == false && !msgIn.contains("LEAVE MOTHERFUCKER")){
+			if (msgIn.equalsIgnoreCase("last")) 
+				msgIn = "C";
+			
 			//in case time is used, checks the time and the player magically dies if the time is elapsed;
 			//else if there is no time, then the player progresses! 
 			
-			if(msgIn.contains("C") && getProgress() == 0){
+			if (msgIn.contains("C") && getProgress() == 0){
 				completedTasks.put("task0", true);
 				completedTasks.put("task1", true);
-				if(player.itemsPuzzle().contains("FIGURE"))setProgress();
+				
+				if (player.itemsPuzzle().contains("FIGURE"))
+					setProgress();
+				
 				currMessage = tasks.get(progress); //sets the next message.
-				if(player.itemsPuzzle().contains("FIGURE")) currMessage = currMessage + appendStrings.get("1.1"); // put the figure on the hole;
-			}
-			else if(msgIn.contains("S") && getProgress() == 0){
-				currMessage = tasks.get(progress) + "\n" + tasks.get(progress);
+				
+				if (player.itemsPuzzle().contains("FIGURE")) 
+					currMessage = currMessage + appendStrings.get("1.1"); // put the figure on the hole;
 			}
 			
-			else if(msgIn.contains("P") && getProgress() == 0){
+			else if (msgIn.contains("S") && getProgress() == 0) {
+				setProgress();
+				setProgress();
+				
+				currMessage = tasks.get(progress);
+				
+				// anywayyyyy i know this is not ok but i dont know what to print here, so start over!
+				this.progress = 1;
+				
+				currMessage += appendStrings.get("4.a");
+			}
+			
+			else if (msgIn.contains("P") && getProgress() == 0) {
 				currMessage = appendStrings.get("3.0") + appendStrings.get("3.0f");
 			}
 			
@@ -91,8 +110,10 @@ public class Puzzle2 implements IPuzzle{
 				completedTasks.put("task2", true);
 				completedTasks.put("task3", true);
 				completedTasks.put("task4", true);
+				
 				setProgress();
 				setProgress();
+				
 				currMessage = tasks.get(progress) + appendStrings.get("4.a");
 				
 				player.dropItem("FIGURE");
@@ -100,31 +121,37 @@ public class Puzzle2 implements IPuzzle{
 
 		
 			else if(msgIn.contains("P") && getProgress() == 3){ // only enters here if the item FIGURE has been used
-				
 				currMessage = appendStrings.get("3.0") + appendStrings.get("3.1s");
+				
 				setProgress();
 			}
 			
 			else if(msgIn.contains("C") && getProgress() == 4){
 				completedTasks.put("task5", true);
+				
 				currMessage = tasks.get(progress);
+				
 				if(player.itemsPuzzle().contains("BLADE")) {
 					currMessage = currMessage + appendStrings.get("6.1s");
+					
 					setProgress();
 				}
-				else{
+				else {
 					currMessage = "perhaps you should try to find a way to open the stitches. You can:" + appendStrings.get("Exit");
 				}
 			}
 			
 			else if(msgIn.contains("O") && getProgress() == 5){
 				currMessage = tasks.get(progress);
+				
 				setProgress();
 			}
 			
 			else if(msgIn.contains("T") && getProgress() == 6){
 				currMessage = tasks.get(progress);
+				
 				setProgress();
+				
 				completedTasks.put("task6", true);
 				
 				try {
@@ -141,9 +168,11 @@ public class Puzzle2 implements IPuzzle{
 			}
 
 			checkCompletion(); //next time it enters inputMsg(), it will stop working in case PuzzleCompletion;
+			
 			return outputMsg();
 		}	
-		return "This puzzle is over!";
+		
+		return "Leave. Now.";
 	}
 		
 	
@@ -151,56 +180,49 @@ public class Puzzle2 implements IPuzzle{
 	public void setSequenceOfTasks(){
 		// acts only one time
 		// 'key' here is used only for populating the 
-		if(this.tasksSet == 0){
+		if (this.tasksSet == 0){
 			int i;
 			//retrieve key = 0
-			this.tasks.put(getThisSetNextKey(), "Passed the door, thereís a giant metal web blocking the center of the room, with something inside but youíre not quite sure what it is. You look around and see blood stains all over the walls repeating the words ìYOU ARE NOT THE ONLY YOUî. At your right, thereís a big round hole in the wall. At your left, a rusted lever almost hidden by the darkness that fills this room. You can [C]heck the hole in the wall, [S]ee whatís inside the web or [P]ull the lever.");
+			this.tasks.put(getThisSetNextKey(), "Passed the door, there is a giant metal web blocking the center of the room, with something inside but youíre not quite sure what it is. You look around and see blood stains all over the walls repeating the words \"YOU ARE NOT THE ONLY YOU\". At your right, there is a big round hole in the wall. At your left, a rusted lever almost hidden by the darkness that fills this room. You can [C]heck the hole in the wall, [S]ee what is inside the web or [P]ull the lever.\n");
 			
 			//retrieve key = 1 (+ 1.1 on success)
-			this.tasks.put(getThisSetNextKey(), "You come closer and see that inside the hole thereís only darkness. But you know that thereís something that could fit in there.");
-			
+			this.tasks.put(getThisSetNextKey(), "You come closer and see that inside the hole there is only darkness. But you know that there is something that could fit in there.\n");
+		
 			//retrieve key = 2 
-			this.tasks.put(getThisSetNextKey(), "Getting closer, you can see a humanoid figure lying on a table inside the web. But everything is so dark that you canít really tell if thatís correct.");
+			this.tasks.put(getThisSetNextKey(), "Getting closer, you can see a humanoid figure lying on a table inside the web. But everything is so dark that you can't really tell if that is correct.\n");
 			
 			//retrieve key = 3 (+ 3.1s on success)
-			this.tasks.put(getThisSetNextKey(), "You put the figure into the hole and hears a clicking noise.");
+			this.tasks.put(getThisSetNextKey(), "You put the figure into the hole and hears a clicking noise.\n");
 			
 			//retrieve key = 4 (+ 6.1s on success)
-			this.tasks.put(getThisSetNextKey(), "Thereís a naked corpse on the table with stiches all over itís torso.");
+			this.tasks.put(getThisSetNextKey(), "There is a naked corpse on the table with stiches all over it's torso.\n");
 			
 			//retrieve key = 5
-			this.tasks.put(getThisSetNextKey(), "You take your blade and slowly cuts through the stitches, only to reveal a empty hole inside the corpse, without any organs inside. But what you see is a long sword inside it that goes from inside the corpseís torso through itís head, hiding the tip of the sword. You can [T]ry to remove the sword from inside the corpse.");
+			this.tasks.put(getThisSetNextKey(), "You take your blade and slowly cuts through the stitches, only to reveal a empty hole inside the corpse, without any organs inside. But what you see is a long sword inside it that goes from inside the corpseís torso through itís head, hiding the tip of the sword. You can [T]ry to remove the sword from inside the corpse.\n");
 			
 			//retrieve key = 6
-			this.tasks.put(getThisSetNextKey(), "You try to push the sword out of the body, covering your hands in blood. Moving it in the right direction, you succesfully take the sword out of the body and hears an unpleasant click. You stop for a moment and listen some cracks coming from the ceiling. Then, a loud noise echoes through the room followed by an ocean of unknown liquid that drops into your head. Itís blood. You hopelessly panic for a moment, but you canít do a thing. [E]xit the room.");			
+			this.tasks.put(getThisSetNextKey(), "You try to push the sword out of the body, covering your hands in blood. Moving it in the right direction, you succesfully take the sword out of the body and hears an unpleasant click. You stop for a moment and listen some cracks coming from the ceiling. Then, a loud noise echoes through the room followed by an ocean of unknown liquid that drops into your head. Itís blood. You hopelessly panic for a moment, but you canít do a thing. [E]xit the room.\n");			
 			
 			for(i = 0; i < 7; i++)
 				completedTasks.put("task"+i, false);
 			
 			this.tasksSet = 1; // can't change tasksSet again besides this point and sets the variable to don't enter here again.
-			
 		}
-		else {/*Does nothing, tasks already set*/}
 	}
 	
 	//this method changes the status of the current task, if it is completed, returning true if successful;
 	//if not successful in changing the current task status returns false;
-
 	public void checkCompletion(){
-		int i, flag = 1;
-		for(i = 0; i < 7; i++){
-			if(completedTasks.get("task"+i) == false){
-				flag = 0;
-				break;
+		int i;
+		
+		for (i = 0; i < 7; i++){
+			// if it is false, hasnt completed the puzzle yet
+			if (completedTasks.get("task" + i) == false){
+				return;
 			}
-				
 		}
 		
-		if (flag == 1) setIsFinished();
-	}
-
-	public void timer(int maxTime){
-		//uses the argument to set a timer using the Java timer -> import java.util.Timer; 
+		setIsFinished();
 	}
 	
 	public String outputMsg(){
@@ -248,32 +270,38 @@ public class Puzzle2 implements IPuzzle{
 	
 	public void setAppendFrases(){
 		
-		if(this.appendFrases == 0){
+		if (this.appendFrases == 0){
 		
 			//retrieve key = 1.1
-			this.appendStrings.put("1.1", " [P]ut the snake figure into the hole");
+			this.appendStrings.put("1.1", " [P]ut the snake figure into the hole.\n");
 			
 			//retrieve key = 3.0
-			this.appendStrings.put("3.0", "You grab the lever and pull as hard as you can. It moves a little, but not enough.");
+			this.appendStrings.put("3.0", "You grab the lever and pull as hard as you can. It moves a little, but not enough.\n");
 			
 			//retrieve key = 3.1s
-			this.appendStrings.put("3.1s", " You concentrate all your energy into your arms and succeeds. The metal web starts to get Orange, as if it was getting hot. It was. The metal melts from the bottom quickly and cools down right next to your feet. You can [C]heck what was inside the web.");
+			this.appendStrings.put("3.1s", " You concentrate all your energy into your arms and succeeds. The metal web starts to get Orange, as if it was getting hot. It was. The metal melts from the bottom quickly and cools down right next to your feet. You can [C]heck what was inside the web.\n");
 			
 			//retrieve key = 3.1f
-			this.appendStrings.put("3.1f", " You concentrate all your energy into your arms but still fails.");
+			this.appendStrings.put("3.1f", " You concentrate all your energy into your arms but still fails.\n");
 			
 			//retrieve key = 4.a
-			this.appendStrings.put("4.a", "\nNow maybe we should try to pull the lever. You can: [P]ull the lever");
+			this.appendStrings.put("4.a", "Now maybe we should try to pull the lever. You can: [P]ull the lever.\n");
 			
 			//retrieve key = 6.1s
-			this.appendStrings.put("6.1s", " You can: [O]pen up the stitches.");
+			this.appendStrings.put("6.1s", " You can: [O]pen up the stitches.\n");
 			
 			//retrieve key = Exit
-			this.appendStrings.put("Exit", " [E]xit the room.");
+			this.appendStrings.put("Exit", " [E]xit the room.\n");
 			
 			this.appendFrases = 1; // can't change appendFrases again besides this point and sets the variable to don't enter here again.
 			
 		}
+	}
+
+	@Override
+	public void timer(int maxTime) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
