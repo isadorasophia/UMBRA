@@ -16,20 +16,6 @@ import com.umbra.mobModule.mobComponent.inter.IPlayer;
  */
 
 public class PlayerInstantiator extends MobFactory {
-    
-    /*
-    atributos:
-        nivel = 1
-        currentHP
-        currentXP
-        defense
-        attack
-        dexterity
-        evasiveness
-        speed
-        luck
-        sanity = 0.0 a 1.0
-    */
 
     public static final Integer INITIAL_SIZE = 10;
 
