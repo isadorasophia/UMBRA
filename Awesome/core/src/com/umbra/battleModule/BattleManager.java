@@ -348,6 +348,13 @@ public class BattleManager extends ComponentBase implements IBattleManager{
 				e.printStackTrace();
 			}
 			
+			try {
+				battleDao.getPlayer().getAtt("hp").setToMax();
+			} catch (NoMaxMinException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			if (battleDao.getPlayer().dead()) {
 				lostBattle();
 			} else {
